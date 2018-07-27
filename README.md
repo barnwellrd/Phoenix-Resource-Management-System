@@ -14,4 +14,4 @@ Main Development branch for group: **_group_**
 - member 5
 - member 6
 ***
-### **NOTE: **_This branch is only to be used by **group** to merge stable code from their part of the project_
+### **NOTE:** _This branch is only to be used by **group** to merge stable code from their part of the project_
