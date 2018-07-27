@@ -4,7 +4,7 @@ Alt-Phoenix-Resource-Management-System
 ***
 ![alt text](https://www.syntelinc.com/sites/all/themes/syntel/logo.svg "Syntel Logo") Training
 ***
-Main Development branch for group: **__group__**
+Main Development branch for group: **_group_**
 ***
 ### **Group Members:**
 - member 1
@@ -14,4 +14,4 @@ Main Development branch for group: **__group__**
 - member 5
 - member 6
 ***
-### **NOTE: **__This branch is only to be used by **group** to merge stable code from their part of the project__
+### **NOTE: **_This branch is only to be used by **group** to merge stable code from their part of the project_
