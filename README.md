@@ -8,36 +8,34 @@ Alt-Phoenix-Resource-Management-System
 ***
 This is the Phoenix Resource Management System (PRMS). It is an application that allows resources such as meeting rooms to be viewed and booked based on availability. This application was devoloped jointly by the following four groups during thier Syntel training as a class project.
 ***
-### **Group Members:**
-- member 1
-- member 2
-- member 3
-- member 4
-- member 5
-- member 6
+### **Rockstars Members:**
+- Ricky Barnwell
+- Kathey Kwon
+- Hamza Shakeel
+- Bhargav Ravalji
+- Matthew Bulluck 
 
-### **Group Members:**
-- member 1
-- member 2
-- member 3
-- member 4
-- member 5
-- member 6
+### **Re:Syntellions Members:**
+- Kevin Macavoy
+- Ronald Vu
+- Aria Amini
+- Madje Judeh
+- Matthew Zelmanowicz
+- Todd Andrews
 
-### **Group Members:**
-- member 1
-- member 2
-- member 3
-- member 4
-- member 5
-- member 6
+### **The Beans Members:**
+- Madhura Bhogale 
+- David Santana
+- Christine Ramos
+- Joshua Pulpan
+- Emanuel Bustamante
 
-### **Group Members:**
-- member 1
-- member 2
-- member 3
-- member 4
-- member 5
-- member 6
+### **Atosians Members:**
+- David Okolo
+- Presley Muwan
+- Kiet Tran
+- Luis Zinzun
+- Logan Johnson
+- Manal Abdalla
 ***
 ### **NOTE:** _This branch is only to be used to submit final, production ready code!_
