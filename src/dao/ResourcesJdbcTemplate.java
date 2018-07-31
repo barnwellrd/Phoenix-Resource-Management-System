@@ -48,7 +48,7 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 									+ "resource_room_number = ?, "
 									+ "resource_type_id = ?, "
 									+ "location_id = ?, "
-									+ "is_available = ?, "
+									+ "is_available = ? "
 									+ "where resource_id = ?", 
 									resource.getResourceName(),
 									resource.getResourceDescription(),
