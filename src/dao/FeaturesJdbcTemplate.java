@@ -1,4 +1,4 @@
-package dao.features;
+package dao;
 
 import java.util.List;
 
@@ -7,6 +7,9 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import model.Features;
+import mapper.FeaturesMapper;
 
 /*     -------WARNING-------
  Does not implement JdbcTemplateInterface

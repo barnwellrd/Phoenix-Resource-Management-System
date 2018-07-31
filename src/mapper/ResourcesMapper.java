@@ -1,9 +1,10 @@
-package dao.resources;
+package mapper;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.springframework.jdbc.core.RowMapper;
+import model.Resources;
 
 public class ResourcesMapper implements RowMapper<Resources>{
 

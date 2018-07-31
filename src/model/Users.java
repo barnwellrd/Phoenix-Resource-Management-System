@@ -1,4 +1,4 @@
-package dao.users;
+package model;
 
 public class Users {
 	private int userId;

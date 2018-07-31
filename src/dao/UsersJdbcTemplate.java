@@ -1,4 +1,4 @@
-package dao.users;
+package dao;
 
 import java.util.List;
 
@@ -9,6 +9,8 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import dao.JdbcTemplateInterface;
+import model.Users;
+import mapper.UsersMapper;
 
 public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 	JdbcTemplate jtemp;
