@@ -8,15 +8,6 @@ public class Visitors {
 	private String visitingName;
 	private String email;
 	private String phone;
-	private Timestamp inTime;
-	private int locationId;
-	private String badgeId;
-	private Timestamp outTime;
-	private int bookingId;
-	private String visitPurpose;
-	private String companyName;
-	private String idProof;
-	private Timestamp checkedOut;
 	
 	
 	
