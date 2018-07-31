@@ -1,4 +1,4 @@
-package dao.resources;
+package dao;
 
 import java.util.List;
 
@@ -9,7 +9,8 @@ import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import dao.JdbcTemplateInterface;
-
+import model.Resources;
+import mapper.ResourcesMapper;
 
 public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 	JdbcTemplate jtemp;

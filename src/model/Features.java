@@ -1,4 +1,4 @@
-package dao.features;
+package model;
 
 public class Features
 {

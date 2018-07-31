@@ -1,4 +1,4 @@
-package dao.resources;
+package model;
 
 public class Resources {
 	private int resourceId;
