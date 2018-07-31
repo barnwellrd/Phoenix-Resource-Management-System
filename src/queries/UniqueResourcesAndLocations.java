@@ -1,12 +1,13 @@
 package queries;
-import dao.resources.Resources;
-import dao.resources.ResourcesMapper;
+import model.Resources;
 
 import java.util.List;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import mapper.ResourcesMapper;
 
 
 public class UniqueResourcesAndLocations {

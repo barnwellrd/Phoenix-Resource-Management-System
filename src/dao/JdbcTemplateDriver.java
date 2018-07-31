@@ -7,8 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import dao.resources.Resources;
-import dao.resources.ResourcesJdbcTemplate;
+import model.Resources;
 
 
 
