@@ -4,15 +4,14 @@ Alt-Phoenix-Resource-Management-System
 ***
 ![alt text](https://www.syntelinc.com/sites/all/themes/syntel/logo.svg "Syntel Logo") Training
 ***
-Main Development branch for group: **_Re:Syntellions_**
+Main Development branch for group: **_Rockstars_**
 ***
-### **Re:Syntellions Members:**
-- Kevin Macavoy
-- Ronald Vu
-- Aria Amini
-- Madje Judeh
-- Matthew Zelmanowicz
-- Todd Andrews
+### **Rockstars Members:**
+- Ricky Barnwell
+- Kathey Kwon
+- Hamza Shakeel
+- Bhargav Ravalji
+- Matthew Bulluck 
 ***
-### **NOTE:** _This branch is only to be used by **Re:Syntellions** to merge stable code from their part of the project_
+### **NOTE:** _This branch is only to be used by **Rockstars** to merge stable code from their part of the project_
 
