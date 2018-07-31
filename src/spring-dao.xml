@@ -21,7 +21,7 @@
 	</bean>
 	
 	
-	<bean id="resource" class="dao.Resources">
+	<bean id="resource" class="model.Resources">
 		<property name="resourceId" value ="2001" />
 		<property name="resourceName" value ="Kevin Room" />
 		<property name="resourceDescription" value ="Test" />
@@ -30,30 +30,6 @@
 		<property name="locationId" value ="100001" />
 		<property name="isAvailable" value ="1" />
 	</bean>
-<!-- 	<bean id="address" class="pkg.Address">
-			<constructor-arg index="0" value ="Random ave" />
-			<constructor-arg index="1" value ="Phoenix" />
-			<constructor-arg index="2" value ="34343244" />
-		
-	</bean>
 
-	<bean id="bank" class="pkg.MyBank" >
-		<property name="accNo" value="909"/>
-		<property name="accBalance" value="20000.00"/>
-		<property name="accAddress" ref="address"/>
-		<property name="accPin" value="1234"/>
-		<property name="accName" value="Good"/>
-		
-		<property name="nominees">
-		<list>
-			<value>Samantha</value>
-			<value>Sam</value>
-			<value>John</value>
-			<value>Raj</value>
-		</list>
-
-		</property>
-	</bean> -->
-	
 
 </beans>

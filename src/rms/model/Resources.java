@@ -1,4 +1,4 @@
-package dao;
+package rms.model;
 
 public class Resources {
 	private int resourceId;
