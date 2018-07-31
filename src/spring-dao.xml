@@ -21,7 +21,7 @@
 	</bean>
 	
 	
-	<bean id="resource" class="dao.resources.Resources">
+	<bean id="resource" class="model.Resources">
 		<property name="resourceId" value ="2001" />
 		<property name="resourceName" value ="Kevin Room" />
 		<property name="resourceDescription" value ="Test" />
