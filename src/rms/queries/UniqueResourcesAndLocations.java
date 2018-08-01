@@ -34,7 +34,7 @@ public class UniqueResourcesAndLocations {
 	
 	
 	public List<String> getDistinctResourceName(){
-		return jtemp.queryForList("SELECT DISTINCT resource_name FROM resources", String.class);
+		return jtemp.queryForList("SELECT DISTINCT resource_type_id||resource_name FROM resources", String.class);
 	}
 	
 	public List<String> getLocationAndCity(){
