@@ -12,34 +12,58 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import rms.model.Resources;
+import rms.queries.UniqueResourcesAndLocations;
 
 @Controller
 public class MyServices {
 	
 	@RequestMapping(value="/")
-	public String homePage() {
-		System.out.println("--------Hello service1 got executed--------");
-		return "welcome";
+	public String homePage(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("--------Hello service got executed--------");
+		
+		List<String> res1=new UniqueResourcesAndLocations().getDistinctResourceName();
+        request.setAttribute("listPopRes", res1);
+        
+        Iterator it = res1.iterator();
+        while(it.hasNext()) {
+        	System.out.println(it.next());
+        }
+		return "addResource";
 	}
 	
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
-		String custName = request.getParameter("custName");
+		String resName = request.getParameter("resName");
 		String desc = request.getParameter("desc");
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		String roomNum = request.getParameter("roomNum");
 		int resourceTypeId = Integer.parseInt(request.getParameter("roomType"));
-		//int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
+		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
+		
+		//Number of features
+		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
+		int numPrinterFeature = Integer.parseInt(request.getParameter("numResPrintName"));
+		int numVideoFeature = Integer.parseInt(request.getParameter("numResVidName"));
+		int numTVFeature = Integer.parseInt(request.getParameter("numResTVName"));
+		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
+		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
+		
+		System.out.println("num res proj: " + numProjectorFeature);
+		System.out.println("num res printer: " + numPrinterFeature);
+		System.out.println("num res video: " + numVideoFeature);
+		System.out.println("num res tv: " + numTVFeature);
+		System.out.println("num res whiteboard: " + numWhiteBoardFeature);
+		System.out.println("num res food: " + numFoodFeature);
 		
 		
-		Resources res = new Resources();
-		res.setResourceName(custName);
+		Resources res = new Resources();		
+		res.setResourceName(resName);
 		res.setResourceDescription(desc);
 		res.setResourceRoomNumber(roomNum);
 		res.setResourceTypeId(resourceTypeId);
 		res.setLocationId(100001);
-		res.setIsAvailable(1);
-		res.setIsSuperRoom(0);
+		res.setIsAvailable(0);
+		res.setIsSuperRoom(isSupRoom);
 		res.setCapacity(capacity);
 		
 		if (new ResourcesJdbcTemplate().insert(res)>0) {
