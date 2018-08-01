@@ -306,11 +306,20 @@
 			});
 		   	
             $('#dispCal').fullCalendar({
-                    header: {
+             		// Limit calendar to show only two months from now
+            		validRange:function(currentDate) {
+            		  	return {
+            		  		start: currentDate.clone(),
+            		  		end: currentDate.clone().add(2, 'months') // exclusive end, so 3
+            		  	};
+            		},
+            			
+            		header: {
                         left: 'prev,next today',
                         center: 'title',
                         right: 'agendaWeek,agendaDay'
                     },
+                    
                     themeSystem: 'bootstrap3',	                       
                     minTime: "06:00:00",
                     maxTime: "18:00:00",
