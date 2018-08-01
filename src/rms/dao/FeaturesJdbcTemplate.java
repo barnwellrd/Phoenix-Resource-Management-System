@@ -83,17 +83,17 @@ public class FeaturesJdbcTemplate
 	}
 	
 	// Search by Feature_Type_Id
-	public Features searchByFeatureTypeId(int ftypeId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException
+	public List<Features> searchByFeatureTypeId(int ftypeId)
 	{
-		Features feat = jtemp.queryForObject("SELECT * FROM Features WHERE feature_type_id = ?",new FeaturesMapper(), ftypeId);
-		return feat;
+		List<Features> feats = jtemp.query("SELECT * FROM Features WHERE feature_type_id = ?",new FeaturesMapper(), ftypeId);
+		return feats;
 	}
 	
 	// Search by Resource_Id
-	public Features searchByResourceId(int resourceId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException
+	public List<Features> searchByResourceId(int resourceId) 
 	{
-		Features feat = jtemp.queryForObject("SELECT * FROM Features WHERE resource_id = ?",new FeaturesMapper(), resourceId);
-		return feat;
+		List<Features> feats = jtemp.query("SELECT * FROM Features WHERE resource_id = ?",new FeaturesMapper(), resourceId);
+		return feats;
 	}
 
 	public List<Features> getAll() 
