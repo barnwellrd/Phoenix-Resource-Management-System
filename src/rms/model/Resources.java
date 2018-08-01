@@ -8,18 +8,32 @@ public class Resources {
 	private int resourceTypeId;
 	private int locationId;
 	private int isAvailable;
+	private int isSuperRoom;
+	private int capacity;
 	
 	
 	
-	
+
 	
 	@Override
 	public String toString() {
-		return "Resources: resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDescription="
+		return "Resources [resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDescription="
 				+ resourceDescription + ", resourceRoomNumber=" + resourceRoomNumber + ", resourceTypeId="
-				+ resourceTypeId + ", locationId=" + locationId + ", isAvailable=" + isAvailable;
+				+ resourceTypeId + ", locationId=" + locationId + ", isAvailable=" + isAvailable + ", isSuperRoom="
+				+ isSuperRoom + ", capacity=" + capacity + "]";
 	}
-	
+	public int getIsSuperRoom() {
+		return isSuperRoom;
+	}
+	public void setIsSuperRoom(int isSuperRoom) {
+		this.isSuperRoom = isSuperRoom;
+	}
+	public int getCapacity() {
+		return capacity;
+	}
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
 	public int getResourceId() {
 		return resourceId;
 	}

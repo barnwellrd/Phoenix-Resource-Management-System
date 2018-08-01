@@ -25,11 +25,10 @@ public class ResourceTypeJdbcTemplate implements JdbcTemplateInterface<ResourceT
 	public int insert(ResourceType resourceTypeToInsert) {
 		
 		return jtemp.update("insert into Resource_Type "
-				+ "values(seq_resource_type.nextval,?,?,?,?)", 
+				+ "values(seq_resource_type.nextval,?,?,?)", 
 				resourceTypeToInsert.getResourceTypeName(), 
 				resourceTypeToInsert.getResourceTypeDescription(),
-				resourceTypeToInsert.getImgPath(),
-				resourceTypeToInsert.getIsForSuperuser());
+				resourceTypeToInsert.getImgPath());
 	}
 
 	@Override
@@ -45,14 +44,12 @@ public class ResourceTypeJdbcTemplate implements JdbcTemplateInterface<ResourceT
 							+ "set "
 							+ "resource_type_name = ?, "
 							+ "resource_type_description = ?, "
-							+ "img_path = ?, "
-							+ "is_for_superuser = ? "
+							+ "img_path = ? "
 							+ "where "
 							+ "resource_type_id = ?",
 							resourceTypeToUpdate.getResourceTypeName(),
 							resourceTypeToUpdate.getResourceTypeDescription(),
 							resourceTypeToUpdate.getImgPath(),
-							resourceTypeToUpdate.getIsForSuperuser(),
 							resourceTypeToUpdate.getResourceTypeId());
 	}
 

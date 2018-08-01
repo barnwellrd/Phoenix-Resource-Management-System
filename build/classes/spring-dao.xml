@@ -21,14 +21,16 @@
 	</bean>
 	
 	
-	<bean id="resource" class="model.Resources">
-		<property name="resourceId" value ="2001" />
+	<bean id="resource" class="rms.model.Resources">
+		<property name="resourceId" value ="2010" />
 		<property name="resourceName" value ="Kevin Room" />
 		<property name="resourceDescription" value ="Test" />
 		<property name="resourceRoomNumber" value ="10000" />
 		<property name="resourceTypeId" value ="1001" />
 		<property name="locationId" value ="100001" />
 		<property name="isAvailable" value ="1" />
+		<property name="isSuperRoom" value ="1" />
+		<property name="capacity" value="15" />
 	</bean>
 
 

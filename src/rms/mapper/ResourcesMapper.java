@@ -19,7 +19,8 @@ public class ResourcesMapper implements RowMapper<Resources>{
 			res.setResourceTypeId(result.getInt(5));
 			res.setLocationId(result.getInt(6));
 			res.setIsAvailable(result.getInt(7));
-			
+			res.setIsSuperRoom(result.getInt(8));
+			res.setCapacity(result.getInt(9));
 			return res;
 		}
 
