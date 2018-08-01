@@ -46,7 +46,7 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 		
 		return jtemp.update("DELETE FROM visitors where visitor_id = ?", visitorIdToDelete);
 	}
-
+	
 	@Override
 	public int update(Visitors visitorToUpdate) {
 		String statement = "UPDATE visitors SET "
