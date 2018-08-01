@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import rms.model.Resources;
+import rms.model.Features;
 import rms.queries.UniqueResourcesAndLocations;
 
 @Controller
@@ -40,6 +41,7 @@ public class MyServices {
 		int resourceTypeId = Integer.parseInt(request.getParameter("roomType"));
 		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
 		
+		
 		//Number of features
 		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
 		int numPrinterFeature = Integer.parseInt(request.getParameter("numResPrintName"));
@@ -48,14 +50,7 @@ public class MyServices {
 		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
 		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
 		
-		System.out.println("num res proj: " + numProjectorFeature);
-		System.out.println("num res printer: " + numPrinterFeature);
-		System.out.println("num res video: " + numVideoFeature);
-		System.out.println("num res tv: " + numTVFeature);
-		System.out.println("num res whiteboard: " + numWhiteBoardFeature);
-		System.out.println("num res food: " + numFoodFeature);
-		
-		
+		//Create resource object
 		Resources res = new Resources();		
 		res.setResourceName(resName);
 		res.setResourceDescription(desc);
@@ -65,6 +60,19 @@ public class MyServices {
 		res.setIsAvailable(0);
 		res.setIsSuperRoom(isSupRoom);
 		res.setCapacity(capacity);
+		
+		//Create feature object
+		Features feat = new Features();
+		feat.setFeatureTypeId(101);
+		feat.setQuantity(numProjectorFeature);
+		feat.setResourceId(res.getResourceId());
+		
+		System.out.println("num res proj: " + numProjectorFeature);
+		System.out.println("num res printer: " + numPrinterFeature);
+		System.out.println("num res video: " + numVideoFeature);
+		System.out.println("num res tv: " + numTVFeature);
+		System.out.println("num res whiteboard: " + numWhiteBoardFeature);
+		System.out.println("num res food: " + numFoodFeature);	
 		
 		if (new ResourcesJdbcTemplate().insert(res)>0) {
 			return "redirect:/showResourceForm";
