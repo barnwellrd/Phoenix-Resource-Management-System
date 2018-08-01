@@ -9,11 +9,13 @@
 </head>
 <body>
 	<h1> Select a resource </h1>
+	
 	<form method="post" action="resources">
 		<c:forEach var="type" items="${types}">
 			<input type="radio" name="type" value='${type.getResourceTypeId()}'> ${type.getResourceTypeName()}<br>
 		</c:forEach>
 		<input type="submit" value="Next">
 	</form>	
+		
 </body>
 </html>

@@ -20,12 +20,9 @@ html, body {
 	width: 317px;
 }
 
-/*increase height of the navbar*/
-.navbar-brand,
-.navbar-nav li a {
-    line-height: 150px;
-    height: 150px;
-    padding-top: 0;
+iframe{
+	height:100%;
+	width: 100%;	
 }
 
 h1 {
@@ -52,9 +49,32 @@ ul li{
 
 @media only screen and (max-width: 1366px) {
 	#book-logo {
-		margin-top:30px;
-		height: 100px;
-		width: 177px;
+		height: 75px;
+		width: 133px;
+	}
+	
+	/*increase height of the navbar*/
+	.navbar-brand,
+	.navbar-nav li a {
+    	line-height: 80px;
+  	  	height: 80px;
+    	padding-top: 0;
+	}
+	
+	.panel .panel-body{
+		height:530px;
+	}
+	
+		
+	iframe{
+		height:100%;
+		width: 100%;	
+	}
+
+	#allPage {
+		background-color: #C2E7DA;
+		height: 100%;
+		width: 90%;
 	}
 	
 	ul li{
@@ -62,7 +82,7 @@ ul li{
 	}
 	
 	#syntel-logo {
-		margin-top:50px;
+		margin:15px;
 		height: 50px;
 		width: 211px;
 	}
