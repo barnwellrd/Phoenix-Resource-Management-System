@@ -23,17 +23,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 <link rel="stylesheet" href="${daterangepicker}" />
 <link rel="stylesheet" href="${fullCal}" />
 
-<spring:url value="/resources/js/jquery.js" var="jquery" />
-<spring:url value="/resources/js/moment.min.js" var="moment" />
-<spring:url value="/resources/js/bootstrap.js" var="bootJS" />
-<spring:url value="/resources/js/daterangepicker.js" var="dateRangeJS" />
-<spring:url value="/resources/js/fullcalendar.js" var="fullCalJS" />
+<spring:url value="/resources/js" var="JS" />
 
-<script src="${jquery}"></script>
-<script src="${moment}"></script>
-<script src="${bootJS}"></script>
-<script src="${dateRangeJS}"></script>
-<script src="${fullCalJS}"></script>
+<script src="${JS}/jquery.js"></script>
+<script src="${JS}/moment.min.js"></script>
+<script src="${JS}/bootstrap.js"></script>
+<script src="${JS}/daterangepicker.js"></script>
+<script src="${JS}/fullcalendar.js"></script>
 
 </head>
 
@@ -237,252 +233,294 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	</div>
 
 	<script>
-		var active = "view";
-		
-		$(document).ready(function () {
-	        	
-			$('iframe').load(function(){
-				  $(this).contents().find("#roomChoose").on('click', function(event) {
-					  alert('test'); 
-				  });
-			});
-			
-		   	$("#deleteButton").click(function(){
-				var id = $("#bookingId").val();
-				console.log(id);
-			    $.ajax({
-			    	url:"deleteEvent", 
-			    	success: function(result){
-					    //remove the event from the calendar
-					    $("#dispCal").fullCalendar( 'removeEvents',id );
+	var active = "view";
 
-			    	},
-			    	fail: function(result){
-			    		console.log(result);
-			    	},
-			   	 	data: {"bookingId": id}
-			    });
+	$(document)
+	  .ready(
+	    function () {
 
-
-			});
-		   	
-		   	//When adding an event. 
-		   	$("#addButton").click(function(){
-		   		
-		   		console.log("Adding...");
-		   		
-		   		//get fields from the inputs inside the add modal
-		   		var date= $("#date").val();
-				var timeTo = $("#timeTo").val();
-				var timeFrom = $("#timeFrom").val();
-				
-			    $.ajax({
-			    	url:"addEvent", 
-			    	success: function(result){
-			    		console.log(result);
-			    		
-			    		//fields contains a bookings object comma seperated fields 
-			    		var fields = result.split(",");
-			    		
-			    		var start = fields[4].trim().replace("bookedStartTime=","");
-			    		var end = fields[5].trim().replace("bookedEndTime=","");	
-						start = start.replace(" ","T");
-						end = end.replace(" ","T");
-			    		
-						var title = fields[6];
-						
-			    		var id = fields[7];
-			    		
-						var backgroundColor= "green";
-			    		
-						//change bg color depending on type of resource
-			        	if(title.includes("SCRUM"))
-			        		backgroundColor= "Red";
-			        	else if(title.includes("Conference"))
-			        		backgroundColor = "Blue";			
-			        	
-						//create event object to place on the calendar
-			            var newEvent = {
-			            		id: id,
-			                    title: title,
-			                    start: start,
-			                    end: end,
-			                    backgroundColor: backgroundColor
-			            };
-			            
-						//put the event on the calendar.
-					    $("#dispCal").fullCalendar( 'renderEvent', newEvent ,true );
-				        
-			    	},
-			    	fail: function(result){
-				   		console.log("Failed to add...");
-			    		console.log(result);
-			    	},
-			    	//passing date and time to the addEvent jsp file. 
-			   	 	data: {"date": date, "timeTo": timeTo, "timeFrom":timeFrom}
-			    });
-
-			});
-		   	
-            $('#dispCal').fullCalendar({
-             		// Limit calendar to show only two months from now
-            		validRange:function(currentDate) {
-            		  	return {
-            		  		start: currentDate.clone(),
-            		  		end: currentDate.clone().add(2, 'months') // exclusive end, so 3
-            		  	};
-            		},
-            			
-            		header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'agendaWeek,agendaDay'
-                    },
-                    
-                    themeSystem: 'bootstrap3',	                       
-                    minTime: "06:00:00",
-                    maxTime: "18:00:00",
-                    height: 500,
-                    defaultView: 'agendaWeek',
-                    selectable: false,
-                    selectConstraint: {
-                        start: moment().startOf(
-                            'day'),
-                        end: moment().startOf(
-                            'day').add(6,
-                                'months'),
-                    },
-                    select: function (startDate, endDate) {
-                        $("#roomName").html("Scrum 3");
-                        $("#date").data('daterangepicker').setStartDate(startDate);
-                        $("#date").data('daterangepicker').setEndDate(endDate);
-                        $("#timeFrom").val(startDate.format("HH:mm"));
-                        $("#timeTo").val(endDate.format("HH:mm"));
-                        $("#addEventModal").modal("show");
-                    },
-
-                    eventMouseover: function (calEvent, js) {
-                        var tooltip = '<div class="tooltipevent" style="padding:10px;width:250px;height:60px;background:black;position:absolute;z-index:10001;">'
-                            + calEvent.title
-                            + "<br/>"
-                            + calEvent.start.format('MM/DD, h:mm a')
-                            + " - "
-                            + calEvent.end.format('MM/DD, h:mm a')
-                            + '</div>';
-                        $("body").append(tooltip);
-                        $(this).mouseover(function(e) {
-                            $(this).css('z-index', 10000);
-                            $('.tooltipevent').fadeIn('500');
-                            $('.tooltipevent').fadeTo('10', 1.9);
-                        }).mousemove(function(e) {
-                            $('.tooltipevent').css('top', e.clientY);
-                            $('.tooltipevent').css('left', e.clientX);
-                        });
-                    },
-
-                    eventMouseout: function ( calEvent, jsEvent) {
-                        $(this).css('z-index', 8);
-                        $('.tooltipevent').remove();
-                    },
-
-                    eventClick: function (calEvent,jsEvent, view) {
-
-                        $("#editDate").data('daterangepicker').setStartDate(calEvent.start);
-                        $("#editDate").data('daterangepicker').setEndDate(calEvent.end);
-                        $("#editTimeFrom").val(calEvent.start.format("HH:mm"));
-                        $("#editTimeTo").val(calEvent.end.format("HH:mm"));
-                        $("#editRoom").val(calEvent.title);
-						$("#bookingId").val(calEvent.id);
-                        $("#changeEventModal").modal('show');
-
-                    },
-
-                    eventLimit: true, // allow "more" link when too many events
-
-                });
-
-    });
-
-			$.ajax({
-			    url:"getAllBookingsAsTable", 
-			    dataType:'html',
-			    success: function(result){
-			    				    	
-			    	var table = $.parseHTML(result)[0];
-			    	
-		        	var formattedEventData = [];
-
-			    	var eventsArray = [];
-			 
-			    	console.log(table);
-			    	
-		        	//create an array of event objects for the Calendar on the page. 
-		        	$(table).find("tr").each(function() {
-			        	var newEvent = [];
-			        	
-		        		var start = this.cells[1].innerHTML;
-		        		start = start.replace(" ","T");
-		        		
-		        		var end = this.cells[2].innerHTML;
-		        		end = end.replace(" ","T");
-
-		        		var title = this.cells[0].innerHTML;
-		        		
-		        		var id = this.cells[3].innerHTML;
-		        		
-		            	newEvent[0] = title;
-			        	newEvent[1] = start;
-			        	newEvent[2] = end;
-			        	if(title.includes("SCRUM"))
-			        		newEvent[3] = "Red";
-			        	else if(title.includes("Conference"))
-			        		newEvent[3] = "Blue";
-			        	
-			        	newEvent[4] = id;
-			        	eventsArray.push(newEvent);
-		        	});
-		        	
-		        	//place all the events into an array formatted for FullCalendar
-			        for (var k = 0; k < eventsArray.length; k++) {
-			       		formattedEventData.push({
-			                title: eventsArray[k][0],
-			       	        start: eventsArray[k][1],
-			      	        end:   eventsArray[k][2],
-			      	        backgroundColor: eventsArray[k][3],
-			      	        id: eventsArray[k][4]
-			       	    });
-			        }
-		        	
-		        	$("#dispCal").fullCalendar( 'renderEvents', formattedEventData , true);
-		        	
-			    },
-			    
-			    fail: function(result){
-			    	console.log("Failed get all service");
-			    	console.log(result);
-			    }
-			});
-	        	
-	            $('input[name="date"]').daterangepicker({
-	                minDate: moment().startOf('hour'),
-	                alwaysShowCalendars: true,
-	                locale: {
-	                    format: 'YY/MM/DD'
-	                }
+	      $('iframe').load(
+	        function () {
+	          $(this).contents().find("#roomChoose").on(
+	            'click',
+	            function (event) {
+	            	console.log("clicked next room");
+	              $("#dispCal").fullCalendar('option',{
+	            	  selectable:true
+	              });
 	            });
+	        });
 
-	            $('input[name="editDate"]').daterangepicker({
-	                minDate: moment().startOf('hour'),
-	                alwaysShowCalendars: true,
-	                locale: {
-	                    format: 'YY/MM/DD'
-	                }
-	            });
+	      $("#deleteButton").click(function () {
+	        var id = $("#bookingId").val();
+	        console.log(id);
+	        $.ajax({
+	          url: "deleteEvent",
+	          success: function (result) {
+	            //remove the event from the calendar
+	            $("#dispCal").fullCalendar('removeEvents', id);
 
-	            $("#view").css("background-color", "lightblue");
+	          },
+	          fail: function (result) {
+	            console.log(result);
+	          },
+	          data: {
+	            "bookingId": id
+	          }
+	        });
 
+	      });
 
-		
+	      //When adding an event. 
+	      $("#addButton").click(
+	        function () {
+
+	          console.log("Adding...");
+
+	          //get fields from the inputs inside the add modal
+	          var date = $("#date").val();
+	          var timeTo = $("#timeTo").val();
+	          var timeFrom = $("#timeFrom").val();
+
+	          $.ajax({
+	            url: "addEvent",
+	            success: function (result) {
+	              console.log(result);
+
+	              //fields contains a bookings object comma seperated fields 
+	              var fields = result.split(",");
+
+	              var start = fields[4].trim().replace(
+	                "bookedStartTime=", "");
+	              var end = fields[5].trim().replace(
+	                "bookedEndTime=", "");
+	              start = start.replace(" ", "T");
+	              end = end.replace(" ", "T");
+
+	              var title = fields[6];
+
+	              var id = fields[7];
+
+	              var backgroundColor = "green";
+
+	              //change bg color depending on type of resource
+	              if (title.includes("SCRUM"))
+	                backgroundColor = "Red";
+	              else if (title.includes("Conference"))
+	                backgroundColor = "Blue";
+
+	              //create event object to place on the calendar
+	              var newEvent = {
+	                id: id,
+	                title: title,
+	                start: start,
+	                end: end,
+	                backgroundColor: backgroundColor
+	              };
+
+	              //put the event on the calendar.
+	              $("#dispCal").fullCalendar(
+	                'renderEvent', newEvent, true);
+
+	            },
+	            fail: function (result) {
+	              console.log("Failed to add...");
+	              console.log(result);
+	            },
+	            //passing date and time to the addEvent jsp file. 
+	            data: {
+	              "date": date,
+	              "timeTo": timeTo,
+	              "timeFrom": timeFrom
+	            }
+	          });
+
+	        });
+
+	      $('#dispCal')
+	        .fullCalendar({
+	          // Limit calendar to show only two months from now
+	          validRange: function (currentDate) {
+	            return {
+	              start: currentDate.clone(),
+	              end: currentDate.clone().add(
+	                2, 'months')
+	              // exclusive end, so 3
+	            };
+	          },
+
+	          header: {
+	            left: 'prev,next today',
+	            center: 'title',
+	            right: 'agendaWeek,agendaDay'
+	          },
+
+	          themeSystem: 'bootstrap3',
+	          minTime: "06:00:00",
+	          maxTime: "18:00:00",
+	          height: 500,
+	          defaultView: 'agendaWeek',
+	          selectable: false,
+	          selectConstraint: {
+	            start: moment().startOf('day'),
+	            end: moment().startOf('day').add(
+	              6, 'months'),
+	          },
+	          select: function (startDate, endDate) {
+	            $("#date").data('daterangepicker').setStartDate(startDate);
+	            $("#date").data('daterangepicker').setEndDate(endDate);
+	            $("#timeFrom").val(
+	              startDate.format("HH:mm"));
+	            $("#timeTo").val(
+	              endDate.format("HH:mm"));
+	            $("#addEventModal").modal("show");
+	            
+	          },
+
+	          eventMouseover: function (calEvent, js) {
+	            var tooltip = '<div class="tooltipevent" style="padding:10px;width:250px;height:60px;background:black;position:absolute;z-index:10001;">' +
+	              calEvent.title +
+	              "<br/>" +
+	              calEvent.start
+	              .format('MM/DD, h:mm a') +
+	              " - " +
+	              calEvent.end
+	              .format('MM/DD, h:mm a') +
+	              '</div>';
+	            $("body").append(tooltip);
+	            $(this).mouseover(
+	              function (e) {
+	                $(this).css('z-index',
+	                  10000);
+	                $('.tooltipevent')
+	                  .fadeIn('500');
+	                $('.tooltipevent')
+	                  .fadeTo('10',
+	                    1.9);
+	              }).mousemove(
+	              function (e) {
+	                $('.tooltipevent').css(
+	                  'top',
+	                  e.clientY);
+	                $('.tooltipevent').css(
+	                  'left',
+	                  e.clientX);
+	              });
+	          },
+
+	          eventMouseout: function (calEvent,
+	            jsEvent) {
+	            $(this).css('z-index', 8);
+	            $('.tooltipevent').remove();
+	          },
+
+	          eventClick: function (calEvent,
+	            jsEvent, view) {
+
+	            $("#editDate").data(
+	                'daterangepicker')
+	              .setStartDate(
+	                calEvent.start);
+	            $("#editDate").data(
+	                'daterangepicker')
+	              .setEndDate(calEvent.end);
+	            $("#editTimeFrom").val(
+	              calEvent.start
+	              .format("HH:mm"));
+	            $("#editTimeTo").val(
+	              calEvent.end
+	              .format("HH:mm"));
+	            $("#editRoom").val(calEvent.title);
+	            $("#bookingId").val(calEvent.id);
+	            $("#changeEventModal")
+	              .modal('show');
+
+	          },
+
+	          eventLimit: true, // allow "more" link when too many events
+
+	        });
+
+	    });
+
+	$.ajax({
+	  url: "getAllBookingsAsTable",
+	  dataType: 'html',
+	  success: function (result) {
+
+	    var table = $.parseHTML(result)[0];
+
+	    var formattedEventData = [];
+
+	    var eventsArray = [];
+
+	    console.log(table);
+
+	    //create an array of event objects for the Calendar on the page. 
+	    $(table).find("tr").each(function () {
+	      var newEvent = [];
+
+	      var start = this.cells[1].innerHTML;
+	      start = start.replace(" ", "T");
+
+	      var end = this.cells[2].innerHTML;
+	      end = end.replace(" ", "T");
+
+	      var title = this.cells[0].innerHTML;
+
+	      var id = this.cells[3].innerHTML;
+
+	      newEvent[0] = title;
+	      newEvent[1] = start;
+	      newEvent[2] = end;
+	      if (title.includes("SCRUM"))
+	        newEvent[3] = "Red";
+	      else if (title.includes("Conference"))
+	        newEvent[3] = "Blue";
+
+	      newEvent[4] = id;
+	      eventsArray.push(newEvent);
+	    });
+
+	    //place all the events into an array formatted for FullCalendar
+	    for (var k = 0; k < eventsArray.length; k++) {
+	      formattedEventData.push({
+	        title: eventsArray[k][0],
+	        start: eventsArray[k][1],
+	        end: eventsArray[k][2],
+	        backgroundColor: eventsArray[k][3],
+	        id: eventsArray[k][4]
+	      });
+	    }
+
+	    $("#dispCal").fullCalendar('renderEvents', formattedEventData, true);
+
+	  },
+
+	  fail: function (result) {
+	    console.log("Failed get all service");
+	    console.log(result);
+	  }
+	});
+
+	$('input[name="date"]').daterangepicker({
+	  minDate: moment().startOf('hour'),
+	  alwaysShowCalendars: true,
+	  locale: {
+	    format: 'YY/MM/DD'
+	  }
+	});
+
+	$('input[name="editDate"]').daterangepicker({
+	  minDate: moment().startOf('hour'),
+	  alwaysShowCalendars: true,
+	  locale: {
+	    format: 'YY/MM/DD'
+	  }
+	});
+
+	$("#view").css("background-color", "lightblue");
+	
 	</script>
 
 </body>

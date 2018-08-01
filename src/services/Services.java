@@ -167,10 +167,19 @@ public class Services {
 		// Find the room
 		int roomID = Integer.parseInt(request.getParameter("room"));
 		Resources room = new ResourcesJdbcTemplate().search(roomID);
+				
+		Map<FeatureType, Features> featuresAndQuantities = new HashMap<FeatureType, Features>(); 
+
+		List<FeatureType> features = new ResourcesJdbcTemplate().getFeatures(room.getResourceId());
+
+		for(FeatureType feature: features){
+				featuresAndQuantities.put(feature, new FeaturesJdbcTemplate().searchByFeatureTypeIdAndResourceId(feature.getFeatureTypeId(), room.getResourceId()));
+		}
 		
 		// Pass the room
 		response.setAttribute("room", room);
-		
+		response.setAttribute("featureMap", featuresAndQuantities);
+
 		return "displayRoom";
 	}
 }

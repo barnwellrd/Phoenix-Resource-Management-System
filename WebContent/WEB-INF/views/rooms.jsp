@@ -12,7 +12,7 @@
 	<form method="post" action="roomDesc">
 		<c:forEach var="room" items="${rooms}">
 			<input type="radio" name="room" value='${room.getResourceId()}'> ${room.getResourceName()} <br>
-			<ul style="margin:0;">
+			<ul style="margin:0">
 				<c:forEach var="feature" items="${featureMap.get(room)}">
 					<li> Name: ${feature.getFeatureTypeName()}</li>
 					<ul><li> Desc:${feature.getFeatureTypeDescription()}</li>

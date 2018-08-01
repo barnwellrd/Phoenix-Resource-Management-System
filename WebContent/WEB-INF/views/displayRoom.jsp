@@ -13,10 +13,10 @@
 	Room #: ${room.getResourceRoomNumber()} <br>
 	Description: ${room.getResourceDescription()} <br>
 	Features: <ul style="margin:0">
-				<c:forEach var="feature" items="${featureMap.get(room)}">
-					<li> Name: ${feature.getFeatureTypeName()}</li>
-					<ul><li> Desc:${feature.getFeatureTypeDescription()}</li>
-					<li> Qty: ${quantityMap.get(feature).getQuantity()}</li></ul>
+				<c:forEach var="feature" items="${featureMap}">
+					<li> Name: ${feature.key.getFeatureTypeName()}</li>
+					<ul><li> Desc:${feature.key.getFeatureTypeDescription()}</li>
+					<li> Qty: ${feature.value.getQuantity()}</li></ul>
 				</c:forEach>
 			</ul>
 </body>
