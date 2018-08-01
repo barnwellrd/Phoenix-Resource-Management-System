@@ -32,9 +32,22 @@ import rms.model.Resources;
 
 @Controller
 public class Services {
+	
 	@RequestMapping(value="/")
 	public String homeScreen() {
 		return "login";
+	}
+	
+	@RequestMapping(value="/login")
+	public String login() {
+		return "login";
+	}
+	
+	public void deleteEvent(HttpServletRequest request, HttpServletResponse response){
+		
+		int id = Integer.parseInt(request.getParameter("bookingId"));
+		new BookingsJdbcTemplate().delete(id);
+		
 	}
 	
 	@RequestMapping(value="/addEvent")

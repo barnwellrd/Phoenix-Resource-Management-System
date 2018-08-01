@@ -12,13 +12,15 @@
 	<form method="post" action="roomDesc">
 		<c:forEach var="room" items="${rooms}">
 			<input type="radio" name="room" value='${room.getResourceId()}'> ${room.getResourceName()} <br>
-			<ul>
+			<ul style="margin:0;">
 				<c:forEach var="feature" items="${featureMap.get(room)}">
-					<li> Name: ${feature.getFeatureTypeName()}, Desc:${feature.getFeatureTypeDescription()}, Qty: ${quantityMap.get(feature).getQuantity()}</li>
+					<li> Name: ${feature.getFeatureTypeName()}</li>
+					<ul><li> Desc:${feature.getFeatureTypeDescription()}</li>
+					<li> Qty: ${quantityMap.get(feature).getQuantity()}</li></ul>
 				</c:forEach>
 			</ul>
 		</c:forEach>
-		<input type="submit" value="Next">
+		<input id="roomChoose" type="submit" value="Next">
 	</form>	
 </body>
 </html>

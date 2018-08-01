@@ -54,7 +54,6 @@
       <br>
   		<img src="${images}/syntrans.png" alt="logo" style="height:50%; width:50%; padding-bottom:60px;"  />
              
-    </form>
   </div>
 </div>
 </body>

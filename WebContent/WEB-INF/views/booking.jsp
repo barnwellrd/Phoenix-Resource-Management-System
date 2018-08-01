@@ -76,7 +76,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		<div class="container" id="rows">
 
 			<div class="row">
-				<div class="col-lg-3">
+				<div class="col-lg-4">
 					<div class="panel">
 						<div class="panel-body">
 						
@@ -89,7 +89,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					<!--Panel-->
 				</div>
 				<!--Col-->
-				<div class="col-lg-9">
+				<div class="col-lg-8">
 					<div class="panel">
 
 						<div class="panel-body">
@@ -241,6 +241,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		
 		$(document).ready(function () {
 	        	
+			$('iframe').load(function(){
+				  $(this).contents().find("#roomChoose").on('click', function(event) {
+					  alert('test'); 
+				  });
+			});
+			
 		   	$("#deleteButton").click(function(){
 				var id = $("#bookingId").val();
 				console.log(id);
