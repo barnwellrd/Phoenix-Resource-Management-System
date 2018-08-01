@@ -9,10 +9,6 @@ public class Resources {
 	private int locationId;
 	private int isAvailable;
 	
-	
-	
-	
-	
 	@Override
 	public String toString() {
 		return "Resources: resourceId=" + resourceId + ", resourceName=" + resourceName + ", resourceDescription="
