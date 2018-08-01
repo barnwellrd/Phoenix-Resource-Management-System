@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>Select a room</h1>
-	<form>
+	<form method="post" action="roomDesc">
 		<c:forEach var="room" items="${rooms}">
 			<input type="radio" name="room" value='${room.getResourceId()}'> ${room.getResourceName()} <br>
 			<ul>
