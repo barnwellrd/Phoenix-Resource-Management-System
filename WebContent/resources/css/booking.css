@@ -61,6 +61,16 @@ ul li{
     	padding-top: 0;
 	}
 	
+	.panel .panel-body{
+		height:530px;
+	}
+	
+		
+	iframe{
+		height:100%;
+		width: 100%;	
+	}
+
 	#allPage {
 		background-color: #C2E7DA;
 		height: 100%;

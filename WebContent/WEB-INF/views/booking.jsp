@@ -83,9 +83,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<iframe src="types">
 						
 						</iframe>
-							
-							
-							
+														
 						</div>
 					</div>
 					<!--Panel-->
@@ -331,7 +329,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                     maxTime: "18:00:00",
                     height: 500,
                     defaultView: 'agendaWeek',
-                    selectable: true,
+                    selectable: false,
                     selectConstraint: {
                         start: moment().startOf(
                             'day'),
