@@ -1,5 +1,6 @@
-<%@page import="rms.dao.*, rms.model.*"%>
-<%@page import="java.util.*"%>
+<%@page import="rms.dao.*, rms.model.*, services.*"%>
+<%@page import="java.util.*, org.springframework.web.context.WebApplicationContext,
+org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
 <!DOCTYPE html>
@@ -75,8 +76,22 @@
 		<div class="container" id="rows">
 
 			<div class="row">
-
-				<div class="col-lg-12">
+				<div class="col-lg-3">
+					<div class="panel">
+						<div class="panel-body">
+						
+						<iframe src="types">
+						
+						</iframe>
+							
+							
+							
+						</div>
+					</div>
+					<!--Panel-->
+				</div>
+				<!--Col-->
+				<div class="col-lg-9">
 					<div class="panel">
 
 						<div class="panel-body">
