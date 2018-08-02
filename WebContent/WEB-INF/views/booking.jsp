@@ -142,7 +142,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							placeholder="DD-MM" id="editDate" name="editDate" required />
 					</div>
 
-
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-time'></span> <span
@@ -334,7 +333,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var timeTo = $("#timeTo").val();
 	          var timeFrom = $("#timeFrom").val();
 	          var title = $("#room").val();
-
+			  var resId = ($("iframe").contents().find("#resourceId").html());
+			  
 	          $.ajax({
 	            url: "addEvent",
 	            success: function (result) {
@@ -393,7 +393,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              "date": date,
 	              "timeTo": timeTo,
 	              "timeFrom": timeFrom,
-	              "title": title
+	              "title": title,
+	              "resourceId":resId
 	            }
 	          });
 

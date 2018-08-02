@@ -17,6 +17,7 @@ public class BookingsMapper implements RowMapper<Bookings>{
 		bkn.setIsActive(result.getInt(4));
 		bkn.setBookedStartTime(result.getTimestamp(5));
 		bkn.setBookedEndTime(result.getTimestamp(6));
+		bkn.setDescription(result.getString(7));
 		return bkn;
 	}
 

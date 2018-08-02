@@ -23,12 +23,13 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 
 	@Override
 	public int insert(Bookings bookings){
-		int result = jtemp.update("insert into Bookings values(seq_booking.nextval, ?, ?, ?, ?, ?)", 
+		int result = jtemp.update("insert into Bookings values(seq_booking.nextval, ?, ?, ?, ?, ?,?)", 
 				bookings.getResourceId(),
 				bookings.getUserId(),
 				bookings.getIsActive(),
 				bookings.getBookedStartTime(),
-				bookings.getBookedEndTime());
+				bookings.getBookedEndTime(),
+				bookings.getDescription());
 														
 		return result;
 	}
@@ -47,6 +48,7 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 										+ "is_active = ?, "
 										+ "booked_start_time = ?, "
 										+ "booked_end_time = ? "
+										+ "description = ?"
 										+ "WHERE booking_id = ?"
 									,
 									booking.getResourceId(),
@@ -54,7 +56,8 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 									booking.getIsActive(),
 									booking.getBookedStartTime(),
 									booking.getBookedEndTime(),
-									booking.getBookingId()
+									booking.getBookingId(),
+									booking.getDescription()
 									);
 		
 		return result;

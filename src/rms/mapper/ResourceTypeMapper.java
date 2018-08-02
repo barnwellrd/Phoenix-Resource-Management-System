@@ -19,7 +19,6 @@ public class ResourceTypeMapper implements RowMapper<ResourceType>{
 		resType.setResourceTypeName(result.getString(2));
 		resType.setResourceTypeDescription(result.getString(3));
 		resType.setImgPath(result.getString(4));
-		resType.setIsForSuperuser(result.getInt(5));
 		return resType;
 	}
 

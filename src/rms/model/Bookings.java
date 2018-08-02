@@ -9,9 +9,7 @@ public class Bookings {
 	private int isActive;
 	private Timestamp bookedStartTime;
 	private Timestamp bookedEndTime;
-	
-	
-	
+	private String description;
 	
 	@Override
 	public String toString() {
@@ -54,5 +52,13 @@ public class Bookings {
 	}
 	public void setBookedEndTime(Timestamp bookedEndTime) {
 		this.bookedEndTime = bookedEndTime;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 }

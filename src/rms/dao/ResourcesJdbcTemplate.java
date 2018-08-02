@@ -82,7 +82,7 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 	}
 	
 	public List<FeatureType> getFeatures(int resourceId){
-		String sql =	"select feature_type.feature_type_id, feature_type.feature_type_name, feature_type.feature_type_desription, feature_type.img_path " + 
+		String sql =	"select feature_type.feature_type_id, feature_type.feature_type_name, feature_type.feature_type_description, feature_type.img_path " + 
 						"from resources, features, feature_type " +
 						"where resources.resource_id = features.resource_id " + 
 						"and features.feature_type_id = feature_type.feature_type_id " + 

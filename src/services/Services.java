@@ -5,7 +5,6 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,8 +14,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -66,6 +63,8 @@ public class Services {
 		String dates2 = dates[1]+" "+timeTo;
 		dates2=dates2.trim();
 
+		String resourceId = request.getParameter("resourceId");
+		
 		//translate the calendar date into a date for the database. 
 	   	LocalDateTime date1 = LocalDateTime.parse(dates1,format);
 	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
@@ -76,12 +75,16 @@ public class Services {
 		newB.setIsActive(1);
 		newB.setBookedStartTime(setter1);
 		newB.setBookedEndTime(setter2);
-		newB.setResourceId(1001);
+		newB.setResourceId(Integer.parseInt(resourceId));
 		newB.setUserId(101);
-	   	
+	   	newB.setDescription("An event");
+		
 	    new BookingsJdbcTemplate().insert(newB);
+	    
 	    List<Bookings> all = new BookingsJdbcTemplate().getAll();
+	    
 	    int id = 0 ;
+	    
 	    for(Bookings b : all){
 	    	if(b.getBookingId()>id)
 	    		id=b.getBookingId();

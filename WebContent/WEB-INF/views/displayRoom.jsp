@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1 id="roomName">${room.getResourceName()}</h1>
+	<p id="resourceId">${room.getResourceId()}</p>
 	<br>
 	Room #: ${room.getResourceRoomNumber()} <br>
 	Description: ${room.getResourceDescription()} <br>
