@@ -1,4 +1,4 @@
-<%@page import="rms.dao.*, rms.model.*, services.*"%>
+<%@page import="rms.dao.*, rms.model.*, rms.services.*"%>
 <%@page
 	import="java.util.*, org.springframework.web.context.WebApplicationContext,
 org.springframework.web.context.support.WebApplicationContextUtils"%>
@@ -141,7 +141,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="text"
 							placeholder="DD-MM" id="editDate" name="editDate" required />
 					</div>
-
 
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -291,15 +290,103 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  .ready(
 	    function () {
 
-	      $('iframe').load(
-	        function () {
-	          $(this).contents().find("#roomChoose").on(
-	            'click',
+		  $('iframe').load(function () {
+		  	$(this).contents().find("#typeChooser").on('click',
+		  	      function (event) {
+		  	          
+		  			   console.log("chose a type");
+		 			   var resId = ($('iframe').contents().find("input[name='type']:checked").val());
+		 			   console.log(resId);
+		 			   		 			   
+		 		  $.ajax({
+		  	    	  url: "getBookingsAsTableByType",
+		  	    	  
+		  	    	  dataType: 'html',
+		  	    	  
+		  	    	  data:{"resourceTypeId": resId},
+		  	    	  
+		  	    	  success: function (result) {
+
+		  	    		$("#dispCal").fullCalendar('removeEvents');
+		  	    	   	calRender(result);
+		  	    		  
+
+		  	    	  },
+
+		  	    	  fail: function (result) {
+		  	    	    console.log("Failed get all by type service");
+		  	    	    console.log(result);
+		  	    	  }
+		  	    	});   
+		  	           
+		  	           
+		  	           
+		  	       });
+		  });
+	    	
+	      $('iframe').load(function () {
+	  	          $(this).contents().find("#roomChoose").on(
+	  	            'click',
+	  	            function (event) {
+	  	            	
+	  	              console.log("clicked next room");
+	  	              
+		 			   var resId = ($('iframe').contents().find("input[name='room']:checked").val());
+	  	              
+	  	              $.ajax({
+		  	    	  url: "getBookingsAsTableByResourceId",
+		  	    	  
+		  	    	  dataType: 'html',
+		  	    	  
+		  	    	  data:{"resourceId": resId},
+		  	    	  
+		  	    	  success: function (result) {
+
+		  	    		$("#dispCal").fullCalendar('removeEvents');
+		  	    	   	calRender(result);
+
+		  	    	  },
+
+		  	    	  fail: function (result) {
+		  	    	    console.log("Failed get all by type service");
+		  	    	    console.log(result);
+		  	    	  }
+		  	    	});  
+	  	              
+	  	              $("#dispCal").fullCalendar('option',{
+	  	            	  selectable:true
+	  	              });
+	  	            });
+	  	        });
+		  
+	      $('iframe').load(function () {
+	          $(this).contents().find("#backButton").on('click',
 	            function (event) {
-	            	console.log("clicked next room");
+	        	  
+	              console.log("clicked go back");
+	              
 	              $("#dispCal").fullCalendar('option',{
-	            	  selectable:true
+	            	  selectable:false
 	              });
+	              
+	          	$.ajax({
+	          	  url: "getAllBookingsAsTable",
+	          	  dataType: 'html',
+	          	  success: function (result) {
+
+	          		 $("#dispCal").fullCalendar("removeEvents");
+					calRender(result);
+
+	          	  },
+
+	          	  fail: function (result) {
+	          	    console.log("Failed get all service");
+	          	    console.log(result);
+	          	  }
+	          	});
+	              
+	              
+	              
 	            });
 	        });
 
@@ -334,7 +421,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var timeTo = $("#timeTo").val();
 	          var timeFrom = $("#timeFrom").val();
 	          var title = $("#room").val();
-
+			  var resId = ($("iframe").contents().find("#resourceId").html());
+			  
 	          $.ajax({
 	            url: "addEvent",
 	            success: function (result) {
@@ -393,7 +481,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              "date": date,
 	              "timeTo": timeTo,
 	              "timeFrom": timeFrom,
-	              "title": title
+	              "title": title,
+	              "resourceId":resId
 	            }
 	          });
 
@@ -475,62 +564,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  dataType: 'html',
 	  success: function (result) {
 
-	    var table = $.parseHTML(result)[0];
-
-	    var formattedEventData = [];
-
-	    var eventsArray = [];
-
-	    console.log(table);
-
-	    //create an array of event objects for the Calendar on the page. 
-	    $(table).find("tr").each(function () {
-	      var newEvent = [];
-
-	      var start = this.cells[1].innerHTML;
-	      start = start.replace(" ", "T");
-
-	      var end = this.cells[2].innerHTML;
-	      end = end.replace(" ", "T");
-
-	      var title = this.cells[0].innerHTML;
-
-	      var id = this.cells[3].innerHTML;
-
-	      newEvent[0] = title;
-	      newEvent[1] = start;
-	      newEvent[2] = end;
-	      
-	      if (title.toLowerCase().includes("scrum"))
-	        newEvent[3] = "Red";
-	      else if (title.toLowerCase().includes("conference"))
-	        newEvent[3] = "Blue";
-	      else if(title.toLowerCase().includes("board"))
-	    	 newEvent[3] = "Orange";
-	      else if(title.toLowerCase().includes("rec"))
-		    	 newEvent[3] = "Yellow";
-	      else if(title.toLowerCase().includes("train"))
-		    	 newEvent[3] = "Green";
-	      else if(title.toLowerCase().includes("break"))
-		    	 newEvent[3] = "Purple";
-	      
-	      newEvent[4] = id;
-	      eventsArray.push(newEvent);
-	    });
-
-	    //place all the events into an array formatted for FullCalendar
-	    for (var k = 0; k < eventsArray.length; k++) {
-	      formattedEventData.push({
-	        title: eventsArray[k][0],
-	        start: eventsArray[k][1],
-	        end: eventsArray[k][2],
-	        backgroundColor: eventsArray[k][3],
-	        id: eventsArray[k][4]
-	      });
-	    }
-
-	    $("#dispCal").fullCalendar('renderEvents', formattedEventData, true);
-
+	  	calRender(result);
 	  },
 
 	  fail: function (result) {
@@ -555,6 +589,64 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  }
 	});
 
+	function calRender(result){
+		 var table = $.parseHTML(result)[0];
+
+		    var formattedEventData = [];
+
+		    var eventsArray = [];
+
+		    console.log(table);
+
+		    //create an array of event objects for the Calendar on the page. 
+		    $(table).find("tr").each(function () {
+		      var newEvent = [];
+
+		      var start = this.cells[1].innerHTML;
+		      start = start.replace(" ", "T");
+
+		      var end = this.cells[2].innerHTML;
+		      end = end.replace(" ", "T");
+
+		      var title = this.cells[0].innerHTML;
+
+		      var id = this.cells[3].innerHTML;
+
+		      newEvent[0] = title;
+		      newEvent[1] = start;
+		      newEvent[2] = end;
+		      
+		      if (title.toLowerCase().includes("scrum"))
+		        newEvent[3] = "Red";
+		      else if (title.toLowerCase().includes("conference"))
+		        newEvent[3] = "Blue";
+		      else if(title.toLowerCase().includes("board"))
+		    	 newEvent[3] = "Orange";
+		      else if(title.toLowerCase().includes("rec"))
+			    	 newEvent[3] = "Yellow";
+		      else if(title.toLowerCase().includes("train"))
+			    	 newEvent[3] = "Green";
+		      else if(title.toLowerCase().includes("break"))
+			    	 newEvent[3] = "Purple";
+		      
+		      newEvent[4] = id;
+		      eventsArray.push(newEvent);
+		    });
+
+		    //place all the events into an array formatted for FullCalendar
+		    for (var k = 0; k < eventsArray.length; k++) {
+		      formattedEventData.push({
+		        title: eventsArray[k][0],
+		        start: eventsArray[k][1],
+		        end: eventsArray[k][2],
+		        backgroundColor: eventsArray[k][3],
+		        id: eventsArray[k][4]
+		      });
+		    }
+
+		    $("#dispCal").fullCalendar('renderEvents', formattedEventData, true);
+	}
+	
 	$("#view").css("background-color", "lightblue");
 	
 	</script>
