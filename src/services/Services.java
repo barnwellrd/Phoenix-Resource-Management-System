@@ -8,7 +8,12 @@ public class Services {
 	
 	@RequestMapping(value="/")
 	public String homeScreen() {
-		return "login";
+		return "index";
+	}
+	
+	@RequestMapping(value="/login")
+	public String loginScreen() {
+		return "index";
 	}
 	
 	@RequestMapping(value="/dashboard")
