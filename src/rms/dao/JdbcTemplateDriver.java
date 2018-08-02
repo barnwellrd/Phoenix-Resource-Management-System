@@ -8,7 +8,9 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import rms.model.Resources;
-
+import rms.model.Users;
+import rms.model.Visitors;
+import java.sql.Timestamp;
 
 
 
@@ -71,12 +73,65 @@ public class JdbcTemplateDriver {
     	}
     }
     
-    
-    
-    public static void main(String args[]){
-    		new JdbcTemplateDriver().testResources();
+    public void testVisitors() {
+    	VisitorsJdbcTemplate vtemp = new VisitorsJdbcTemplate();
     	
-        
+    	Visitors visitor = new Visitors();
+		visitor.setVisitorId(1000);
+		visitor.setVisitingName("Bob");
+		visitor.setEmail("bob@mail.com");
+		visitor.setPhone("03000");
+		visitor.setCheckedInTime(new Timestamp(System.currentTimeMillis()));
+		visitor.setLocationId(12);
+		visitor.setBadgeId("14");
+		visitor.setCheckedOutTime(new Timestamp(System.currentTimeMillis()));
+		visitor.setVisitPurpose("llama");
+		visitor.setCompanyName("llama");
+		visitor.setHasCheckedOut(1);
+		visitor.setFirstName("Poop");
+		visitor.setLastName("Poop");
+		visitor.setScheduledMeetingTime("13 oclock");
+		visitor.setHasIdProof(0);
+		
+		
+		
+		vtemp.delete(visitor.getVisitorId());
+		List<Visitors> visitors = vtemp.getAll();
+		
+		for(Visitors v:visitors) {
+			System.out.println(v.toString());
+		}
+    }
+    public void testUsers() {
+    	UsersJdbcTemplate uTemp = new UsersJdbcTemplate();
+    	Users user = new Users();
+		user.setUserId(106);
+		user.setUserName("ma2");
+		user.setUserEmail("ma2@mail.com");
+		user.setUserPassword("pass");
+		user.setUserType(2);
+		user.setUserPhone("323-131-3123");
+		user.setLocationId(100001);
+		user.setFirst_name("Bob");
+		user.setLast_name("Pops");
+		uTemp.update(user);
+		
+
+    	List<Users> users = uTemp.getAll();
+    	
+    	for(Users u:users) {
+    		System.out.println(u.toString());
+    	}
+    }
+    public void testBookings() {
+    	BookingsJdbcTemplate btemp = new BookingsJdbcTemplate();
+    	
+    }
+    public static void main(String args[]){
+    		//new JdbcTemplateDriver().testResources();
+    		new JdbcTemplateDriver().testVisitors();
+        	//new JdbcTemplateDriver().testUsers();
+    		//new JdbcTemplateDriver().testBookings();
     }
     
     

@@ -4,42 +4,40 @@ import java.sql.Timestamp;
 
 public class Visitors {
 	private int visitorId;
-	private String name;
 	private String visitingName;
 	private String email;
 	private String phone;
-	private Timestamp inTime;
+	private Timestamp checkedInTime;
 	private int locationId;
 	private String badgeId;
-	private Timestamp outTime;
-	private int bookingId;
+	private Timestamp checkedOutTime;
 	private String visitPurpose;
 	private String companyName;
-	private String idProof;
-	private Timestamp checkedOut;
+	private int hasCheckedOut;
+	private String firstName;
+	private String lastName;
+	private String scheduledMeetingTime;
+	private int hasIdProof;
+	
+	
+	
 	
 	
 	
 	
 	@Override
 	public String toString() {
-		return "Visitors [visitorId=" + visitorId + ", name=" + name + ", visitingName=" + visitingName + ", email="
-				+ email + ", phone=" + phone + ", inTime=" + inTime + ", locationId=" + locationId + ", badgeId="
-				+ badgeId + ", outTime=" + outTime + ", bookingId=" + bookingId + ", visitPurpose=" + visitPurpose
-				+ ", companyName=" + companyName + ", idProof=" + idProof + ", checkedOut=" + checkedOut + "]";
+		return "Visitors [visitorId=" + visitorId + ", visitingName=" + visitingName + ", email=" + email + ", phone="
+				+ phone + ", checkedInTime=" + checkedInTime + ", locationId=" + locationId + ", badgeId=" + badgeId
+				+ ", checkedOutTime=" + checkedOutTime + ", visitPurpose=" + visitPurpose + ", companyName="
+				+ companyName + ", hasCheckedOut=" + hasCheckedOut + ", firstName=" + firstName + ", lastName="
+				+ lastName + ", scheduledMeetingTime=" + scheduledMeetingTime + ", hasIdProof=" + hasIdProof + "]";
 	}
-	
 	public int getVisitorId() {
 		return visitorId;
 	}
 	public void setVisitorId(int visitorId) {
 		this.visitorId = visitorId;
-	}
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
 	}
 	public String getVisitingName() {
 		return visitingName;
@@ -59,11 +57,11 @@ public class Visitors {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public Timestamp getInTime() {
-		return inTime;
+	public Timestamp getCheckedInTime() {
+		return checkedInTime;
 	}
-	public void setInTime(Timestamp inTime) {
-		this.inTime = inTime;
+	public void setCheckedInTime(Timestamp checkedInTime) {
+		this.checkedInTime = checkedInTime;
 	}
 	public int getLocationId() {
 		return locationId;
@@ -77,17 +75,11 @@ public class Visitors {
 	public void setBadgeId(String badgeId) {
 		this.badgeId = badgeId;
 	}
-	public Timestamp getOutTime() {
-		return outTime;
+	public Timestamp getCheckedOutTime() {
+		return checkedOutTime;
 	}
-	public void setOutTime(Timestamp outTime) {
-		this.outTime = outTime;
-	}
-	public int getBookingId() {
-		return bookingId;
-	}
-	public void setBookingId(int bookingId) {
-		this.bookingId = bookingId;
+	public void setCheckedOutTime(Timestamp checkedOutTime) {
+		this.checkedOutTime = checkedOutTime;
 	}
 	public String getVisitPurpose() {
 		return visitPurpose;
@@ -101,18 +93,41 @@ public class Visitors {
 	public void setCompanyName(String companyName) {
 		this.companyName = companyName;
 	}
-	public String getIdProof() {
-		return idProof;
+	public int getHasCheckedOut() {
+		return hasCheckedOut;
 	}
-	public void setIdProof(String idProof) {
-		this.idProof = idProof;
+	public void setHasCheckedOut(int hasCheckedOut) {
+		this.hasCheckedOut = hasCheckedOut;
 	}
-	public Timestamp getCheckedOut() {
-		return checkedOut;
+	public String getFirstName() {
+		return firstName;
 	}
-	public void setCheckedOut(Timestamp checkedOut) {
-		this.checkedOut = checkedOut;
+	public void setFirstName(String firstName) {
+		this.firstName = firstName;
 	}
+	public String getLastName() {
+		return lastName;
+	}
+	public void setLastName(String lastName) {
+		this.lastName = lastName;
+	}
+	public String getScheduledMeetingTime() {
+		return scheduledMeetingTime;
+	}
+	public void setScheduledMeetingTime(String scheduledMeetingTime) {
+		this.scheduledMeetingTime = scheduledMeetingTime;
+	}
+	public int getHasIdProof() {
+		return hasIdProof;
+	}
+	public void setHasIdProof(int hasIdProof) {
+		this.hasIdProof = hasIdProof;
+	}
+	
+	
+	
+	
+
 	
 	
 }
