@@ -438,9 +438,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              start = start.replace(" ", "T");
 	              end = end.replace(" ", "T");
 
-	              var title = fields[6];
+	              var title = fields[7];
 
-	              var id = fields[7];
+	              var id = fields[8];
 
 	              var backgroundColor = "green";
 
