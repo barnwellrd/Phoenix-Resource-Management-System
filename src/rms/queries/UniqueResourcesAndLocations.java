@@ -41,10 +41,6 @@ public class UniqueResourcesAndLocations {
 		return jtemp.queryForList("SELECT location_id||city FROM locations", String.class);
 	}
 	
-	public List<String> getDistinctFeatureName() {
-		return jtemp.queryForList("SELECT DISTINCT T.feature_type_name FROM features F, feature_type T WHERE T.feature_type_id=F.feature_type_id", String.class);
-	}
-	
 	public List<Integer> getMostRecentResourceId() {
 		return jtemp.queryForList("select max(resource_id) from resources", Integer.class);
 	}
