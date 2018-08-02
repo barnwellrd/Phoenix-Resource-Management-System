@@ -173,7 +173,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		</div>
 	</div>
 
-	<!--Add Event Modal -->
+	<!-- Add even modal -->
 	<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
@@ -221,6 +221,55 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							<input class="form-control input-md" type="time"
 								placeholder="HH:MM" id="timeTo" name="timeTo" required>
 						</div>
+					
+						<!-- Repeating start date -->
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class='glyphicon glyphicon-repeat'></span>
+								<span class="input-group-text"> Start </span>
+							</div>
+								<input class="form-control input-md" type="text"
+								placeholder="DD-MM" id="repDateStart" name="repDateStart" required />
+						</div>
+						
+						<!-- Repeating stop date -->
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class='glyphicon glyphicon-repeat'></span>
+								<span class="input-group-text"> Stop </span>
+							</div>
+								<input class="form-control input-md" type="text"
+								placeholder="DD-MM" id="repDateStop" name="repDateStop" required />
+						</div>
+						
+						<!-- Repeating day check boxes -->
+						<div class="input-group">
+							<div class="input-group-addon">
+								<span class='glyphicon glyphicon-hand-right'></span>
+								<span class="input-group-text"> Daily Repeat </span>
+							</div>
+							<div class="input-group-addon" style="background-color: white; border:none;">
+								<input type="checkbox"> M
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> Tu
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> W
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> Th
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> F
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> Sa
+							</div>
+							<div class="input-group-addon">
+								<input type="checkbox"> Su
+							</div>
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-secondary"
@@ -260,6 +309,44 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            //remove the event from the calendar
 	            $("#dispCal").fullCalendar('removeEvents', id);
 
+			});
+		   	
+            $('#dispCal').fullCalendar({
+             		// Limit calendar to show only two months from now
+            		validRange:function(currentDate) {
+            		  	return {
+            		  		start: currentDate.clone(),
+            		  		end: currentDate.clone().add(2, 'months')
+            		  	};
+            		},
+            			
+            		header: {
+                        left: 'prev,next today',
+                        center: 'title',
+                        right: 'agendaWeek,agendaDay'
+                    },
+                    
+                    themeSystem: 'bootstrap3',	                       
+                    minTime: "06:00:00",
+                    maxTime: "18:00:00",
+                    height: 500,
+                    defaultView: 'agendaWeek',
+                    selectable: true,
+                    selectConstraint: {
+                        start: moment().startOf(
+                            'day'),
+                        end: moment().startOf(
+                            'day').add(6,
+                                'months'),
+                    },
+                    select: function (startDate, endDate) {
+                        $("#roomName").html("Scrum 3");
+                        $("#date").data('daterangepicker').setStartDate(startDate);
+                        $("#date").data('daterangepicker').setEndDate(endDate);
+                        $("#timeFrom").val(startDate.format("HH:mm"));
+                        $("#timeTo").val(endDate.format("HH:mm"));
+                        $("#addEventModal").modal("show");
+                    },
 	          },
 	          fail: function (result) {
 	            console.log(result);
