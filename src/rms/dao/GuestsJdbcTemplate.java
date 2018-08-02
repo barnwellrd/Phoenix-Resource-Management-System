@@ -47,7 +47,8 @@ public class GuestsJdbcTemplate
 				+ " WHERE booking_id = ? AND user_id = ?",				
 			guest.getUserId(),
 			guest.getVisitorId(),
-			guest.getBookingId());
+			guest.getBookingId(),
+			guest.getUserId());
 		
 		return result;
 	}
