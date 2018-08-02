@@ -6,11 +6,11 @@ Alt-Phoenix-Resource-Management-System
 ***
 ##  Main project branch for production quality versions
 ***
-This is the Phoenix Resource Management System (PRMS). It is an application that allows resources such as meeting rooms to be viewed and booked based on availability. This application was devoloped jointly by the following four groups during thier Syntel training as a class project.
+This is the Phoenix Resource Management System (PRMS). It is an application that allows resources such as meeting rooms to be viewed and booked based on availability. This application was developed jointly by the following four groups during thier Syntel training as a class project.
 ***
 ### **Rockstars Members:**
 - Ricky Barnwell
-- Kathey Kwon
+- Kathy Kwon
 - Hamza Shakeel
 - Bhargav Ravalji
 - Matthew Bulluck 
