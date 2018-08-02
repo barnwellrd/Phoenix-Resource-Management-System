@@ -44,9 +44,7 @@ public class GuestsJdbcTemplate
 		int result = jtemp.update("UPDATE Guests SET"
 				+ " user_id = ?,"
 				+ " visitor_id = ?"
-				+ " WHERE booking_id = ? AND user_id = ",				
-				
-				
+				+ " WHERE booking_id = ? AND user_id = ?",				
 			guest.getUserId(),
 			guest.getVisitorId(),
 			guest.getBookingId());
