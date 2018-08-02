@@ -39,6 +39,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 	<div class="container" id="allPage">
 
+		<p id="pageResourceId" style="display:none">1001</p>
+
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
 				<a class="navbar-brand navbar-right" href="#"> <spring:url
@@ -77,7 +79,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					<div class="panel">
 						<div class="panel-body">
 
-							<iframe src="types"> </iframe>
+							<iframe src="AddSearchResources"> </iframe>
 
 						</div>
 					</div>
@@ -164,6 +166,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				<div class="modal-footer">
 					<button type="button" class="btn btn-secondary"
 						data-dismiss="modal">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-primary"
+						id="editButton">Save Changes</button>
+						
 					<button type="button" data-dismiss="modal" class="btn btn-danger"
 						id="deleteButton">Delete</button>
 				</div>
@@ -291,12 +296,26 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    function () {
 
 		  $('iframe').load(function () {
-		  	$(this).contents().find("#typeChooser").on('click',
+			  
+			   	$("iframe").contents().find(".wrimagecard").on('click',function(event){
+		    		console.log(event.target);
+		    		$(event.target).css('background-color','lightgrey');
+		    	});
+			   	
+			   	//dont allow clicks on the child elements of the cards
+			   	$("iframe").contents().find(".wrimagecard").on('click',function(event){
+		    		console.log(event.target);
+		    		$(event.target.parentElement).css('background-color','lightgrey');
+		    	});
+			  		  
+		  	$(this).contents().find("input[name='type']").on('change',
 		  	      function (event) {
 		  	          
 		  			   console.log("chose a type");
 		 			   var resId = ($('iframe').contents().find("input[name='type']:checked").val());
 		 			   console.log(resId);
+		 			   
+
 		 			   		 			   
 		 		  $.ajax({
 		  	    	  url: "getBookingsAsTableByType",
@@ -319,14 +338,15 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		  	    	  }
 		  	    	});   
 		  	           
-		  	           
+	 			   var resId = ($('iframe').contents().find("form").submit());
+  
 		  	           
 		  	       });
 		  });
 	    	
 	      $('iframe').load(function () {
-	  	          $(this).contents().find("#roomChoose").on(
-	  	            'click',
+	  	          $(this).contents().find("input[name='room']").on(
+	  	            'change',
 	  	            function (event) {
 	  	            	
 	  	              console.log("clicked next room");
@@ -356,6 +376,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  	              $("#dispCal").fullCalendar('option',{
 	  	            	  selectable:true
 	  	              });
+	  	              
+		 			   var resId = ($('iframe').contents().find("form").submit());
+
 	  	            });
 	  	        });
 		  
@@ -409,6 +432,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          	}
 	        });
 	       });
+	      
+	      $("#editButton").click(function () {
+				alert("hello");
+	 
+		       });
+	      
 	      
 	      //When adding an event. 
 	      $("#addButton").click(

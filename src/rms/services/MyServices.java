@@ -255,17 +255,6 @@ public class MyServices {
 		return "displayRoom";
 	}
 	
-	/*@RequestMapping(value="/AddSearchResources")
-	public String searchAllResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
-		System.out.println("=-----------------Search All Resources");
-		System.out.println(request.getParameter("location"));
-		//int locationId=Integer.parseInt(request.getParameter("location"));
-		//System.out.println(locationId);
-		List<dao.resources.Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
-		map.addAttribute("alldata", allResources);
-		System.out.println("=-----------------helloo service got executed");
-		return "AddSearchResources"; //view name
-	}*/
 	@RequestMapping(value="/LocationResources")
 	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------Search Location Resources");
@@ -278,7 +267,7 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "FilterResources"; //view name
 	}
-	@RequestMapping(value="/AddSearchResources1")
+	@RequestMapping(value="/AddSearchResources")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();

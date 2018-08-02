@@ -9,10 +9,10 @@
 </head>
 <body>
 	<h1>Select a room</h1>
-	<p id="type" style="display:none">${type}</p>
+	<p id="type">${type}</p>
 	<form method="post" action="roomDesc">
 		<c:forEach var="room" items="${rooms}">
-			<input type="radio" name="room" checked="checked" value='${room.getResourceId()}'> ${room.getResourceName()} <br>
+			<input type="radio" name="room" value='${room.getResourceId()}'> ${room.getResourceName()} <br>
 			<ul style="margin:0">
 				<c:forEach var="feature" items="${featureMap.get(room)}">
 					<li> Name: ${feature.getFeatureTypeName()}</li>
@@ -21,7 +21,6 @@
 				</c:forEach>
 			</ul>
 		</c:forEach>
-		<input id="roomChoose" type="submit" value="Next">
 	</form>	
 </body>
 </html>
