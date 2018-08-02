@@ -23,14 +23,13 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 
 	@Override
 	public int insert(Bookings bookings){
-		int result = jtemp.update("insert into Bookings values(seq_booking.nextval, ?, ?, ?, ?, ?,?)", 
+		int result = jtemp.update("insert into Bookings values(seq_booking.nextval, ?, ?, ?, ?, ?, ?)", 
 				bookings.getResourceId(),
 				bookings.getUserId(),
 				bookings.getIsActive(),
 				bookings.getBookedStartTime(),
 				bookings.getBookedEndTime(),
-				bookings.getDescription());
-														
+				bookings.getDescription());										
 		return result;
 	}
 	
@@ -47,8 +46,8 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 										+ "user_id = ?, "
 										+ "is_active = ?, "
 										+ "booked_start_time = ?, "
-										+ "booked_end_time = ? "
-										+ "description = ?"
+										+ "booked_end_time = ?, "
+										+ "description = ? "
 										+ "WHERE booking_id = ?"
 									,
 									booking.getResourceId(),
@@ -56,8 +55,8 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 									booking.getIsActive(),
 									booking.getBookedStartTime(),
 									booking.getBookedEndTime(),
-									booking.getBookingId(),
-									booking.getDescription()
+									booking.getDescription(),
+									booking.getBookingId()
 									);
 		
 		return result;
@@ -73,6 +72,22 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 	public List<Bookings> getAll(){
 		
 		List<Bookings> BookingList = jtemp.query("SELECT * FROM Bookings", new BookingsMapper());
+		
+		return BookingList;
+	}
+	
+	public List<Bookings> getAllByResourceType(int ResourceTypeId){
+		
+		List<Bookings> BookingList = jtemp.query("SELECT * FROM Bookings b, Resources r where "
+				+ "resource_type_id=? AND b.resource_id = r.resource_id", new BookingsMapper(), ResourceTypeId);
+		
+		return BookingList;
+	}
+	
+	public List<Bookings> getAllByResourceId(int ResourceId){
+		
+		List<Bookings> BookingList = jtemp.query("SELECT * FROM Bookings b where "
+				+ "resource_id=? ", new BookingsMapper(), ResourceId);
 		
 		return BookingList;
 	}

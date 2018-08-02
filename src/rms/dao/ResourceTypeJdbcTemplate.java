@@ -44,7 +44,7 @@ public class ResourceTypeJdbcTemplate implements JdbcTemplateInterface<ResourceT
 							+ "set "
 							+ "resource_type_name = ?, "
 							+ "resource_type_description = ?, "
-							+ "img_path = ?, "
+							+ "img_path = ? "
 							+ "where "
 							+ "resource_type_id = ?",
 							resourceTypeToUpdate.getResourceTypeName(),

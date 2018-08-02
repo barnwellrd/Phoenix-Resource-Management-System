@@ -8,10 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import rms.model.FeatureType;
-import rms.model.Resources;
-import rms.mapper.FeatureTypeMapper;
-import rms.mapper.ResourcesMapper;
+import rms.model.*;
+import rms.mapper.*;
 
 public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 	JdbcTemplate jtemp;
@@ -24,13 +22,15 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 	
 	@Override
 	public int insert(Resources resource){
-		int result = jtemp.update("insert into Resources values(seq_resource.nextval, ?, ?, ?, ?, ?, ?)", 
+		int result = jtemp.update("insert into Resources values(seq_resource.nextval, ?, ?, ?, ?, ?, ?, ?, ?)", 
 														resource.getResourceName(),
 														resource.getResourceDescription(),
 														resource.getResourceRoomNumber(),
 														resource.getResourceTypeId(),
 														resource.getLocationId(),
-														resource.getIsAvailable()
+														resource.getIsAvailable(),
+														resource.getIsSuperRoom(),
+														resource.getCapacity()
 														);
 		return result;
 	}
@@ -49,7 +49,9 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 									+ "resource_room_number = ?, "
 									+ "resource_type_id = ?, "
 									+ "location_id = ?, "
-									+ "is_available = ? "
+									+ "is_available = ?, "
+									+ "is_super_room = ?, "
+									+ "capacity = ? "
 									+ "where resource_id = ?", 
 									resource.getResourceName(),
 									resource.getResourceDescription(),
@@ -57,6 +59,8 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 									resource.getResourceTypeId(),
 									resource.getLocationId(),
 									resource.getIsAvailable(),
+									resource.getIsSuperRoom(),
+									resource.getCapacity(),
 									resource.getResourceId());
 		
 		return result;

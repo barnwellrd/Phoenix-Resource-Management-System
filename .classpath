@@ -6,7 +6,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry exported="true" kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
+	<classpathentry kind="con" path="org.eclipse.jst.server.core.container/org.eclipse.jst.server.tomcat.runtimeTarget/Apache Tomcat v8.5">
 		<attributes>
 			<attribute name="owner.project.facets" value="jst.web"/>
 		</attributes>
@@ -77,9 +77,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-5.0.7.RELEASE-javadoc.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-5.0.7.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-5.0.7.RELEASE.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.0.2.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-api.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-impl.jar"/>
-	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/jstl-1.2.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

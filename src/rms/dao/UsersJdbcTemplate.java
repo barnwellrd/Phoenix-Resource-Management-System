@@ -23,13 +23,15 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 	
 	@Override
 	public int insert(Users userToInsert) {
-		int result = jtemp.update("INSERT INTO Users VALUES(seq_user.nextVal, ?, ?, ?, ?, ?, ?)", 
+		int result = jtemp.update("INSERT INTO Users VALUES(seq_user.nextVal, ?, ?, ?, ?, ?, ?, ?, ?)", 
 																userToInsert.getUserName(),
 																userToInsert.getUserEmail(),
 																userToInsert.getUserPassword(),
 																userToInsert.getUserType(),
 																userToInsert.getUserPhone(),
-																userToInsert.getLocationId());
+																userToInsert.getLocationId(),
+																userToInsert.getFirst_name(),
+																userToInsert.getLast_name());
 		return result;
 
 	}
@@ -50,7 +52,9 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 									+ "user_password = ?, "
 									+ "user_type = ?, "
 									+ "user_phone = ?, "
-									+ "location_id = ? "
+									+ "location_id = ?, "
+									+ "user_first_name = ?, "
+									+ "user_last_name = ? "
 								+ "WHERE user_id = ?",
 									userToUpdate.getUserName(),
 									userToUpdate.getUserEmail(),
@@ -58,14 +62,15 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 									userToUpdate.getUserType(),
 									userToUpdate.getUserPhone(),
 									userToUpdate.getLocationId(),
+									userToUpdate.getFirst_name(),
+									userToUpdate.getLast_name(),
 									userToUpdate.getUserId());
 		return result;
 	}
 
 	@Override
 	public Users search(int userId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
-		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_id = ? ", new UsersMapper(), userId);
-		
+		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_id = ? ", new UsersMapper(), userId);	
 		return user;
 	}
 

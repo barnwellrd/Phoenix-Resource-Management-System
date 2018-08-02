@@ -9,6 +9,7 @@ import rms.model.Bookings;
 
 public class BookingsMapper implements RowMapper<Bookings>{
 
+	
 	public Bookings mapRow(ResultSet result, int ar1) throws SQLException {
 		Bookings bkn = new Bookings();
 		bkn.setBookingId(result.getInt(1));

@@ -24,20 +24,22 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 	@Override
 	public int insert(Visitors visitorToInsert) {
 		String statement = "INSERT INTO VISITORS VALUES(seq_visitors.nextval, "
-							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-		int result = jtemp.update(statement, visitorToInsert.getName(),
+							+ "?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		int result = jtemp.update(statement, 
 								visitorToInsert.getVisitingName(),
 								visitorToInsert.getEmail(),
 								visitorToInsert.getPhone(),
-								visitorToInsert.getInTime(),
+								visitorToInsert.getCheckedInTime(),
 								visitorToInsert.getLocationId(),
 								visitorToInsert.getBadgeId(),
-								visitorToInsert.getOutTime(),
-								visitorToInsert.getBookingId(),
+								visitorToInsert.getCheckedOutTime(),
 								visitorToInsert.getVisitPurpose(),
 								visitorToInsert.getCompanyName(),
-								visitorToInsert.getIdProof(),
-								visitorToInsert.getCheckedOut());
+								visitorToInsert.getHasCheckedOut(),
+								visitorToInsert.getFirstName(),
+								visitorToInsert.getLastName(),
+								visitorToInsert.getScheduledMeetingTime(),
+								visitorToInsert.getHasIdProof());
 		return result;
 	}
 
@@ -46,39 +48,41 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 		
 		return jtemp.update("DELETE FROM visitors where visitor_id = ?", visitorIdToDelete);
 	}
-
+	
 	@Override
 	public int update(Visitors visitorToUpdate) {
 		String statement = "UPDATE visitors SET "
-							+ "name = ?,"
-							+ "visiting_name = ?,"
-							+ "email = ?,"
-							+ "phone = ?,"
-							+ "in_time = ?,"
-							+ "location_id = ?,"
-							+ "badge_id = ?,"
-							+ "out_time = ?,"
-							+ "booking_id = ?,"
-							+ "visit_purpose = ?,"
-							+ "company_name = ?,"
-							+ "id_proof = ?,"
-							+ "checked_out = ? "
+							+ "visiting_name = ?, "
+							+ "email = ?, "
+							+ "phone = ?, "
+							+ "checked_in_time = ?, "
+							+ "location_id = ?, "
+							+ "badge_id = ?, "
+							+ "checked_out_time = ?, "
+							+ "visit_purpose = ?, "
+							+ "company_name = ?, "
+							+ "has_checked_out = ?, "
+							+ "first_name = ?, "
+							+ "last_name = ?, "
+							+ "scheduled_meeting_time = ?, "
+							+ "has_id_proof = ? "
 							+ "WHERE visitor_id = ?";
 		
 		int result = jtemp.update(statement, 
-				visitorToUpdate.getName(),
 				visitorToUpdate.getVisitingName(),
 				visitorToUpdate.getEmail(),
 				visitorToUpdate.getPhone(),
-				visitorToUpdate.getInTime(),
+				visitorToUpdate.getCheckedInTime(),
 				visitorToUpdate.getLocationId(),
 				visitorToUpdate.getBadgeId(),
-				visitorToUpdate.getOutTime(),
-				visitorToUpdate.getBookingId(),
+				visitorToUpdate.getCheckedOutTime(),
 				visitorToUpdate.getVisitPurpose(),
 				visitorToUpdate.getCompanyName(),
-				visitorToUpdate.getIdProof(),
-				visitorToUpdate.getCheckedOut(),
+				visitorToUpdate.getHasCheckedOut(),
+				visitorToUpdate.getFirstName(),
+				visitorToUpdate.getLastName(),
+				visitorToUpdate.getScheduledMeetingTime(),
+				visitorToUpdate.getHasIdProof(),
 				visitorToUpdate.getVisitorId());
 		
 		

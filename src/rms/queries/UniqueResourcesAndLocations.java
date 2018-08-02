@@ -11,8 +11,8 @@ import rms.mapper.ResourcesMapper;
 
 
 public class UniqueResourcesAndLocations {
-	ApplicationContext context;
-	JdbcTemplate jtemp;
+	private ApplicationContext context;
+	private JdbcTemplate jtemp;
 	
 	public UniqueResourcesAndLocations() {
         this.context = new ClassPathXmlApplicationContext("spring-dao.xml");
@@ -34,7 +34,7 @@ public class UniqueResourcesAndLocations {
 	
 	
 	public List<String> getDistinctResourceName(){
-		return jtemp.queryForList("SELECT DISTINCT resource_name FROM resources", String.class);
+		return jtemp.queryForList("SELECT DISTINCT resource_type_id||resource_name FROM resources", String.class);
 	}
 	
 	public List<String> getLocationAndCity(){

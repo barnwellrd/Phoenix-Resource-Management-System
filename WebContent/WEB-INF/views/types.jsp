@@ -12,9 +12,9 @@
 	
 	<form method="post" action="resources">
 		<c:forEach var="type" items="${types}">
-			<input type="radio" name="type" value='${type.getResourceTypeId()}'> ${type.getResourceTypeName()}<br>
+			<input type="radio" name="type" checked="checked" value='${type.getResourceTypeId()}'> ${type.getResourceTypeName()}<br>
 		</c:forEach>
-		<input type="submit" value="Next">
+		<input id="typeChooser" type="submit" value="Next">
 	</form>	
 		
 </body>

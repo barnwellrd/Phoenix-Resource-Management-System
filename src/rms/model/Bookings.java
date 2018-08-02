@@ -13,10 +13,16 @@ public class Bookings {
 	
 	@Override
 	public String toString() {
-		return "Bookings: bookingId=" + bookingId + ", resourceId=" + resourceId + ", userId=" + userId + ", isActive="
-				+ isActive + ", bookedStartTime=" + bookedStartTime + ", bookedEndTime=" + bookedEndTime;
+		return "Bookings [bookingId=" + bookingId + ", resourceId=" + resourceId + ", userId=" + userId + ", isActive="
+				+ isActive + ", bookedStartTime=" + bookedStartTime + ", bookedEndTime=" + bookedEndTime
+				+ ", description=" + description + "]";
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getBookingId() {
 		return bookingId;
 	}
@@ -52,13 +58,5 @@ public class Bookings {
 	}
 	public void setBookedEndTime(Timestamp bookedEndTime) {
 		this.bookedEndTime = bookedEndTime;
-	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
 	}
 }

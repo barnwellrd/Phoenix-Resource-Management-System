@@ -6,7 +6,6 @@ public class ResourceType {
 	String resourceTypeDescription;
 	String imgPath;
 	
-	
 
 	
 	@Override

@@ -18,6 +18,8 @@ public class UsersMapper implements RowMapper<Users>{
 		user.setUserType(result.getInt(5));
 		user.setUserPhone(result.getString(6));
 		user.setLocationId(result.getInt(7));
+		user.setFirst_name(result.getString(8));
+		user.setLast_name(result.getString(9));
 		return user;
 	}
 
