@@ -14,7 +14,8 @@ import rms.model.Visitors;
 @Controller
 public class RegistrationService {
 	
-	@RequestMapping("/")
+
+	@RequestMapping(value="/registration")
 	public String openRegistration() {
 		return "RegistrationForm"; 
 	}
@@ -23,7 +24,8 @@ public class RegistrationService {
 	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res) {
 		
 		//Set Strings for fields that user could fill in Register Form page
-		String visitorName = req.getParameter("visitorName");
+		String visitorFirstName = req.getParameter("visitorFirstName");
+		String visitorLastName = req.getParameter("visitorLastName");
 		String visitorEmail = req.getParameter("visitorEmail");
 		String visitorPhone = req.getParameter("visitorPhone");
 		String visitorVisitingName = req.getParameter("visitorVisitingName");
@@ -31,34 +33,40 @@ public class RegistrationService {
 		String visitorCompanyName = req.getParameter("visitorCompanyName");
 		
 		//Setting rest of all the fields from Visitor table to null
-		Timestamp visitorInTime = null;
+		Timestamp visitorCheckedInTime = null;
 		int visitorLocationID = 0;
 		String visitorBadgeID = null;
-		Timestamp visitorOutTime = null;
+		Timestamp visitorCheckedOutTime = null;
 		int visitorBookingID = 0;
-		String visitorIDProof = null;
-		Timestamp visitorCheckedOut = null; //signout time
+		int visitorIDProof = 0;
+		int visitorHasCheckedOut = 0; //signout time
+		
 		
 		//Create Visitor object to insert
 		Visitors newVisitor = new Visitors();
-		newVisitor.setName(visitorName);
+		newVisitor.setFirstName(visitorFirstName);
+		newVisitor.setLastName(visitorLastName);
 		newVisitor.setEmail(visitorEmail);
 		newVisitor.setPhone(visitorPhone);
 		newVisitor.setVisitingName(visitorVisitingName);
 		newVisitor.setVisitPurpose(visitorVisitPurpose);
 		newVisitor.setCompanyName(visitorCompanyName);
 		
-		newVisitor.setInTime(visitorInTime);
+		newVisitor.setCheckedInTime(visitorCheckedInTime);
 		newVisitor.setLocationId(visitorLocationID);
 		newVisitor.setBadgeId(visitorBadgeID);
-		newVisitor.setOutTime(visitorOutTime);
-		newVisitor.setBookingId(visitorBookingID);
-		newVisitor.setIdProof(visitorIDProof);
-		newVisitor.setCheckedOut(visitorCheckedOut);
+		newVisitor.setCheckedOutTime(visitorCheckedOutTime);
+		newVisitor.setHasIdProof(visitorIDProof);
+		newVisitor.setHasCheckedOut(visitorHasCheckedOut);
 		
 		
-		System.out.println(newVisitor.getName());
+		System.out.println(newVisitor.getFirstName());
+		System.out.println(newVisitor.getLastName());
 		System.out.println(newVisitor.getCompanyName());
+		
+		
+		VisitorsJdbcTemplate vjt = new VisitorsJdbcTemplate();
+		vjt.insert(newVisitor);
 		
 		return "errorPage";
 		

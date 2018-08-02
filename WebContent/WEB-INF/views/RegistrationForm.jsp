@@ -17,7 +17,8 @@
 	
 	<form action ="registerVisitor" method="post">
 	
-		Full Name: <input type="text" name="visitorName" required/>
+		First Name: <input type="text" name="visitorFirstName" required/>
+		Last Name: <input type="text" name="visitorLastName" required/>
 		<br>
 		Email Address: <input type="email" name="visitorEmail" />
 		<br>
