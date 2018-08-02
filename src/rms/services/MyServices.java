@@ -1,4 +1,4 @@
-package rms.services;
+package services;
 
 import java.util.List;
 
