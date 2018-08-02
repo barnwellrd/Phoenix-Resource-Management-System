@@ -3,16 +3,34 @@ html, body {
 	height: 100%;
 }
 
+.container{
+	height:100%;
+}
+
+.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
+	height:95%;
+}
+
 #allPage {
-	background-color: #C2E7DA;
 	height: 100%;
-	width: 80%;
+	width: 90%;
+}
+.row, .rows{
+	width:100%;
 }
 
 #book-logo {
 	height: 150px;
 	width: 266px;
 }
+
+/*increase height of the navbar*/
+.navbar-brand,
+.navbar-nav li a {
+    	line-height: 150px;
+  	  	height: 150px;
+    	padding-top: 0;
+	}
 
 #syntel-logo {
 	margin-top:50px;
@@ -70,10 +88,17 @@ ul li{
 		height:100%;
 		width: 100%;	
 	}
+	
+	
+	.container{
+		height:100%;
+	}
 
+	.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
+		height:100%;
+	}
 	#allPage {
-		background-color: #C2E7DA;
-		height: 100%;
+		height: 80%;
 		width: 90%;
 	}
 	
