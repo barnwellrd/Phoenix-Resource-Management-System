@@ -1,5 +1,14 @@
 @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
+body {
+  background: url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
+
+  font-family: "Roboto", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;      
+}
+
+
 .login-page {
   width: 360px;
   padding: 8% 0 0;
@@ -30,6 +39,9 @@
  box-sizing: border-box;
   font-size: 14px;
 }*/
+
+
+
 .form button {
   font-family: "Roboto", sans-serif;
   text-transform: uppercase;
@@ -92,13 +104,7 @@
 .container .info span .fa {
   color: #EF3B3A;
 }
-body {
-          background-image: url("resources/images/green.jpg");
 
-  font-family: "Roboto", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;      
-}
 
 
 

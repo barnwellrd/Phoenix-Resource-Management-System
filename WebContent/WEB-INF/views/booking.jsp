@@ -172,13 +172,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					<button type="button" data-dismiss="modal" class="btn btn-danger"
 						id="deleteButton">Delete</button>
 				</div>
-
 			</div>
 		</div>
 	</div>
 
-	<!-- Add even modal -->
-	<div class="modal fade" id="addEventModal" tabindex="-1" role="dialog"
+	<!-- Add event modal for weekly view-->
+	<div class="modal fade" id="addEventByWeekModal" tabindex="-1" role="dialog"
 		aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
@@ -191,6 +190,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				</div>
 
 				<div class="modal-body" id="eventAddBody">
+					<!-- Room -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-calendar'></span> <span
@@ -199,15 +199,18 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="text" id="room"
 							name="room" readonly="readonly" />
 					</div>
+					
+					<!-- Date -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-calendar'></span> <span
-								class="input-group-text">From</span>
+								class="input-group-text">Date</span>
 						</div>
-						<input class="form-control input-md" type="text"
+						<input class="form-control input-md" type="date"
 							placeholder="DD-MM" id="date" name="date" required />
 					</div>
-
+					
+					<!-- Start time -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-time'></span> <span
@@ -217,6 +220,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
 					</div>
 
+					<!-- Stop time -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-time'></span> <span
@@ -226,75 +230,137 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							placeholder="HH:MM" id="timeTo" name="timeTo" required>
 					</div>
 
-					<!-- Repeating start date -->
+					<!-- Weekly repeats -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-repeat'></span> <span
-								class="input-group-text"> Start </span>
+								class="input-group-text"> Weekly Repeats </span>
 						</div>
-						<input class="form-control input-md" type="text"
-							placeholder="DD-MM" id="repDateStart" name="repDateStart"
-							required />
+						<input class="form-control input-md" type="number" id="weeklyRep"
+							min="0" max="4" value="0" name="weeklyRep" required />
 					</div>
 
-					<!-- Repeating stop date -->
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancel</button>
+						<button type='button' data-dismiss="modal" class="btn btn-primary"
+							id="addButton">Add Event</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Add event modal for daily view-->
+	<div class="modal fade" id="addEventByDayModal" tabindex="-1" role="dialog"
+		aria-labelledby="eventModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="addEventLabel">Add Event</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+
+				<div class="modal-body" id="eventAddBody">
+					<!-- Room -->
 					<div class="input-group">
 						<div class="input-group-addon">
-							<span class='glyphicon glyphicon-repeat'></span> <span
-								class="input-group-text"> Stop </span>
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">Room</span>
 						</div>
-						<input class="form-control input-md" type="text"
-							placeholder="DD-MM" id="repDateStop" name="repDateStop" required />
+						<input class="form-control input-md" type="text" id="room"
+							name="room" readonly="readonly" />
+					</div>
+					
+					<!-- Start time -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">Date</span>
+						</div>
+						<input class="form-control input-md" type="date"
+							placeholder="DD-MM" id="date" name="date" required />
+					</div>
+					
+					<!-- From time -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">From</span>
+						</div>
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
 					</div>
 
-					<!-- Repeating day check boxes -->
+					<!-- To tme -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">To</span>
+						</div>
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="timeTo" name="timeTo" required>
+					</div>
+
+					<!-- Day repeats -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-hand-right'></span> <span
-								class="input-group-text"> Daily Repeat </span>
+								class="input-group-text"> Daily Repeats </span>
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox"> M
+							<input type="checkbox" id="M" value="Monday"> M
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> Tu
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="Tu" value="Tuesday"> Tu
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> W
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="W" value="Wednesday"> W
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> Th
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="Th" value="Thursday"> Th
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> F
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="F" value="Friday"> F
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> Sa
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="Sa" value="Saturday"> Sa
 						</div>
-						<div class="input-group-addon">
-							<input type="checkbox"> Su
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox" id="Su" value="Sunday"> Su
 						</div>
 					</div>
-				</div>
-				<div class="modal-footer">
-					<button type="button" class="btn btn-secondary"
-						data-dismiss="modal">Cancel</button>
-					<button type='button' data-dismiss="modal" class="btn btn-primary"
-						id="addButton">Add Event</button>
-				</div>
 
+
+
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary"
+							data-dismiss="modal">Cancel</button>
+						<button type='button' data-dismiss="modal" class="btn btn-primary"
+							id="addButton">Add Event</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 
 	<script>
-	var active = "view";
+		var active = "view";
 
-	$(document)
-	  .ready(
-	    function () {
+		$(document).ready(
+				function() {
 
+					$('iframe').load(
 		  $('iframe').load(function () {
 			  
 			   	$("iframe").contents().find(".wrimagecard").on('click',function(event){
@@ -413,210 +479,187 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            });
 	        });
 
-	      $("#deleteButton").click(function () {
-	        var id = $("#bookingId").val();
-	        console.log(id);
-	        
-	        $.ajax({
-	          url: "deleteEvent",
-	          success: function (result) {
-	            //remove the event from the calendar
-	            $("#dispCal").fullCalendar('removeEvents', id);
+					$("#deleteButton").click(function() {
+						var id = $("#bookingId").val();
+						console.log(id);
 
-				},
-	        	fail: function (result) {
-	           	 console.log(result);
-	          	},
-	          	data: {
-	           	 "bookingId": id
-	          	}
-	        });
-	       });
-	      
-	      $("#editButton").click(function () {
-				alert("hello");
-	 
-		       });
-	      
-	      
-	      //When adding an event. 
-	      $("#addButton").click(
-	        function () {
+						$.ajax({
+							url : "deleteEvent",
+							success : function(result) {
+								//remove the event from the calendar
+								$("#dispCal").fullCalendar('removeEvents', id);
 
-	          console.log("Adding...");
+							},
+							fail : function(result) {
+								console.log(result);
+							},
+							data : {
+								"bookingId" : id
+							}
+						});
+					});
+					
+					$("#addEventByDayModal #addButton").click(
+						function(){
+							console.log("Adding from day...");
+						
+							//get fields from the inputs inside the add modal
+							var date = $("#addEventByDayModal #date").val();
+							var timeTo = $("#addEventByDayModal #timeTo").val();
+							var timeFrom = $("#addEventByDayModal #timeFrom").val();
+							var title = $("#addEventByDayModal #room").val();
+							var resId = ($("iframe").contents().find(
+									"#resourceId").html());
+							var m = $("#addEventByDayModal #M").prop("checked");
+							var tu = $("#addEventByDayModal #Tu").prop("checked");
+							var w = $("#addEventByDayModal #W").prop("checked");
+							var th = $("#addEventByDayModal #Th").prop("checked");
+							var f = $("#addEventByDayModal #F").prop("checked");
+							var sa = $("#addEventByDayModal #Sa").prop("checked");
+							var su = $("#addEventByDayModal #Su").prop("checked");
+							var repeats = [m, tu, w, th, f, sa, su];
+							
+							console.log(date);
+							console.log(timeTo);
+							console.log(timeFrom);
+							console.log(title);
+							console.log(resId);
+							console.log(repeats);
+							
+							$.ajax({
+								url : "addEvent",
+								success : function(result) {
+									console.log(result);
 
-	          //get fields from the inputs inside the add modal
-	          var date = $("#date").val();
-	          var timeTo = $("#timeTo").val();
-	          var timeFrom = $("#timeFrom").val();
-	          var title = $("#room").val();
-			  var resId = ($("iframe").contents().find("#resourceId").html());
-			  
-	          $.ajax({
-	            url: "addEvent",
-	            success: function (result) {
-	              console.log(result);
+									//fields contains a bookings object comma seperated fields 
+									var fields = result.split(",");
 
-	              //fields contains a bookings object comma seperated fields 
-	              var fields = result.split(",");
+									var start = fields[4].trim().replace(
+											"bookedStartTime=", "");
+									var end = fields[5].trim().replace(
+											"bookedEndTime=", "");
+									start = start.replace(" ", "T");
+									end = end.replace(" ", "T");
 
-	              var start = fields[4].trim().replace(
-	                "bookedStartTime=", "");
-	              var end = fields[5].trim().replace(
-	                "bookedEndTime=", "");
-	              start = start.replace(" ", "T");
-	              end = end.replace(" ", "T");
+									var title = fields[6];
 
 	              var title = fields[7];
 
 	              var id = fields[8];
 
-	              var backgroundColor = "green";
+									//change bg color depending on type of resource
+									if (title.toLowerCase().includes(
+											"scrum"))
+										backgroundColor = "Red";
+									else if (title.toLowerCase().includes(
+											"conference"))
+										backgroundColor = "Blue";
+									else if (title.toLowerCase().includes(
+											"board"))
+										backgroundColor = "Orange";
+									else if (title.toLowerCase().includes(
+											"rec"))
+										backgroundColor = "Yellow";
+									else if (title.toLowerCase().includes(
+											"train"))
+										backgroundColor = "Green";
+									else if (title.toLowerCase().includes(
+											"break"))
+										backgroundColor = "Purple";
 
-	              //change bg color depending on type of resource
-	              if (title.toLowerCase().includes("scrum"))
-	                backgroundColor = "Red";
-	              else if (title.toLowerCase().includes("conference"))
-	                backgroundColor = "Blue";
-	    	      else if(title.toLowerCase().includes("board"))
-	    		    	 backgroundColor = "Orange";
-	    		  else if(title.toLowerCase().includes("rec"))
-	    		    	 backgroundColor = "Yellow";
-	    		  else if(title.toLowerCase().includes("train"))
-	    			    backgroundColor = "Green";
-	    		  else if(title.toLowerCase().includes("break"))
-	    			    backgroundColor = "Purple";
+									//create event object to place on the calendar
+									var newEvent = {
+										id : id,
+										title : title,
+										start : start,
+										end : end,
+										backgroundColor : backgroundColor
+									};
+									
+									//put the event on the calendar.
+									$("#dispCal").fullCalendar(
+											'renderEvent', newEvent, true);
 
-	              //create event object to place on the calendar
-	              var newEvent = {
-	                id: id,
-	                title: title,
-	                start: start,
-	                end: end,
-	                backgroundColor: backgroundColor
-	              };
+								},
+								fail : function(result) {
+									console.log("Failed to add...");
+									console.log(result);
+								},
+								//passing date and time to the addEvent jsp file. 
+								data : {
+									"date" : date,
+									"timeTo" : timeTo,
+									"timeFrom" : timeFrom,
+									"title" : title,
+									"resourceId" : resId,
+									"repeats": repeats
+								}
+							});
 
-	              //put the event on the calendar.
-	              $("#dispCal").fullCalendar(
-	                'renderEvent', newEvent, true);
+						});
+					
+					//When adding an event. 
+					$("#addEventByWeekModal #addButton").click(
+							function() {
 
-	            },
-	            fail: function (result) {
-	              console.log("Failed to add...");
-	              console.log(result);
-	            },
-	            //passing date and time to the addEvent jsp file. 
-	            data: {
-	              "date": date,
-	              "timeTo": timeTo,
-	              "timeFrom": timeFrom,
-	              "title": title,
-	              "resourceId":resId
-	            }
-	          });
+								console.log("Adding from week...");
 
-	        });
+								//get fields from the inputs inside the add modal
+								var date = $("#date").val();
+								var timeTo = $("#timeTo").val();
+								var timeFrom = $("#timeFrom").val();
+								var title = $("#room").val();
+								var resId = ($("iframe").contents().find(
+										"#resourceId").html());
+								var repeats = $("#weeklyRep").val();
+								
+								
+								console.log(date);
+								console.log(timeTo);
+								console.log(timeFrom);
+								console.log(title);
+								console.log(resId);
+								console.log(repeats);
+								
+								
+								$.ajax({
+									url : "addEvent",
+									success : function() {
+										$.ajax({
+											url : "getAllBookingsAsTable",
+											dataType : 'html',
+											success : function(result) {
 
-	      $('#dispCal')
-	        .fullCalendar({
-	          // Limit calendar to show only two months from now
-	          validRange: function (currentDate) {
-	            return {
-	              start: currentDate.clone(),
-	              end: currentDate.clone().add(
-	                2, 'months')
-	              // exclusive end, so 3
-	            };
-	          },
+												var table = $.parseHTML(result)[0];
 
-	          header: {
-	            left: 'prev,next today',
-	            center: 'title',
-	            right: 'agendaWeek,agendaDay'
-	          },
+												var formattedEventData = [];
 
-	          themeSystem: 'bootstrap3',
-	          minTime: "06:00:00",
-	          maxTime: "18:00:00",
-	          height: 500,
-	          defaultView: 'agendaWeek',
-	          selectable: false,
-	          selectConstraint: {
-	            start: moment().startOf('day'),
-	            end: moment().startOf('day').add(
-	              6, 'months'),
-	          },
-	          select: function (startDate, endDate) {
-	            $("#date").data('daterangepicker').setStartDate(startDate);
-	            $("#date").data('daterangepicker').setEndDate(endDate);
-	            $("#timeFrom").val(
-	              startDate.format("HH:mm"));
-	            $("#timeTo").val(
-	              endDate.format("HH:mm"));
-	            $("#addEventModal").modal("show");
-	            var name = ($("iframe").contents().find("#roomName").html());
-	            $("#room").val(name);
-	            
-	          },
-     
-	          eventClick: function (calEvent,
-	            jsEvent, view) {
+												var eventsArray = [];
 
-	            $("#editDate").data(
-	                'daterangepicker')
-	              .setStartDate(
-	                calEvent.start);
-	            $("#editDate").data(
-	                'daterangepicker')
-	              .setEndDate(calEvent.end);
-	            $("#editTimeFrom").val(
-	              calEvent.start
-	              .format("HH:mm"));
-	            $("#editTimeTo").val(
-	              calEvent.end
-	              .format("HH:mm"));
-	            $("#editRoom").val(calEvent.title);
-	            $("#bookingId").val(calEvent.id);
-	            $("#changeEventModal")
-	              .modal('show');
+												console.log(table);
 
-	          },
+												//create an array of event objects for the Calendar on the page. 
+												$(table).find("tr").each(function() {
+													var newEvent = [];
 
-	          eventLimit: true, // allow "more" link when too many events
+													var start = this.cells[1].innerHTML;
+													start = start.replace(" ", "T");
 
-	        });
+													var end = this.cells[2].innerHTML;
+													end = end.replace(" ", "T");
 
-	    });
+													var title = this.cells[0].innerHTML;
 
-	$.ajax({
-	  url: "getAllBookingsAsTable",
-	  dataType: 'html',
-	  success: function (result) {
+													var id = this.cells[3].innerHTML;
 
 	  	calRender(result);
 	  },
 
-	  fail: function (result) {
-	    console.log("Failed get all service");
-	    console.log(result);
-	  }
-	});
+								eventLimit : true, // allow "more" link when too many events
 
-	$('input[name="date"]').daterangepicker({
-	  minDate: moment().startOf('hour'),
-	  alwaysShowCalendars: true,
-	  locale: {
-	    format: 'YY/MM/DD'
-	  }
-	});
+							});
 
-	$('input[name="editDate"]').daterangepicker({
-	  minDate: moment().startOf('hour'),
-	  alwaysShowCalendars: true,
-	  locale: {
-	    format: 'YY/MM/DD'
-	  }
-	});
+				});
 
 	function calRender(result){
 		 var table = $.parseHTML(result)[0];

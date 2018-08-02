@@ -15,6 +15,7 @@ import rms.model.Visitors;
 public class RegistrationService {
 	
 	@RequestMapping("/registration")
+
 	public String openRegistration() {
 		return "RegistrationForm"; 
 	}
@@ -53,8 +54,6 @@ public class RegistrationService {
 		newVisitor.setBadgeId(visitorBadgeID);
 		newVisitor.setBadgeId(visitorIDProof);
 		newVisitor.setCheckedOutTime(visitorOutTime);
-		
-		
 		System.out.println(newVisitor.getVisitingName());
 		System.out.println(newVisitor.getCompanyName());
 		
