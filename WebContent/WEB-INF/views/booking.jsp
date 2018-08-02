@@ -281,6 +281,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var date = $("#date").val();
 	          var timeTo = $("#timeTo").val();
 	          var timeFrom = $("#timeFrom").val();
+	          var title = $("#room").val();
 
 	          $.ajax({
 	            url: "addEvent",
@@ -304,10 +305,18 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              var backgroundColor = "green";
 
 	              //change bg color depending on type of resource
-	              if (title.includes("SCRUM"))
+	              if (title.toLowerCase().includes("scrum"))
 	                backgroundColor = "Red";
-	              else if (title.includes("Conference"))
+	              else if (title.toLowerCase().includes("conference"))
 	                backgroundColor = "Blue";
+	    	      else if(title.toLowerCase().includes("board"))
+	    		    	 backgroundColor = "Orange";
+	    		  else if(title.toLowerCase().includes("rec"))
+	    		    	 backgroundColor = "Yellow";
+	    		  else if(title.toLowerCase().includes("train"))
+	    			    backgroundColor = "Green";
+	    		  else if(title.toLowerCase().includes("break"))
+	    			    backgroundColor = "Purple";
 
 	              //create event object to place on the calendar
 	              var newEvent = {
@@ -331,7 +340,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            data: {
 	              "date": date,
 	              "timeTo": timeTo,
-	              "timeFrom": timeFrom
+	              "timeFrom": timeFrom,
+	              "title": title
 	            }
 	          });
 
@@ -374,46 +384,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            $("#timeTo").val(
 	              endDate.format("HH:mm"));
 	            $("#addEventModal").modal("show");
+	            var name = ($("iframe").contents().find("#roomName").html());
+	            $("#room").val(name);
 	            
 	          },
-
-	          eventMouseover: function (calEvent, js) {
-	            var tooltip = '<div class="tooltipevent" style="padding:10px;width:250px;height:60px;background:black;position:absolute;z-index:10001;">' +
-	              calEvent.title +
-	              "<br/>" +
-	              calEvent.start
-	              .format('MM/DD, h:mm a') +
-	              " - " +
-	              calEvent.end
-	              .format('MM/DD, h:mm a') +
-	              '</div>';
-	            $("body").append(tooltip);
-	            $(this).mouseover(
-	              function (e) {
-	                $(this).css('z-index',
-	                  10000);
-	                $('.tooltipevent')
-	                  .fadeIn('500');
-	                $('.tooltipevent')
-	                  .fadeTo('10',
-	                    1.9);
-	              }).mousemove(
-	              function (e) {
-	                $('.tooltipevent').css(
-	                  'top',
-	                  e.clientY);
-	                $('.tooltipevent').css(
-	                  'left',
-	                  e.clientX);
-	              });
-	          },
-
-	          eventMouseout: function (calEvent,
-	            jsEvent) {
-	            $(this).css('z-index', 8);
-	            $('.tooltipevent').remove();
-	          },
-
+     
 	          eventClick: function (calEvent,
 	            jsEvent, view) {
 
@@ -473,11 +448,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      newEvent[0] = title;
 	      newEvent[1] = start;
 	      newEvent[2] = end;
-	      if (title.includes("SCRUM"))
+	      
+	      if (title.toLowerCase().includes("scrum"))
 	        newEvent[3] = "Red";
-	      else if (title.includes("Conference"))
+	      else if (title.toLowerCase().includes("conference"))
 	        newEvent[3] = "Blue";
-
+	      else if(title.toLowerCase().includes("board"))
+	    	 newEvent[3] = "Orange";
+	      else if(title.toLowerCase().includes("rec"))
+		    	 newEvent[3] = "Yellow";
+	      else if(title.toLowerCase().includes("train"))
+		    	 newEvent[3] = "Green";
+	      else if(title.toLowerCase().includes("break"))
+		    	 newEvent[3] = "Purple";
+	      
 	      newEvent[4] = id;
 	      eventsArray.push(newEvent);
 	    });

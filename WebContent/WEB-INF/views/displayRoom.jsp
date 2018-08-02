@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>Your room</h1>
-	<p id="roomName">Name: ${room.getResourceName()} </p><br>
+	<h1 id="roomName">${room.getResourceName()}</h1>
+	<br>
 	Room #: ${room.getResourceRoomNumber()} <br>
 	Description: ${room.getResourceDescription()} <br>
 	Features: <ul style="margin:0">
@@ -19,5 +19,9 @@
 					<li> Qty: ${feature.value.getQuantity()}</li></ul>
 				</c:forEach>
 			</ul>
+			
+		<form action="types" style="content-align:center; text-align:center">
+			<button type="submit">Go Back</button>
+		</form>
 </body>
 </html>

@@ -43,6 +43,7 @@ public class Services {
 		return "login";
 	}
 	
+	@RequestMapping(value="/deleteEvent")
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response){
 		
 		int id = Integer.parseInt(request.getParameter("bookingId"));
@@ -86,7 +87,7 @@ public class Services {
 	    		id=b.getBookingId();
 	    }
 		
-		String resourceName = new ResourcesJdbcTemplate().search(newB.getResourceId()).getResourceName();
+		String resourceName = request.getParameter("title");
 
 		try {
 			response.getWriter().print((newB.toString()+","+resourceName+","+id));
