@@ -9,16 +9,24 @@ public class Bookings {
 	private int isActive;
 	private Timestamp bookedStartTime;
 	private Timestamp bookedEndTime;
+	private String description;
 	
 	
 	
+
 	
 	@Override
 	public String toString() {
-		return "Bookings: bookingId=" + bookingId + ", resourceId=" + resourceId + ", userId=" + userId + ", isActive="
-				+ isActive + ", bookedStartTime=" + bookedStartTime + ", bookedEndTime=" + bookedEndTime;
+		return "Bookings [bookingId=" + bookingId + ", resourceId=" + resourceId + ", userId=" + userId + ", isActive="
+				+ isActive + ", bookedStartTime=" + bookedStartTime + ", bookedEndTime=" + bookedEndTime
+				+ ", description=" + description + "]";
 	}
-	
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
+	}
 	public int getBookingId() {
 		return bookingId;
 	}
