@@ -9,6 +9,7 @@
 </head>
 <body>
 	<h1 id="roomName">${room.getResourceName()}</h1>
+	<p id="resourceId" style="display:none">${room.getResourceId()}</p>
 	<br>
 	Room #: ${room.getResourceRoomNumber()} <br>
 	Description: ${room.getResourceDescription()} <br>
@@ -21,7 +22,7 @@
 			</ul>
 			
 		<form action="types" style="content-align:center; text-align:center">
-			<button type="submit">Go Back</button>
+			<button id="backButton" type="submit">Go Back</button>
 		</form>
 </body>
 </html>
