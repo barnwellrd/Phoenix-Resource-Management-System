@@ -8,9 +8,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-
-import rms.model.Resources;
-import rms.mapper.ResourcesMapper;
+import rms.model.*;
+import rms.mapper.*;
 
 public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 	JdbcTemplate jtemp;

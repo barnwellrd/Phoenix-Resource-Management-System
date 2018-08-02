@@ -50,7 +50,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      <p class="message">Already registered? <a href="#">Sign In</a></p>
 	    </form>
 	      
-	 <form>
+	 <form action="booking">
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	    <input id="email" type="text" class="form-control" name="email" placeholder="Email">
@@ -60,11 +60,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 	    <input id="password" type="password" class="form-control" name="password" placeholder="Password">
 	  </div>
+	  	      <button type="submit"> <span class="glyphicon glyphicon-log-in">  login</span></button>
+	  
 	</form>
 	      
 	      <br>
 	   
-	      <button> <span class="glyphicon glyphicon-log-in">  login</span></button>
 	      <p class="message">Not registered? <a href="#">Create an account</a></p>
 	      <br>
 	        <img src="resources/images/syntrans.png" alt="logo" style="height:50%; width:50%; padding-bottom:60px; "> 

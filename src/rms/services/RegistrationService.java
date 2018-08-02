@@ -1,4 +1,4 @@
-package services;
+package rms.services;
 
 import java.sql.Timestamp;
 
@@ -14,7 +14,7 @@ import rms.model.Visitors;
 @Controller
 public class RegistrationService {
 	
-	@RequestMapping("/")
+	@RequestMapping("/registration")
 	public String openRegistration() {
 		return "RegistrationForm"; 
 	}
@@ -41,23 +41,21 @@ public class RegistrationService {
 		
 		//Create Visitor object to insert
 		Visitors newVisitor = new Visitors();
-		newVisitor.setName(visitorName);
+		newVisitor.setVisitingName(visitorName);
 		newVisitor.setEmail(visitorEmail);
 		newVisitor.setPhone(visitorPhone);
 		newVisitor.setVisitingName(visitorVisitingName);
 		newVisitor.setVisitPurpose(visitorVisitPurpose);
 		newVisitor.setCompanyName(visitorCompanyName);
 		
-		newVisitor.setInTime(visitorInTime);
+		newVisitor.setCheckedInTime(visitorInTime);
 		newVisitor.setLocationId(visitorLocationID);
 		newVisitor.setBadgeId(visitorBadgeID);
-		newVisitor.setOutTime(visitorOutTime);
-		newVisitor.setBookingId(visitorBookingID);
-		newVisitor.setIdProof(visitorIDProof);
-		newVisitor.setCheckedOut(visitorCheckedOut);
+		newVisitor.setBadgeId(visitorIDProof);
+		newVisitor.setCheckedOutTime(visitorOutTime);
 		
 		
-		System.out.println(newVisitor.getName());
+		System.out.println(newVisitor.getVisitingName());
 		System.out.println(newVisitor.getCompanyName());
 		
 		return "errorPage";

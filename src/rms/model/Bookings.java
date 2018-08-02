@@ -59,12 +59,4 @@ public class Bookings {
 	public void setBookedEndTime(Timestamp bookedEndTime) {
 		this.bookedEndTime = bookedEndTime;
 	}
-
-	public String getDescription() {
-		return description;
-	}
-
-	public void setDescription(String description) {
-		this.description = description;
-	}
 }
