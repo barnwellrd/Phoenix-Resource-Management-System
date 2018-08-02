@@ -18,6 +18,10 @@ public class VisitorTracking {
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE first_name||' '||last_name = ?",fullName);
 	}
 	
+	public int checkoutUsingFirstAndLast(String firstName, String lastName){
+		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE first_name = ? AND last_name = ?",firstName,lastName);
+	}
+	
 	public int checkoutUsingBadgeID(String badgeID){
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE badge_id = ?",badgeID);
 	}
