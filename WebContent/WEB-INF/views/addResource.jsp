@@ -109,35 +109,29 @@
 	    			<tr>
 	    			 <td><label for="numResProj" data-toggle="tooltip" title="Projector"><span class="glyphicon glyphicon-film" style="font-size:40px;"><span></span></span></label>
 	                	<br>
-	                	<input type="hidden" value="0" name="numResProjName"/>
-	                	<input id="numResProj" type="number" placeholder="0" min ="0" name="numResProjName" style="width:35px; height:25px;" />
+	                	<input id="numResProj" value="0" type="number" placeholder="0" min ="0" name="numResProjName" style="width:35px; height:25px;" />
 	                	</td>
 	                <td><label for="numResPrint"data-toggle="tooltip" title="Printer"><span class="glyphicon glyphicon-print"style="font-size:40px"><span></span></span></label>
 	                <br>
-	                <input type="hidden" value="0" name="numResPrintName"/>
-	                <input id="numResPrint" type="number"placeholder="0" min ="0" name="numResPrintName" style="width:35px; height:25px;" />
+	                <input id="numResPrint" value="0" type="number"placeholder="0" min ="0" name="numResPrintName" style="width:35px; height:25px;" />
 	                </td>
 	                <td><label for="numResVid"data-toggle="tooltip" title="Video Conference Camera"><span class="glyphicon glyphicon-facetime-video"style="font-size:40px"><span></span></span></label>
 	                <br>
-	                <input type="hidden" value="0" name="numResVidName"/>
-	                <input id="numResVid" type="number"placeholder="0" min ="0" name="numResVidName" style="width:35px; height:25px;" />
+	                <input id="numResVid" value="0" type="number"placeholder="0" min ="0" name="numResVidName" style="width:35px; height:25px;" />
 	                </td>
 	                </tr>
 					<tr>
 					<td><label for="numResTV"data-toggle="tooltip" title="TV"><span class="glyphicon glyphicon-blackboard"style="font-size:40px"><span></span></span></label> 
 	                <br>
-	                <input type="hidden" value="0" name="numResTVName"/>
-	                <input id="numResTV" type="number"placeholder="0" min ="0" name="numResTVName" style="width:35px; height:25px;" />
+	                <input id="numResTV" value="0" type="number"placeholder="0" min ="0" name="numResTVName" style="width:35px; height:25px;" />
 	                </td>
 	                <td><label for="numResWhiteBoard"data-toggle="tooltip" title="White Board"><span class="glyphicon glyphicon-pencil"style="font-size:40px"><span></span></span></label> 
 	                <br>
-	                <input type="hidden" value="0" name="numResWhiteBoardName"/>
-	                <input id="numResWhiteBoard" type="number"placeholder="0" min ="0" name="numResWhiteBoardName" style="width:35px; height:25px;"/>
+	                <input id="numResWhiteBoard" value="0" type="number"placeholder="0" min ="0" name="numResWhiteBoardName" style="width:35px; height:25px;"/>
 	                </td>
 	                <td><label for="numResFood"data-toggle="tooltip" title="Food/Utensils"><span class="glyphicon glyphicon-cutlery"style="font-size:40px"><span></span></span></label>    
 					<br>
-					<input type="hidden" value="0" name="numResFoodName"/>
-					<input id="numResFood" type="number"placeholder="0" min ="0" name="numResFoodName" style="width:35px; height:25px;"/>
+					<input id="numResFood" value="0" type="number"placeholder="0" min ="0" name="numResFoodName" style="width:35px; height:25px;"/>
 	                </td>
 	                </tr>
 				</table>

@@ -25,10 +25,6 @@ public class MyServices {
 		List<String> res1=new UniqueResourcesAndLocations().getDistinctResourceName();
         request.setAttribute("listPopRes", res1);
         
-        Iterator it = res1.iterator();
-        while(it.hasNext()) {
-        	System.out.println(it.next());
-        }
 		return "addResource";
 	}
 	
@@ -38,9 +34,8 @@ public class MyServices {
 		String desc = request.getParameter("desc");
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		String roomNum = request.getParameter("roomNum");
-		int resourceTypeId = Integer.parseInt(request.getParameter("roomType"));
+		//int resourceTypeId = Integer.parseInt(request.getParameter("resName"));
 		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
-		
 		
 		//Number of features
 		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
@@ -49,23 +44,23 @@ public class MyServices {
 		int numTVFeature = Integer.parseInt(request.getParameter("numResTVName"));
 		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
 		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
-		
+	
 		//Create resource object
 		Resources res = new Resources();		
 		res.setResourceName(resName);
 		res.setResourceDescription(desc);
 		res.setResourceRoomNumber(roomNum);
-		res.setResourceTypeId(resourceTypeId);
+		res.setResourceTypeId(1001);
 		res.setLocationId(100001);
 		res.setIsAvailable(0);
 		res.setIsSuperRoom(isSupRoom);
-		res.setCapacity(capacity);
+		res.setCapacity(capacity);		
 		
-		//Create feature object
-		Features feat = new Features();
-		feat.setFeatureTypeId(101);
-		feat.setQuantity(numProjectorFeature);
-		feat.setResourceId(res.getResourceId());
+		ResourcesJdbcTemplate resTemp = new ResourcesJdbcTemplate();
+		FeaturesJdbcTemplate featTemp = new FeaturesJdbcTemplate();
+		
+		//Add a new resource
+		resTemp.insert(res);
 		
 		System.out.println("num res proj: " + numProjectorFeature);
 		System.out.println("num res printer: " + numPrinterFeature);
@@ -74,10 +69,60 @@ public class MyServices {
 		System.out.println("num res whiteboard: " + numWhiteBoardFeature);
 		System.out.println("num res food: " + numFoodFeature);	
 		
-		if (new ResourcesJdbcTemplate().insert(res)>0) {
-			return "redirect:/showResourceForm";
+		List<Integer> resourceIdTest=new UniqueResourcesAndLocations().getMostRecentResourceId();
+		System.out.println(resourceIdTest.get(0));
+		
+		//Create feature object
+		if (numProjectorFeature>0) {
+			Features featProj = new Features();
+			featProj.setFeatureTypeId(101);
+			featProj.setQuantity(numProjectorFeature);
+			featProj.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featProj);
+			System.out.println("projector feat inserted");
 		}
-		return "errorPage";
+		if (numPrinterFeature>0) {
+			Features featPrint = new Features();
+			featPrint.setFeatureTypeId(101);
+			featPrint.setQuantity(numPrinterFeature);
+			featPrint.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featPrint);
+			System.out.println("printer feat inserted");
+		}
+		if (numVideoFeature>0) {
+			Features featVid = new Features();
+			featVid.setFeatureTypeId(101);
+			featVid.setQuantity(numVideoFeature);
+			featVid.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featVid);
+			System.out.println("video feat inserted");
+		}
+		if (numTVFeature>0) {
+			Features featTV = new Features();
+			featTV.setFeatureTypeId(101);
+			featTV.setQuantity(numTVFeature);
+			featTV.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featTV);
+			System.out.println("tv feat inserted");
+		}
+		if (numWhiteBoardFeature>0) {
+			Features featWhiteBoard = new Features();
+			featWhiteBoard.setFeatureTypeId(101);
+			featWhiteBoard.setQuantity(numWhiteBoardFeature);
+			featWhiteBoard.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featWhiteBoard);
+			System.out.println("whiteboard feat inserted");
+		}
+		if (numFoodFeature>0) {
+			Features featFood = new Features();
+			featFood.setFeatureTypeId(101);
+			featFood.setQuantity(numFoodFeature);
+			featFood.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featFood);
+			System.out.println("food feat inserted");
+		}
+		
+		return "redirect:/";
 	}
 
 	@RequestMapping(value="/showResourceForm")
