@@ -33,6 +33,9 @@ public class RegistrationService {
 		String visitorVisitingName = req.getParameter("visitorVisitingName");
 		String visitorVisitPurpose = req.getParameter("visitorVisitPurpose");
 		String visitorCompanyName = req.getParameter("visitorCompanyName");
+		if (visitorCompanyName.equals("Other")) {
+			visitorCompanyName = req.getParameter("otherCompanyName");
+		}
 		Timestamp visitorCheckedInTime = timestamp; //
 		int visitorLocationID = 100001;
 		

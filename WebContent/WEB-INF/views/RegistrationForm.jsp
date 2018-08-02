@@ -4,44 +4,64 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-
-<script>
-
-</script>
-
 <title>Register Now!</title>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 <body>
-
-	<h1> Register to PRMS Services! </h1>
+	<div class="container">
+		<h1> Register to PRMS Services! </h1>
+		<form action ="registerVisitor" method="post">
+			<div class="form-group">
+				<input type="text" class="form-control" name="visitorFirstName" placeholder="First Name" required/>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="visitorLastName" placeholder="Last Name" required/>
+			</div>
+			<div class="form-group">
+				<input type="email" class="form-control" name="visitorEmail" placeholder="Email"/>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="visitorPhone" placeholder="Phone" required/>
+			</div>
+			<div class="form-group">
+				<input type="text" class="form-control" name="visitorVisitingName" placeholder="Host"/>
+			</div>
+			<div class="formgroup">
+				<textarea class="form-control" rows="3" name="visitorPurpose" placeholder="Reason for visit" required></textarea>
+			</div>
+			<label>Company:</label>
+			<br>
+			<div class="form-group form-inline">
+				<label class="radio-inline">
+					<input type="radio" name="visitorCompanyName" id="option1" value="Syntel" checked>
+					Syntel
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="visitorCompanyName" id="option2" value="AmericanExpress">
+					American Express
+				</label>
+				<label class="radio-inline">
+					<input type="radio" name="visitorCompanyName" id="option3" value="Other">
+					Other
+				</label>
+				<input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Company">
+			</div>
+			<br>
+			<button type="submit" class="btn btn-lg btn-success pull-right" value="Register">Check In</button>	
+		</form>
+	</div>
 	
-	<form action ="registerVisitor" method="post">
-	
-		First Name: <input type="text" name="visitorFirstName" required/>
-		Last Name: <input type="text" name="visitorLastName" required/>
-		<br>
-		Email Address: <input type="email" name="visitorEmail" />
-		<br>
-		Phone Number: <input type="text" name="visitorPhone"/>
-		<br>
-		Host Name: <input type="text" name="visitorVisitingName" />
-		<br>
-		Visit Purpose: <input type="text" name="visitorPurpose"/>
-		<p>
-			<input type="radio" name="visitorCompanyName" value="Syntel">Syntel<br>
-			<input type="radio" name="visitorCompanyName" value="AmericanExpress">American Express<br>
-			<input type="radio" name="visitorCompanyName" value="FedEx">FedEx<br>
-			<input type="radio" name="visitorCompanyName" value="GuitarCenter">Guitar Center<br>
-			<input type="radio" name="visitorCompanyName" value=""> Other <input type="text" id="other_reason" name="other_reason" />
-		</p>
-		
-		<br>
-		<input type="submit" value="Register"/>
-	
-	</form>
-
-
-
-
+	<script>
+		$('#other').hide();
+		$('input[name="visitorCompanyName"]').change(function(){
+		    if ($('#option3').is(':checked')) {
+		        $('#other').show();
+		    } else {
+		        $('#other').hide();
+		    }
+		});
+	</script>
 </body>
 </html>
