@@ -74,5 +74,11 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 		List<Users> usersList = jtemp.query("SELECT * FROM Users", new UsersMapper());
 		return usersList;
 	}
+	
+	public Users search(String userName) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
+		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_name = ? ", new UsersMapper(), userName);
+		
+		return user;
+	}
 
 }

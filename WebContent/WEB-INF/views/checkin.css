@@ -1,0 +1,46 @@
+@charset "ISO-8859-1";
+
+		body * {
+			border: 1px  solid black;
+			margin: 1px;
+		}
+
+		header{
+			background: grey;
+			min-height: 50px;
+			margin-bottom: 10px;
+		}
+	
+	    section{
+	    	min-height: 450px;
+	    }
+		section .section_content{
+			background: grey;
+			margin-bottom: 30px;
+		}
+
+
+
+		footer{
+			background: grey;
+			
+		}
+
+		#left_section{
+			
+			min-height: 450px;
+		}
+
+       #add_user_font{
+       		font-size: 200px;
+       }
+
+       #search_result{
+       	min-height: 300px;
+       	background: grey;
+       }
+
+       #right_section{
+       		background: white;
+       }
+		/**Querry the media to dynamically change the heigh**/
