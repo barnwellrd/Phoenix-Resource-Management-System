@@ -388,8 +388,107 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						});
 					});
 					
+					$("#addEventByDayModal #addButton").click(
+						function(){
+							console.log("Adding from day...");
+						
+							//get fields from the inputs inside the add modal
+							var date = $("#addEventByDayModal #date").val();
+							var timeTo = $("#addEventByDayModal #timeTo").val();
+							var timeFrom = $("#addEventByDayModal #timeFrom").val();
+							var title = $("#addEventByDayModal #room").val();
+							var resId = ($("iframe").contents().find(
+									"#resourceId").html());
+							var m = $("#addEventByDayModal #M").prop("checked");
+							var tu = $("#addEventByDayModal #Tu").prop("checked");
+							var w = $("#addEventByDayModal #W").prop("checked");
+							var th = $("#addEventByDayModal #Th").prop("checked");
+							var f = $("#addEventByDayModal #F").prop("checked");
+							var sa = $("#addEventByDayModal #Sa").prop("checked");
+							var su = $("#addEventByDayModal #Su").prop("checked");
+							var repeats = [m, tu, w, th, f, sa, su];
+							
+							console.log(date);
+							console.log(timeTo);
+							console.log(timeFrom);
+							console.log(title);
+							console.log(resId);
+							console.log(repeats);
+							
+							$.ajax({
+								url : "addEvent",
+								success : function(result) {
+									console.log(result);
+
+									//fields contains a bookings object comma seperated fields 
+									var fields = result.split(",");
+
+									var start = fields[4].trim().replace(
+											"bookedStartTime=", "");
+									var end = fields[5].trim().replace(
+											"bookedEndTime=", "");
+									start = start.replace(" ", "T");
+									end = end.replace(" ", "T");
+
+									var title = fields[6];
+
+									var id = fields[7];
+
+									var backgroundColor = "green";
+
+									//change bg color depending on type of resource
+									if (title.toLowerCase().includes(
+											"scrum"))
+										backgroundColor = "Red";
+									else if (title.toLowerCase().includes(
+											"conference"))
+										backgroundColor = "Blue";
+									else if (title.toLowerCase().includes(
+											"board"))
+										backgroundColor = "Orange";
+									else if (title.toLowerCase().includes(
+											"rec"))
+										backgroundColor = "Yellow";
+									else if (title.toLowerCase().includes(
+											"train"))
+										backgroundColor = "Green";
+									else if (title.toLowerCase().includes(
+											"break"))
+										backgroundColor = "Purple";
+
+									//create event object to place on the calendar
+									var newEvent = {
+										id : id,
+										title : title,
+										start : start,
+										end : end,
+										backgroundColor : backgroundColor
+									};
+									
+									//put the event on the calendar.
+									$("#dispCal").fullCalendar(
+											'renderEvent', newEvent, true);
+
+								},
+								fail : function(result) {
+									console.log("Failed to add...");
+									console.log(result);
+								},
+								//passing date and time to the addEvent jsp file. 
+								data : {
+									"date" : date,
+									"timeTo" : timeTo,
+									"timeFrom" : timeFrom,
+									"title" : title,
+									"resourceId" : resId,
+									"repeats": repeats
+								}
+							});
+
+						});
+					
 					//When adding an event. 
-					$("#addEventByWeekModal #addButton, #addEventByDayModal #addButton").click(
+					$("#addEventByWeekModal #addButton").click(
 							function() {
 
 								console.log("Adding from week...");
@@ -400,64 +499,90 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								var timeFrom = $("#timeFrom").val();
 								var title = $("#room").val();
 								var resId = ($("iframe").contents().find(
-										"#resourceId").html());	
+										"#resourceId").html());
+								var repeats = $("#weeklyRep").val();
 								
+								
+								console.log(date);
+								console.log(timeTo);
+								console.log(timeFrom);
+								console.log(title);
+								console.log(resId);
+								console.log(repeats);
 								
 								
 								$.ajax({
 									url : "addEvent",
-									success : function(result) {
-										console.log(result);
+									success : function() {
+										$.ajax({
+											url : "getAllBookingsAsTable",
+											dataType : 'html',
+											success : function(result) {
 
-										//fields contains a bookings object comma seperated fields 
-										var fields = result.split(",");
+												var table = $.parseHTML(result)[0];
 
-										var start = fields[4].trim().replace(
-												"bookedStartTime=", "");
-										var end = fields[5].trim().replace(
-												"bookedEndTime=", "");
-										start = start.replace(" ", "T");
-										end = end.replace(" ", "T");
+												var formattedEventData = [];
 
-										var title = fields[6];
+												var eventsArray = [];
 
-										var id = fields[7];
+												console.log(table);
 
-										var backgroundColor = "green";
+												//create an array of event objects for the Calendar on the page. 
+												$(table).find("tr").each(function() {
+													var newEvent = [];
 
-										//change bg color depending on type of resource
-										if (title.toLowerCase().includes(
-												"scrum"))
-											backgroundColor = "Red";
-										else if (title.toLowerCase().includes(
-												"conference"))
-											backgroundColor = "Blue";
-										else if (title.toLowerCase().includes(
-												"board"))
-											backgroundColor = "Orange";
-										else if (title.toLowerCase().includes(
-												"rec"))
-											backgroundColor = "Yellow";
-										else if (title.toLowerCase().includes(
-												"train"))
-											backgroundColor = "Green";
-										else if (title.toLowerCase().includes(
-												"break"))
-											backgroundColor = "Purple";
+													var start = this.cells[1].innerHTML;
+													start = start.replace(" ", "T");
 
-										//create event object to place on the calendar
-										var newEvent = {
-											id : id,
-											title : title,
-											start : start,
-											end : end,
-											backgroundColor : backgroundColor
-										};
-										
-										//put the event on the calendar.
-										$("#dispCal").fullCalendar(
-												'renderEvent', newEvent, true);
+													var end = this.cells[2].innerHTML;
+													end = end.replace(" ", "T");
 
+													var title = this.cells[0].innerHTML;
+
+													var id = this.cells[3].innerHTML;
+
+													newEvent[0] = title;
+													newEvent[1] = start;
+													newEvent[2] = end;
+
+													if (title.toLowerCase().includes("scrum"))
+														newEvent[3] = "Red";
+													else if (title.toLowerCase().includes("conference"))
+														newEvent[3] = "Blue";
+													else if (title.toLowerCase().includes("board"))
+														newEvent[3] = "Orange";
+													else if (title.toLowerCase().includes("rec"))
+														newEvent[3] = "Yellow";
+													else if (title.toLowerCase().includes("train"))
+														newEvent[3] = "Green";
+													else if (title.toLowerCase().includes("break"))
+														newEvent[3] = "Purple";
+
+													newEvent[4] = id;
+													eventsArray.push(newEvent);
+												});
+
+												//place all the events into an array formatted for FullCalendar
+												for (var k = 0; k < eventsArray.length; k++) {
+													formattedEventData.push({
+														title : eventsArray[k][0],
+														start : eventsArray[k][1],
+														end : eventsArray[k][2],
+														backgroundColor : eventsArray[k][3],
+														id : eventsArray[k][4]
+													});
+												}
+
+												$("#dispCal").fullCalendar('renderEvents', formattedEventData,
+														true);
+
+											},
+
+											fail : function(result) {
+												console.log("Failed get all service");
+												console.log(result);
+											}
+										});
 									},
 									fail : function(result) {
 										console.log("Failed to add...");
@@ -469,7 +594,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 										"timeTo" : timeTo,
 										"timeFrom" : timeFrom,
 										"title" : title,
-										"resourceId" : resId
+										"resourceId" : resId,
+										"repeats": repeats
 									}
 								});
 
