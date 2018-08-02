@@ -23,6 +23,8 @@ public class RegistrationService {
 	@RequestMapping(value="/registerVisitor")
 	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res) {
 		
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //
+		
 		//Set Strings for fields that user could fill in Register Form page
 		String visitorFirstName = req.getParameter("visitorFirstName");
 		String visitorLastName = req.getParameter("visitorLastName");
@@ -31,14 +33,14 @@ public class RegistrationService {
 		String visitorVisitingName = req.getParameter("visitorVisitingName");
 		String visitorVisitPurpose = req.getParameter("visitorVisitPurpose");
 		String visitorCompanyName = req.getParameter("visitorCompanyName");
+		Timestamp visitorCheckedInTime = timestamp; //
+		int visitorLocationID = 100001;
+		
 		
 		//Setting rest of all the fields from Visitor table to null
-		Timestamp visitorCheckedInTime = null;
-		int visitorLocationID = 0;
 		String visitorBadgeID = null;
-		Timestamp visitorCheckedOutTime = null;
-		int visitorBookingID = 0;
 		int visitorIDProof = 0;
+		Timestamp visitorCheckedOutTime = null; //signout time
 		int visitorHasCheckedOut = 0; //signout time
 		
 		
