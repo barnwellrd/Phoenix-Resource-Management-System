@@ -11,8 +11,8 @@ import rms.mapper.ResourcesMapper;
 
 
 public class UniqueResourcesAndLocations {
-	ApplicationContext context;
-	JdbcTemplate jtemp;
+	private ApplicationContext context;
+	private JdbcTemplate jtemp;
 	
 	public UniqueResourcesAndLocations() {
         this.context = new ClassPathXmlApplicationContext("spring-dao.xml");
