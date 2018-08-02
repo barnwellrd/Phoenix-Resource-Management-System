@@ -1,5 +1,6 @@
 <%@page import="rms.dao.*, rms.model.*, services.*"%>
-<%@page import="java.util.*, org.springframework.web.context.WebApplicationContext,
+<%@page
+	import="java.util.*, org.springframework.web.context.WebApplicationContext,
 org.springframework.web.context.support.WebApplicationContextUtils"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 
@@ -15,7 +16,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootMin" />
 <spring:url value="/resources/css/booking.css" var="bookingCSS" />
-<spring:url value="/resources/css/daterangepicker.css" var="daterangepicker" />
+<spring:url value="/resources/css/daterangepicker.css"
+	var="daterangepicker" />
 <spring:url value="/resources/css/fullcalendar.css" var="fullCal" />
 
 <link rel="stylesheet" href="${bootMin}" />
@@ -36,14 +38,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 <body>
 
 	<div class="container" id="allPage">
-	
+
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
-				<a class="navbar-brand navbar-right" href="#">
-				
-					<spring:url value="/resources/images" var="images" />
-    				<img id="syntel-logo" src="${images}/syntel-logo.png"/>
-				
+				<a class="navbar-brand navbar-right" href="#"> <spring:url
+						value="/resources/images" var="images" /> <img id="syntel-logo"
+					src="${images}/syntel-logo.png" />
+
 				</a>
 				<div class="navbar-header">
 					<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -51,9 +52,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"> 
-						<spring:url value="/resources/images" var="images" />
-  					  	<img id="book-logo" src="${images}/book-logo.png"/>
+					<a class="navbar-brand" href="#"> <spring:url
+							value="/resources/images" var="images" /> <img id="book-logo"
+						src="${images}/book-logo.png" />
 					</a>
 
 				</div>
@@ -75,11 +76,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				<div class="col-lg-4">
 					<div class="panel">
 						<div class="panel-body">
-						
-						<iframe src="types">
-						
-						</iframe>
-														
+
+							<iframe src="types"> </iframe>
+
 						</div>
 					</div>
 					<!--Panel-->
@@ -115,60 +114,61 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<span aria-hidden="true">&times;</span>
 					</button>
 				</div>
-					<div class="modal-body" id="eventChangeBody">
-						
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-calendar'></span> <span
-									class="input-group-text">Booking ID</span>
-							</div>
-						
-							<input class="form-control input-md" type="text"
-								id="bookingId" name="bookingId" readonly="readonly"/>
-						</div>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-calendar'></span> <span
-									class="input-group-text">Room</span>
-							</div>
-							<input class="form-control input-md" type="text" id="editRoom"
-								name="editRoom" readonly="readonly" />
-						</div>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-calendar'></span> <span
-									class="input-group-text">From</span>
-							</div>
-							<input class="form-control input-md" type="text"
-								placeholder="DD-MM" id="editDate" name="editDate" required />
-						</div>
-	
+				<div class="modal-body" id="eventChangeBody">
 
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-time'></span> <span
-									class="input-group-text">From</span>
-							</div>
-							<input class="form-control input-md" type="time"
-								placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom"
-								required>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">Booking ID</span>
 						</div>
-	
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-time'></span> <span
-									class="input-group-text">To</span>
-							</div>
-							<input class="form-control input-md" type="time"
-								placeholder="HH:MM" id="editTimeTo" name="editTimeTo" required>
+
+						<input class="form-control input-md" type="text" id="bookingId"
+							name="bookingId" readonly="readonly" />
+					</div>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">Room</span>
 						</div>
+						<input class="form-control input-md" type="text" id="editRoom"
+							name="editRoom" readonly="readonly" />
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Close</button>
-							<button type="button" data-dismiss="modal" class="btn btn-danger" id="deleteButton">Delete</button>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">From</span>
+						</div>
+						<input class="form-control input-md" type="text"
+							placeholder="DD-MM" id="editDate" name="editDate" required />
 					</div>
-				
+
+
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">From</span>
+						</div>
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom"
+							required>
+					</div>
+
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">To</span>
+						</div>
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="editTimeTo" name="editTimeTo" required>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Close</button>
+					<button type="button" data-dismiss="modal" class="btn btn-danger"
+						id="deleteButton">Delete</button>
+				</div>
+
 			</div>
 		</div>
 	</div>
@@ -186,96 +186,99 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					</button>
 				</div>
 
-					<div class="modal-body" id="eventAddBody">
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-calendar'></span> <span
-									class="input-group-text">Room</span>
-							</div>
-							<input class="form-control input-md" type="text" id="room"
-								name="room" readonly="readonly" />
+				<div class="modal-body" id="eventAddBody">
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">Room</span>
 						</div>
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-calendar'></span> <span
-									class="input-group-text">From</span>
-							</div>
-							<input class="form-control input-md" type="text"
-								placeholder="DD-MM" id="date" name="date" required />
+						<input class="form-control input-md" type="text" id="room"
+							name="room" readonly="readonly" />
+					</div>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-calendar'></span> <span
+								class="input-group-text">From</span>
 						</div>
+						<input class="form-control input-md" type="text"
+							placeholder="DD-MM" id="date" name="date" required />
+					</div>
 
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-time'></span> <span
-									class="input-group-text">From</span>
-							</div>
-							<input class="form-control input-md" type="time"
-								placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">From</span>
 						</div>
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
+					</div>
 
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-time'></span> <span
-									class="input-group-text">To</span>
-							</div>
-							<input class="form-control input-md" type="time"
-								placeholder="HH:MM" id="timeTo" name="timeTo" required>
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-time'></span> <span
+								class="input-group-text">To</span>
 						</div>
-					
-						<!-- Repeating start date -->
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-repeat'></span>
-								<span class="input-group-text"> Start </span>
-							</div>
-								<input class="form-control input-md" type="text"
-								placeholder="DD-MM" id="repDateStart" name="repDateStart" required />
+						<input class="form-control input-md" type="time"
+							placeholder="HH:MM" id="timeTo" name="timeTo" required>
+					</div>
+
+					<!-- Repeating start date -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-repeat'></span> <span
+								class="input-group-text"> Start </span>
 						</div>
-						
-						<!-- Repeating stop date -->
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-repeat'></span>
-								<span class="input-group-text"> Stop </span>
-							</div>
-								<input class="form-control input-md" type="text"
-								placeholder="DD-MM" id="repDateStop" name="repDateStop" required />
+						<input class="form-control input-md" type="text"
+							placeholder="DD-MM" id="repDateStart" name="repDateStart"
+							required />
+					</div>
+
+					<!-- Repeating stop date -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-repeat'></span> <span
+								class="input-group-text"> Stop </span>
 						</div>
-						
-						<!-- Repeating day check boxes -->
-						<div class="input-group">
-							<div class="input-group-addon">
-								<span class='glyphicon glyphicon-hand-right'></span>
-								<span class="input-group-text"> Daily Repeat </span>
-							</div>
-							<div class="input-group-addon" style="background-color: white; border:none;">
-								<input type="checkbox"> M
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> Tu
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> W
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> Th
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> F
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> Sa
-							</div>
-							<div class="input-group-addon">
-								<input type="checkbox"> Su
-							</div>
+						<input class="form-control input-md" type="text"
+							placeholder="DD-MM" id="repDateStop" name="repDateStop" required />
+					</div>
+
+					<!-- Repeating day check boxes -->
+					<div class="input-group">
+						<div class="input-group-addon">
+							<span class='glyphicon glyphicon-hand-right'></span> <span
+								class="input-group-text"> Daily Repeat </span>
+						</div>
+						<div class="input-group-addon"
+							style="background-color: white; border: none;">
+							<input type="checkbox"> M
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> Tu
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> W
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> Th
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> F
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> Sa
+						</div>
+						<div class="input-group-addon">
+							<input type="checkbox"> Su
 						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="button" class="btn btn-secondary"
-							data-dismiss="modal">Cancel</button>
-						<button type='button' data-dismiss="modal" class="btn btn-primary" id="addButton">Add Event</button>
-					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary"
+						data-dismiss="modal">Cancel</button>
+					<button type='button' data-dismiss="modal" class="btn btn-primary"
+						id="addButton">Add Event</button>
+				</div>
 
 			</div>
 		</div>
@@ -303,61 +306,23 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      $("#deleteButton").click(function () {
 	        var id = $("#bookingId").val();
 	        console.log(id);
+	        
 	        $.ajax({
 	          url: "deleteEvent",
 	          success: function (result) {
 	            //remove the event from the calendar
 	            $("#dispCal").fullCalendar('removeEvents', id);
 
-			});
-		   	
-            $('#dispCal').fullCalendar({
-             		// Limit calendar to show only two months from now
-            		validRange:function(currentDate) {
-            		  	return {
-            		  		start: currentDate.clone(),
-            		  		end: currentDate.clone().add(2, 'months')
-            		  	};
-            		},
-            			
-            		header: {
-                        left: 'prev,next today',
-                        center: 'title',
-                        right: 'agendaWeek,agendaDay'
-                    },
-                    
-                    themeSystem: 'bootstrap3',	                       
-                    minTime: "06:00:00",
-                    maxTime: "18:00:00",
-                    height: 500,
-                    defaultView: 'agendaWeek',
-                    selectable: true,
-                    selectConstraint: {
-                        start: moment().startOf(
-                            'day'),
-                        end: moment().startOf(
-                            'day').add(6,
-                                'months'),
-                    },
-                    select: function (startDate, endDate) {
-                        $("#roomName").html("Scrum 3");
-                        $("#date").data('daterangepicker').setStartDate(startDate);
-                        $("#date").data('daterangepicker').setEndDate(endDate);
-                        $("#timeFrom").val(startDate.format("HH:mm"));
-                        $("#timeTo").val(endDate.format("HH:mm"));
-                        $("#addEventModal").modal("show");
-                    },
-	          },
-	          fail: function (result) {
-	            console.log(result);
-	          },
-	          data: {
-	            "bookingId": id
-	          }
+				},
+	        	fail: function (result) {
+	           	 console.log(result);
+	          	},
+	          	data: {
+	           	 "bookingId": id
+	          	}
 	        });
-
-	      });
-
+	       });
+	      
 	      //When adding an event. 
 	      $("#addButton").click(
 	        function () {
