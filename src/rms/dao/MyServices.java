@@ -22,20 +22,26 @@ public class MyServices {
 	public String homePage(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("--------Hello service got executed--------");
 		
-		List<String> res1=new UniqueResourcesAndLocations().getDistinctResourceName();
+		
+		List<String> res1=new UniqueResourcesAndLocations().getDistinctResourceIdAndName();
         request.setAttribute("listPopRes", res1);
+        
+        List<String> locIdOptions=new UniqueResourcesAndLocations().getLocationAndCity();
+        request.setAttribute("locPopRes", locIdOptions);
         
 		return "addResource";
 	}
 	
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
-		String resName = request.getParameter("resName");
 		String desc = request.getParameter("desc");
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
 		String roomNum = request.getParameter("roomNum");
-		//int resourceTypeId = Integer.parseInt(request.getParameter("resName"));
+		int resourceTypeId = Integer.parseInt(request.getParameter("resssTypeId"));
+		int locId = Integer.parseInt(request.getParameter("resLoc"));
 		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
+		List<String> res2=new UniqueResourcesAndLocations().ResourceTypeName(Integer.parseInt(request.getParameter("resssTypeId")));
+        request.setAttribute("typeName", res2);
 		
 		//Number of features
 		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
@@ -44,30 +50,24 @@ public class MyServices {
 		int numTVFeature = Integer.parseInt(request.getParameter("numResTVName"));
 		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
 		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
-	
+		
 		//Create resource object
 		Resources res = new Resources();		
-		res.setResourceName(resName);
+		res.setResourceName(res2.get(0));
 		res.setResourceDescription(desc);
 		res.setResourceRoomNumber(roomNum);
-		res.setResourceTypeId(1001);
-		res.setLocationId(100001);
-		res.setIsAvailable(0);
+		res.setResourceTypeId(resourceTypeId);
+		res.setLocationId(locId);
+		res.setIsAvailable(0); 
 		res.setIsSuperRoom(isSupRoom);
-		res.setCapacity(capacity);		
+		res.setCapacity(capacity);
+		
 		
 		ResourcesJdbcTemplate resTemp = new ResourcesJdbcTemplate();
 		FeaturesJdbcTemplate featTemp = new FeaturesJdbcTemplate();
 		
 		//Add a new resource
 		resTemp.insert(res);
-		
-		System.out.println("num res proj: " + numProjectorFeature);
-		System.out.println("num res printer: " + numPrinterFeature);
-		System.out.println("num res video: " + numVideoFeature);
-		System.out.println("num res tv: " + numTVFeature);
-		System.out.println("num res whiteboard: " + numWhiteBoardFeature);
-		System.out.println("num res food: " + numFoodFeature);	
 		
 		List<Integer> resourceIdTest=new UniqueResourcesAndLocations().getMostRecentResourceId();
 		System.out.println(resourceIdTest.get(0));
