@@ -4,7 +4,7 @@ html, body {
 }
 
 .container{
-	height:78%;
+	height:100%;
 }
 
 .panel,.panel-body, .row,.col-lg-8,.col-lg-4{
@@ -12,7 +12,6 @@ html, body {
 }
 
 #allPage {
-	background-color: #C2E7DA;
 	height: 100%;
 	width: 90%;
 }
@@ -89,10 +88,17 @@ ul li{
 		height:100%;
 		width: 100%;	
 	}
+	
+	
+	.container{
+		height:100%;
+	}
 
+	.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
+		height:100%;
+	}
 	#allPage {
-		background-color: #C2E7DA;
-		height: 100%;
+		height: 80%;
 		width: 90%;
 	}
 	

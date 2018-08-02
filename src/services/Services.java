@@ -130,6 +130,72 @@ public class Services {
 		
 	}
 	
+	@RequestMapping(value="/getBookingsAsTableByResourceId")
+	public void getBookingsAsTableByResourceId(HttpServletRequest request, HttpServletResponse response) {
+		
+		String resId = request.getParameter("resourceId");
+		
+		int resourceId = Integer.parseInt(resId);
+		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceId(resourceId);
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		out.print("<table id='dataTable' border='solid' style='display:none'> ");
+		
+		for(Bookings b: allBookings){
+			
+			out.print("<tr>");
+			String resourceName = new ResourcesJdbcTemplate().search(b.getResourceId()).getResourceName();
+
+			out.print("<td>"+resourceName+"</td>");
+			out.print("<td>"+b.getBookedStartTime()+"</td>");
+			out.print("<td>"+b.getBookedEndTime()+"</td>");		
+			out.print("<td>"+b.getBookingId()+"</td>");
+			out.print("</tr>");
+		}
+		
+		out.print("</table>");
+		
+	}
+	
+	@RequestMapping(value="/getBookingsAsTableByType")
+	public void getBookingsAsTableByType(HttpServletRequest request, HttpServletResponse response) {
+		
+		String resId = request.getParameter("resourceTypeId");
+		System.out.println(resId);
+		int resourceTypeId = Integer.parseInt(request.getParameter("resourceTypeId"));
+		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceType(resourceTypeId);
+		PrintWriter out = null;
+		
+		try {
+			out = response.getWriter();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		out.print("<table id='dataTable' border='solid' style='display:none'> ");
+		
+		for(Bookings b: allBookings){
+			
+			out.print("<tr>");
+			String resourceName = new ResourcesJdbcTemplate().search(b.getResourceId()).getResourceName();
+
+			out.print("<td>"+resourceName+"</td>");
+			out.print("<td>"+b.getBookedStartTime()+"</td>");
+			out.print("<td>"+b.getBookedEndTime()+"</td>");		
+			out.print("<td>"+b.getBookingId()+"</td>");
+			out.print("</tr>");
+		}
+		
+		out.print("</table>");
+		
+	}
+	
 	@RequestMapping(value="/booking")
 	public String booking() {
 		return "booking";
@@ -159,6 +225,7 @@ public class Services {
 		}
 				
 		// Pass the maps and the rooms
+		response.setAttribute("type", type);
 		response.setAttribute("rooms", roomsOfThisType);
 		response.setAttribute("featureMap", roomsAndFeatures);
 		response.setAttribute("quantityMap", featuresAndQuantities);
