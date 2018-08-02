@@ -81,5 +81,17 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 		return resourcesList;
 	}
 
-    
+	public List<Resources> resourcesByResourceType(int resourceTypeId){
+		String sql = "select * from resources where resource_type_id = ?";
+		return jtemp.query(sql, new ResourcesMapper(), resourceTypeId);
+	}
+	
+	public List<FeatureType> getFeatures(int resourceId){
+		String sql =	"select feature_type.feature_type_id, feature_type.feature_type_name, feature_type.feature_type_description, feature_type.img_path " + 
+						"from resources, features, feature_type " +
+						"where resources.resource_id = features.resource_id " + 
+						"and features.feature_type_id = feature_type.feature_type_id " + 
+						"and resources.resource_id = ?";
+		return jtemp.query(sql, new FeatureTypeMapper(), resourceId);
+	}
 }

@@ -5,7 +5,6 @@ public class ResourceType {
 	String resourceTypeName;
 	String resourceTypeDescription;
 	String imgPath;
-
 	
 
 	
