@@ -1,6 +1,6 @@
 body{
 			
-			background-image: url("resources/images/checkin_index.png");
+			background-image: url("../images/checkin_index.png");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
 			background-position: center botton;
@@ -36,13 +36,14 @@ body{
 
 		#checkout_btn{
 			background-color: #004837;
-			color:#e85200;
+			color: white /*#e85200*/;
 		}
 	    #checkin_btn{
 	    	background-color: #e85200;
-			color:#004837;
+			color: white/*#004837*/;
 		}
 		
+	
 		.main_btn{
 			min-height: 100px;
 		}

@@ -9,6 +9,7 @@
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
+    <link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	
 </head>
 
@@ -21,9 +22,18 @@
 		 </div>
 		 
 		 <div id="next_prev_btn">
-		 	<a type="submit" class="btn btn-md btn-success pull-left" value="Register">Prev</a>	
-			<button type="submit" class="btn btn-md btn-success pull-right" value="Register">Next</button>	
-		 </div>
+			 	
+			 	<a class=" btn btn-md btn-success pull-left" id="fa_left_btn" >
+			 		<span class="fas fa-angle-left  fa-4x text-center"></span>
+			 	</a>
+			 		
+				<form action="RegisterVisitor" method="post">
+					<a type="submit" value="register" class=" btn btn-md btn-success pull-right" id="fa_right_btn">
+			 			<span class="fas fa-angle-right  fa-4x text-center"></span>
+			 		</a>
+			 	</form>
+			 			 
+		 	</div>
 		 
 	</header>
 	
