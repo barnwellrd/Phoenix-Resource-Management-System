@@ -80,7 +80,7 @@ ul li{
 	}
 	
 	.panel .panel-body{
-		height:530px;
+		height:510px;
 	}
 	
 		
@@ -97,6 +97,7 @@ ul li{
 	.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
 		height:100%;
 	}
+	
 	#allPage {
 		height: 80%;
 		width: 90%;

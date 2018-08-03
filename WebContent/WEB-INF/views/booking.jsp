@@ -76,7 +76,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		</nav>
 
 		<div class="container" id="rows">
-			<h1>Name: <% session.getAttribute("userName"); %></h1>
 			<div class="row">
 				<div class="col-lg-4">
 					<div class="panel">

@@ -41,12 +41,12 @@
 <title>AddSearchResources</title>
 </head>
 <body>
-	<div class="container">
+	<div class="container" >
 		<form action="LocationResources" method="post">
 			<fieldset id="fieldset1">
-				<legend>Location</legend>
 				<div>
-					<label>Location</label> <select name="location">
+					<label>Location</label> 
+					<select name="location" style="margin-top:10px">
 						<c:forEach items="${listCategory}" var="loc">
 							<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
 							<option value="${locId}">${loc}</option>
@@ -55,28 +55,28 @@
 				</div>
 			</fieldset>
 			<br>
+			
 			<fieldset id="fieldset2">
-				<legend>Resources</legend>
 				<div>
-					<label>Resources</label> <select name="resources">
+					<label>Resources</label> <br>
+					<select class="form-control" name="resources">
 						<option value="all">Select</option>
 						<c:forEach items="${listRes}" var="res">
 							<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
 							<c:set var="resTypeName" value="${fn:substringAfter(res, resTypeId)}" />
-							<option value="${resTypeId}">${resTypeName}</option>
+							<option selected="selected" value="${resTypeId}">${resTypeName}</option>
 						</c:forEach>
 					</select>
 				</div>
 			</fieldset>
-			<br> <input type="submit" value="Search">
+			<br>
+			<input class="btn btn-sm btn-primary" type="submit" value="Search"/>
+			
 			<!-- <a href="LocationResources/">Search</a><br> -->
 		</form>
-		<br>
+	
 
 	</div>
-
-	<h1>Resources</h1>
-
 
 	<div class="container">
 				<div class="row">
