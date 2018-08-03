@@ -6,6 +6,7 @@ import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -34,6 +35,11 @@ public class MyServices {
 	
 	@RequestMapping(value="/")
 	public String homeScreen() {
+		return "login";
+	}
+	
+	@RequestMapping(value="/logout")
+	public String logout() {
 		return "login";
 	}
 	
@@ -80,54 +86,54 @@ public class MyServices {
 	
 	@RequestMapping(value="/addEvent")
 	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
-		
+		// Read data from ajax call
 	    String date = request.getParameter("date");
-		String[] dates = date.split("-");
-		
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
-		
-	   	DateTimeFormatter format = DateTimeFormatter.ofPattern("uu/MM/dd HH:mm");
-	  
-		String dates1 = dates[0]+""+timeFrom;
-		String dates2 = dates[1]+" "+timeTo;
-		dates2=dates2.trim();
-
 		String resourceId = request.getParameter("resourceId");
 		
+		System.out.println(date);
+		System.out.println(timeTo);
+		
+	   	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date+" "+timeFrom;
+		String dates2 = date+" "+timeTo;
+		
 		//translate the calendar date into a date for the database. 
-	   	LocalDateTime date1 = LocalDateTime.parse(dates1,format);
+		LocalDateTime date1 = LocalDateTime.parse(dates1,format);
 	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
 	   	Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 	   	Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 
-	   	Bookings newB = new Bookings();
-		newB.setIsActive(1);
-		newB.setBookedStartTime(setter1);
-		newB.setBookedEndTime(setter2);
-		newB.setResourceId(Integer.parseInt(resourceId));
-		newB.setUserId(101);
-	   	newB.setDescription("An event");
-		
-	    new BookingsJdbcTemplate().insert(newB);
-	    
-	    List<Bookings> all = new BookingsJdbcTemplate().getAll();
-	    
-	    int id = 0 ;
-	    
-	    for(Bookings b : all){
-	    	if(b.getBookingId()>id)
-	    		id=b.getBookingId();
-	    }
-		
-		String resourceName = request.getParameter("title");
-
-		try {
-			response.getWriter().print((newB.toString()+","+resourceName+","+id));
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		
+	   	
+	   	// Check the number of repeats
+	   	int repeats = Integer.parseInt(request.getParameter("repeats"));
+	   	
+	   	System.out.println("Weekly repeats: " + repeats);
+	   	for(int i = 0; i < repeats + 1; i++) {
+	   		// Get the start timestamp
+	   		Calendar cal = Calendar.getInstance();
+	   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+	   		cal.add(Calendar.WEEK_OF_MONTH, i);
+	   		Timestamp start = new Timestamp(cal.getTimeInMillis());
+	   		
+	   		// Get the stop time stamp
+	   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+	   		cal.add(Calendar.WEEK_OF_MONTH, i);
+	   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+	   			   		
+	   		Bookings booking = new Bookings();
+	   		booking.setIsActive(1);
+	   		booking.setBookedStartTime(start);
+	   		booking.setBookedEndTime(stop);
+	   		booking.setResourceId(Integer.parseInt(resourceId));
+	   		booking.setUserId(101);
+	   		booking.setDescription("An event");
+	   	
+	   		
+	   		System.out.println(booking);
+	   		new BookingsJdbcTemplate().insert(booking);
+	   	}	   			
 	}
 	
 	@RequestMapping(value="/getAllBookingsAsTable")
@@ -284,17 +290,19 @@ public class MyServices {
 		return "displayRoom";
 	}
 	
-	/*@RequestMapping(value="/AddSearchResources")
-	public String searchAllResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
-		System.out.println("=-----------------Search All Resources");
-		System.out.println(request.getParameter("location"));
-		//int locationId=Integer.parseInt(request.getParameter("location"));
-		//System.out.println(locationId);
-		List<dao.resources.Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+	@RequestMapping(value="/AddSearchResources")
+	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
+		System.out.println("=-----------------searchAllResources1");
+		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
+		request.setAttribute("listCategory", loc);
+		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		request.setAttribute("listRes", res);
+		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
 		return "AddSearchResources"; //view name
-	}*/
+	}
+	
 	@RequestMapping(value="/LocationResources")
 	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------Search Location Resources");
@@ -307,17 +315,7 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "FilterResources"; //view name
 	}
-	@RequestMapping(value="/AddSearchResources1")
-	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
-		System.out.println("=-----------------searchAllResources1");
-		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
-		request.setAttribute("listCategory", loc);
-		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
-		request.setAttribute("listRes", res);
-		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
-		map.addAttribute("alldata", allResources);
-		System.out.println("=-----------------helloo service got executed");
-		return "AddSearchResources"; //view name
-	}
+	
+
 	
 }
