@@ -67,5 +67,33 @@ public class RegistrationService {
 			return "errorPagerrrr";
 		}*/
 	}
+	
+	@RequestMapping(value="/checkOut")
+	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response){
+		String name = request.getParameter("name");
+		String badgId = request.getParameter("bid");
+		
+		if(name == "Enter Name" || name == null) {
+			if(new rms.queries.VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
+				return "ThankYou";
+			else
+					return "VisitorCheckOutForm";
+		} else {
+			String[] splited = name.split("\\s+");
+			if(splited == null || splited.length != 2)
+				return "VisitorCheckOutForm";
+			else 
+				if(new rms.queries.VisitorTracking().checkoutUsingFullName(name) > 0)
+				return "ThankYou";
+			else
+				return "VisitorCheckOutForm";
+		}
+	}
+	
+	@RequestMapping(value="/checkOutForm")
+	public String insertFormService(){
+		return "VisitorCheckOutForm";
+		
+	}
 
 }
