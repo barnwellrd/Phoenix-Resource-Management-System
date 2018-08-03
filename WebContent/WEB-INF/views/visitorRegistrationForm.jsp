@@ -43,7 +43,7 @@
 				</div>
 		 <div id="next_prev_btn">
 			 	
-			 	<a class=" btn btn-md btn-success pull-left" id="fa_left_btn" >
+			 	<a href="http://localhost:2343/Phoenix_Resource_Management_System/Visitor/Home" class=" btn btn-md btn-success pull-left" id="fa_left_btn" >
 			 		<span class="fas fa-angle-left  fa-4x text-center"></span>
 			 	</a>
 			 		

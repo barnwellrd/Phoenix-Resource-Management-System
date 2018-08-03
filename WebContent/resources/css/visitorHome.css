@@ -1,4 +1,4 @@
-body{
+		body{
 			
 			background-image: url("../images/checkin_index.png");
 			background-size: 100% auto;
@@ -23,7 +23,7 @@ body{
 		}
 		header{
 			
-			 background-color: white;
+			 background-color: rgba(255, 255, 255, 0);
 		}
 		.welcome, .to, .logo{
 			margin-right: 2%;
