@@ -37,6 +37,13 @@ public class VisitorTracking {
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE phone = ? AND has_checked_out = 0",phone);
 	}
 	
+	public String getVisitorUsingBadgeId(String badge_id) {
+		return jtemp.queryForObject("SELECT first_name||' '||last_name FROM visitors WHERE badge_id = ?", String.class, badge_id);
+	}
+	
+	public String getVisitorUsingPhone(String phone) {
+		return jtemp.queryForObject("SELECT first_name||' '||last_name FROM visitors WHERE phone = ? AND has_checked_out = 0",String.class, phone);
+	}
 	public List<Visitors> getVisitorsFromToday()
 	{
 		//Gets visitors from the current day.
