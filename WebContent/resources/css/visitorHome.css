@@ -1,9 +1,12 @@
+html {
+	height: 100%;
+}
 body{
-			
-			background-image: url("resources/images/checkin_index.png");
+			min-height: 100%;
+			background-image: url("../images/checkin_index.png");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
-			background-position: center botton;
+			background-position: bottom;
 		}
 		.section_content{
 			margin: auto;
@@ -23,7 +26,7 @@ body{
 		}
 		header{
 			
-			 background-color: white;
+			 background-color: rgba(225, 225, 225, 0);
 		}
 		.welcome, .to, .logo{
 			margin-right: 2%;
