@@ -12,7 +12,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 <meta charset="utf-8" />
 <meta name="viewport"
 	content="width=device-width, height=device-height, initial-scale=1">
-<title>Dashboard</title>
+<title>Booking</title>
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootMin" />
 <spring:url value="/resources/css/booking.css" var="bookingCSS" />
@@ -54,7 +54,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 							class="icon-bar"></span>
 					</button>
-					<a class="navbar-brand" href="#"> <spring:url
+					<a class="navbar-brand" href="dashboard"> <spring:url
 							value="/resources/images" var="images" /> <img id="book-logo"
 						src="${images}/book-logo.png" />
 					</a>
