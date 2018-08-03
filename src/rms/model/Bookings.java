@@ -11,10 +11,6 @@ public class Bookings {
 	private Timestamp bookedEndTime;
 	private String description;
 	
-	
-	
-
-	
 	@Override
 	public String toString() {
 		return "Bookings [bookingId=" + bookingId + ", resourceId=" + resourceId + ", userId=" + userId + ", isActive="
