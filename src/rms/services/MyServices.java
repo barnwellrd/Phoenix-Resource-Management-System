@@ -15,7 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -45,16 +47,20 @@ public class MyServices {
 	
 	@RequestMapping(value="/dashboard")
 	public String dashBoard() {
+				
 		return "dashboard";
 	}
-	
+
 	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+
+        request.getSession().setAttribute("userName",userName);
+        request.getSession().setAttribute("pass",password);
+        
 		System.out.println(request.getParameter("userName"));
 		System.out.println(request.getParameter("password"));
-		
 		
 		LoginQueries login = new LoginQueries();
 		
@@ -63,7 +69,7 @@ public class MyServices {
 		try {
 			if(new LoginQueries().loginOnUserName(userName, password)!=null){
 				System.out.println("CHECKPOINT 2");
-				return "redirect:dashboard";
+				return "redirect:/dashboard";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -84,6 +90,45 @@ public class MyServices {
 		
 	}
 	
+	@RequestMapping(value="/updateEvent")
+	public void updateEvent(HttpServletRequest request, HttpServletResponse response){
+		
+		
+		// Read data from ajax call
+	    String date = request.getParameter("date");
+		String timeTo = request.getParameter("timeTo");
+		String timeFrom = request.getParameter("timeFrom");
+		int id = Integer.parseInt(request.getParameter("bookingId"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
+		
+		int resourceId = new BookingsJdbcTemplate().search(id).getResourceId();
+
+		System.out.println(date);
+		System.out.println(timeTo);
+		
+	   	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date+" "+timeFrom;
+		String dates2 = date+" "+timeTo;
+		
+		//translate the calendar date into a date for the database. 
+		LocalDateTime date1 = LocalDateTime.parse(dates1,format);
+	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
+	   	Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+	   	Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+	   			   		
+	   		Bookings booking = new Bookings();
+	   	booking.setIsActive(1);
+	   	booking.setBookedStartTime(setter1);
+	   	booking.setBookedEndTime(setter2);
+	  	booking.setResourceId(resourceId);
+	  	booking.setBookingId(id);
+	   	booking.setUserId(userId);
+	   	booking.setDescription("An event");	 
+		
+		new BookingsJdbcTemplate().update(booking);
+		
+	}
+	
 	@RequestMapping(value="/addEvent")
 	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
 		// Read data from ajax call
@@ -91,6 +136,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		String resourceId = request.getParameter("resourceId");
+		int userId = Integer.parseInt(request.getParameter("userId"));
 		
 		System.out.println(date);
 		System.out.println(timeTo);
@@ -127,7 +173,7 @@ public class MyServices {
 	   		booking.setBookedStartTime(start);
 	   		booking.setBookedEndTime(stop);
 	   		booking.setResourceId(Integer.parseInt(resourceId));
-	   		booking.setUserId(101);
+	   		booking.setUserId(userId);
 	   		booking.setDescription("An event");
 	   	
 	   		
@@ -234,6 +280,7 @@ public class MyServices {
 	
 	@RequestMapping(value="/booking")
 	public String booking() {
+		
 		return "booking";
 	}
 	
