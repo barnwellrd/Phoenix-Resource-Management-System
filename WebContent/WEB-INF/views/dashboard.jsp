@@ -87,7 +87,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
           <a href="#" class="dropdown-toggle" id="burger" style="font-color:white;" data-toggle="dropdown"><span class="glyphicon glyphicon-menu-hamburger" style="font-size:50px; text-align:center; color:white;"></span></a>
           <ul class="dropdown-menu">
             
-            <li><a href="#">Book <span class="glyphicon glyphicon-book pull-right"></span></a></li>
+            <li><a href="booking">Book <span class="glyphicon glyphicon-book pull-right"></span></a></li>
             <li class="divider"></li>
              
             <li><a href="#">Upcoming <span class="glyphicon glyphicon-folder-open pull-right"></span></a></li>
@@ -131,7 +131,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
        
             
    <div class="row" >
-       
+     <a href="booking">  
   <div class="column">
      
     <form action="booking">
@@ -140,16 +140,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
       <p><i class="fa fa-user"></i></p>
       <h1>Book</h1>
       <p>Book A Room</p>
-      <p>  <span class="glyphicon glyphicon-book" style="font-size:150px;"></span></p>
+      <p> 
+	      
+		      <span class="glyphicon glyphicon-book" style="font-size:150px;"></span>
+	      
+      </p>
     </div>
+    
   </div>
-  </button>
-  </form> 
+  </a>
 
   <div class="column">
 <br>
   </div> 
-
+	<a href="#"> 
   <div class="column">
       
     <div class="card" id="bye" style="width:400px; height:300px;">
@@ -162,6 +166,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
       <p>  <span class="glyphicon glyphicon-th" style="font-size:150px;"></span></p>
     </div>
   </div>
+  </a>
       
 </div>
         
@@ -180,7 +185,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
            
 </div>
 <footer class="footer" id="footer"">
- <center> <p>© 2018 Syntel, Inc </p></center>
+ <center> <p>Â© 2018 Syntel, Inc </p></center>
                                           
 </footer>   
 
