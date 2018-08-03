@@ -134,8 +134,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
      <a href="booking">  
   <div class="column">
      
-    <form action="booking">
-      <button type="submit">
     <div class="card" id="hi" style="width:400px; height:300px;">
       <p><i class="fa fa-user"></i></p>
       <h1>Book</h1>
