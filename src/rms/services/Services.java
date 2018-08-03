@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import rms.queries.LoginQueries;
 
-
 @Controller
 public class Services {
 	
