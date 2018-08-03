@@ -22,6 +22,7 @@ import rms.dao.BookingsJdbcTemplate;
 import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
+import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
@@ -39,6 +40,34 @@ public class MyServices {
 	@RequestMapping(value="/dashboard")
 	public String dashBoard() {
 		return "dashboard";
+	}
+	
+	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
+	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
+		String userName = request.getParameter("userName");
+		String password = request.getParameter("password");
+		System.out.println(request.getParameter("userName"));
+		System.out.println(request.getParameter("password"));
+		
+		
+		LoginQueries login = new LoginQueries();
+		
+		System.out.println("CHECKPOINT 1");
+		
+		try {
+			if(new LoginQueries().loginOnUserName(userName, password)!=null){
+				System.out.println("CHECKPOINT 2");
+				return "redirect:dashboard";
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+
+			System.out.println("CHECKPOINT 3");
+			return "redirect:/";
+		}
+		
+		return "redirect:/";
+
 	}
 	
 	@RequestMapping(value="/deleteEvent")
