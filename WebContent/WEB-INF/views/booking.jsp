@@ -39,7 +39,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 	<div class="container" id="allPage">
 
-		<p id="pageResourceId" style="display:none">1001</p>
+		<p id="pageResourceId" style="display: none">1001</p>
 
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
@@ -79,7 +79,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					<div class="panel">
 						<div class="panel-body">
 
-							<iframe src="AddSearchResources"> </iframe>
+							<iframe src="types"> </iframe>
 
 						</div>
 					</div>
@@ -168,7 +168,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						data-dismiss="modal">Close</button>
 					<button type="button" data-dismiss="modal" class="btn btn-primary"
 						id="editButton">Save Changes</button>
-						
+
 					<button type="button" data-dismiss="modal" class="btn btn-danger"
 						id="deleteButton">Delete</button>
 				</div>
@@ -177,8 +177,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	</div>
 
 	<!-- Add event modal for weekly view-->
-	<div class="modal fade" id="addEventByWeekModal" tabindex="-1" role="dialog"
-		aria-labelledby="eventModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addEventByWeekModal" tabindex="-1"
+		role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -199,7 +199,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="text" id="room"
 							name="room" readonly="readonly" />
 					</div>
-					
+
 					<!-- Date -->
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -209,7 +209,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="date"
 							placeholder="DD-MM" id="date" name="date" required />
 					</div>
-					
+
 					<!-- Start time -->
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -252,8 +252,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	</div>
 
 	<!-- Add event modal for daily view-->
-	<div class="modal fade" id="addEventByDayModal" tabindex="-1" role="dialog"
-		aria-labelledby="eventModalLabel" aria-hidden="true">
+	<div class="modal fade" id="addEventByDayModal" tabindex="-1"
+		role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
 		<div class="modal-dialog" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
@@ -274,7 +274,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="text" id="room"
 							name="room" readonly="readonly" />
 					</div>
-					
+
 					<!-- Start time -->
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -284,7 +284,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<input class="form-control input-md" type="date"
 							placeholder="DD-MM" id="date" name="date" required />
 					</div>
-					
+
 					<!-- From time -->
 					<div class="input-group">
 						<div class="input-group-addon">
@@ -355,371 +355,438 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	</div>
 
 	<script>
-		var active = "view";
+	var active = "view";
 
-		$(document).ready(
-				function() {
+	$(document).ready(
+	    function () {
 
-					$('iframe').load(
-		  $('iframe').load(function () {
-			  
-			   	$("iframe").contents().find(".wrimagecard").on('click',function(event){
-		    		console.log(event.target);
-		    		$(event.target).css('background-color','lightgrey');
-		    	});
-			   	
-			   	//dont allow clicks on the child elements of the cards
-			   	$("iframe").contents().find(".wrimagecard").on('click',function(event){
-		    		console.log(event.target);
-		    		$(event.target.parentElement).css('background-color','lightgrey');
-		    	});
-			  		  
-		  	$(this).contents().find("input[name='type']").on('change',
-		  	      function (event) {
-		  	          
-		  			   console.log("chose a type");
-		 			   var resId = ($('iframe').contents().find("input[name='type']:checked").val());
-		 			   console.log(resId);
-		 			   
 
-		 			   		 			   
-		 		  $.ajax({
-		  	    	  url: "getBookingsAsTableByType",
-		  	    	  
-		  	    	  dataType: 'html',
-		  	    	  
-		  	    	  data:{"resourceTypeId": resId},
-		  	    	  
-		  	    	  success: function (result) {
-
-		  	    		$("#dispCal").fullCalendar('removeEvents');
-		  	    	   	calRender(result);
-		  	    		  
-
-		  	    	  },
-
-		  	    	  fail: function (result) {
-		  	    	    console.log("Failed get all by type service");
-		  	    	    console.log(result);
-		  	    	  }
-		  	    	});   
-		  	           
-	 			   var resId = ($('iframe').contents().find("form").submit());
-  
-		  	           
-		  	       });
-		  });
-	    	
+			$('#dispCal').fullCalendar(
+					{
+						// Limit calendar to show only two months from now
+						validRange : function(currentDate) {
+							return {
+								start : currentDate.clone(),
+								end : currentDate.clone().add(2,
+										'months')
+							};
+						},
+						header : {
+							left : 'prev,next today',
+							center : 'title',
+							right : 'agendaWeek,agendaDay'
+						},
+						themeSystem : 'bootstrap3',
+						minTime : "06:00:00",
+						maxTime : "18:00:00",
+						height : 500,
+						defaultView : 'agendaWeek',
+						selectable : false,
+						selectConstraint : {
+							start : moment().startOf('day'),
+							end : moment().startOf('day').add(6,
+									'months'),
+						},
+						
+						// Handle creation of an event
+						select : function(startDate, endDate) {	
+							// Find the room picked
+							var name = ($("iframe").contents().find("#roomName").html());									
+							
+							// Fill the views by form type
+							var viewType = $('#dispCal').fullCalendar('getView').name;
+							if(viewType === "agendaWeek"){
+								// Fill in the date
+								$("#addEventByWeekModal  #date").val($.fullCalendar.formatDate(startDate, "YYYY-MM-DD"));
+								$("#addEventByWeekModal  #timeFrom").val(startDate.format("HH:mm"));
+								$("#addEventByWeekModal  #timeTo").val(endDate.format("HH:mm"));
+								$("#addEventByWeekModal  #room").val(name);
+								$("#addEventByWeekModal").modal("show");
+							} else if(viewType === "agendaDay"){
+								$("#addEventByDayModal  #date").val($.fullCalendar.formatDate(startDate, "YYYY-MM-DD"));
+								$("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
+								$("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));	
+								$("#addEventByDayModal").modal("show");	
+								$("#addEventByDayModal  #room").val(name);
+							}
+						},
+						eventClick : function(calEvent, jsEvent, view) {
+							$("#editDate").val($.fullCalendar.formatDate(calEvent.start, "YYYY-MM-DD"));
+							$("#editTimeFrom").val(calEvent.start.format("HH:mm"));
+							$("#editTimeTo").val(calEvent.end.format("HH:mm"));
+							$("#editRoom").val(calEvent.title);
+							$("#bookingId").val(calEvent.id);
+							$("#changeEventModal").modal('show');
+						},
+						eventLimit : true, // allow "more" link when too many events
+					});
+			    	
 	      $('iframe').load(function () {
-	  	          $(this).contents().find("input[name='room']").on(
-	  	            'change',
-	  	            function (event) {
-	  	            	
-	  	              console.log("clicked next room");
-	  	              
-		 			   var resId = ($('iframe').contents().find("input[name='room']:checked").val());
-	  	              
-	  	              $.ajax({
-		  	    	  url: "getBookingsAsTableByResourceId",
-		  	    	  
-		  	    	  dataType: 'html',
-		  	    	  
-		  	    	  data:{"resourceId": resId},
-		  	    	  
-		  	    	  success: function (result) {
 
-		  	    		$("#dispCal").fullCalendar('removeEvents');
-		  	    	   	calRender(result);
-
-		  	    	  },
-
-		  	    	  fail: function (result) {
-		  	    	    console.log("Failed get all by type service");
-		  	    	    console.log(result);
-		  	    	  }
-		  	    	});  
-	  	              
-	  	              $("#dispCal").fullCalendar('option',{
-	  	            	  selectable:true
-	  	              });
-	  	              
-		 			   var resId = ($('iframe').contents().find("form").submit());
-
-	  	            });
-	  	        });
-		  
-	      $('iframe').load(function () {
-	          $(this).contents().find("#backButton").on('click',
-	            function (event) {
-	        	  
-	              console.log("clicked go back");
-	              
-	              $("#dispCal").fullCalendar('option',{
-	            	  selectable:false
-	              });
-	              
-	          	$.ajax({
-	          	  url: "getAllBookingsAsTable",
-	          	  dataType: 'html',
-	          	  success: function (result) {
-
-	          		 $("#dispCal").fullCalendar("removeEvents");
-					calRender(result);
-
-	          	  },
-
-	          	  fail: function (result) {
-	          	    console.log("Failed get all service");
-	          	    console.log(result);
-	          	  }
-	          	});
-	              
-	              
-	              
-	            });
+	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
+	          console.log(event.target);
+	          $(event.target).css('background-color', 'lightgrey');
 	        });
 
-					$("#deleteButton").click(function() {
-						var id = $("#bookingId").val();
-						console.log(id);
+	        //dont allow clicks on the child elements of the cards
+	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
+	          console.log(event.target);
+	          $(event.target.parentElement).css('background-color', 'lightgrey');
+	        });
 
-						$.ajax({
-							url : "deleteEvent",
-							success : function(result) {
-								//remove the event from the calendar
-								$("#dispCal").fullCalendar('removeEvents', id);
+	        $(this).contents().find("input[name='type']").on('change',
+	          function (event) {
 
-							},
-							fail : function(result) {
-								console.log(result);
-							},
-							data : {
-								"bookingId" : id
-							}
-						});
-					});
-					
-					$("#addEventByDayModal #addButton").click(
-						function(){
-							console.log("Adding from day...");
-						
-							//get fields from the inputs inside the add modal
-							var date = $("#addEventByDayModal #date").val();
-							var timeTo = $("#addEventByDayModal #timeTo").val();
-							var timeFrom = $("#addEventByDayModal #timeFrom").val();
-							var title = $("#addEventByDayModal #room").val();
-							var resId = ($("iframe").contents().find(
-									"#resourceId").html());
-							var m = $("#addEventByDayModal #M").prop("checked");
-							var tu = $("#addEventByDayModal #Tu").prop("checked");
-							var w = $("#addEventByDayModal #W").prop("checked");
-							var th = $("#addEventByDayModal #Th").prop("checked");
-							var f = $("#addEventByDayModal #F").prop("checked");
-							var sa = $("#addEventByDayModal #Sa").prop("checked");
-							var su = $("#addEventByDayModal #Su").prop("checked");
-							var repeats = [m, tu, w, th, f, sa, su];
-							
-							console.log(date);
-							console.log(timeTo);
-							console.log(timeFrom);
-							console.log(title);
-							console.log(resId);
-							console.log(repeats);
-							
-							$.ajax({
-								url : "addEvent",
-								success : function(result) {
-									console.log(result);
+	            console.log("chose a type");
+	            var resId = ($('iframe').contents().find("input[name='type']:checked").val());
+	            console.log(resId);
 
-									//fields contains a bookings object comma seperated fields 
-									var fields = result.split(",");
+	            $.ajax({
+	              url: "getBookingsAsTableByType",
 
-									var start = fields[4].trim().replace(
-											"bookedStartTime=", "");
-									var end = fields[5].trim().replace(
-											"bookedEndTime=", "");
-									start = start.replace(" ", "T");
-									end = end.replace(" ", "T");
+	              dataType: 'html',
 
-									var title = fields[6];
+	              data: {
+	                "resourceTypeId": resId
+	              },
+
+	              success: function (result) {
+
+	                $("#dispCal").fullCalendar('removeEvents');
+	                calRender(result);
+
+
+	              },
+
+	              fail: function (result) {
+	                console.log("Failed get all by type service");
+	                console.log(result);
+	              }
+	            });
+
+	            var resId = ($('iframe').contents().find("form").submit());
+
+
+	          });
+	      });
+
+	      $('iframe').load(function () {
+	        $(this).contents().find("input[name='room']").on(
+	          'change',
+	          function (event) {
+
+	            console.log("clicked next room");
+
+	            var resId = ($('iframe').contents().find("input[name='room']:checked").val());
+
+	            $.ajax({
+	              url: "getBookingsAsTableByResourceId",
+
+	              dataType: 'html',
+
+	              data: {
+	                "resourceId": resId
+	              },
+
+	              success: function (result) {
+
+	                $("#dispCal").fullCalendar('removeEvents');
+	                calRender(result);
+
+	              },
+
+	              fail: function (result) {
+	                console.log("Failed get all by type service");
+	                console.log(result);
+	              }
+	            });
+
+	            $("#dispCal").fullCalendar('option', {
+	              selectable: true
+	            });
+
+	            var resId = ($('iframe').contents().find("form").submit());
+
+	          });
+	      });
+
+	      $('iframe').load(function () {
+	        $(this).contents().find("#backButton").on('click',
+	          function (event) {
+
+	            console.log("clicked go back");
+
+	            $("#dispCal").fullCalendar('option', {
+	              selectable: false
+	            });
+
+	            $.ajax({
+	              url: "getAllBookingsAsTable",
+	              dataType: 'html',
+	              success: function (result) {
+
+	                $("#dispCal").fullCalendar("removeEvents");
+	                calRender(result);
+
+	              },
+
+	              fail: function (result) {
+	                console.log("Failed get all service");
+	                console.log(result);
+	              }
+	            });
+
+
+
+	          });
+	      });
+
+	      $("#deleteButton").click(function () {
+	        var id = $("#bookingId").val();
+	        console.log(id);
+
+	        $.ajax({
+	          url: "deleteEvent",
+	          success: function (result) {
+	            //remove the event from the calendar
+	            $("#dispCal").fullCalendar('removeEvents', id);
+
+	          },
+	          fail: function (result) {
+	            console.log(result);
+	          },
+	          data: {
+	            "bookingId": id
+	          }
+	        });
+	      });
+
+	      $("#addEventByDayModal #addButton").click(
+	        function () {
+	          console.log("Adding from day...");
+
+	          //get fields from the inputs inside the add modal
+	          var date = $("#addEventByDayModal #date").val();
+	          var timeTo = $("#addEventByDayModal #timeTo").val();
+	          var timeFrom = $("#addEventByDayModal #timeFrom").val();
+	          var title = $("#addEventByDayModal #room").val();
+	          var resId = ($("iframe").contents().find(
+	            "#resourceId").html());
+	          var m = $("#addEventByDayModal #M").prop("checked");
+	          var tu = $("#addEventByDayModal #Tu").prop("checked");
+	          var w = $("#addEventByDayModal #W").prop("checked");
+	          var th = $("#addEventByDayModal #Th").prop("checked");
+	          var f = $("#addEventByDayModal #F").prop("checked");
+	          var sa = $("#addEventByDayModal #Sa").prop("checked");
+	          var su = $("#addEventByDayModal #Su").prop("checked");
+	          var repeats = [m, tu, w, th, f, sa, su];
+
+	          console.log(date);
+	          console.log(timeTo);
+	          console.log(timeFrom);
+	          console.log(title);
+	          console.log(resId);
+	          console.log(repeats);
+
+	          $.ajax({
+	            url: "addEvent",
+	            success: function (result) {
+	              console.log(result);
+
+	              //fields contains a bookings object comma seperated fields 
+	              var fields = result.split(",");
+
+	              var start = fields[4].trim().replace(
+	                "bookedStartTime=", "");
+	              var end = fields[5].trim().replace(
+	                "bookedEndTime=", "");
+	              start = start.replace(" ", "T");
+	              end = end.replace(" ", "T");
+
+	              var title = fields[6];
 
 	              var title = fields[7];
 
 	              var id = fields[8];
 
-									//change bg color depending on type of resource
-									if (title.toLowerCase().includes(
-											"scrum"))
-										backgroundColor = "Red";
-									else if (title.toLowerCase().includes(
-											"conference"))
-										backgroundColor = "Blue";
-									else if (title.toLowerCase().includes(
-											"board"))
-										backgroundColor = "Orange";
-									else if (title.toLowerCase().includes(
-											"rec"))
-										backgroundColor = "Yellow";
-									else if (title.toLowerCase().includes(
-											"train"))
-										backgroundColor = "Green";
-									else if (title.toLowerCase().includes(
-											"break"))
-										backgroundColor = "Purple";
+	              //change bg color depending on type of resource
+	              if (title.toLowerCase().includes(
+	                  "scrum"))
+	                backgroundColor = "Red";
+	              else if (title.toLowerCase().includes(
+	                  "conference"))
+	                backgroundColor = "Blue";
+	              else if (title.toLowerCase().includes(
+	                  "board"))
+	                backgroundColor = "Orange";
+	              else if (title.toLowerCase().includes(
+	                  "rec"))
+	                backgroundColor = "Yellow";
+	              else if (title.toLowerCase().includes(
+	                  "train"))
+	                backgroundColor = "Green";
+	              else if (title.toLowerCase().includes(
+	                  "break"))
+	                backgroundColor = "Purple";
 
-									//create event object to place on the calendar
-									var newEvent = {
-										id : id,
-										title : title,
-										start : start,
-										end : end,
-										backgroundColor : backgroundColor
-									};
-									
-									//put the event on the calendar.
-									$("#dispCal").fullCalendar(
-											'renderEvent', newEvent, true);
+	              //create event object to place on the calendar
+	              var newEvent = {
+	                id: id,
+	                title: title,
+	                start: start,
+	                end: end,
+	                backgroundColor: backgroundColor
+	              };
 
-								},
-								fail : function(result) {
-									console.log("Failed to add...");
-									console.log(result);
-								},
-								//passing date and time to the addEvent jsp file. 
-								data : {
-									"date" : date,
-									"timeTo" : timeTo,
-									"timeFrom" : timeFrom,
-									"title" : title,
-									"resourceId" : resId,
-									"repeats": repeats
-								}
-							});
+	              //put the event on the calendar.
+	              $("#dispCal").fullCalendar(
+	                'renderEvent', newEvent, true);
 
-						});
-					
-					//When adding an event. 
-					$("#addEventByWeekModal #addButton").click(
-							function() {
+	            },
+	            fail: function (result) {
+	              console.log("Failed to add...");
+	              console.log(result);
+	            },
+	            //passing date and time to the addEvent jsp file. 
+	            data: {
+	              "date": date,
+	              "timeTo": timeTo,
+	              "timeFrom": timeFrom,
+	              "title": title,
+	              "resourceId": resId,
+	              "repeats": repeats
+	            }
+	          });
 
-								console.log("Adding from week...");
+	        });
 
-								//get fields from the inputs inside the add modal
-								var date = $("#date").val();
-								var timeTo = $("#timeTo").val();
-								var timeFrom = $("#timeFrom").val();
-								var title = $("#room").val();
-								var resId = ($("iframe").contents().find(
-										"#resourceId").html());
-								var repeats = $("#weeklyRep").val();
-								
-								
-								console.log(date);
-								console.log(timeTo);
-								console.log(timeFrom);
-								console.log(title);
-								console.log(resId);
-								console.log(repeats);
-								
-								
-								$.ajax({
-									url : "addEvent",
-									success : function() {
-										$.ajax({
-											url : "getAllBookingsAsTable",
-											dataType : 'html',
-											success : function(result) {
+	      //When adding an event. 
+	      $("#addEventByWeekModal #addButton").click(
+	        function () {
 
-												var table = $.parseHTML(result)[0];
+	          console.log("Adding from week...");
 
-												var formattedEventData = [];
+	          //get fields from the inputs inside the add modal
+	          var date = $("#date").val();
+	          var timeTo = $("#timeTo").val();
+	          var timeFrom = $("#timeFrom").val();
+	          var title = $("#room").val();
+	          var resId = ($("iframe").contents().find(
+	            "#resourceId").html());
+	          var repeats = $("#weeklyRep").val();
 
-												var eventsArray = [];
 
-												console.log(table);
+	          console.log(date);
+	          console.log(timeTo);
+	          console.log(timeFrom);
+	          console.log(title);
+	          console.log(resId);
+	          console.log(repeats);
 
-												//create an array of event objects for the Calendar on the page. 
-												$(table).find("tr").each(function() {
-													var newEvent = [];
+	          $.ajax({
+	            url: "addEvent",
+	            success: function () {
+	              $.ajax({
+	                url: "getAllBookingsAsTable",
+	                dataType: 'html',
+	                success: function (result) {
 
-													var start = this.cells[1].innerHTML;
-													start = start.replace(" ", "T");
+	                  calRender(result);
+	                },
 
-													var end = this.cells[2].innerHTML;
-													end = end.replace(" ", "T");
+	                eventLimit: true, // allow "more" link when too many events
 
-													var title = this.cells[0].innerHTML;
+	              });
+	            },
+				//passing date and time to the addEvent jsp file. 
+				data : {
+					"date" : date,
+					"timeTo" : timeTo,
+					"timeFrom" : timeFrom,
+					"title" : title,
+					"resourceId" : resId,
+					"repeats": repeats
+				}
+	          });
+	        });
+	      
+	  	$.ajax({
+			  url: "getAllBookingsAsTable",
+			  dataType: 'html',
+			  success: function (result) {
+			  	calRender(result);
+			  },
+			  fail: function (result) {
+			    console.log("Failed get all service");
+			    console.log(result);
+			  }
+			});
+	      
+	      
+	      });
 
-													var id = this.cells[3].innerHTML;
 
-	  	calRender(result);
-	  },
-
-								eventLimit : true, // allow "more" link when too many events
-
-							});
-
-				});
-
-	function calRender(result){
-		 var table = $.parseHTML(result)[0];
-
-		    var formattedEventData = [];
-
-		    var eventsArray = [];
-
-		    console.log(table);
-
-		    //create an array of event objects for the Calendar on the page. 
-		    $(table).find("tr").each(function () {
-		      var newEvent = [];
-
-		      var start = this.cells[1].innerHTML;
-		      start = start.replace(" ", "T");
-
-		      var end = this.cells[2].innerHTML;
-		      end = end.replace(" ", "T");
-
-		      var title = this.cells[0].innerHTML;
-
-		      var id = this.cells[3].innerHTML;
-
-		      newEvent[0] = title;
-		      newEvent[1] = start;
-		      newEvent[2] = end;
-		      
-		      if (title.toLowerCase().includes("scrum"))
-		        newEvent[3] = "Red";
-		      else if (title.toLowerCase().includes("conference"))
-		        newEvent[3] = "Blue";
-		      else if(title.toLowerCase().includes("board"))
-		    	 newEvent[3] = "Orange";
-		      else if(title.toLowerCase().includes("rec"))
-			    	 newEvent[3] = "Yellow";
-		      else if(title.toLowerCase().includes("train"))
-			    	 newEvent[3] = "Green";
-		      else if(title.toLowerCase().includes("break"))
-			    	 newEvent[3] = "Purple";
-		      
-		      newEvent[4] = id;
-		      eventsArray.push(newEvent);
-		    });
-
-		    //place all the events into an array formatted for FullCalendar
-		    for (var k = 0; k < eventsArray.length; k++) {
-		      formattedEventData.push({
-		        title: eventsArray[k][0],
-		        start: eventsArray[k][1],
-		        end: eventsArray[k][2],
-		        backgroundColor: eventsArray[k][3],
-		        id: eventsArray[k][4]
-		      });
-		    }
-
-		    $("#dispCal").fullCalendar('renderEvents', formattedEventData, true);
-	}
 	
-	$("#view").css("background-color", "lightblue");
+	      function calRender(result) {
+	        var table = $.parseHTML(result)[0];
+
+	        var formattedEventData = [];
+
+	        var eventsArray = [];
+
+	        console.log(table);
+
+	        //create an array of event objects for the Calendar on the page. 
+	        $(table).find("tr").each(function () {
+	          var newEvent = [];
+
+	          var start = this.cells[1].innerHTML;
+	          start = start.replace(" ", "T");
+
+	          var end = this.cells[2].innerHTML;
+	          end = end.replace(" ", "T");
+
+	          var title = this.cells[0].innerHTML;
+
+	          var id = this.cells[3].innerHTML;
+
+	          newEvent[0] = title;
+	          newEvent[1] = start;
+	          newEvent[2] = end;
+
+	          if (title.toLowerCase().includes("scrum"))
+	            newEvent[3] = "Red";
+	          else if (title.toLowerCase().includes("conference"))
+	            newEvent[3] = "Blue";
+	          else if (title.toLowerCase().includes("board"))
+	            newEvent[3] = "Orange";
+	          else if (title.toLowerCase().includes("rec"))
+	            newEvent[3] = "Yellow";
+	          else if (title.toLowerCase().includes("train"))
+	            newEvent[3] = "Green";
+	          else if (title.toLowerCase().includes("break"))
+	            newEvent[3] = "Purple";
+
+	          newEvent[4] = id;
+	          eventsArray.push(newEvent);
+	        });
+
+	        //place all the events into an array formatted for FullCalendar
+	        for (var k = 0; k < eventsArray.length; k++) {
+	          formattedEventData.push({
+	            title: eventsArray[k][0],
+	            start: eventsArray[k][1],
+	            end: eventsArray[k][2],
+	            backgroundColor: eventsArray[k][3],
+	            id: eventsArray[k][4]
+	          });
+	        }
+
+	        $("#dispCal").fullCalendar('renderEvents', formattedEventData, true);
+	      }
+
+	    
+	      $("#view").css("background-color", "lightblue");
 	
 	</script>
 
