@@ -45,7 +45,7 @@
 
 <body class="container-fluid text-center">
    
-	<header  class="container" id="title" style="background-color: white" >
+	<header  class="container" id="title" style="rgba(225, 225, 225, 0)" >
 				<h2 class="ml15">
 				  <span class="word">W </span> 
 				  <span class="word">e </span> 
