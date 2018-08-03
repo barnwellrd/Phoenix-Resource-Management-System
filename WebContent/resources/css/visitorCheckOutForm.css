@@ -13,3 +13,10 @@ body {
             padding-left: 5%;
             font-size: 30%;
         }
+        
+.checkout-container {
+	padding-left:150px;
+	padding-bottom:150px;
+	padding-right:150px;
+	padding-top:75px;
+}
