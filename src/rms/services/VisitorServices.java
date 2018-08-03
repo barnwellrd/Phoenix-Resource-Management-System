@@ -24,7 +24,7 @@ public class VisitorServices {
 		return "visitorRegistrationForm"; 
 	}
 	
-	@RequestMapping(value="Visitor/RegisterVisitor")
+	@RequestMapping(value="/Visitor/RegisterVisitor")
 	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res) {
 		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //
@@ -89,7 +89,7 @@ public class VisitorServices {
 	}
 
 	
-	@RequestMapping(value="Visitor/CheckOut")
+	@RequestMapping(value="/Visitor/CheckOut")
 	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response){
 		String name = request.getParameter("name");
 		String badgId = request.getParameter("bid");
@@ -111,7 +111,7 @@ public class VisitorServices {
 		}
 	}
 	
-	@RequestMapping(value="Visitor/CheckOutForm")
+	@RequestMapping(value="/Visitor/CheckOutForm")
 	public String insertFormService(){
 		return "visitorCheckOutForm";
 		
