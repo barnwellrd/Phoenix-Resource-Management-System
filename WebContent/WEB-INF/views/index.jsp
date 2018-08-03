@@ -8,14 +8,18 @@
 <head>
 	<title>Check in</title>
 	<!-- Latest compiled and minified CSS -->
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
 
+	<link rel="stylesheet" href="resources/css/checkin.css">
+	
+	<script src="resources/js/anime.min.js"></script>
+	<script src="resources/js/bootstrap.js"></script>
+	<script src="resources/js/jquery.js"></script>
+
+	<link rel="stylesheet" href="resources/css/fontawsome/all.css">
+	<link rel="stylesheet" href="resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
 	
-	<link rel="stylesheet" href="checkin.css">
-	
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
-	<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 	
 	<script type="text/javascript">
 			
@@ -39,11 +43,11 @@
 	
 	<style>
 		body{
-			background-color: white/*white*/;
-			background-image: url("https://media.discordapp.net/attachments/471733770198974484/474642353186013234/Login_BG.png");
+			
+			background-image: url("resources/images/checkin_index.png");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
-			background-position: center;
+			background-position: center botton;
 		}
 		.section_content{
 			margin: auto;
@@ -62,11 +66,8 @@
 			
 		}
 		header{
-			/*border-style: solid;
-			border-width: 2px;
-			border-top-width: 0;
-			border-color: #004837;
-			margin-top: 5%;**/
+			
+			 background-color: white;
 		}
 		.welcome, .to, .logo{
 			margin-right: 2%;
@@ -74,7 +75,7 @@
 		
 		.btn_string{
 			padding-left: 5%;
-			font-size: 30%;
+			font-size: 50%;
 		}
 
 		#checkout_btn{
@@ -90,16 +91,7 @@
 			min-height: 100px;
 		}
 		
-		@media screen and (min-width: 480px){
-			body{
-			background-color: white/*white*/;
-			background-image: url("https://media.discordapp.net/attachments/471733770198974484/474642353186013234/Login_BG.png");
-			background-size: 100% auto;
-			background-repeat: no-repeat;
-			background-position: center;
-			}
-		
-		}
+
 	</style>
 	
 </head>
@@ -117,7 +109,7 @@
 				  <span class="word welcome">e </span>
 				  <span class="word to">To </span>
 				  <span class="word logo">
-				  	<img src="https://cdn.discordapp.com/attachments/471595089777655808/472189472994492416/logo.png"/> 
+				  	<img src="resources/images/logo.png"/> 
 				  </span>
 				  <span class="word ">P </span> 
 				  <span class="word ">h </span>
@@ -137,7 +129,7 @@
 		
 			<form action="/Phoenix_Resource_Management_System/registration" class="card section_content text-center" id="check_in_block">
 				<button  class="btn btn-lg btn-success btn-block text-center main_btn"  id="checkin_btn">
-					<span class="fas fa-sign-in-alt fa-5x"><h5 class="btn_string">Check in</h5></span>
+					<span class="fas fa-sign-in-alt fa-2x"><h5 class="btn_string">Check in</h5></span>
 					
 				</button>
 				
@@ -146,7 +138,7 @@
 			<form action="/Phoenix_Resource_Management_System/" class="card section_content text-center" >
 				
 				<button  class="btn btn-lg btn-danger btn-block text-center main_btn" id="checkout_btn">
-					<span class="fas fa-sign-out-alt fa-5x text-center"><h5 class="btn_string">Check out</h5></span>			
+					<span class="fas fa-sign-out-alt fa-2x text-center"><h5 class="btn_string">Check out</h5></span>			
 					
 			    </button>
 					
@@ -155,7 +147,5 @@
 		</div>
 	</section>
 
-	<footer>
-	</footer>
 </body>
 </html>
