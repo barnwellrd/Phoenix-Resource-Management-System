@@ -82,7 +82,7 @@
 				
 			</form>
 			
-			<form action="/Phoenix_Resource_Management_System/Visitor/CheckOutForm" class="card section_content text-center" >
+			<form action="/Phoenix_Resource_Management_System/Visitor/COForm" class="card section_content text-center" >
 				
 				<button  class="btn btn-lg btn-danger btn-block text-center main_btn" id="checkout_btn">
 					<span class="fas fa-sign-out-alt fa-2x text-center"><h5 class="btn_string">Check out</h5></span>			

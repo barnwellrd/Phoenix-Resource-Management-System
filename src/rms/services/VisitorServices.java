@@ -98,22 +98,26 @@ public class VisitorServices {
 			if(new rms.queries.VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
 				return "visitorHome";
 			else
-					return "visitorCheckOutForm";
+					return "visitorCOForm";
 		} else {
 			String[] splited = name.split("\\s+");
 			if(splited == null || splited.length != 2)
-				return "visitorCheckOutForm";
+				return "visitorCOForm";
 			else 
 				if(new rms.queries.VisitorTracking().checkoutUsingFullName(name) > 0)
 				return "visitorHome";
 			else
-				return "visitorCheckOutForm";
+				return "visitorCOForm";
 		}
 	}
 	
-	@RequestMapping(value="/Visitor/CheckOutForm")
+	@RequestMapping(value="/Visitor/COForm")
 	public String insertFormService(){
-		return "visitorCheckOutForm";
+		return "visitorCOForm";
 		
 	}
+	
+
+	
+	
 }
