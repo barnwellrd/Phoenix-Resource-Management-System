@@ -5,6 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>Register Now!</title>
+
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
@@ -17,10 +18,29 @@
 <body class="container" >
 	<header class="text-center">
 		
-		 <div id="title">
-		 	<h1> Register to PRMS Services! </h1>
-		 </div>
-		 
+		 <div class="ml15 pull-center">
+				  
+				  <h1>
+					  <span class="word">W </span> 
+					  <span class="word">e </span> 
+					  <span class="word">l </span>
+					  <span class="word">c </span>
+					  <span class="word">o </span>
+					  <span class="word">m </span>
+					  <span class="word welcome">e </span>
+					  <span class="word to">To </span>
+					  <span class="word ">P </span> 
+					  <span class="word ">h </span>
+					  <span class="word ">o </span>
+					  <span class="word state">e </span>
+					  <span class="word ">n </span>
+					  <span class="word ">i </span>
+					  <span class="word ">x</span>
+				  </h1>
+				  <p class="word logo pull-center">
+				  	<img src="../resources/images/logo.png"/> 
+				  </p>
+				</div>
 		 <div id="next_prev_btn">
 			 	
 			 	<a class=" btn btn-md btn-success pull-left" id="fa_left_btn" >

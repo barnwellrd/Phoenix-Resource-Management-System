@@ -31,3 +31,9 @@ section{
 	background-color: white;
 	color:#004837;
 }
+
+
+.welcome, .to, .logo{
+	margin-right: 2%;
+}
+		
