@@ -15,7 +15,7 @@ public class VisitorTracking {
 	}
 	
 	public int checkoutUsingFullName(String fullName){
-		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE first_name||' '||last_name = ?",fullName);
+		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE upper(first_name||' '||last_name) = upper(?)",fullName);
 	}
 	
 	public int checkoutUsingFirstAndLast(String firstName, String lastName){
@@ -24,6 +24,10 @@ public class VisitorTracking {
 	
 	public int checkoutUsingBadgeID(String badgeID){
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE badge_id = ?",badgeID);
+	}
+	
+	public int checkoutUsingPhone(String phone){
+		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE phone = ? AND has_checked_out = 0",phone);
 	}
 	
 }
