@@ -27,7 +27,7 @@ public class FeatureQueries {
 
 			@Override
 			public FeatureNameAndQuantity mapRow(ResultSet result, int arg1) throws SQLException {
-				return new FeatureNameAndQuantity(result.getString(0), result.getInt(1));
+				return new FeatureNameAndQuantity(result.getString(1), result.getInt(2));
 			}
 
 		}
