@@ -31,6 +31,26 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 
 <title>Login</title>
+
+<script>
+		/** Alert for incorrect username & password for login **/
+		function validateForm(){
+			var un = document.loginform.userName.value;
+			var pw = document.loginform.password.value;
+ 			var username = "username";
+ 			var password ="password";
+ 			if((un == username) && (pw == password)){
+ 				return true;
+ 			}
+ 			else {
+ 				alert("Login was unsucesseful, please check that you entered a valid username & password!");
+ 				return false;
+ 			}
+		}
+		
+</script>
+
+
 </head>
 
 
@@ -47,7 +67,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      <p class="message">Already registered? <a href="#">Sign In</a></p>
 	    </form>
 	      
-	 <form action="loginOnUserName" method="post">
+	 <form action="loginOnUserName" name="loginform" method="post"  onSubmit="validateForm()">
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	    <input id="email" type="text" class="form-control" name="userName" placeholder="userName" value='${user.getUserName()}'>
@@ -64,7 +84,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	   
 	    <input type="submit" value="login"/>
 	    </form>
-	<!--   <button action> <span class="glyphicon glyphicon-log-in">  login</span></button>-->
 	      <p class="message">Not registered? <a href="#">Create an account</a></p>
 	      <br>
 	        <img src="resources/images/syntrans.png" alt="logo" style="height:50%; width:50%; padding-bottom:60px; "> 
