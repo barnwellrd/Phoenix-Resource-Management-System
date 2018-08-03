@@ -19,12 +19,12 @@
 	<div class="container container center-block" style="padding:150px;">
   <form action="CheckOut" method="post" style="background-color:white; padding:50px; border-style:solid;border-color: grey;border-radius: 5px;">
     <div class="form-group">
-      <input type="text" class="form-control text-center" name="name" value="Enter Name" style="border-radius: 5px;">
+      <input type="text" class="form-control text-center" name="name" placeholder="Enter Name" style="border-radius: 5px;">
     </div>
 
     <h3 class="text-center">OR</h3>
     <div class="form-group">
-      <input type="text" class="form-control text-center" name="bid" value="Enter Badge ID" style="border-radius: 5px;">
+      <input type="text" class="form-control text-center" name="bid" placeholder="Enter Badge ID" style="border-radius: 5px;">
     </div>
     <br>
     <div class="form-group">      
