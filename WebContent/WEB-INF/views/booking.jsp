@@ -297,7 +297,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
 					</div>
 
-					<!-- To tme -->
+					<!-- To time -->
 					<div class="input-group">
 						<div class="input-group-addon">
 							<span class='glyphicon glyphicon-time'></span> <span
@@ -315,31 +315,31 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="M" value="Monday"> M
+							<input type="checkbox" id="d0" value="Monday"> M
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="Tu" value="Tuesday"> Tu
+							<input type="checkbox" id="d1" value="Tuesday"> Tu
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="W" value="Wednesday"> W
+							<input type="checkbox" id="d2" value="Wednesday"> W
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="Th" value="Thursday"> Th
+							<input type="checkbox" id="d3" value="Thursday"> Th
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="F" value="Friday"> F
+							<input type="checkbox" id="d4" value="Friday"> F
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="Sa" value="Saturday"> Sa
+							<input type="checkbox" id="d5" value="Saturday"> Sa
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="Su" value="Sunday"> Su
+							<input type="checkbox" id="d6" value="Sunday"> Su
 						</div>
 					</div>
 
@@ -425,11 +425,33 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								$("#addEventByWeekModal  #room").val(name);
 								$("#addEventByWeekModal").modal("show");
 							} else if(viewType === "agendaDay"){
+								var currentDay = startDate.day() - 1;
+								if(currentDay < 0){
+									currentDay = 6;
+								}
+								
+								for(var i = 0; i < 7; i++){
+									// Disable and uncheck previous days
+									if(i < currentDay){
+										$("#d" + i).attr("disabled", true);
+										$("#d" + i).prop("checked", false);
+									// Enable uncheck future days
+									} else if(i > currentDay){
+										$("#d" + i).attr("disabled", false);
+										$("#d" + i).prop("checked", false);
+									// Check and disable current day
+									} else {
+										$("#d" + i).prop("checked", true);
+										$("#d" + i).attr("disabled", true);
+									}
+								}
+								
+								
 								$("#addEventByDayModal  #date").val($.fullCalendar.formatDate(startDate, "YYYY-MM-DD"));
 								$("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
 								$("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));	
 								$("#addEventByDayModal").modal("show");	
-								$("#addEventByDayModal  #room").val(name);
+								$("#addEventByDayModal  #room").val(name);								
 							}
 						},
 						eventClick : function(calEvent, jsEvent, view) {
@@ -668,15 +690,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var timeTo = $("#addEventByDayModal #timeTo").val();
 	          var timeFrom = $("#addEventByDayModal #timeFrom").val();
 	          var title = $("#addEventByDayModal #room").val();
-	          var resId = ($("iframe").contents().find(
-	            "#resourceId").html());
-	          var m = $("#addEventByDayModal #M").prop("checked");
-	          var tu = $("#addEventByDayModal #Tu").prop("checked");
-	          var w = $("#addEventByDayModal #W").prop("checked");
-	          var th = $("#addEventByDayModal #Th").prop("checked");
-	          var f = $("#addEventByDayModal #F").prop("checked");
-	          var sa = $("#addEventByDayModal #Sa").prop("checked");
-	          var su = $("#addEventByDayModal #Su").prop("checked");
+	          var resId = $("#pageResourceId").val();
+	          var m = $("#addEventByDayModal #d0").prop("checked");
+	          var tu = $("#addEventByDayModal #d1").prop("checked");
+	          var w = $("#addEventByDayModal #d2").prop("checked");
+	          var th = $("#addEventByDayModal #d3").prop("checked");
+	          var f = $("#addEventByDayModal #d4").prop("checked");
+	          var sa = $("#addEventByDayModal #d5").prop("checked");
+	          var su = $("#addEventByDayModal #d6").prop("checked");
 	          var repeats = [m, tu, w, th, f, sa, su];
 
 	          console.log(date);
@@ -684,57 +705,26 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          console.log(timeFrom);
 	          console.log(title);
 	          console.log(resId);
-	          console.log(repeats);
+	          console.log("Here" + JSON.stringify(repeats));
 
 	          $.ajax({
 	            url: "addEvent",
-	            success: function (result) {
-	              console.log(result);
+	            success: function () {
+		              $.ajax({
+			                url: "getBookingsAsTableByResourceId",
+			                dataType: 'html',
+			                success: function (result) {
+				            	 //remove events from the calendar and rerender with the ajax result
+				                $("#dispCal").fullCalendar('removeEvents');
+				                calRender(result);
+				            },
+							data:{
+								"resourceId":resId
+							},
+			                eventLimit: true, // allow "more" link when too many events
 
-	              //fields contains a bookings object comma seperated fields 
-	              var fields = result.split(",");
-
-	              var start = fields[4].trim().replace(
-	                "bookedStartTime=", "");
-	              var end = fields[5].trim().replace(
-	                "bookedEndTime=", "");
-	              start = start.replace(" ", "T");
-	              end = end.replace(" ", "T");
-
-	              var title = fields[6];
-
-	              var title = fields[7];
-
-	              var id = fields[8];
-
-	              //change bg color depending on type of resource
-	          if (title.toLowerCase().includes("scrum"))
-	            newEvent[3] = "FireBrick";
-	          else if (title.toLowerCase().includes("conference"))
-	            newEvent[3] = "DarkCyan";
-	          else if (title.toLowerCase().includes("board"))
-	            newEvent[3] = "OrangeRed";
-	          else if (title.toLowerCase().includes("rec"))
-	            newEvent[3] = "Chocolate";
-	          else if (title.toLowerCase().includes("train"))
-	            newEvent[3] = "OliveDrab";
-	          else if (title.toLowerCase().includes("break"))
-	            newEvent[3] = "SlateBlue";
-
-	              //create event object to place on the calendar
-	              var newEvent = {
-	                id: id,
-	                title: title,
-	                start: start,
-	                end: end,
-	                backgroundColor: backgroundColor
-	              };
-
-	              //put the event on the calendar.
-	              $("#dispCal").fullCalendar(
-	                'renderEvent', newEvent, true);
-
-	            },
+			              });
+			            },
 	            fail: function (result) {
 	              console.log("Failed to add...");
 	              console.log(result);
@@ -747,7 +737,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              "title": title,
 	              "userId":"101",
 	              "resourceId": resId,
-	              "repeats": repeats
+	              "repeats": JSON.stringify(repeats),
+	              "type": "day"
 	            }
 	          });
 
@@ -783,10 +774,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	                url: "getBookingsAsTableByResourceId",
 	                dataType: 'html',
 	                success: function (result) {
-	                	
-		               $("#dispCal").fullCalendar('removeEvents');
-	                  calRender(result);
-	                },
+		            	 //remove events from the calendar and rerender with the ajax result
+		                $("#dispCal").fullCalendar('removeEvents');
+		                calRender(result);
+		            },
 					data:{
 						"resourceId":resId
 					},
@@ -802,6 +793,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					"title" : title,
 					"resourceId" : resId,
 					"repeats": repeats,
+					"type" : "week"
 					"userId":userId
 				}
 	          });

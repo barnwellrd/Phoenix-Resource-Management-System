@@ -136,6 +136,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		String resourceId = request.getParameter("resourceId");
+		String type = request.getParameter("type");
 		int userId = Integer.parseInt(request.getParameter("userId"));
 		
 		System.out.println(date);
@@ -153,33 +154,67 @@ public class MyServices {
 
 	   	
 	   	// Check the number of repeats
-	   	int repeats = Integer.parseInt(request.getParameter("repeats"));
-	   	
-	   	System.out.println("Weekly repeats: " + repeats);
-	   	for(int i = 0; i < repeats + 1; i++) {
-	   		// Get the start timestamp
+	   	if(type.equals("week")) {
+	   		int repeats = Integer.parseInt(request.getParameter("repeats"));
+	   
+	   		System.out.println("Weekly repeats: " + repeats);
+		   	for(int i = 0; i < repeats + 1; i++) {
+		   		// Get the start timestamp
+		   		Calendar cal = Calendar.getInstance();
+		   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		   		cal.add(Calendar.WEEK_OF_MONTH, i);
+		   		Timestamp start = new Timestamp(cal.getTimeInMillis());
+		   		
+		   		// Get the stop time stamp
+		   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		   		cal.add(Calendar.WEEK_OF_MONTH, i);
+		   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+		   			   		
+		   		Bookings booking = new Bookings();
+		   		booking.setIsActive(1);
+		   		booking.setBookedStartTime(start);
+		   		booking.setBookedEndTime(stop);
+		   		booking.setResourceId(Integer.parseInt(resourceId));
+		   		booking.setUserId(101);
+		   		booking.setDescription("An event");
+		   	
+		   		
+		   		System.out.println(booking);
+		   		new BookingsJdbcTemplate().insert(booking);
+		   	}
+	   	} else {
+	   		// Parse the repeat array
+	   		String str = request.getParameter("repeats");
+	   		str = str.substring(1, str.length() - 1);
+	   		String[] split = str.split(",");
+	   		
+	   		// Make a booking for each day of the week checked
 	   		Calendar cal = Calendar.getInstance();
-	   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   		cal.add(Calendar.WEEK_OF_MONTH, i);
-	   		Timestamp start = new Timestamp(cal.getTimeInMillis());
-	   		
-	   		// Get the stop time stamp
-	   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   		cal.add(Calendar.WEEK_OF_MONTH, i);
-	   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
-	   			   		
-	   		Bookings booking = new Bookings();
-	   		booking.setIsActive(1);
-	   		booking.setBookedStartTime(start);
-	   		booking.setBookedEndTime(stop);
-	   		booking.setResourceId(Integer.parseInt(resourceId));
-	   		booking.setUserId(userId);
-	   		booking.setDescription("An event");
-	   	
-	   		
-	   		System.out.println(booking);
-	   		new BookingsJdbcTemplate().insert(booking);
-	   	}	   			
+	   		for(int i = 0; i < split.length; i++){
+	   			cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
+	   			if(Boolean.parseBoolean(split[i])){
+	   				// Get the start timestamp
+			   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+			   		cal.add(Calendar.DAY_OF_WEEK, i);
+			   		Timestamp start = new Timestamp(cal.getTimeInMillis());
+			   		
+			   		// Get the stop time stamp
+			   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+			   		cal.add(Calendar.DAY_OF_WEEK, i);
+			   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+			   		
+			   		Bookings booking = new Bookings();
+			   		booking.setIsActive(1);
+			   		booking.setBookedStartTime(start);
+			   		booking.setBookedEndTime(stop);
+			   		booking.setResourceId(Integer.parseInt(resourceId));
+			   		booking.setUserId(101);
+			   		booking.setDescription("An event");
+			   		System.out.println(booking);
+			   		new BookingsJdbcTemplate().insert(booking);
+	   			}
+	   		}
+	   	}	   	   				   	
 	}
 	
 	@RequestMapping(value="/getAllBookingsAsTable")
