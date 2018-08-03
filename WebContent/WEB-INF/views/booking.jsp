@@ -39,7 +39,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 	<div class="container" id="allPage">
 
+		<!-- Default Values provided. these are the id and name of the currently selected resource
+			updated in the select event of the fullCalendar -->
 		<p id="pageResourceId" style="display: none">1001</p>
+		<p id="pageResourceName" style="display: none">SCRUM 1</p>
 
 		<nav class="navbar navbar-default navbar-static-top">
 			<div class="container-fluid">
@@ -407,8 +410,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						},
 						// Handle creation of an event
 						select : function(startDate, endDate) {	
+							
 							// Find the room picked
-							var name = ($("iframe").contents().find("#roomName").html());									
+							var name = $("#pageResourceName").val();									
 							
 							// Fill the views by form type
 							var viewType = $('#dispCal').fullCalendar('getView').name;
@@ -469,8 +473,21 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          else
 	        	  resId = possibleId2;
 	          
+	          //need two in case user clicks on child element vs entire card. 
+	          var possibleName = $(event.target.parentElement).contents().find(".filterResourceName").text();
+	          var possibleName2 = $(event.target.parentElement).contents().siblings(".filterResourceName").text();
+
+	          var name = "";
+	          
+	          //get the id that was actually there. 
+	          if(possibleName)
+	        	  name = possibleName;
+	          else
+	        	  name = possibleName2;
+	          
 	          //set the page resource Id attribute to be the selected id. 
 			  $("#pageResourceId").val(resId);
+			  $("#pageResourceName").val(name);
 	          
 	          //This ajax call filters the calendar by the exact resourceId that was just clicked by the user. 
 	          $.ajax({
@@ -714,7 +731,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            url: "addEvent",
 	            success: function () {
 	              $.ajax({
-	                url: "getAllBookingsAsTable",
+	                url: "getBookingsAsTableByResourceId",
 	                dataType: 'html',
 	                success: function (result) {
 
