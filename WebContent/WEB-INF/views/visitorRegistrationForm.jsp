@@ -29,7 +29,7 @@
 				<input type="text" class="form-control" name="visitorVisitingName" placeholder="Host"/>
 			</div>
 			<div class="formgroup">
-				<textarea class="form-control" rows="3" name="visitorPurpose" placeholder="Reason for visit" required></textarea>
+				<textarea class="form-control" rows="3" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
 			</div>
 			<label>Company:</label>
 			<br>
