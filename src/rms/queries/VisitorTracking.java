@@ -1,8 +1,15 @@
 package rms.queries;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+
+import rms.mapper.VisitorsMapper;
+import rms.model.Visitors;
 
 public class VisitorTracking {
 	private ApplicationContext context;
@@ -15,6 +22,7 @@ public class VisitorTracking {
 	}
 	
 	public int checkoutUsingFullName(String fullName){
+		//The full name must be passed in the format 'First Last', i.e. 'Jack Doe'.
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE first_name||' '||last_name = ?",fullName);
 	}
 	
@@ -26,4 +34,18 @@ public class VisitorTracking {
 		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE badge_id = ?",badgeID);
 	}
 	
+	
+	public List<Visitors> getVisitorsFromToday()
+	{
+		//Gets visitors from the current day.
+		String myTime = new SimpleDateFormat("MM/dd/yyyy").format(new Date());
+		return jtemp.query("SELECT * FROM visitors WHERE trunc(CHECKED_IN_TIME) = TO_DATE(?,'mm/dd/yyyy')", new VisitorsMapper(), myTime);
+	}
+	
+	public List<Visitors> getVisitorsFromDay(String day)
+	{
+		//Gets the visitors from a selected day, passed as a string.
+		//The string must be passed in the format 'mm/dd/yyyy', i.e. '11/27/2018'.
+		return jtemp.query("SELECT * FROM visitors WHERE trunc(CHECKED_IN_TIME) = TO_DATE(?,'mm/dd/yyyy')", new VisitorsMapper(), day);
+	}
 }
