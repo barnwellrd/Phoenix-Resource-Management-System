@@ -75,6 +75,22 @@ public class BookingsJdbcTemplate implements JdbcTemplateInterface<Bookings>{
 		
 		return BookingList;
 	}
+	
+	public List<Bookings> getAllByResourceType(int ResourceTypeId){
+		
+		List<Bookings> BookingList = jtemp.query("SELECT * FROM Bookings b, Resources r where "
+				+ "resource_type_id=? AND b.resource_id = r.resource_id", new BookingsMapper(), ResourceTypeId);
+		
+		return BookingList;
+	}
+	
+	public List<Bookings> getAllByResourceId(int ResourceId){
+		
+		List<Bookings> BookingList = jtemp.query("SELECT * FROM Bookings b where "
+				+ "resource_id=? ", new BookingsMapper(), ResourceId);
+		
+		return BookingList;
+	}
 
 
 }

@@ -70,8 +70,7 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 
 	@Override
 	public Users search(int userId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
-		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_id = ? ", new UsersMapper(), userId);
-		
+		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_id = ? ", new UsersMapper(), userId);	
 		return user;
 	}
 
