@@ -22,7 +22,7 @@
 <spring:url value="/resources/css/all.css" var="awesome" />
 <link rel="stylesheet" href="${awesome}" />
 
-<spring:url value="/resources/css/bootstrap.css" var="bootstrap" />
+<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
 
 
@@ -85,7 +85,7 @@
 		</div>
 		
 		<form action="AddSearchResources" style="text-align:center">
-			<button type="submit">Go Back</button>
+			<button id="backButton" type="submit">Go Back</button>
 		</form>
 	</div>
 

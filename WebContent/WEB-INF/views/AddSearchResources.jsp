@@ -18,7 +18,7 @@
 <html>
 <head>
 <meta name="viewport" http-equiv="Content-Type"
-	content="text/html; charset=ISO-8859-1 width=device-width, initial-scale=1">
+	content="charset=ISO-8859-1 width=device-width, initial-scale=1">
 	
 
 <link rel="stylesheet"
@@ -30,7 +30,7 @@
 <spring:url value="/resources/css/all.css" var="awesome" />
 <link rel="stylesheet" href="${awesome}" />
  
-<spring:url value="/resources/css/bootstrap.css" var="bootstrap" />
+<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
 
 

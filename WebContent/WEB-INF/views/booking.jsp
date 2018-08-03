@@ -65,7 +65,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
-						<li><a href="#">Make a Booking</a></li>
 						<li><a href="#">Account</a></li>
 						<li><a href="#">Add A Resource</a></li>
 						<li><a href="logout">Log Out</a></li>
@@ -734,10 +733,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	                url: "getBookingsAsTableByResourceId",
 	                dataType: 'html',
 	                success: function (result) {
-
+	                	
+		               $("#dispCal").fullCalendar('removeEvents');
 	                  calRender(result);
 	                },
-
+					data:{
+						"resourceId":resId
+					},
 	                eventLimit: true, // allow "more" link when too many events
 
 	              });
@@ -764,7 +766,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			    console.log("Failed get all service");
 			    console.log(result);
 			  }
-			});
+		});
 	      
 	      
 	      });
