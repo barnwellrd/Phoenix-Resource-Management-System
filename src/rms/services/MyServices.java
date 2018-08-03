@@ -290,18 +290,6 @@ public class MyServices {
 		return "displayRoom";
 	}
 	
-	@RequestMapping(value="/LocationResources")
-	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
-		System.out.println("=-----------------Search Location Resources");
-		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
-		int locationId=Integer.parseInt(request.getParameter("location"));
-		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
-		System.out.println(locationId+" l "+resourceTypeId);
-		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
-		map.addAttribute("alldata", allResources);
-		System.out.println("=-----------------helloo service got executed");
-		return "FilterResources"; //view name
-	}
 	@RequestMapping(value="/AddSearchResources")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------searchAllResources1");
@@ -314,5 +302,20 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "AddSearchResources"; //view name
 	}
+	
+	@RequestMapping(value="/LocationResources")
+	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
+		System.out.println("=-----------------Search Location Resources");
+		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
+		int locationId=Integer.parseInt(request.getParameter("location"));
+		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
+		System.out.println(locationId+" l "+resourceTypeId);
+		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+		map.addAttribute("alldata", allResources);
+		System.out.println("=-----------------helloo service got executed");
+		return "FilterResources"; //view name
+	}
+	
+
 	
 }

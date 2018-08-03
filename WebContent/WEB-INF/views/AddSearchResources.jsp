@@ -42,7 +42,7 @@
 </head>
 <body>
 	<div class="container">
-		<form action="LocationResources/" method="post">
+		<form action="LocationResources" method="post">
 			<fieldset id="fieldset1">
 				<legend>Location</legend>
 				<div>

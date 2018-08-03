@@ -387,7 +387,24 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							end : moment().startOf('day').add(6,
 									'months'),
 						},
-						
+						eventMouseover: function(calEvent, jsEvent) {
+						    var tooltip = '<div class="tooltipevent" style="background:white;width:150px;height:25px;position:absolute;z-index:10001;">' + "Click to edit or delete" + '</div>';
+						    var $tooltip = $(tooltip).appendTo('body');
+
+						    $(this).mouseover(function(e) {
+						        $(this).css('z-index', 10000);
+						        $tooltip.fadeIn('500');
+						        $tooltip.fadeTo('10', 1.9);
+						    }).mousemove(function(e) {
+						        $tooltip.css('top', e.pageY + 10);
+						        $tooltip.css('left', e.pageX + 20);
+						    });
+						},
+
+						eventMouseout: function(calEvent, jsEvent) {
+						    $(this).css('z-index', 8);
+						    $('.tooltipevent').remove();
+						},
 						// Handle creation of an event
 						select : function(startDate, endDate) {	
 							// Find the room picked
@@ -683,10 +700,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var timeTo = $("#timeTo").val();
 	          var timeFrom = $("#timeFrom").val();
 	          var title = $("#room").val();
-	          var resId = ($("iframe").contents().find(
-	            "#resourceId").html());
+	          var resId = $("#pageResourceId").val();
 	          var repeats = $("#weeklyRep").val();
-
 
 	          console.log(date);
 	          console.log(timeTo);

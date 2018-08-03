@@ -82,7 +82,8 @@
 				</div>
 			</div>
 		</div>
-		<form action="/AddSearchResources" style="text-align:center">
+		
+		<form action="AddSearchResources" style="text-align:center">
 			<button type="submit">Go Back</button>
 		</form>
 	</div>
