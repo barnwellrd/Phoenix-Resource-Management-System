@@ -3,15 +3,44 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register Now!</title>
-<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-<script src="../resources/js/jquery.min.js"></script>
-<script src="../resources/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Register Now!</title>
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+	<script src="../resources/js/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	
+	<style type="text/css">
+		header{
+			margin-top: 2%;
+			margin-bottom: 7%;
+		}
+		section{
+			margin-top: 2%;
+		}
+		
+		#next_prev_btn, #title{
+			margin-bottom: 2%;
+		}
+		
+	</style>
 </head>
-<body>
-	<div class="container">
-		<h1> Register to PRMS Services! </h1>
+
+
+<body class="container" >
+	<header class="text-center">
+		
+		 <div id="title">
+		 	<h1> Register to PRMS Services! </h1>
+		 </div>
+		 
+		 <div id="next_prev_btn">
+		 	<a type="submit" class="btn btn-md btn-success pull-left" value="Register">Prev</a>	
+			<button type="submit" class="btn btn-md btn-success pull-right" value="Register">Next</button>	
+		 </div>
+		 
+	</header>
+	
+	<section >
 		<form action ="RegisterVisitor" method="post">
 			<div class="form-group">
 				<input type="text" class="form-control" name="visitorFirstName" placeholder="First Name" required/>
@@ -31,6 +60,7 @@
 			<div class="formgroup">
 				<textarea class="form-control" rows="3" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
 			</div>
+			<br>
 			<label>Company:</label>
 			<br>
 			<div class="form-group form-inline">
@@ -48,10 +78,9 @@
 				</label>
 				<input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Company">
 			</div>
-			<br>
-			<button type="submit" class="btn btn-lg btn-success pull-right" value="Register">Check In</button>	
+		
 		</form>
-	</div>
+	</section>
 	
 	<script>
 		$('#other').hide();
