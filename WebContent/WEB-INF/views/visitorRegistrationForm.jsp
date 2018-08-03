@@ -3,15 +3,61 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Register Now!</title>
-<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-<script src="../resources/js/jquery.min.js"></script>
-<script src="../resources/js/bootstrap.min.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+	<title>Register Now!</title>
+
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+	<script src="../resources/js/jquery.min.js"></script>
+	<script src="../resources/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
+    <link rel="stylesheet" href="../resources/fontawesome/css/all.css">
+	
 </head>
-<body>
-	<div class="container">
-		<h1> Register to PRMS Services! </h1>
+
+
+<body class="container" >
+	<header class="text-center">
+		
+		 <div class="ml15 pull-center">
+				  
+				  <h1>
+					  <span class="word">W </span> 
+					  <span class="word">e </span> 
+					  <span class="word">l </span>
+					  <span class="word">c </span>
+					  <span class="word">o </span>
+					  <span class="word">m </span>
+					  <span class="word welcome">e </span>
+					  <span class="word to">To </span>
+					  <span class="word ">P </span> 
+					  <span class="word ">h </span>
+					  <span class="word ">o </span>
+					  <span class="word state">e </span>
+					  <span class="word ">n </span>
+					  <span class="word ">i </span>
+					  <span class="word ">x</span>
+				  </h1>
+				  <p class="word logo pull-center">
+				  	<img src="../resources/images/logo.png"/> 
+				  </p>
+				</div>
+		 <div id="next_prev_btn">
+			 	
+			 	<a href="http://localhost:2343/Phoenix_Resource_Management_System/Visitor/Home" class=" btn btn-md btn-success pull-left" id="fa_left_btn" >
+			 		<span class="fas fa-angle-left  fa-4x text-center"></span>
+			 	</a>
+			 		
+				<form action="RegisterVisitor" method="post">
+					<a type="submit" value="register" class=" btn btn-md btn-success pull-right" id="fa_right_btn">
+			 			<span class="fas fa-angle-right  fa-4x text-center"></span>
+			 		</a>
+			 	</form>
+			 			 
+		 	</div>
+		 
+	</header>
+	
+	<section >
 		<form action ="RegisterVisitor" method="post">
 			<div class="form-group">
 				<input type="text" class="form-control" name="visitorFirstName" placeholder="First Name" required/>
@@ -31,6 +77,7 @@
 			<div class="formgroup">
 				<textarea class="form-control" rows="3" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
 			</div>
+			<br>
 			<label>Company:</label>
 			<br>
 			<div class="form-group form-inline">
@@ -48,10 +95,9 @@
 				</label>
 				<input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Company">
 			</div>
-			<br>
-			<button type="submit" class="btn btn-lg btn-success pull-right" value="Register">Check In</button>	
+		
 		</form>
-	</div>
+	</section>
 	
 	<script>
 		$('#other').hide();

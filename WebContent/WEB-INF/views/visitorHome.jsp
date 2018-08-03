@@ -45,27 +45,32 @@
 
 <body class="container-fluid text-center">
    
-	<header  class="container" id="title" style="rgba(225, 225, 225, 0)" >
-				<h2 class="ml15">
-				  <span class="word">W </span> 
-				  <span class="word">e </span> 
-				  <span class="word">l </span>
-				  <span class="word">c </span>
-				  <span class="word">o </span>
-				  <span class="word">m </span>
-				  <span class="word welcome">e </span>
-				  <span class="word to">To </span>
-				  <span class="word logo">
+	<header  class="container text-center" id="title" >
+				<div class="ml15 pull-center">
+				  
+				  <h1>
+					  <span class="word">W </span> 
+					  <span class="word">e </span> 
+					  <span class="word">l </span>
+					  <span class="word">c </span>
+					  <span class="word">o </span>
+					  <span class="word">m </span>
+					  <span class="word welcome">e </span>
+					  <span class="word to">To </span>
+					  <span class="word ">P </span> 
+					  <span class="word ">h </span>
+					  <span class="word ">o </span>
+					  <span class="word state">e </span>
+					  <span class="word ">n </span>
+					  <span class="word ">i </span>
+					  <span class="word ">x</span>
+				  </h1>
+				  <p class="word logo pull-center">
 				  	<img src="../resources/images/logo.png"/> 
-				  </span>
-				  <span class="word ">P </span> 
-				  <span class="word ">h </span>
-				  <span class="word ">o </span>
-				  <span class="word state">e </span>
-				  <span class="word ">n </span>
-				  <span class="word ">i </span>
-				  <span class="word ">x</span>
-				</h2>
+				  </p>
+				</div>
+				
+				 
 	</header>
 
 	<section class="container"> 
@@ -76,7 +81,7 @@
 		
 			<form action="/Phoenix_Resource_Management_System/Visitor/Registration" class="card section_content text-center" id="check_in_block">
 				<button  class="btn btn-lg btn-success btn-block text-center main_btn"  id="checkin_btn">
-					<span class="fas fa-sign-in-alt fa-2x"><h5 class="btn_string">Check in</h5></span>
+					<span class="fas fa-sign-in-alt fa-3x fa_icon"><h5 class="btn_string"><b>Check in</b></h5></span>
 					
 				</button>
 				
@@ -85,7 +90,7 @@
 			<form action="/Phoenix_Resource_Management_System/Visitor/COForm" class="card section_content text-center" >
 				
 				<button  class="btn btn-lg btn-danger btn-block text-center main_btn" id="checkout_btn">
-					<span class="fas fa-sign-out-alt fa-2x text-center"><h5 class="btn_string">Check out</h5></span>			
+					<span class="fas fa-sign-out-alt fa-3x text-center"><h5 class="btn_string"> <b>Check out</b></h5></span>			
 					
 			    </button>
 					
