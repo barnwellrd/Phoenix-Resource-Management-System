@@ -44,11 +44,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      <p class="message">Already registered? <a href="#">Sign In</a></p>
 	    </form>
 	      
-
 	 <form action="loginOnUserName" method="post">
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	    <input id="email" type="text" class="form-control" name="userName" placeholder="userName" value='${user.getUserName()}'>
+	  
 	  </div>
 	          <br>
 	  <div class="input-group">

@@ -88,7 +88,7 @@
 						<div class="col-xs-6 col-sm-4">
 							<div class="wrimagecard wrimagecard-topimage">
 								<div class="wrimagecard-topimage_header">
-									<h4>${allResources.getResourceName()}</h4>
+									<h4 class="filterResourceName">${allResources.getResourceName()}</h4>
 									<!-- Hidden tag that will provide the resource Id on the page -->
 									<p style="display:none" class="filterResourceId">${allResources.getResourceId()}</p>
 									<c:if

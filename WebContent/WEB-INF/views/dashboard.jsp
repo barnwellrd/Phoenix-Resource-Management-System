@@ -8,13 +8,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
     
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 
-
-
-
 <html lang="en">
 <head>
   <title>Syntel Resource Booking</title>
-
  
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -134,8 +130,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
      <a href="booking">  
   <div class="column">
      
-    <form action="booking">
-      <button type="submit">
     <div class="card" id="hi" style="width:400px; height:300px;">
       <p><i class="fa fa-user"></i></p>
       <h1>Book</h1>
