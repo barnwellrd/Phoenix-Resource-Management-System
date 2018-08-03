@@ -1,0 +1,48 @@
+body{
+			
+			background-image: url("resources/images/checkin_index.png");
+			background-size: 100% auto;
+			background-repeat: no-repeat;
+			background-position: center botton;
+		}
+		.section_content{
+			margin: auto;
+			margin-bottom: 5%;
+			
+		}
+		
+		.ml15{
+		}
+		section{
+			padding-top: 10%;
+		}
+		.section_block{
+			max-width: 50%;
+			min-height: 100%;
+			
+		}
+		header{
+			
+			 background-color: white;
+		}
+		.welcome, .to, .logo{
+			margin-right: 2%;
+		}
+		
+		.btn_string{
+			padding-left: 5%;
+			font-size: 50%;
+		}
+
+		#checkout_btn{
+			background-color: #004837;
+			color:#e85200;
+		}
+	    #checkin_btn{
+	    	background-color: #e85200;
+			color:#004837;
+		}
+		
+		.main_btn{
+			min-height: 100px;
+		}
