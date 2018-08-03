@@ -1,12 +1,11 @@
 package rms.services;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-
 import rms.queries.LoginQueries;
 
 
@@ -17,8 +16,7 @@ public class Services {
 	public String homeScreen() {
 		return "login";
 	}
-
-
+  
 	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
 		String userName = request.getParameter("userName");
@@ -47,13 +45,9 @@ public class Services {
 
 	}
 	
-	
 	@RequestMapping(value="/dashboard")
-	public String dashdash(){
-
+	public String dashBoard() {
 		return "dashboard";
-	}	
-	
-	
+	}
 	
 }
