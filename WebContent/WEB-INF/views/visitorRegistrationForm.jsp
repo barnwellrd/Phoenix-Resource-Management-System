@@ -8,21 +8,8 @@
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
 	
-	<style type="text/css">
-		header{
-			margin-top: 2%;
-			margin-bottom: 7%;
-		}
-		section{
-			margin-top: 2%;
-		}
-		
-		#next_prev_btn, #title{
-			margin-bottom: 2%;
-		}
-		
-	</style>
 </head>
 
 
