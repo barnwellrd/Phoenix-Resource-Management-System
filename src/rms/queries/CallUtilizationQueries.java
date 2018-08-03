@@ -5,9 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class CallUtilizationQueries {
-	public static void main(String[] args) {
-		
-	}
+
 	public Double callDailyUtilizationByResourceId(int resourceId, Date date)
     {		
         return new UtilizationQueries().dailyUtilizationByResourceId(resourceId, formatDate(date));		

@@ -22,17 +22,7 @@ public class UtilizationQueries
         this.context = new ClassPathXmlApplicationContext("spring-dao.xml");
         this.jtemp = (JdbcTemplate)context.getBean("jt");
 	}
-	public static void main(String args[]) {
-//		System.out.println(new UtilizationQueries().dailyUtilizationByResourceId(1002, "28-07-2018 00:00"));
-//		System.out.println(new UtilizationQueries().weeklyUtilizationByResourceId(1002, "22-07-2018 00:00", "29-07-2018 00:00"));
-//		System.out.println(new UtilizationQueries().monthlyUtilizationByResourceId(1002, "22-07-2018 00:00", "29-07-2018 00:00"));
-//		System.out.println(new UtilizationQueries().dailyUtilizationByResourceTypeId(1002, "28-07-2018 00:00"));
-//		System.out.println(new UtilizationQueries().weeklyUtilizationByResourceTypeId(1002, "22-07-2018 00:00", "29-07-2018 00:00"));
-//		System.out.println(new UtilizationQueries().monthlyUtilizationByResourceTypeId(1002, "22-07-2018 00:00", "29-07-2018 00:00"));
-		//System.out.println(new UtilizationQueries().dailyUtilizationForAllResources("28-07-2018 00:00"));
-		//System.out.println(new UtilizationQueries().weeklyUtilizationForAllResources("22-07-2018 00:00","29-07-2018 00:00"));
-		System.out.println(new UtilizationQueries().monthlyUtilizationForAllResources("22-07-2018 00:00","29-07-2018 00:00"));
-	}
+
 	public Double dailyUtilizationByResourceId(int resourceId, String date)
     {
         return jtemp.queryForObject("SELECT SUM(EXTRACT(hour from (BOOKED_END_TIME - BOOKED_START_TIME)))/8 FROM bookings" + 
