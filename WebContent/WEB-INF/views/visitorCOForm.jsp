@@ -16,24 +16,26 @@
 	<title>Check Out</title>
 </head>
 <body>
-	<div class="container container center-block" style="padding:150px;">
-  <form action="CheckOut" method="post" style="background-color:white; padding:50px; border-style:solid;border-color: grey;border-radius: 5px;">
-    <div class="form-group">
-      <input type="text" class="form-control text-center" name="name" placeholder="Enter Name" style="border-radius: 5px;">
-    </div>
-
-    <h3 class="text-center">OR</h3>
-    <div class="form-group">
-      <input type="text" class="form-control text-center" name="bid" placeholder="Enter Badge ID" style="border-radius: 5px;">
-    </div>
-    <br>
-    <div class="form-group">      
-       <button  class="btn btn-lg btn-danger btn-block text-center main_btn" id="checkout_btn">
-       		<span class="fas fa-sign-out-alt fa-5x text-center"><h5 class="btn_string">Check out</h5>
-       		</span>
-       	</button>          
-    </div>
-  </form>
-</div>
+	<div class="container text-center">
+	  <h1>Visitor Checkout</h1>
+	</div>
+	<div class="container container center-block checkout-container">
+	  <form action="CheckOut" method="post" style="background-color:white; padding:50px; border-style:solid;border-color: grey;border-radius: 5px;">
+		<div class="form-group">
+	      <input type="text" class="form-control text-center" name="bid" placeholder="Enter Badge ID" style="border-radius: 5px;">
+	    </div>
+	    <h3 class="text-center">OR</h3>
+	    <div class="form-group">
+	      <input type="text" class="form-control text-center" name="phone" placeholder="Enter Phone" style="border-radius: 5px;">
+	    </div>
+	    <br>
+	    <div class="form-group">      
+	       <button  class="btn btn-lg btn-danger btn-block text-center main_btn" id="checkout_btn">
+	       		<span class="fas fa-sign-out-alt fa-5x text-center"><h5 class="btn_string">Check out</h5>
+	       		</span>
+	       	</button>          
+	    </div>
+	  </form>
+	</div>
 </body>
 </html>

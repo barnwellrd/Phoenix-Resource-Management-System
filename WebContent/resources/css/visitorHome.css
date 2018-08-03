@@ -1,9 +1,8 @@
 		body{
-			
 			background-image: url("../images/checkin_index.png");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
-			background-position: center botton;
+			background-position: bottom;
 		}
 		.section_content{
 			margin: auto;
@@ -22,8 +21,8 @@
 			
 		}
 		header{
-			
-			 background-color: rgba(255, 255, 255, 0);
+			background-color: rgba(255, 255, 255, 0);
+
 		}
 		.welcome, .to, .logo{
 			margin-right: 2%;

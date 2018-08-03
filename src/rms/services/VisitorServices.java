@@ -77,7 +77,7 @@ public class VisitorServices {
 		VisitorsJdbcTemplate vjt = new VisitorsJdbcTemplate();
 		vjt.insert(newVisitor);
 		
-		return "visitorErrorPage";
+		return "visitorHome";
 		
 		/*if(new VisitorsJdbcTemplate().insert(newVisitor) > 0) {
 			
@@ -91,20 +91,16 @@ public class VisitorServices {
 	
 	@RequestMapping(value="/Visitor/CheckOut")
 	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response){
-		String name = request.getParameter("name");
+		String phone = request.getParameter("phone");
 		String badgId = request.getParameter("bid");
 		
-		if(name == "Enter Name" || name == null) {
+		if(phone.equals("")) {
 			if(new rms.queries.VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
 				return "visitorHome";
 			else
-					return "visitorCOForm";
-		} else {
-			String[] splited = name.split("\\s+");
-			if(splited == null || splited.length != 2)
 				return "visitorCOForm";
-			else 
-				if(new rms.queries.VisitorTracking().checkoutUsingFullName(name) > 0)
+		} else {
+			if(new rms.queries.VisitorTracking().checkoutUsingPhone(phone) > 0)
 				return "visitorHome";
 			else
 				return "visitorCOForm";
