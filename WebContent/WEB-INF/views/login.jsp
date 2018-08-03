@@ -20,14 +20,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	
 	<link rel="stylesheet" href="${bootMin}"/>
 	<link rel="stylesheet" href="${loginCSS}"/>
-
-	
 	
 	<spring:url value="resources/js" var="JS"/>
 	
 	<script src="${JS}/jquery.js"></script>
 	<script src="${JS}/bootstrap.js"></script>
-	
 
 
 <title>Login</title>

@@ -38,6 +38,11 @@ public class MyServices {
 		return "login";
 	}
 	
+	@RequestMapping(value="/logout")
+	public String logout() {
+		return "login";
+	}
+	
 	@RequestMapping(value="/dashboard")
 	public String dashBoard() {
 		return "dashboard";

@@ -65,7 +65,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						<li><a href="#">Make a Booking</a></li>
 						<li><a href="#">Account</a></li>
 						<li><a href="#">Add A Resource</a></li>
-						<li><a href="login">Log Out</a></li>
+						<li><a href="logout">Log Out</a></li>
 					</ul>
 
 				</div>
@@ -79,7 +79,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					<div class="panel">
 						<div class="panel-body">
 
-							<iframe src="types"> </iframe>
+							<iframe src="AddSearchResources"> </iframe>
 
 						</div>
 					</div>
@@ -360,7 +360,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	$(document).ready(
 	    function () {
 
-
+			//the initial rendering of the full calendar. 
 			$('#dispCal').fullCalendar(
 					{
 						// Limit calendar to show only two months from now
@@ -419,23 +419,75 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							$("#changeEventModal").modal('show');
 						},
 						eventLimit : true, // allow "more" link when too many events
-					});
+					});//End fullCalendar initial render
 			    	
+			//on iframe load. 		
 	      $('iframe').load(function () {
 
+	    	  
+	    	//for clicking on cards of resources.   
 	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
-	          console.log(event.target);
-	          $(event.target).css('background-color', 'lightgrey');
+	        	
+	         //set all cards to not be highlighted.	
+	         //need to set all children of the card or they will highlight individually
+	          $("iframe").contents().find(".wrimagecard *").css('background-color', 'white');
+	          
+	          //set the clicked card to be highlighted
+	          //have to set siblings children and parent bc there are multiple elements in the cards like the title and icon. 
+	          //the user could have clicked any of the smaller elements. 
+	          $(event.target).css('background-color', '#99ff99');
+	          $(event.target.parentElement).css('background-color', '#99ff99');
+	          $(event.target.children).css('background-color', '#99ff99');
+	          $(event.target).siblings().css('background-color', '#99ff99');
+	          
+	          //need two in case user clicks on child element vs entire card. 
+	          var possibleId = $(event.target.parentElement).contents().find(".filterResourceId").text();
+	          var possibleId2 = $(event.target.parentElement).contents().siblings(".filterResourceId").text();
+
+	          var resId = "";
+	          
+	          //get the id that was actually there. 
+	          if(possibleId)
+	        	  resId = possibleId;
+	          else
+	        	  resId = possibleId2;
+	          
+	          //set the page resource Id attribute to be the selected id. 
+			  $("#pageResourceId").val(resId);
+	          
+	          //This ajax call filters the calendar by the exact resourceId that was just clicked by the user. 
+	          $.ajax({
+		              url: "getBookingsAsTableByResourceId",
+
+		              dataType: 'html',
+
+		              //pass the resource Id. 
+		              data: {
+		                "resourceId": resId
+		              },
+
+		              success: function (result) {
+								            	  
+		            	 //remove events from the calendar and rerender with the ajax result
+		                $("#dispCal").fullCalendar('removeEvents');
+		                calRender(result);
+
+		              },
+
+		              fail: function (result) {
+		                console.log("Failed get all by type service");
+		                console.log(result);
+		              }
+		            });
+
+	          		//the user can now make selections on the calendar. 
+		            $("#dispCal").fullCalendar('option', {
+		              selectable: true
+		            });
+				
 	        });
 
-	        //dont allow clicks on the child elements of the cards
-	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
-	          console.log(event.target);
-	          $(event.target.parentElement).css('background-color', 'lightgrey');
-	        });
-
-	        $(this).contents().find("input[name='type']").on('change',
-	          function (event) {
+	        $(this).contents().find("input[name='type']").on('change', function (event) {
 
 	            console.log("chose a type");
 	            var resId = ($('iframe').contents().find("input[name='type']:checked").val());
@@ -470,45 +522,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          });
 	      });
 
-	      $('iframe').load(function () {
-	        $(this).contents().find("input[name='room']").on(
-	          'change',
-	          function (event) {
+	    
 
-	            console.log("clicked next room");
 
-	            var resId = ($('iframe').contents().find("input[name='room']:checked").val());
-
-	            $.ajax({
-	              url: "getBookingsAsTableByResourceId",
-
-	              dataType: 'html',
-
-	              data: {
-	                "resourceId": resId
-	              },
-
-	              success: function (result) {
-
-	                $("#dispCal").fullCalendar('removeEvents');
-	                calRender(result);
-
-	              },
-
-	              fail: function (result) {
-	                console.log("Failed get all by type service");
-	                console.log(result);
-	              }
-	            });
-
-	            $("#dispCal").fullCalendar('option', {
-	              selectable: true
-	            });
-
-	            var resId = ($('iframe').contents().find("form").submit());
-
-	          });
-	      });
+	         
+	    
 
 	      $('iframe').load(function () {
 	        $(this).contents().find("#backButton").on('click',
@@ -519,7 +537,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	            $("#dispCal").fullCalendar('option', {
 	              selectable: false
 	            });
-
+	            
 	            $.ajax({
 	              url: "getAllBookingsAsTable",
 	              dataType: 'html',
@@ -610,24 +628,18 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              var id = fields[8];
 
 	              //change bg color depending on type of resource
-	              if (title.toLowerCase().includes(
-	                  "scrum"))
-	                backgroundColor = "Red";
-	              else if (title.toLowerCase().includes(
-	                  "conference"))
-	                backgroundColor = "Blue";
-	              else if (title.toLowerCase().includes(
-	                  "board"))
-	                backgroundColor = "Orange";
-	              else if (title.toLowerCase().includes(
-	                  "rec"))
-	                backgroundColor = "Yellow";
-	              else if (title.toLowerCase().includes(
-	                  "train"))
-	                backgroundColor = "Green";
-	              else if (title.toLowerCase().includes(
-	                  "break"))
-	                backgroundColor = "Purple";
+	          if (title.toLowerCase().includes("scrum"))
+	            newEvent[3] = "FireBrick";
+	          else if (title.toLowerCase().includes("conference"))
+	            newEvent[3] = "DarkCyan";
+	          else if (title.toLowerCase().includes("board"))
+	            newEvent[3] = "OrangeRed";
+	          else if (title.toLowerCase().includes("rec"))
+	            newEvent[3] = "Chocolate";
+	          else if (title.toLowerCase().includes("train"))
+	            newEvent[3] = "OliveDrab";
+	          else if (title.toLowerCase().includes("break"))
+	            newEvent[3] = "SlateBlue";
 
 	              //create event object to place on the calendar
 	              var newEvent = {
@@ -755,17 +767,17 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          newEvent[2] = end;
 
 	          if (title.toLowerCase().includes("scrum"))
-	            newEvent[3] = "Red";
+	            newEvent[3] = "FireBrick";
 	          else if (title.toLowerCase().includes("conference"))
-	            newEvent[3] = "Blue";
+	            newEvent[3] = "DarkCyan";
 	          else if (title.toLowerCase().includes("board"))
-	            newEvent[3] = "Orange";
-	          else if (title.toLowerCase().includes("rec"))
-	            newEvent[3] = "Yellow";
+	            newEvent[3] = "OrangeRed";
+	          else if (title.toLowerCase().includes("recreation"))
+	            newEvent[3] = "Chocolate";
 	          else if (title.toLowerCase().includes("train"))
-	            newEvent[3] = "Green";
+	            newEvent[3] = "OliveDrab";
 	          else if (title.toLowerCase().includes("break"))
-	            newEvent[3] = "Purple";
+	            newEvent[3] = "SlateBlue";
 
 	          newEvent[4] = id;
 	          eventsArray.push(newEvent);

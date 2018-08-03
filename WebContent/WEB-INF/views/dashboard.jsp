@@ -15,7 +15,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 <head>
   <title>Syntel Resource Booking</title>
 
-  
+ 
   <meta name="viewport" content="width=device-width, initial-scale=1">
 
  	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"/>
@@ -74,12 +74,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
     </div>
 </nav>
     
-    
-    
-    
-    
-    
-  
 <div class="container text-center" >    
   <div class="row Content" style="background-image: url(/Phoenix_Resource_Management_System/resources/images/green.jpg);">
     <div class="col-sm-1 sidenav">
@@ -101,7 +95,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
            
                <li><a href="#">Previous <span class="glyphicon glyphicon-retweet pull-right"></span></a></li>
             <li class="divider"></li>
-              
               
             <li class="divider"></li>
             <li><a href="#">Calendar <span class="glyphicon glyphicon-calendar pull-right"></span></a></li>
@@ -140,7 +133,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
    <div class="row" >
        
   <div class="column">
-      
+     
+    <form action="booking">
+      <button type="submit">
     <div class="card" id="hi" style="width:400px; height:300px;">
       <p><i class="fa fa-user"></i></p>
       <h1>Book</h1>
@@ -148,6 +143,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
       <p>  <span class="glyphicon glyphicon-book" style="font-size:150px;"></span></p>
     </div>
   </div>
+  </button>
+  </form> 
 
   <div class="column">
 <br>
