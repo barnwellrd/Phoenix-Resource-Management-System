@@ -32,28 +32,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 <title>Login</title>
 
-<script>
-		/** Alert for incorrect username & password for login **/
-		function validateForm(){
-			var un = document.loginform.userName.value;
-			var pw = document.loginform.password.value;
- 			var username = "username";
- 			var password ="password";
- 			if((un == username) && (pw == password)){
- 				return true;
- 			}
- 			else {
- 				alert("Login was unsucesseful, please check that you entered a valid username & password!");
- 				return false;
- 			}
-		}
-		
-</script>
-
 
 </head>
-
-
 
 <body>
 	<div class="login-page">

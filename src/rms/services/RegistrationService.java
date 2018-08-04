@@ -13,12 +13,15 @@ import rms.model.Visitors;
 
 @Controller
 public class RegistrationService {
-	
+/**
 	@RequestMapping("/")
 	public String openRegistration() {
 		return "RegistrationForm"; 
 	}
+**/
 	
+	
+	/**
 	@RequestMapping(value="/registerVisitor")
 	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res) {
 		
@@ -60,8 +63,10 @@ public class RegistrationService {
 		System.out.println(newVisitor.getName());
 		System.out.println(newVisitor.getCompanyName());
 		
-		return "errorPage";
 		
+		
+		return "errorPage";
+		**/
 		/*if(new VisitorsJdbcTemplate().insert(newVisitor) > 0) {
 			
 			return newVisitor.getName();
@@ -69,6 +74,8 @@ public class RegistrationService {
 		} else {
 			return "errorPagerrrr";
 		}*/
-	}
+//	}
+
+//} 
 
 }
