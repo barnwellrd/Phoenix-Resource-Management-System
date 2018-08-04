@@ -549,10 +549,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				
 	        });
 
-	        $(this).contents().find("input[name='type']").on('change', function (event) {
+	        $(this).contents().find("select[name='resources']").on('change', function (event) {
 
 	            console.log("chose a type");
-	            var resId = ($('iframe').contents().find("input[name='type']:checked").val());
+	            var resId = ($('iframe').contents().find("input[name='type']:selected").val());
 	            console.log(resId);
 
 	            $.ajax({
@@ -578,17 +578,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              }
 	            });
 
-	            var resId = ($('iframe').contents().find("form").submit());
+	            $('iframe').contents().find("form").submit();
 
 
 	          });
 	      });
-
-	    
-
-
-	         
-	    
 
 	      $('iframe').load(function () {
 	        $(this).contents().find("#backButton").on('click',

@@ -30,6 +30,7 @@ import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
+import rms.model.ResourceType;
 import rms.model.Resources;
 
 @Controller
@@ -92,7 +93,6 @@ public class MyServices {
 	
 	@RequestMapping(value="/updateEvent")
 	public void updateEvent(HttpServletRequest request, HttpServletResponse response){
-		
 		
 		// Read data from ajax call
 	    String date = request.getParameter("date");
@@ -379,8 +379,14 @@ public class MyServices {
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
 		request.setAttribute("listCategory", loc);
-		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		
+		//get resource types instead of all resources
+		//List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
+
 		request.setAttribute("listRes", res);
+		
+		//for printing all the resources at the bottom of view. 
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");

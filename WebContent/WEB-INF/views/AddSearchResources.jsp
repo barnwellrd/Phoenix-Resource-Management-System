@@ -60,19 +60,20 @@
 				<div>
 					<label>Resources</label> <br>
 					<select class="form-control" name="resources">
-						<option value="all">Select</option>
+						<option value="all">Select a Type</option>
 						<c:forEach items="${listRes}" var="res">
+						<!-- Previous implementation with string. 
 							<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
 							<c:set var="resTypeName" value="${fn:substringAfter(res, resTypeId)}" />
-							<option selected="selected" value="${resTypeId}">${resTypeName}</option>
+							<option value="${resTypeId}">${resTypeName}</option>
+						-->	
+							<option value="${res.getResourceTypeId()}">${res.getResourceTypeName()}</option>
 						</c:forEach>
 					</select>
 				</div>
 			</fieldset>
 			<br>
-			<input class="btn btn-sm btn-primary" type="submit" value="Search"/>
 			
-			<!-- <a href="LocationResources/">Search</a><br> -->
 		</form>
 	
 

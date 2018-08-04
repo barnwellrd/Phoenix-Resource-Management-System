@@ -85,7 +85,7 @@
 		</div>
 		
 		<form action="AddSearchResources" style="text-align:center">
-			<button id="backButton" type="submit">Go Back</button>
+			<button id="backButton" type="submit">Show All</button>
 		</form>
 	</div>
 
