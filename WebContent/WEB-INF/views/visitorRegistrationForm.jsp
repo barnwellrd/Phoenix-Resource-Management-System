@@ -11,7 +11,8 @@
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
     <link rel="stylesheet" href="../resources/fontawesome/css/all.css">
-	
+    <script src="../resources/js/jquery.js"></script>
+    
 </head>
 
 
@@ -47,18 +48,16 @@
 			 		<span class="fas fa-angle-left  fa-4x text-center"></span>
 			 	</a>
 			 		
-				<form action="RegisterVisitor" method="post">
-					<a type="submit" value="register" class=" btn btn-md btn-success pull-right" id="fa_right_btn">
-			 			<span class="fas fa-angle-right  fa-4x text-center"></span>
-			 		</a>
-			 	</form>
+				<a onclick= "submitForm()" class="btn btn-md btn-success pull-right" id="fa_right_btn">
+			 		<span class="fas fa-angle-right  fa-4x text-center"></span>
+			 	</a>
 			 			 
 		 	</div>
 		 
 	</header>
 	
 	<section >
-		<form action ="RegisterVisitor" method="post">
+		<form id="registration_form" action ="RegisterVisitor" method="post">
 			<div class="form-group">
 				<input type="text" class="form-control" name="visitorFirstName" placeholder="First Name" required/>
 			</div>
@@ -96,11 +95,14 @@
 				<input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Company">
 			</div>
 		
+			<input visible=false id="form_btn" type="submit" />
+			
 		</form>
 	</section>
 	
 	<script>
 		$('#other').hide();
+		$("#form_btn").hide(); //hide form submit button; the right arrow button uses this button to triger the submission of the form
 		$('input[name="visitorCompanyName"]').change(function(){
 		    if ($('#option3').is(':checked')) {
 		        $('#other').show();
@@ -108,6 +110,11 @@
 		        $('#other').hide();
 		    }
 		});
+		
+		function submitForm(){
+			$("#form_btn").click();
+		}
+    		
 	</script>
 </body>
 </html>
