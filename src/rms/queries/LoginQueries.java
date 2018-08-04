@@ -28,4 +28,5 @@ public class LoginQueries {
 				new UsersMapper(), userName, password);
 	}
 
+	
 }
