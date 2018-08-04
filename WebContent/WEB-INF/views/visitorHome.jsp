@@ -38,7 +38,8 @@
 		    })
 		    
 		});
-			
+		
+	
 	</script>
 	
 </head>
@@ -81,7 +82,7 @@
 		
 			<form action="/Phoenix_Resource_Management_System/Visitor/Registration" class="card section_content text-center" id="check_in_block">
 				<button  class="btn btn-lg btn-success btn-block text-center main_btn"  id="checkin_btn">
-					<span class="fas fa-sign-in-alt fa-3x fa_icon"><h5 class="btn_string"><b>Check in</b></h5></span>
+					<span class="fas fa-sign-in-alt fa-3x"><h5 class="btn_string"><b>Check in</b></h5></span>
 					
 				</button>
 				

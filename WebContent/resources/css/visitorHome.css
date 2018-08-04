@@ -1,4 +1,9 @@
+		
+		html{
+			height: 100%;
+		}
 		body{
+			min-height: 100%;
 			background-image: url("../images/checkin_index.png");
 			background-size: 100% auto;
 			background-repeat: no-repeat;
