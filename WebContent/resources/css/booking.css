@@ -11,6 +11,10 @@ html, body {
 	height:90%;
 }
 
+.fc-past {
+    background-color: black;
+}
+
 #allPage {
 	height: 80%;
 	width: 90%;

@@ -191,16 +191,18 @@ public class MyServices {
 	   		// Make a booking for each day of the week checked
 	   		Calendar cal = Calendar.getInstance();
 	   		for(int i = 0; i < split.length; i++){
-	   			cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	   			if(Boolean.parseBoolean(split[i])){
+	   				
 	   				// Get the start timestamp
 			   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-			   		cal.add(Calendar.DAY_OF_WEEK, i);
+		   			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			   		cal.add(Calendar.DAY_OF_YEAR, i);
 			   		Timestamp start = new Timestamp(cal.getTimeInMillis());
 			   		
 			   		// Get the stop time stamp
 			   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-			   		cal.add(Calendar.DAY_OF_WEEK, i);
+		   			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			   		cal.add(Calendar.DAY_OF_YEAR, i);
 			   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
 			   		
 			   		Bookings booking = new Bookings();
