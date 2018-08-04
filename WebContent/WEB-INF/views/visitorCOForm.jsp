@@ -5,8 +5,6 @@
 <head>
 	<meta charset="ISO-8859-1">
 	<meta name="viewport" content="width=device-width, initial-scale=1">  
-	<!-- <link rel="stylesheet" href="../resources/fontawesome/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
-	-->
 	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css"> 
 	<link rel="stylesheet" href="../resources/css/visitorCheckOutForm.css">   
@@ -19,7 +17,7 @@
 	<div class="container text-center">
 	  <h1>Visitor Checkout</h1>
 	</div>
-	<div class="container container center-block checkout-container">
+	<div class="container center-block checkout-container">
 	  <form action="CheckOut" method="post" style="background-color:white; padding:50px; border-style:solid;border-color: grey;border-radius: 5px;">
 		<div class="form-group">
 	      <input type="text" class="form-control text-center" name="bid" placeholder="Enter Badge ID" style="border-radius: 5px;">

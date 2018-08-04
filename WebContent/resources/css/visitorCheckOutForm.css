@@ -1,13 +1,14 @@
 body {
-			background-size:contain;
-	     background-image: url("resources/images/bg_phx.png");
-	     background-repeat: no-repeat;
-	     background-position: bottom center;
+		background-image: url("../images/checkin_index.png");
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		background-position: bottom;
  } 
-		
+	
+
 #checkout_btn{
             background-color: #e85200;
-            color:#004837;
+            color:white;
         }
 .btn_string{
             padding-left: 5%;

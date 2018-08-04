@@ -1,15 +1,19 @@
 package rms.services;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import rms.dao.VisitorsJdbcTemplate;
 import rms.model.Visitors;
+import rms.queries.VisitorTracking;
 
 @Controller
 public class VisitorServices {
@@ -95,12 +99,12 @@ public class VisitorServices {
 		String badgId = request.getParameter("bid");
 		
 		if(phone.equals("")) {
-			if(new rms.queries.VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
+			if(new VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
 				return "visitorHome";
 			else
 				return "visitorCOForm";
 		} else {
-			if(new rms.queries.VisitorTracking().checkoutUsingPhone(phone) > 0)
+			if(new VisitorTracking().checkoutUsingPhone(phone) > 0)
 				return "visitorHome";
 			else
 				return "visitorCOForm";
@@ -113,7 +117,18 @@ public class VisitorServices {
 		
 	}
 	
-
+	@RequestMapping(value="/Visitor/Admin")
+	public String visitorAdminService(ModelMap map){
+		List<Visitors> dailyVisitors= new VisitorTracking().getVisitorsFromToday();
+		map.addAttribute("alldata", dailyVisitors);
+		return "visitorAdminView";
+		
+	}
 	
+	@RequestMapping(value="/Visitor/AdminCO/{phone}")
+	public String visitorsAdminCheckOutService(@PathVariable String phone){
+		new VisitorTracking().checkoutUsingPhone(phone);
+			return "redirect:/Visitor/Admin";
+	}
 	
 }
