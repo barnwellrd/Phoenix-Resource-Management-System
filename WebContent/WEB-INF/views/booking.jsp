@@ -366,6 +366,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			//the initial rendering of the full calendar. 
 			$('#dispCal').fullCalendar(
 					{
+					
+						
 						// Limit calendar to show only two months from now
 						validRange : function(currentDate) {
 							return {
@@ -382,7 +384,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						themeSystem : 'bootstrap3',
 						minTime : "06:00:00",
 						maxTime : "18:00:00",
-						height : 500,
+						height : 480,
 						defaultView : 'agendaWeek',
 						selectable : false,
 						selectConstraint : {
@@ -405,6 +407,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						        $tooltip.css('left', e.pageX + 20);
 						    });
 						},
+					      
 						//for the tooltip. delete it on mouseout of event. 
 						eventMouseout: function(calEvent, jsEvent) {
 						    $(this).css('z-index', 8);

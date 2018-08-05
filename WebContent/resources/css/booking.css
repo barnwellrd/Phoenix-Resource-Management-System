@@ -11,9 +11,6 @@ html, body {
 	height:90%;
 }
 
-.fc-past {
-    background-color: black;
-}
 
 #allPage {
 	height: 80%;
@@ -52,7 +49,6 @@ h1 {
 }
 
 .panel {
-	background-color: #ffff80;
 	text-align: center;
 }
 
