@@ -41,6 +41,9 @@ public class VisitorTracking {
 		return jtemp.queryForObject("SELECT first_name||' '||last_name FROM visitors WHERE badge_id = ?", String.class, badge_id);
 	}
 	
+	public int checkoutUsingVisitorId(String visitor_id){
+		return jtemp.update("UPDATE visitors SET has_checked_out = 1, checked_out_time = CURRENT_TIMESTAMP WHERE visitor_id = ?",visitor_id);
+	}
 	public String getVisitorUsingPhone(String phone) {
 		return jtemp.queryForObject("SELECT first_name||' '||last_name FROM visitors WHERE phone = ? AND has_checked_out = 0",String.class, phone);
 	}

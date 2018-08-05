@@ -1,34 +1,19 @@
 <%@page import="rms.dao.UsersJdbcTemplate"%>
 <%@page import="rms.model.Users"%>
 <%@page import="java.util.ArrayList"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Visitor Home</title>
+	<title>Visitor Welcome</title>
 	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
 	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
 	<script src="../resources/js/jquery.js"></script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			anime.timeline({
-				loop : false
-			}).add({
-				targets : '.ml15 .word',
-				scale : [ 24, 1 ],
-				opacity : [ 0, 1 ],
-				easing : "easeOutCirc",
-				duration : 100,
-				delay : function(el, i) {
-					return 25 * i;
-				}
-			})
-		});
-	</script>
 </head>
 
 <body class="container-fluid text-center">
@@ -51,31 +36,12 @@
 	</header>
 	<section class="nav"></section>
 	<section class="container">
-		<div class="container section_block">
-			<form
-				action="/Phoenix_Resource_Management_System/Visitor/Registration"
-				class="card section_content text-center home-form"
-				id="check_in_block">
-				<button
-					class="btn btn-lg btn-success btn-block text-center main_btn"
-					id="checkin_btn">
-					<span class="fas fa-sign-in-alt fa-3x"><h5
-							class="btn_string">
-							<b>Check In</b>
-						</h5></span>
-				</button>
-			</form>
-			<form action="/Phoenix_Resource_Management_System/Visitor/COForm"
-				class="card section_content text-center home-form">
-
-				<button class="btn btn-lg btn-danger btn-block text-center main_btn"
-					id="checkout_btn">
-					<span class="fas fa-sign-out-alt fa-3x text-center"><h5
-							class="btn_string">
-							<b>Check Out</b>
-						</h5></span>
-				</button>
-			</form>
+		<div class="section_block">
+			<h1 class="message-text">Welcome To Syntel,</h1>
+			<h1 class="visitor-name">
+				<c:out value="${full_name}" />
+				!
+			</h1>
 		</div>
 	</section>
 </body>
