@@ -134,7 +134,7 @@ public class MyServices {
 		return "redirect:/";
 
 	}
-	
+	*/
 	@RequestMapping(value="/deleteEvent")
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response){
 		

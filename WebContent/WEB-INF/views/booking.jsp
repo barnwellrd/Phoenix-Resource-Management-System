@@ -475,7 +475,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			    	
 			//on iframe load. 		
 	      $('iframe').load(function () {
-
 	    	  
 	    	//for clicking on cards of resources.   
 	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
