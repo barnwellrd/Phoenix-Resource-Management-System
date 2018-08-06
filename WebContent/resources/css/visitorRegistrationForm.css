@@ -1,0 +1,57 @@
+		
+
+header{
+	margin-top: 2%;
+	margin-bottom: 7%;
+}
+section{
+	margin-top: 2%;
+}
+		
+#title{
+	margin-bottom: 2%;
+}
+
+section{
+	
+	margin-top: 10%;
+}
+
+#fa_left_btn{
+	
+	background-color: white;
+	color:#e85200;
+}
+
+#fa_right_btn{
+	
+	background-color: white;
+	color:#004837;
+}
+
+
+.welcome, .to, .logo{
+	margin-right: 2%;
+}
+
+input[type="text"],
+ input[type="email"], textarea{
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	color: black;
+}
+
+.radio_label{
+	background-color: #004837;
+	margin-right: 30px;
+}
+
+.radio_label:hover{
+	background-color: #e85200;
+}
+
+.radio_label input[type="radio"]:checked{
+	background-color: white;
+}
+	
