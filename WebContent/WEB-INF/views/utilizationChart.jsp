@@ -2,8 +2,12 @@
 <%@page import="java.util.*" %>
 <html lang="en">
 	<head>
-		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
-		<%@ page import="java.sql.*" %>
+	<%@page
+		import="java.util.*, org.springframework.web.context.WebApplicationContext,
+		org.springframework.web.context.support.WebApplicationContextUtils"%>
+	<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 		<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 		<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
@@ -11,12 +15,28 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
 		<title>Chart</title>
 		
-		<!-- bootstrap -->
-		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-		<link href="css/style.css" rel="stylesheet" type="text/css"/>
-			
-		<!-- JQuery -->
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<!-- Dashboard Css -->	
+	
+		<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+	
+	<spring:url value="/resources/css/bootstrap.min.css" var="bootMin" />
+	<spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
+	
+	<link rel="stylesheet" href="${bootMin}" />
+	<link rel="stylesheet" href="${DashboardCSS}" />
+	
+	
+	<spring:url value="/resources/js" var="JS" />
+	
+	<script src="${JS}/jquery.js"></script>
+	<script src="${JS}/bootstrap.js"></script>
+	
+	
+	
+	
 		<script> 
 			$(function() {
 				$('.drawArea').hide();
@@ -92,7 +112,7 @@
 			}
 		</style>
 	</head>
-	<body>
+	
 		<script type="text/javascript">
 		google.charts.load('current', {
 			'packages' : [ 'corechart' ]
@@ -158,13 +178,60 @@
 			
 		}
 	</script>
+	<body id="bod">
 		<div class="container">
-			<div class="row">
-				<div id="header" class="col">
-					<h1 style="text-align: center;" >Room Utilization</h1>
-				</div>
+			<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<img 
+					src="resources/images/syntrans.png" 
+					alt="logo"
+					style="
+						height: 30%; 
+						width: 20%; 
+						padding-top: 0px; 
+						padding-bottom: 10px;
+					">
+				<button 
+					type="button" 
+					class="navbar-toggle" 
+					data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span> 
+					<span class="icon-bar"></span>
+				</button>
 			</div>
 			
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-center"
+					style="left-padding: 300px;">
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li style="font-size: 22px;">
+						<a href="#">
+							<span class="glyphicon glyphicon-user"></span> 
+						</a>
+					</li>
+					<li style="font-size: 22px;">
+						<a href="#">
+							<span class="glyphicon glyphicon-bell"></span> 
+						</a>
+					</li>
+
+					<li style="font-size: 22px;">
+						<a href="#">
+							<span class="glyphicon glyphicon-search"></span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	</nav>
+		</div>
+		<div class="container text-center">		
+					
 			<form action="drawChart" method="post">
 				<div class="row">
 					<div class="col-sm">
@@ -254,11 +321,7 @@
 			</div>
 		</div>
 		
-		<!-- Latest compiled and minified JavaScript -->
-		<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-		
+	
 		<!-- pdf -->
 		<script src="https://www.gstatic.com/charts/loader.js"></script>
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.5/jspdf.min.js"></script>
