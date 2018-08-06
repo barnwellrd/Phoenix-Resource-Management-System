@@ -1,16 +1,22 @@
 package rms.queries;
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> DropDownRoom
 import java.util.List;
 
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+<<<<<<< HEAD
 
+=======
+import org.springframework.jdbc.core.RowMapper;
+>>>>>>> DropDownRoom
 import rms.mapper.RoomDropMapper;
 import rms.model.FeaturesDropDown;
-
 
 public class FeatureQueries {
 	

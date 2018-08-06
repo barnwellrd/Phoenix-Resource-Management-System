@@ -1,0 +1,23 @@
+body {
+		background-image: url("../images/checkin_index.png");
+		background-size: 100% auto;
+		background-repeat: no-repeat;
+		background-position: bottom;
+ } 
+	
+
+#checkout_btn{
+            background-color: #e85200;
+            color:white;
+        }
+.btn_string{
+            padding-left: 5%;
+            font-size: 30%;
+        }
+        
+.checkout-container {
+	padding-left:150px;
+	padding-bottom:150px;
+	padding-right:150px;
+	padding-top:75px;
+}
