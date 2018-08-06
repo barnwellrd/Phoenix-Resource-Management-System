@@ -14,7 +14,7 @@
 	
 </head>
 
-<body class="container" >
+<body class="container"  onload="startTime()">
 	<header class="text-center">
 		
 		 <div class="ml15 pull-center">
@@ -35,10 +35,16 @@
 					  <span class="word ">n </span>
 					  <span class="word ">i </span>
 					  <span class="word ">x</span>
+					  
+					  <span id="timer" class="pull-right">
+				  	  	
+				 	  </span>
 				  </h1>
+				  
 				  <p class="word logo pull-center">
 				  	<img src="../resources/images/logo.png"/> 
 				  </p>
+				  
 				</div>
 		 <div id="next_prev_btn">
 			 	
@@ -51,7 +57,7 @@
 			 	</a>
 			 			 
 		 	</div>
-		 
+		
 	</header>
 	
 	<section >
@@ -71,7 +77,7 @@
 			<div class="form-group">
 				<input type="text" class="form-control input-lg" name="visitorVisitingName" placeholder="Host"/>
 			</div>
-			<div class="formgroup">
+			<div class="form-group">
 				<textarea class="form-control" rows="3" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
 			</div>
 			<br>
@@ -119,7 +125,22 @@
 		function submitForm(){
 			$("#submit_btn").click();
 		};
-    		
+		
+		function startTime() {
+		    var today = new Date();
+		    var h = today.getHours();
+		    var m = today.getMinutes();
+		    var s = today.getSeconds();
+		    m = checkTime(m);
+		    s = checkTime(s);
+		    document.getElementById('timer').innerHTML =
+		    h + ":" + m + ":" + s;
+		    var t = setTimeout(startTime, 500);
+		}
+		function checkTime(i) {
+		    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+		    return i;
+		}
 	</script>
 </body>
 </html>
