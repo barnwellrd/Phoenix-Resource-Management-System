@@ -40,4 +40,10 @@ public class UniqueResourcesAndLocations {
 	public List<String> getLocationAndCity(){
 		return jtemp.queryForList("SELECT location_id||city FROM locations", String.class);
 	}
+	public List<String> getResourceTypes(){
+		return jtemp.queryForList("SELECT resource_type_id||' '||resource_type_name FROM resource_type", String.class);
+	}
+	public List<String> getDistinctResourceIdName(){
+		return jtemp.queryForList("SELECT DISTINCT resource_id||' '||resource_type_id||' '||resource_name FROM resources", String.class);
+	}
 }

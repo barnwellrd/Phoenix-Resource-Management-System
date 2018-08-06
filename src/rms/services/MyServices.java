@@ -3,17 +3,21 @@ package rms.services;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +27,7 @@ import rms.dao.BookingsJdbcTemplate;
 import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
+import rms.queries.CallUtilizationQueries;
 import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
@@ -316,6 +321,136 @@ public class MyServices {
 		return "FilterResources"; //view name
 	}
 	
+	@RequestMapping(value="/charts")
+	public String mainService(HttpServletRequest request, HttpServletResponse response) {
+	//	System.out.println("loading");
+		//drop down stuff
+		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+        request.setAttribute("resourceTypes", vt);
+        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        request.setAttribute("rooms", rt);
+        HttpSession session=request.getSession();
+        session.setAttribute("util",-1.0);
+	/*	if((resourceType!="all") && (resourceType !=null)) {
+			int iresourceType = Integer.parseInt(resourceType );
+			List<String> rt=new UniqueResourcesAndLocations().idkTheName(iresourceType);
+	        request.setAttribute("rooms", rt);
+	        System.out.println(rt.get(1));
+		} */
+         
+		return "fullPage"; //view name
+	}
+	
+	@RequestMapping(value="/drawChart",method=RequestMethod.POST)
+	public String drawChart(HttpServletRequest request, HttpServletResponse response) {
+		String viewType = request.getParameter("viewType");
+		String roomType = request.getParameter("roomType2");
+		String period= request.getParameter("period");
+		String sdate = request.getParameter("pickedDate");
+		//sdate += " 00:00";
+		System.out.println(viewType);
+		System.out.println(roomType);
+		System.out.println(period);
+		if(roomType.length()>4)
+			roomType = roomType.substring(0,4);
+		//System.out.println(sdate);
+		// sdate is string date that was passed in by the user
+		System.out.println("what we have as a string: "+sdate);
+		String pattern = "yyyy-MM-dd"; //what we have
+		String pattern2 = "dd-MM-yyyy";	// what we want
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		SimpleDateFormat format2 = new SimpleDateFormat(pattern2);
+		Date date= new Date(); // new date
+		try {
+			date = format.parse(sdate); // convert what we have from string to date
+			System.out.println("what we have as a date: "+date);
+			sdate = format2.format(date); // convert date to string in the format that we want
+			System.out.println("what we want as a string: "+sdate);
+			date = format2.parse(sdate); // convert it back to date in the format that we want
+			System.out.println("what we want as a date: "+date);
+		} catch(Exception e) {
+			System.out.println("wrong date");
+		}
+		//sdate = format.format(date);
+		//System.out.println(sdate);
+		//System.out.println(date);
+		HttpSession session=request.getSession();
+		double util = 0.0;
+		try {
+			if(viewType.equals("all")) {
+				util = periodTypeMethod(period, date);
+			} else {
+				if(roomType.equals("all")) {
+					util = periodTypeMethod(viewType,period, date);
+				} else {
+					util = periodTypeMethodWithRoomId(roomType,period, date);
+				}
+			}
+		} catch (NullPointerException e) {
+			util=0.0;
+		} catch (EmptyResultDataAccessException e) {
+			util=0.0;
+		}
+		
+	//	util = 0.5;
+		session.setAttribute("util",util);
+		//drop down stuff
+		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+        request.setAttribute("resourceTypes", vt);
+        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        request.setAttribute("rooms", rt);
+		return "fullPage";
+	}
+	
+	private double periodTypeMethod(String period, Date day) {
+		double x=0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		System.out.println("this is the date: "+day);
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationForAllResources(day);
+				break;
+			case "weekly":
+				x=util.callWeeklyUtilizationForAllResources(day);
+				break;
+			case "monthly":
+				x=util.callMonthlyUtilizationForAllResources(day);
+				break;
+		}
+		return x;
+	}
+	private double periodTypeMethod(String viewType, String period, Date day) {
+		double x =0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+			case "weekly":
+				x = util.callWeeklyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+			case "monthly":
+				x = util.callMonthlyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+		}
+		return x;
+	}
+	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) {
+		double x=0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+			case "weekly":
+				x = util.callWeeklyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+			case "monthly":
+				x = util.callMonthlyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+		}
+		return x;
+	}
 
 	
 }
