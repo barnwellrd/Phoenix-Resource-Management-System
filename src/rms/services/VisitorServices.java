@@ -29,7 +29,7 @@ public class VisitorServices {
 	}
 	
 	@RequestMapping(value="/Visitor/RegisterVisitor")
-	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res) {
+	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res, ModelMap model) {
 		
 		Timestamp timestamp = new Timestamp(System.currentTimeMillis()); //
 		
@@ -47,7 +47,7 @@ public class VisitorServices {
 		Timestamp visitorCheckedInTime = timestamp; //
 		int visitorLocationID = 100001;
 		
-		
+		model.addAttribute("full_name", (visitorFirstName + " " + visitorLastName));
 		//Setting rest of all the fields from Visitor table to null
 		String visitorBadgeID = null;
 		int visitorIDProof = 0;
@@ -81,7 +81,7 @@ public class VisitorServices {
 		VisitorsJdbcTemplate vjt = new VisitorsJdbcTemplate();
 		vjt.insert(newVisitor);
 		
-		return "visitorHome";
+		return "visitorWelcome";
 		
 		/*if(new VisitorsJdbcTemplate().insert(newVisitor) > 0) {
 			
@@ -94,18 +94,26 @@ public class VisitorServices {
 
 	
 	@RequestMapping(value="/Visitor/CheckOut")
-	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response){
+	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		String phone = request.getParameter("phone");
 		String badgId = request.getParameter("bid");
 		
 		if(phone.equals("")) {
-			if(new VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
-				return "visitorHome";
+			if(new rms.queries.VisitorTracking().checkoutUsingBadgeID(badgId) > 0)
+			{
+				String name = new VisitorTracking().getVisitorUsingBadgeId(badgId);
+				model.addAttribute("full_name", name);
+				return "visitorGoodbye";
+			}
 			else
 				return "visitorCOForm";
 		} else {
 			if(new VisitorTracking().checkoutUsingPhone(phone) > 0)
-				return "visitorHome";
+			{
+				String name = new VisitorTracking().getVisitorUsingPhone(phone);
+				model.addAttribute("full_name", name);
+				return "visitorGoodbye";
+			}
 			else
 				return "visitorCOForm";
 		}
@@ -125,9 +133,9 @@ public class VisitorServices {
 		
 	}
 	
-	@RequestMapping(value="/Visitor/AdminCO/{phone}")
-	public String visitorsAdminCheckOutService(@PathVariable String phone){
-		new VisitorTracking().checkoutUsingPhone(phone);
+	@RequestMapping(value="/Visitor/AdminCO/{visitor_id}")
+	public String visitorsAdminCheckOutService(@PathVariable String visitor_id){
+		new VisitorTracking().checkoutUsingVisitorId(visitor_id);
 			return "redirect:/Visitor/Admin";
 	}
 	
