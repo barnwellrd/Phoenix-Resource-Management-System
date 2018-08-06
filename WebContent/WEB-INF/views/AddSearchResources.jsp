@@ -128,8 +128,10 @@ td {
 
 			</div>
 		</div>
+		</nav>
+		
 	</div>
-	</nav>
+	
 
 
 	<div class="container text-center">
