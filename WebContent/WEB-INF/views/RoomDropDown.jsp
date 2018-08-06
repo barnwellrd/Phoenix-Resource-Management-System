@@ -39,8 +39,8 @@
 img{
 
 margin-top: 0px;
-width: 50px;
-height: 50px;
+width: 25px;
+height: 25px;
 
 
 
@@ -51,9 +51,9 @@ input:hover[type="submit"]{
 }
 
 table,td{
-padding: 15px;
+padding: 5px;
 text-align: center;
-
+border: 1px solid black;
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
@@ -83,7 +83,6 @@ text-align: center;
 	<c:set var = "Projector"  value="Projector"/>
 	<c:set var = "DesktopComputers"  value="Desktop Computers"/>
 	<c:set var = "Chair"  value="Chair"/>
-	<c:set var = "Table"  value="Table"/>
 	<c:set var = "Phone" value="Phone"/>
 	<c:set var = "VideoCamera" value="Video Camera"/>
 	<c:set var = "Printer" value="Printer"/>
@@ -103,45 +102,43 @@ text-align: center;
 			</c:when>
 		
 			<c:when test="${feat.getFeatureName() == DesktopComputers}">
+				<tr>
 					<td><img class="irc_mi" src="https://png.icons8.com/ios/1600/tv.png" 
 						alt="Image result for tv icon png"></td>
 					<td>${feat.getQuantity()}</td>
-			
+				</tr>
 			</c:when>
 			
 			<c:when test="${feat.getFeatureName() == Chair}">
+				<tr>
 					<td><img class="irc_mi" src="https://image.flaticon.com/icons/png/512/60/60899.png" 
    						 alt="Chair icon"></td>
 					<td>${feat.getQuantity()}</td>
-					
-			</c:when>
-			
-			<c:when test="${feat.getFeatureName() == Table}">
-					<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/furniture-volume-1/48/008-512.png" 
-    						 alt="Image result for table png"></td>
-					<td>${feat.getQuantity()}</td>
-					
+				</tr>
 			</c:when>
 			
 			<c:when test="${feat.getFeatureName() == Phone}">
+				<tr>
 					<td><img class="irc_mi" src="http://www.stickpng.com/assets/images/5a4525cd546ddca7e1fcbc84.png" 
 							 alt="Image result for phone icon png"></td>
 					<td>${feat.getQuantity()}</td>
-					
+				</tr>
 			</c:when>
 			
 			<c:when test="${feat.getFeatureName() == VideoCamera}">
+				<tr>
 					<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/office-22/48/video-conference-512.png"
  							 alt="Image result for video conference camera icon png"></td>
 					<td>${feat.getQuantity()}</td>
-					
+				</tr>
 			</c:when>
 			
 			<c:when test="${feat.getFeatureName() == Printer}">
+				<tr>
 					<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/education-set-4/512/print-512.png" 
 						alt="Image result for printer icon png"></td>
 					<td>${feat.getQuantity()}</td>
-					
+				</tr>
 			</c:when>
 		</c:choose>
 	
