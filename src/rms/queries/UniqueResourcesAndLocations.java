@@ -20,7 +20,7 @@ public class UniqueResourcesAndLocations {
 	}
 	
 	public List<Resources> getResourcesByLocation(int locationId){
-		return jtemp.query("SELECT * FROM Resources WHERE location_id = ?", new ResourcesMapper(), locationId);
+		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? order By Resource_name", new ResourcesMapper(), locationId);
 	}
 	
 	public List<Resources> getResourcesByLocationAndResourceType(int locationId, int resourceTypeId){

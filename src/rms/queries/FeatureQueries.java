@@ -10,6 +10,9 @@ import org.springframework.jdbc.core.RowMapper;
 import rms.mapper.RoomDropMapper;
 import rms.model.FeaturesDropDown;
 
+import rms.mapper.RoomDropMapper;
+import rms.model.FeaturesDropDown;
+
 public class FeatureQueries {
 	
 	private ApplicationContext context;
