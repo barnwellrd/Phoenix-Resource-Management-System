@@ -66,10 +66,7 @@
 					</select>
 				</div>
 			</fieldset>
-
-
 		</form>
-
 
 	</div>
 
@@ -87,16 +84,13 @@
 								<!-- Hidden tag that will provide the resource Id on the page -->
 								<p style="display: none" class="filterResourceId">${allResources.getResourceId()}</p>
 
-								<c:forEach var="feat" items="${featData}">
-									<c:if
-										test="${fn:containsIgnoreCase(feat.getResourceName(),allResources.getResourceName())}">
+								<div class="dropdown-content">
+									<table>
 
-										<div class="dropdown-content">
-											<table>
-												<tr>
-													<th>Feature</th>
-													<th>Quantity</th>
-												</tr>
+										<!-- Loops through all features to choose which belong to this resource -->
+										<c:forEach var="feat" items="${featData}">
+											<c:if
+												test="${fn:containsIgnoreCase(feat.getResourceName(),allResources.getResourceName())}">
 
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Projector')}">
@@ -160,11 +154,11 @@
 													</tr>
 												</c:if>
 
-											</table>
-										</div>
-									</c:if>
-								</c:forEach>
 
+											</c:if>
+										</c:forEach>
+									</table>
+								</div>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
 									<i class="fa fa-list" style="color: #267326"></i>

@@ -602,10 +602,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				
 	        });
 
-	        $(this).contents().find("input[name='type']").on('change', function (event) {
+	        $('iframe').contents().find("select[name='resources']").on('change', function (event) {
 
 	            console.log("chose a type");
-	            var resId = ($('iframe').contents().find("input[name='type']:checked").val());
+	            var resId = ($('iframe').contents().find("input[name='resources']:checked").val());
 	            console.log(resId);
 
 	            $.ajax({
