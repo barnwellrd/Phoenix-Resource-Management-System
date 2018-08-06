@@ -1,19 +1,20 @@
+<%@page import="rms.dao.UsersJdbcTemplate"%>
+<%@page import="rms.model.Users"%>
+<%@page import="java.util.ArrayList"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Visitor Admin</title>
+	<title>Visitor Welcome</title>
+	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
-	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
-	<script src="../resources/js/visitor30SecRedirect.js"></script>
-	
-	
-
+	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/visitor5SecRedirect.js"></script>
 </head>
 
 <body class="container-fluid text-center">
@@ -36,33 +37,11 @@
 	</header>
 	<section class="nav"></section>
 	<section class="container">
-		<div class="section_block">
-			
-				<table class="table">
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Phone</th>
-						<th>Check In Time</th>
-						<th>Check Out Time</th>						
-						<th>Check Out</th>
-					</tr>
-					<c:forEach var="ba" items="${alldata}">
-						<tr>
-							<td>${ba.getFirstName()}</td>
-							<td>${ba.getLastName()}</td>
-							<td>${ba.getPhone()}</td>
-							<td>${ba.getCheckedInTime()}</td>
-							<td>${ba.getCheckedOutTime()}</td>
-							<td><form class="admin-button"
-									action="/Phoenix_Resource_Management_System/Visitor/AdminCO/${ba.getVisitorId()}">
-									<button type="submit" class="admin-btn <c:if test="${ba.getHasCheckedOut()==1}"><c:out value = "disabled"/></c:if>"><h3>Check Out</h3></button>
-								</form></td>
-						</tr>
-					</c:forEach>
-
-				</table>
-			
+		<div class="section_block welcome-goodbye-block">
+			<h1 class="message-text">Welcome To Syntel,</h1>
+			<h1 class="visitor-name">
+				<c:out value="${full_name}"/>!
+			</h1>
 		</div>
 	</section>
 </body>

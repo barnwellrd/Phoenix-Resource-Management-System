@@ -3,17 +3,21 @@ package rms.services;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +27,7 @@ import rms.dao.BookingsJdbcTemplate;
 import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
+import rms.queries.CallUtilizationQueries;
 import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
@@ -37,24 +42,18 @@ public class MyServices {
 	public String homeScreen() {
 		return "login";
 	}
-	
+		
 	@RequestMapping(value="/logout")
 	public String logout() {
 		return "login";
 	}
-	
-	@RequestMapping(value="/dashboard")
-	public String dashBoard() {
-		return "dashboard";
-	}
-	
+
 	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 		System.out.println(request.getParameter("userName"));
 		System.out.println(request.getParameter("password"));
-		
 		
 		LoginQueries login = new LoginQueries();
 		
@@ -63,18 +62,18 @@ public class MyServices {
 		try {
 			if(new LoginQueries().loginOnUserName(userName, password)!=null){
 				System.out.println("CHECKPOINT 2");
-				return "redirect:dashboard";
+				return "dashboard";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
 
 			System.out.println("CHECKPOINT 3");
-			return "redirect:/";
+			return "loginfailed";
 		}
-		
-		return "redirect:/";
-
+		 	
+		return "loginfailed";
 	}
+
 	
 	@RequestMapping(value="/deleteEvent")
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response){
@@ -104,7 +103,6 @@ public class MyServices {
 	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
 	   	Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
 	   	Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-
 	   	
 	   	// Check the number of repeats
 	   	int repeats = Integer.parseInt(request.getParameter("repeats"));
@@ -129,7 +127,6 @@ public class MyServices {
 	   		booking.setResourceId(Integer.parseInt(resourceId));
 	   		booking.setUserId(101);
 	   		booking.setDescription("An event");
-	   	
 	   		
 	   		System.out.println(booking);
 	   		new BookingsJdbcTemplate().insert(booking);
@@ -289,8 +286,20 @@ public class MyServices {
 
 		return "displayRoom";
 	}
-	
-	@RequestMapping(value="/AddSearchResources")
+	@RequestMapping(value="/LocationResources")
+	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
+
+		System.out.println("=-----------------Search Location Resources");
+		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
+		int locationId=Integer.parseInt(request.getParameter("location"));
+		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
+		System.out.println(locationId+" l "+resourceTypeId);
+		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+		map.addAttribute("alldata", allResources);
+		System.out.println("=-----------------helloo service got executed");
+		return "FilterResources"; //view name
+	}
+	@RequestMapping(value="/AddSearchResources1")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
@@ -303,19 +312,238 @@ public class MyServices {
 		return "AddSearchResources"; //view name
 	}
 	
-	@RequestMapping(value="/LocationResources")
-	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
-		System.out.println("=-----------------Search Location Resources");
-		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
-		int locationId=Integer.parseInt(request.getParameter("location"));
-		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
-		System.out.println(locationId+" l "+resourceTypeId);
-		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
-		map.addAttribute("alldata", allResources);
-		System.out.println("=-----------------helloo service got executed");
-		return "FilterResources"; //view name
+	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
+	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("1");
+		String desc = request.getParameter("desc");
+		System.out.println("2");
+		int capacity = Integer.parseInt(request.getParameter("capacity"));
+		System.out.println("3");
+		String roomNum = request.getParameter("roomNum");
+		System.out.println("4");
+		int resourceTypeId = Integer.parseInt(request.getParameter("resources"));
+		System.out.println("5");
+		int locId = Integer.parseInt(request.getParameter("location"));
+		System.out.println("6");
+		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
+		System.out.println("7");
+		List<String> res2=new UniqueResourcesAndLocations().ResourceTypeName(Integer.parseInt(request.getParameter("resources")));
+		System.out.println("8");
+		request.setAttribute("typeName", res2);
+        
+		//Number of features
+		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
+		int numPrinterFeature = Integer.parseInt(request.getParameter("numResPrintName"));
+		int numVideoFeature = Integer.parseInt(request.getParameter("numResVidName"));
+		int numTVFeature = Integer.parseInt(request.getParameter("numResTVName"));
+		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
+		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
+		
+		//Create resource object
+		Resources res = new Resources();		
+		res.setResourceName(res2.get(0));
+		res.setResourceDescription(desc);
+		res.setResourceRoomNumber(roomNum);
+		res.setResourceTypeId(resourceTypeId);
+		res.setLocationId(locId);
+		res.setIsAvailable(0); 
+		res.setIsSuperRoom(isSupRoom);
+		res.setCapacity(capacity);
+		
+		
+		ResourcesJdbcTemplate resTemp = new ResourcesJdbcTemplate();
+		FeaturesJdbcTemplate featTemp = new FeaturesJdbcTemplate();
+		
+		//Add a new resource
+		resTemp.insert(res);
+		
+		List<Integer> resourceIdTest=new UniqueResourcesAndLocations().getMostRecentResourceId();
+		System.out.println(resourceIdTest.get(0));
+		
+		//Create feature object
+		if (numProjectorFeature>0) {
+			Features featProj = new Features();
+			featProj.setFeatureTypeId(101);
+			featProj.setQuantity(numProjectorFeature);
+			featProj.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featProj);
+			System.out.println("projector feat inserted");
+		}
+		if (numPrinterFeature>0) {
+			Features featPrint = new Features();
+			featPrint.setFeatureTypeId(101);
+			featPrint.setQuantity(numPrinterFeature);
+			featPrint.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featPrint);
+			System.out.println("printer feat inserted");
+		}
+		if (numVideoFeature>0) {
+			Features featVid = new Features();
+			featVid.setFeatureTypeId(101);
+			featVid.setQuantity(numVideoFeature);
+			featVid.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featVid);
+			System.out.println("video feat inserted");
+		}
+		if (numTVFeature>0) {
+			Features featTV = new Features();
+			featTV.setFeatureTypeId(101);
+			featTV.setQuantity(numTVFeature);
+			featTV.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featTV);
+			System.out.println("tv feat inserted");
+		}
+		if (numWhiteBoardFeature>0) {
+			Features featWhiteBoard = new Features();
+			featWhiteBoard.setFeatureTypeId(101);
+			featWhiteBoard.setQuantity(numWhiteBoardFeature);
+			featWhiteBoard.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featWhiteBoard);
+			System.out.println("whiteboard feat inserted");
+		}
+		if (numFoodFeature>0) {
+			Features featFood = new Features();
+			featFood.setFeatureTypeId(101);
+			featFood.setQuantity(numFoodFeature);
+			featFood.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featFood);
+			System.out.println("food feat inserted");
+		}
+		
+		return "redirect:/AddSearchResources1";
 	}
 	
+	@RequestMapping(value="/charts")
+	public String mainService(HttpServletRequest request, HttpServletResponse response) {
+	//	System.out.println("loading");
+		//drop down stuff
+		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+        request.setAttribute("resourceTypes", vt);
+        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        request.setAttribute("rooms", rt);
+        HttpSession session=request.getSession();
+        session.setAttribute("util",-1.0);
+	/*	if((resourceType!="all") && (resourceType !=null)) {
+			int iresourceType = Integer.parseInt(resourceType );
+			List<String> rt=new UniqueResourcesAndLocations().idkTheName(iresourceType);
+	        request.setAttribute("rooms", rt);
+	        System.out.println(rt.get(1));
+		} */
+         
+		return "utilizationChart"; //view name
+	}
+	
+	@RequestMapping(value="/drawChart",method=RequestMethod.POST)
+	public String drawChart(HttpServletRequest request, HttpServletResponse response) {
+		String viewType = request.getParameter("viewType");
+		String roomType = request.getParameter("roomType2");
+		String period= request.getParameter("period");
+		String sdate = request.getParameter("pickedDate");
+		//sdate += " 00:00";
+		System.out.println(viewType);
+		System.out.println(roomType);
+		System.out.println(period);
+		if(roomType.length()>4)
+			roomType = roomType.substring(0,4);
+		//System.out.println(sdate);
+		// sdate is string date that was passed in by the user
+		System.out.println("what we have as a string: "+sdate);
+		String pattern = "yyyy-MM-dd"; //what we have
+		String pattern2 = "dd-MM-yyyy";	// what we want
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		SimpleDateFormat format2 = new SimpleDateFormat(pattern2);
+		Date date= new Date(); // new date
+		try {
+			date = format.parse(sdate); // convert what we have from string to date
+			System.out.println("what we have as a date: "+date);
+			sdate = format2.format(date); // convert date to string in the format that we want
+			System.out.println("what we want as a string: "+sdate);
+			date = format2.parse(sdate); // convert it back to date in the format that we want
+			System.out.println("what we want as a date: "+date);
+		} catch(Exception e) {
+			System.out.println("wrong date");
+		}
+		//sdate = format.format(date);
+		//System.out.println(sdate);
+		//System.out.println(date);
+		HttpSession session=request.getSession();
+		double util = 0.0;
+		try {
+			if(viewType.equals("all")) {
+				util = periodTypeMethod(period, date);
+			} else {
+				if(roomType.equals("all")) {
+					util = periodTypeMethod(viewType,period, date);
+				} else {
+					util = periodTypeMethodWithRoomId(roomType,period, date);
+				}
+			}
+		} catch (NullPointerException e) {
+			util=0.0;
+		} catch (EmptyResultDataAccessException e) {
+			util=0.0;
+		}
+		
+	//	util = 0.5;
+		session.setAttribute("util",util);
+		//drop down stuff
+		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+        request.setAttribute("resourceTypes", vt);
+        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        request.setAttribute("rooms", rt);
+		return "utilizationChart";
+	}
+	
+	private double periodTypeMethod(String period, Date day) {
+		double x=0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		System.out.println("this is the date: "+day);
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationForAllResources(day);
+				break;
+			case "weekly":
+				x=util.callWeeklyUtilizationForAllResources(day);
+				break;
+			case "monthly":
+				x=util.callMonthlyUtilizationForAllResources(day);
+				break;
+		}
+		return x;
+	}
+	private double periodTypeMethod(String viewType, String period, Date day) {
+		double x =0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+			case "weekly":
+				x = util.callWeeklyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+			case "monthly":
+				x = util.callMonthlyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
+				break;
+		}
+		return x;
+	}
+	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) {
+		double x=0.0;
+		CallUtilizationQueries util = new CallUtilizationQueries();
+		switch(period) {
+			case "day":
+				x = util.callDailyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+			case "weekly":
+				x = util.callWeeklyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+			case "monthly":
+				x = util.callMonthlyUtilizationByResourceId(Integer.parseInt(roomId), day);
+				break;
+		}
+		return x;
+	}
+
 
 	
 }
