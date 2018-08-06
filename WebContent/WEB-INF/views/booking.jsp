@@ -448,7 +448,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								$("#addEventByWeekModal  #timeTo").val(endDate.format("HH:mm"));
 								$("#addEventByWeekModal  #room").val(name);
 								
-							
+								// Ask the server to check for conflicting bookings							
 								$.ajax({
 						              url: "checkConflicts",
 										
@@ -502,8 +502,44 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								$("#addEventByDayModal  #date").val($.fullCalendar.formatDate(startDate, "YYYY-MM-DD"));
 								$("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
 								$("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));	
-								$("#addEventByDayModal").modal("show");	
-								$("#addEventByDayModal  #room").val(name);								
+								$("#addEventByDayModal  #room").val(name);
+									
+								$.ajax({
+						              url: "checkConflicts",
+										
+						              // Pass parameters
+						              data: {
+						            	"type": "day",
+						                "id": $("#pageResourceId").val(),
+						                "date": $("#addEventByDayModal #date").val(),
+						                "timeTo": $("#addEventByDayModal #timeTo").val(),
+						                "timeFrom": $("#addEventByDayModal  #timeFrom").val() 
+						              },
+
+						              success: function (result) {
+										// Print and parse the response
+						            	console.log("Conflict response: " + result);
+										result = result.split(",");
+								
+										// Uncheck and unlabel day that cause conflicts	
+										for(var i = 0; i < result.length; i++){
+											if(result[i] === "false"){
+												$("#d" + i).attr("disabled", true);
+												$("#d" + i).prop("checked", false);
+											}
+										}
+						              },
+
+						              fail: function (result) {
+						                console.log("Failed conflict check service");
+						                console.log(result);
+						              }
+								});
+								
+								
+								
+								
+								$("#addEventByDayModal").modal("show");							
 							}
 						},
 						eventClick : function(calEvent, jsEvent, view) {
