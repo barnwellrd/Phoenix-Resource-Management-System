@@ -1,5 +1,7 @@
 package rms.queries;
+
 import rms.model.Resources;
+import rms.mapper.ResourcesMapper;
 
 import java.util.List;
 
@@ -7,12 +9,10 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import rms.mapper.ResourcesMapper;
-
 
 public class UniqueResourcesAndLocations {
-	private ApplicationContext context;
-	private JdbcTemplate jtemp;
+	ApplicationContext context;
+	JdbcTemplate jtemp;
 	
 	public UniqueResourcesAndLocations() {
         this.context = new ClassPathXmlApplicationContext("spring-dao.xml");
@@ -32,12 +32,19 @@ public class UniqueResourcesAndLocations {
 										resourceTypeId);
 	}
 	
-	
+	//change
 	public List<String> getDistinctResourceName(){
 		return jtemp.queryForList("SELECT DISTINCT resource_type_id||resource_name FROM resources", String.class);
 	}
 	
 	public List<String> getLocationAndCity(){
 		return jtemp.queryForList("SELECT location_id||city FROM locations", String.class);
+	}
+	public List<Integer> getMostRecentResourceId() {
+		return jtemp.queryForList("select max(resource_id) from resources", Integer.class);
+	}
+	
+	public List<String> ResourceTypeName(int resourceTypeId) {
+		return jtemp.queryForList("SELECT resource_type_name FROM resource_type WHERE resource_type_id=?", String.class, resourceTypeId );
 	}
 }
