@@ -25,11 +25,13 @@ import rms.dao.BookingsJdbcTemplate;
 import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
+import rms.queries.FeatureQueries;
 import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
+import rms.model.FeaturesDropDown;
 import rms.model.ResourceType;
 import rms.model.Resources;
 
@@ -516,10 +518,12 @@ public class MyServices {
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc = new UniqueResourcesAndLocations().getLocationAndCity();
 		request.setAttribute("listCategory", loc);
-
-		// get resource types instead of all resources
-		List<ResourceType> res = new ResourceTypeJdbcTemplate().getAll();
-
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		request.setAttribute("featData", listOfFeatures);
+		
+		//get resource types instead of all resources
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 		request.setAttribute("listRes", res);
 
 		// for printing all the resources at the bottom of view.
@@ -533,13 +537,14 @@ public class MyServices {
 	@RequestMapping(value = "/showResourceByType")
 	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("=-----------------Search Location Resources");
-		// System.out.println(request.getParameter("location")+"-----"+
-		// request.getParameter("resources"));
-		int locationId = Integer.parseInt(request.getParameter("location"));
-		int resourceTypeId = Integer.parseInt(request.getParameter("resources"));
-		System.out.println(locationId + " l " + resourceTypeId);
-		List<Resources> allResources = new UniqueResourcesAndLocations()
-				.getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+
+		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		request.setAttribute("featData", listOfFeatures);
+		int locationId=Integer.parseInt(request.getParameter("location"));
+		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
+		System.out.println(locationId+" l "+resourceTypeId);
+		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
 		return "showResourceByType"; // view name
