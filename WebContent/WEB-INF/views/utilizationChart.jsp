@@ -134,12 +134,12 @@
 				dataTable.setCell(2,1,1-rowsArr[1].cells[1].textContent);
 				
 				var options = {
-					title : 'Utilization Chart'
+					title : 'Utilization Chart',
+					colors: ['#ff0000','#33cc33']
 				};
 				var chart = new google.visualization.PieChart(document
 						.getElementById('chart_div'));
 		
-				//new shit
 				var btnSave = document.getElementById('save-pdf');
 				
 				google.visualization.events.addListener(chart, 'ready', function () {
@@ -151,7 +151,6 @@
 				    doc.addImage(chart.getImageURI(), 0, 0);
 				    doc.save('chart.pdf');
 				}, false);
-				//end new shit
 				
 				chart.draw(dataTable, options);
 			
