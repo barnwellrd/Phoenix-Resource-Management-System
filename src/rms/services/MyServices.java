@@ -53,6 +53,7 @@ public class MyServices {
 	public String logout() {
 		return "login";
 	}
+	
 
 
 	@RequestMapping(value = "/dashboard")
@@ -575,6 +576,12 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "showAllResources"; // view name
 	}
+	
+	
+
+	
+	
+	
 	
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {

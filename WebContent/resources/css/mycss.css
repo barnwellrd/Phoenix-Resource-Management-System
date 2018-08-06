@@ -28,11 +28,29 @@ a.wrimagecard:hover, .wrimagecard-topimage:hover {
     transition: color 0.3s ease;
 }
 
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: white;
+}
+
+
+.helpme {
+	margin-left: 200px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
     #resourcesidnav {
       padding-top: 200px;
       background-color:rgb(0,51,0);
     
     }
+    
+    .resource-container{
+    min-width: 800px;
+    }
+    
+    
     
     
     div#resourcesidnav.col-sm-3.sidenav{
