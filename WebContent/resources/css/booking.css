@@ -12,6 +12,10 @@ html, body {
 }
 
 
+.fc-event{
+	font-size:1vw !important;	
+}
+
 #allPage {
 	height: 80%;
 	width: 90%;

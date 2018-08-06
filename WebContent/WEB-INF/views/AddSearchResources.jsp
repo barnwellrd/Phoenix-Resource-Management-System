@@ -46,7 +46,7 @@
 			<fieldset id="fieldset1">
 				<div>
 					<label>Location</label> 
-					<select name="location" style="margin-top:10px">
+					<select class="form-control" name="location">
 						<c:forEach items="${listCategory}" var="loc">
 							<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
 							<option value="${locId}">${loc}</option>
@@ -54,7 +54,6 @@
 					</select>
 				</div>
 			</fieldset>
-			<br>
 			
 			<fieldset id="fieldset2">
 				<div>
@@ -62,17 +61,12 @@
 					<select class="form-control" name="resources">
 						<option value="all">Select a Type</option>
 						<c:forEach items="${listRes}" var="res">
-						<!-- Previous implementation with string. 
-							<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
-							<c:set var="resTypeName" value="${fn:substringAfter(res, resTypeId)}" />
-							<option value="${resTypeId}">${resTypeName}</option>
-						-->	
 							<option value="${res.getResourceTypeId()}">${res.getResourceTypeName()}</option>
 						</c:forEach>
 					</select>
 				</div>
 			</fieldset>
-			<br>
+			
 			
 		</form>
 	
@@ -82,7 +76,6 @@
 	<div class="container">
 				<div class="row">
 			<div class="col-md-offset-3 col-md-6">
-				<div class="panel panel-default bootcards-summary">
 					<br>
 
 					<c:forEach var="allResources" items="${alldata}">
@@ -90,6 +83,7 @@
 							<div class="wrimagecard wrimagecard-topimage">
 								<div class="wrimagecard-topimage_header">
 									<h4 class="filterResourceName">${allResources.getResourceName()}</h4>
+									
 									<!-- Hidden tag that will provide the resource Id on the page -->
 									<p style="display:none" class="filterResourceId">${allResources.getResourceId()}</p>
 									<c:if
@@ -122,7 +116,6 @@
 						</div>
 
 					</c:forEach>
-				</div>
 			</div>
 		</div>
 	</div>

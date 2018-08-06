@@ -388,6 +388,7 @@ public class MyServices {
 		
 		//for printing all the resources at the bottom of view. 
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+				
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
 		return "AddSearchResources"; //view name

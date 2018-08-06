@@ -78,6 +78,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		<div class="container" id="rows">
 			<div class="row">
 				<div class="col-lg-4">
+					<div class="alert alert-warning fade" id="roomAlert">
+	    				<strong>Please Choose a Room Before Selecting</strong>
+					</div>
+				
 					<div class="panel">
 						<div class="panel-body">
 
@@ -363,6 +367,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	$(document).ready(
 	    function () {
 
+	    	$("#roomAlert").hide();
+	    	
 			//the initial rendering of the full calendar. 
 			$('#dispCal').fullCalendar(
 					{
@@ -413,9 +419,25 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						    $(this).css('z-index', 8);
 						    $('.tooltipevent').remove();
 						},
+						
+					   dayClick: function(date, jsEvent, view, resourceObj) {
+						   
+							var selectable = $('#dispCal').fullCalendar('option', 'selectable');
+							  
+							console.log(selectable);
+							
+							  if(!selectable){
+								  
+								  $("#roomAlert").fadeTo(5000, 500).slideUp(500, function(){
+									    $("#roomAlert").slideUp(500);
+									});
+							  }
+
+						},
+						
 						// Handle creation of an event
 						select : function(startDate, endDate) {	
-							
+														
 							// Find the room picked
 							var name = $("#pageResourceName").val();									
 							
@@ -466,8 +488,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						},
 					    agenda: {
 							eventLimit : 3, // allow "more" link when too many events
-
-					      },
+					    },
+					      
 						eventOverlap:false,
 						selectOverlap:false,
 						slotEventOverlap:false,
@@ -476,7 +498,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			//on iframe load. 		
 	      $('iframe').load(function () {
 
-	    	  
 	    	//for clicking on cards of resources.   
 	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
 	        	
