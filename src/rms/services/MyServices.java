@@ -374,14 +374,13 @@ public class MyServices {
 		return "displayRoom";
 	}
 	
-	@RequestMapping(value="/AddSearchResources")
-	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value="/showAllResources")
+	public String showAllResources(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
 		request.setAttribute("listCategory", loc);
 		
 		//get resource types instead of all resources
-		//List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
 		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 
 		request.setAttribute("listRes", res);
@@ -391,11 +390,11 @@ public class MyServices {
 				
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
-		return "AddSearchResources"; //view name
+		return "showAllResources"; //view name
 	}
 	
-	@RequestMapping(value="/LocationResources")
-	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value="/showResourceByType")
+	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 		System.out.println("=-----------------Search Location Resources");
 		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
 		int locationId=Integer.parseInt(request.getParameter("location"));
@@ -404,9 +403,7 @@ public class MyServices {
 		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
-		return "FilterResources"; //view name
+		return "showResourceByType"; //view name
 	}
-	
-
 	
 }

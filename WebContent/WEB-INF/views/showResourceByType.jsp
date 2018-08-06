@@ -34,12 +34,15 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h4 style="text-align:center">Resources for</h4>
+	<h4 style="text-align:center">
+	${
+		alldata.get(0).getResourceName().substring(0,alldata.get(0).getResourceName().length()-2)
+	} Rooms
+	</h4>
 
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-3 col-md-6">
-				<div class="panel panel-default bootcards-summary">
 					<br>
 
 					<c:forEach var="allResources" items="${alldata}">
@@ -81,10 +84,9 @@
 
 					</c:forEach>
 				</div>
-			</div>
 		</div>
 		
-		<form action="AddSearchResources" style="text-align:center">
+		<form action="showAllResources" style="text-align:center">
 			<button id="backButton" type="submit">Show All</button>
 		</form>
 	</div>

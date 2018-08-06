@@ -42,7 +42,7 @@
 </head>
 <body>
 	<div class="container" >
-		<form action="LocationResources" method="post">
+		<form action="showResourceByType" method="post">
 			<fieldset id="fieldset1">
 				<div>
 					<label>Location</label> 
@@ -59,7 +59,7 @@
 				<div>
 					<label>Resources</label> <br>
 					<select class="form-control" name="resources">
-						<option value="all">Select a Type</option>
+						<option>Select a Type</option>
 						<c:forEach items="${listRes}" var="res">
 							<option value="${res.getResourceTypeId()}">${res.getResourceTypeName()}</option>
 						</c:forEach>

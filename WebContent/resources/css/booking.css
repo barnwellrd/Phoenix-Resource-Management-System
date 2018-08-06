@@ -9,6 +9,16 @@ html, body {
 
 .panel,.panel-body, .row,.col-lg-8,.col-lg-4{
 	height:90%;
+
+}
+.col-lg-8{
+	margin-right:0;
+	padding:0;
+}
+
+.col-lg-4{
+	margin-left:0;
+	padding:0;
 }
 
 
