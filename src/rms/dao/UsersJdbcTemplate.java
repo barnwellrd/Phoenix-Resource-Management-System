@@ -7,6 +7,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.IncorrectResultSizeDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import rms.dao.JdbcTemplateInterface;
 import rms.model.Users;
@@ -23,10 +24,12 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 	
 	@Override
 	public int insert(Users userToInsert) {
+		String pswd_hash = BCrypt.hashpw(userToInsert.getUserPassword(), BCrypt.gensalt());
+		
 		int result = jtemp.update("INSERT INTO Users VALUES(seq_user.nextVal, ?, ?, ?, ?, ?, ?, ?, ?)", 
 																userToInsert.getUserName(),
 																userToInsert.getUserEmail(),
-																userToInsert.getUserPassword(),
+																pswd_hash,
 																userToInsert.getUserType(),
 																userToInsert.getUserPhone(),
 																userToInsert.getLocationId(),
@@ -45,6 +48,8 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 
 	@Override
 	public int update(Users userToUpdate) {
+		String pswd_hash = BCrypt.hashpw(userToUpdate.getUserPassword(), BCrypt.gensalt());
+		
 		int result = jtemp.update("UPDATE users "
 								+ "SET "
 									+ "user_name = ?, "
@@ -58,7 +63,7 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 								+ "WHERE user_id = ?",
 									userToUpdate.getUserName(),
 									userToUpdate.getUserEmail(),
-									userToUpdate.getUserPassword(),
+									pswd_hash,
 									userToUpdate.getUserType(),
 									userToUpdate.getUserPhone(),
 									userToUpdate.getLocationId(),
