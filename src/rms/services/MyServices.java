@@ -47,6 +47,7 @@ public class MyServices {
 	public String logout() {
 		return "login";
 	}
+	
 
 	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
@@ -311,6 +312,12 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "AddSearchResources"; //view name
 	}
+	
+	
+
+	
+	
+	
 	
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
