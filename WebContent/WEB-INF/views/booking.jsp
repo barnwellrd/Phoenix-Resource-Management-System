@@ -793,7 +793,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					"title" : title,
 					"resourceId" : resId,
 					"repeats": repeats,
-					"type" : "week"
+					"type" : "week",
 					"userId":userId
 				}
 	          });
