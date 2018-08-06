@@ -20,6 +20,9 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
+	 */
 	@Override
 	public int insert(Resources resource){
 		int result = jtemp.update("insert into Resources values(seq_resource.nextval, ?, ?, ?, ?, ?, ?, ?, ?)", 
@@ -35,12 +38,18 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#delete(int)
+	 */
 	@Override
 	public int delete(int resourceId){
 		int result = jtemp.update("delete from Resources where resource_id = ?", resourceId);
 		
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
+	 */
 	@Override
 	public int update(Resources resource){
 		int result = jtemp.update("update Resources "
@@ -65,6 +74,9 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 		
 		return result;
 	}
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#search(int)
+	 */
 	@Override
 	public Resources search(int resourceId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException{
 		Resources rs = jtemp.queryForObject("SELECT * FROM Resources WHERE resource_id = ? ", new ResourcesMapper(), resourceId);
@@ -72,6 +84,9 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>{
 		return rs;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#getAll()
+	 */
 	@Override
 	public List<Resources> getAll(){
 		

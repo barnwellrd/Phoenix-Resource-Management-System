@@ -23,6 +23,7 @@ public class Bookings {
 				+ isActive + ", bookedStartTime=" + bookedStartTime + ", bookedEndTime=" + bookedEndTime
 				+ ", description=" + description + "]";
 	}
+	
 	public String getDescription() {
 		return description;
 	}

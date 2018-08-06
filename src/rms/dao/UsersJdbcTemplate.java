@@ -21,6 +21,9 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
+	 */
 	@Override
 	public int insert(Users userToInsert) {
 		int result = jtemp.update("INSERT INTO Users VALUES(seq_user.nextVal, ?, ?, ?, ?, ?, ?, ?, ?)", 
@@ -36,6 +39,9 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#delete(int)
+	 */
 	@Override
 	public int delete(int userIdToDelete) {
 		int result = jtemp.update("DELETE FROM users WHERE user_id = ?", userIdToDelete);
@@ -43,6 +49,9 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 		return result;	
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
+	 */
 	@Override
 	public int update(Users userToUpdate) {
 		int result = jtemp.update("UPDATE users "
@@ -68,12 +77,18 @@ public class UsersJdbcTemplate implements JdbcTemplateInterface<Users>{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#search(int)
+	 */
 	@Override
 	public Users search(int userId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
 		Users user = jtemp.queryForObject("SELECT * FROM Users WHERE user_id = ? ", new UsersMapper(), userId);	
 		return user;
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#getAll()
+	 */
 	@Override
 	public List<Users> getAll() {
 		List<Users> usersList = jtemp.query("SELECT * FROM Users", new UsersMapper());
