@@ -22,9 +22,6 @@ public class LocationJdbcTemplate implements JdbcTemplateInterface<Location>{
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 
-	/* (non-Javadoc)
-	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
-	 */
 	@Override
 	public int insert(Location location) {
 		return jtemp.update("INSERT INTO locations VALUES (seq_location.nextval, ?, ?, ?, ?, ?)",
@@ -35,17 +32,11 @@ public class LocationJdbcTemplate implements JdbcTemplateInterface<Location>{
 				location.getPhone());
 	}
 
-	/* (non-Javadoc)
-	 * @see rms.dao.JdbcTemplateInterface#delete(int)
-	 */
 	@Override
 	public int delete(int id) {
 		return jtemp.update("DELETE FROM locations WHERE location_id=?", id);
 	}
 
-	/* (non-Javadoc)
-	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
-	 */
 	@Override
 	public int update(Location location) {
 		return jtemp.update(
@@ -58,9 +49,6 @@ public class LocationJdbcTemplate implements JdbcTemplateInterface<Location>{
 				location.getLocationId());
 	}
 
-	/* (non-Javadoc)
-	 * @see rms.dao.JdbcTemplateInterface#search(int)
-	 */
 	@Override
 	public Location search(int id) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
 		return jtemp.queryForObject(
@@ -68,9 +56,6 @@ public class LocationJdbcTemplate implements JdbcTemplateInterface<Location>{
 					new LocationMapper(), id);
 	}
 
-	/* (non-Javadoc)
-	 * @see rms.dao.JdbcTemplateInterface#getAll()
-	 */
 	@Override
 	public List<Location> getAll() {
 		return jtemp.query("SELECT * FROM locations", new LocationMapper());
