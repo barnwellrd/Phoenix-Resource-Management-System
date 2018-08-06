@@ -1,7 +1,7 @@
 package rms.model;
 
 /**
- * This class is meant to be used with the PRMS database. It is a model class for the ResourceType table in the database
+ * This class is meant to be used with the PRMS database. It is a model class for the ResourceType table in the database.
  * Each type of resource is given a unique ID. 
  * Each ID represents a resource type with name, description, and an image path. 
  * @author Re: Syntellions
@@ -51,6 +51,10 @@ public class ResourceType
 	}
 	
 
+	
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
 	@Override
 	public String toString() 
 	{
