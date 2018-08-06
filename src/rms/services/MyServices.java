@@ -30,6 +30,7 @@ import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
+import rms.model.ResourceType;
 import rms.model.Resources;
 
 @Controller
@@ -92,7 +93,6 @@ public class MyServices {
 	
 	@RequestMapping(value="/updateEvent")
 	public void updateEvent(HttpServletRequest request, HttpServletResponse response){
-		
 		
 		// Read data from ajax call
 	    String date = request.getParameter("date");
@@ -191,16 +191,18 @@ public class MyServices {
 	   		// Make a booking for each day of the week checked
 	   		Calendar cal = Calendar.getInstance();
 	   		for(int i = 0; i < split.length; i++){
-	   			cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY);
 	   			if(Boolean.parseBoolean(split[i])){
+	   				
 	   				// Get the start timestamp
 			   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-			   		cal.add(Calendar.DAY_OF_WEEK, i);
+		   			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			   		cal.add(Calendar.DAY_OF_YEAR, i);
 			   		Timestamp start = new Timestamp(cal.getTimeInMillis());
 			   		
 			   		// Get the stop time stamp
 			   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-			   		cal.add(Calendar.DAY_OF_WEEK, i);
+		   			cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+			   		cal.add(Calendar.DAY_OF_YEAR, i);
 			   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
 			   		
 			   		Bookings booking = new Bookings();
@@ -377,8 +379,14 @@ public class MyServices {
 		System.out.println("=-----------------searchAllResources1");
 		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
 		request.setAttribute("listCategory", loc);
-		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		
+		//get resource types instead of all resources
+		//List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
+
 		request.setAttribute("listRes", res);
+		
+		//for printing all the resources at the bottom of view. 
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");

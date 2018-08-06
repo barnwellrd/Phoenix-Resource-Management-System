@@ -11,6 +11,7 @@ html, body {
 	height:90%;
 }
 
+
 #allPage {
 	height: 80%;
 	width: 90%;
@@ -48,7 +49,6 @@ h1 {
 }
 
 .panel {
-	background-color: #ffff80;
 	text-align: center;
 }
 

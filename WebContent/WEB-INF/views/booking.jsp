@@ -315,32 +315,33 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d0" value="Monday"> M
+							<input type="checkbox" id="d0" value="Sunday"> Su
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d1" value="Tuesday"> Tu
+							<input type="checkbox" id="d1" value="Monday"> M
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d2" value="Wednesday"> W
+							<input type="checkbox" id="d2" value="Tuesday"> Tu
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d3" value="Thursday"> Th
+							<input type="checkbox" id="d3" value="Wednesday"> W
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d4" value="Friday"> F
+							<input type="checkbox" id="d4" value="Thursday"> Th
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d5" value="Saturday"> Sa
+							<input type="checkbox" id="d5" value="Friday"> F
 						</div>
 						<div class="input-group-addon"
 							style="background-color: white; border: none;">
-							<input type="checkbox" id="d6" value="Sunday"> Su
+							<input type="checkbox" id="d6" value="Saturday"> Sa
 						</div>
+
 					</div>
 
 
@@ -365,6 +366,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			//the initial rendering of the full calendar. 
 			$('#dispCal').fullCalendar(
 					{
+					
+						
 						// Limit calendar to show only two months from now
 						validRange : function(currentDate) {
 							return {
@@ -381,7 +384,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						themeSystem : 'bootstrap3',
 						minTime : "06:00:00",
 						maxTime : "18:00:00",
-						height : 500,
+						height : 480,
 						defaultView : 'agendaWeek',
 						selectable : false,
 						selectConstraint : {
@@ -404,6 +407,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						        $tooltip.css('left', e.pageX + 20);
 						    });
 						},
+					      
 						//for the tooltip. delete it on mouseout of event. 
 						eventMouseout: function(calEvent, jsEvent) {
 						    $(this).css('z-index', 8);
@@ -425,10 +429,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								$("#addEventByWeekModal  #room").val(name);
 								$("#addEventByWeekModal").modal("show");
 							} else if(viewType === "agendaDay"){
-								var currentDay = startDate.day() - 1;
-								if(currentDay < 0){
-									currentDay = 6;
-								}
+								var currentDay = startDate.day();
+								console.log(currentDay);
 								
 								for(var i = 0; i < 7; i++){
 									// Disable and uncheck previous days
@@ -550,10 +552,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				
 	        });
 
-	        $(this).contents().find("input[name='type']").on('change', function (event) {
+	        $(this).contents().find("select[name='resources']").on('change', function (event) {
 
 	            console.log("chose a type");
-	            var resId = ($('iframe').contents().find("input[name='type']:checked").val());
+	            var resId = ($('iframe').contents().find("input[name='type']:selected").val());
 	            console.log(resId);
 
 	            $.ajax({
@@ -579,17 +581,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              }
 	            });
 
-	            var resId = ($('iframe').contents().find("form").submit());
+	            $('iframe').contents().find("form").submit();
 
 
 	          });
 	      });
-
-	    
-
-
-	         
-	    
 
 	      $('iframe').load(function () {
 	        $(this).contents().find("#backButton").on('click',
@@ -691,14 +687,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          var timeFrom = $("#addEventByDayModal #timeFrom").val();
 	          var title = $("#addEventByDayModal #room").val();
 	          var resId = $("#pageResourceId").val();
-	          var m = $("#addEventByDayModal #d0").prop("checked");
-	          var tu = $("#addEventByDayModal #d1").prop("checked");
-	          var w = $("#addEventByDayModal #d2").prop("checked");
-	          var th = $("#addEventByDayModal #d3").prop("checked");
-	          var f = $("#addEventByDayModal #d4").prop("checked");
-	          var sa = $("#addEventByDayModal #d5").prop("checked");
-	          var su = $("#addEventByDayModal #d6").prop("checked");
-	          var repeats = [m, tu, w, th, f, sa, su];
+	          var su = $("#addEventByDayModal #d0").prop("checked");
+	          var m = $("#addEventByDayModal #d1").prop("checked");
+	          var tu = $("#addEventByDayModal #d2").prop("checked");
+	          var w = $("#addEventByDayModal #d3").prop("checked");
+	          var th = $("#addEventByDayModal #d4").prop("checked");
+	          var f = $("#addEventByDayModal #d5").prop("checked");
+	          var sa = $("#addEventByDayModal #d6").prop("checked");
+	          var repeats = [su, m, tu, w, th, f, sa];
 
 	          console.log(date);
 	          console.log(timeTo);
