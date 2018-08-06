@@ -27,6 +27,30 @@ public class LoginQueries {
 		return jtemp.queryForObject("SELECT * FROM USERS WHERE user_name = ? AND user_password = ?", 
 				new UsersMapper(), userName, password);
 	}
-
 	
+	public boolean checkIsAdminUsingEmail(String email, String password) throws EmptyResultDataAccessException {
+		int userType = jtemp.queryForObject("SELECT user_type FROM users WHERE user_email = ? AND user_password = ?", 
+				int.class, email, password);
+		if(userType == 1 || userType == 3)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+	
+	public boolean checkIsAdminUsingUsername(String userName, String password) throws EmptyResultDataAccessException {
+		int userType = jtemp.queryForObject("SELECT user_type FROM users WHERE user_name = ? AND user_password = ?", 
+				int.class, userName, password);
+		if(userType == 1 || userType == 3)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
 }
