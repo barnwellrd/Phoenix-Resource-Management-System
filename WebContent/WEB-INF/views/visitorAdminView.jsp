@@ -10,6 +10,8 @@
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
 	<script src="../resources/js/jquery.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
+	<script src="../resources/js/visitor30SecRedirect.js"></script>
+	
 	
 
 </head>

@@ -31,7 +31,7 @@
 	</script>
 </head>
 
-<body class="container-fluid text-center">
+<body id="home-page-body"class="container-fluid text-center">
 	<header class="container text-center" id="title">
 		<div class="ml15 pull-center">
 			<h1>

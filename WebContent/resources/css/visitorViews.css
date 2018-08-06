@@ -2,7 +2,7 @@ html {
 	height: 100%;
 }
 
-body {
+#home-page-body {
 	min-height: 100%;
 	background-image: url("../images/checkin_index.png");
 	background-size: 100% auto;
@@ -24,7 +24,7 @@ section {
 .container.section_block {
 	max-width: 70%;
 	min-height: 100%;
-	margin-top: 5%;
+	margin-top: 10%;
 }
 
 header {
@@ -131,13 +131,13 @@ th {
 	width: 8%;
 }
 
-form {
+/*form {
 	background-color: white;
 	padding: 2%;
 	border-style: solid;
 	border-color: #004837;
 	border-radius: 5px;
-}
+}*/
 
 input {
 	border-radius: 5px;
@@ -152,7 +152,6 @@ input {
 }
 
 .form-control {
-	border-color: #e85200;
 	font-size: 225%;
 	text-align: center;
 }
@@ -190,4 +189,9 @@ input {
 	color: white;
 	width:100%;
 	height: 100%;
+}
+
+.welcome-goodbye-block{
+	margin-top:10%;
+	
 }

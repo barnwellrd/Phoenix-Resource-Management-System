@@ -14,6 +14,7 @@
 	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
 	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/visitor5SecRedirect.js"></script>
 </head>
 
 <body class="container-fluid text-center">
@@ -36,11 +37,10 @@
 	</header>
 	<section class="nav"></section>
 	<section class="container">
-		<div class="section_block">
+		<div class="section_block welcome-goodbye-block">
 			<h1 class="message-text">Welcome To Syntel,</h1>
 			<h1 class="visitor-name">
-				<c:out value="${full_name}" />
-				!
+				<c:out value="${full_name}"/>!
 			</h1>
 		</div>
 	</section>
