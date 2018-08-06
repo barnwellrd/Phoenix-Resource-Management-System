@@ -18,7 +18,7 @@
 	response.addDateHeader ("Expires", 0); %>
 	<script type="text/javascript">
 	
-		$(document).ready(function() {
+		$(document).ready( function() {
 			anime.timeline({
 				loop : false
 			}).add({
