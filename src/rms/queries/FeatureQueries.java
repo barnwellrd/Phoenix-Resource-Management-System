@@ -1,11 +1,14 @@
 package rms.queries;
 
 import java.util.List;
-import java.util.Map;
+
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
+import rms.mapper.RoomDropMapper;
+import rms.model.FeaturesDropDown;
 
 import rms.mapper.RoomDropMapper;
 import rms.model.FeaturesDropDown;
@@ -24,4 +27,8 @@ public class FeatureQueries {
 		return jtemp.query("SELECT FT.Feature_Type_Name, F.Quantity, R.Resource_Name FROM FEATURES F JOIN FEATURE_TYPE FT ON F.Feature_Type_ID = FT.Feature_Type_ID JOIN RESOURCES R ON F.Resource_ID = R.Resource_ID",
 				new RoomDropMapper());
 	}
+	
+
+	
+	
 }

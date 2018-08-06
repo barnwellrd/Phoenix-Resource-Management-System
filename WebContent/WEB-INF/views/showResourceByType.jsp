@@ -2,9 +2,9 @@
 	pageEncoding="ISO-8859-1"%>
 
 <%@taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
@@ -12,6 +12,9 @@
 <head>
 <meta name="viewport" http-equiv="Content-Type"
 	content="text/html; charset=ISO-8859-1 width=device-width, initial-scale=1">
+	
+<link rel="stylesheet"
+	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
@@ -19,17 +22,16 @@
 <spring:url value="/resources/css/showAll.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
-<spring:url value="/resources/css/all.css" var="awesome" />
-<link rel="stylesheet" href="${awesome}" />
-
-<spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
+ 
+<spring:url value="/resources/css/bootstrap.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
 
 
-<spring:url value="/resources/js" var="JS" />
+<spring:url value="/resources/js" var="JS"/>
 
-<script src="${JS}/jquery.js"></script>
-<script src="${JS}/bootstrap.js"></script>
+<script src = "${JS}/jquery.js"></script>
+<script src = "${JS}/bootstrap.js"></script>
+
 
 <title>Insert title here</title>
 </head>

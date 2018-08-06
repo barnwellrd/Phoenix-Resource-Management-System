@@ -14,12 +14,54 @@
 
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-
 <html>
 <head>
+<style>
+.modal-dialog {
+	border-radius: 25px;
+	border-color: darkgreen;
+	text-align: center;
+	width: 370px;
+}
+
+.modal-header {
+	background-color: green;
+	color: white;
+	text-align: center;
+}
+
+.modal-body {
+	border-radius: 25px;
+}
+
+.resInput input, #resssTypeId, #resLoc {
+	text-align: center;
+	width: 250px;
+	height: 35px;
+}
+
+input[type=number] {
+	text-align: center;
+}
+
+select {
+	text-align-last: center;
+}
+
+input:focus::-webkit-input-placeholder {
+	color: transparent;
+}
+
+td {
+	padding: 20px;
+}
+
+.checks label:hover {
+	background-color: lightgray;
+}
+</style>
 <meta name="viewport" http-equiv="Content-Type"
 	content="charset=ISO-8859-1 width=device-width, initial-scale=1">
-
 
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
@@ -68,7 +110,45 @@
 			</fieldset>
 		</form>
 
+		<nav class="navbar navbar-default">
+		<div class="container">
+			<div class="navbar-header">
+				<img src="resources/images/syntrans.png" alt="logo"
+					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
+
+				<button type="button" class="navbar-toggle" data-toggle="collapse"
+					data-target="#myNavbar">
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
+				</button>
+
+
+			</div>
+			<div class="collapse navbar-collapse" id="myNavbar">
+				<ul class="nav navbar-nav navbar-center"
+					style="left-padding: 300px;">
+
+
+
+				</ul>
+
+				<ul class="nav navbar-nav navbar-right">
+
+					<li style="font-size: 22px;"><a href="#"><span
+							class="glyphicon glyphicon-user"></span> </a></li>
+
+					<li style="font-size: 22px;"><a href="#"><span
+							class="glyphicon glyphicon-bell"></span> </a></li>
+
+					<li style="font-size: 22px;"><a href="#"><span
+							class="glyphicon glyphicon-search"></span> </a></li>
+
+
+				</ul>
+			</div>
+		</div>
 	</div>
+	</nav>
 
 	<div class="container">
 		<div class="row">
@@ -190,8 +270,14 @@
 				</c:forEach>
 			</div>
 		</div>
+		<footer class="footer" id="footer"">
+		<center>
+			<p>� 2018 Syntel, Inc</p>
+		</center>
+
+		</footer>
+
 	</div>
-
-
+</body>
 </body>
 </html>
