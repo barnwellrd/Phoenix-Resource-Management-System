@@ -78,5 +78,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-5.0.7.RELEASE-sources.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/spring-websocket-5.0.7.RELEASE.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="C:/Training software 64 bit/apache-tomcat-9.0.0.M17/lib/tomcat-api.jar"/>
+	<classpathentry kind="lib" path="C:/Training software 64 bit/apache-tomcat-9.0.0.M17/lib/servlet-api.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
