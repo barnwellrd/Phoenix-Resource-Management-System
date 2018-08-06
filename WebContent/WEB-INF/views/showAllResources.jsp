@@ -86,7 +86,7 @@
 
 								<div class="dropdown-content">
 									<table>
-
+									
 										<!-- Loops through all features to choose which belong to this resource -->
 										<c:forEach var="feat" items="${featData}">
 											<c:if
