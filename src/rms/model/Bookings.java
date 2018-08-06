@@ -2,6 +2,12 @@ package rms.model;
 
 import java.sql.Timestamp;
 
+
+/**
+ * Model class representing a booking
+ * @author syntel
+ *
+ */
 public class Bookings {
 	private int bookingId;
 	private int resourceId;
