@@ -338,7 +338,7 @@ public class MyServices {
 	        System.out.println(rt.get(1));
 		} */
          
-		return "fullPage"; //view name
+		return "utilizationChart"; //view name
 	}
 	
 	@RequestMapping(value="/drawChart",method=RequestMethod.POST)
@@ -399,7 +399,7 @@ public class MyServices {
         request.setAttribute("resourceTypes", vt);
         List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
         request.setAttribute("rooms", rt);
-		return "fullPage";
+		return "utilizationChart";
 	}
 	
 	private double periodTypeMethod(String period, Date day) {

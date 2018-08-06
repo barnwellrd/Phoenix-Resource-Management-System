@@ -1,5 +1,5 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
-<%@page import="java.util.*, dbController.DBConnect" %>
+<%@page import="java.util.*" %>
 <html lang="en">
 	<head>
 		<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
@@ -147,7 +147,6 @@
 				});
 				
 				btnSave.addEventListener('click', function () {
-					alert("button pressed");
 				    var doc = new jsPDF();
 				    doc.addImage(chart.getImageURI(), 0, 0);
 				    doc.save('chart.pdf');
