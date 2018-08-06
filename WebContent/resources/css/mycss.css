@@ -2,32 +2,34 @@
 .wrimagecard{	
 	margin-top: 0;
     margin-bottom: 1.5rem;
+    padding:0;
     text-align: left;
     position: relative;
     background: #fff;
     box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
     border-radius: 4px;
-    transition: all 0.3s ease;
-}
-.wrimagecard .fa{
-	position: relative;
-    font-size: 60px;
+    transition: all 0.3s ease;  
 }
 
-h4{
-	font-size:2vw;
+h4.filterResourceName{
+	font-size:3.9vw;
+	padding:0 0 5px 0;
+	margin:0;
 }
+
+.wrimagecard .fa{
+	position: relative;
+    font-size: 30px;
+}
+
 .wrimagecard-topimage_header{
     text-align:center;
-	
 	padding: 20px;
 }
 a.wrimagecard:hover, .wrimagecard-topimage:hover {
     box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
 }
 .wrimagecard-topimage a {
-    width: 100%;
-    height: 100%;
     display: block;
 }
 .wrimagecard-topimage a {

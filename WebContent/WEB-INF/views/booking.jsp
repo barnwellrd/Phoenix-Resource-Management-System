@@ -78,10 +78,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		<div class="container" id="rows">
 			<div class="row">
 				<div class="col-lg-4">
+					<div class="alert alert-warning fade" id="roomAlert">
+	    				<strong>Please Choose a Room Before Selecting</strong>
+					</div>
+				
 					<div class="panel">
 						<div class="panel-body">
 
-							<iframe src="AddSearchResources"> </iframe>
+							<iframe src="showAllResources"> </iframe>
 
 						</div>
 					</div>
@@ -209,7 +213,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">Date</span>
 						</div>
 						<input class="form-control input-md" type="date"
-							placeholder="DD-MM" id="date" name="date" required />
+							placeholder="DD-MM" id="date" name="date" readonly="readonly" required />
 					</div>
 
 					<!-- Start time -->
@@ -219,7 +223,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">From</span>
 						</div>
 						<input class="form-control input-md" type="time"
-							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
+							placeholder="HH:MM" id="timeFrom" name="timeFrom" readonly="readonly" required>
 					</div>
 
 					<!-- Stop time -->
@@ -229,7 +233,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">To</span>
 						</div>
 						<input class="form-control input-md" type="time"
-							placeholder="HH:MM" id="timeTo" name="timeTo" required>
+							placeholder="HH:MM" id="timeTo" name="timeTo" readonly="readonly" required>
 					</div>
 
 					<!-- Weekly repeats -->
@@ -362,6 +366,22 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	$(document).ready(
 	    function () {
 
+	    	//dont show alert on first page load.
+	    	$("#roomAlert").hide();
+	    	
+	    	//tell user to choose a room on mouseup on calendar. 
+	    	$( "#dispCal" ).mouseup(function() {
+					   
+				var selectable = $('#dispCal').fullCalendar('option', 'selectable');
+						  						
+				if(!selectable){
+							  
+					$("#roomAlert").fadeTo(4000, 500).slideUp(500, function(){
+						$("#roomAlert").slideUp(500);
+					});
+				 }
+	    	});
+	    		    	
 			//the initial rendering of the full calendar. 
 			$('#dispCal').fullCalendar(
 					{
@@ -409,8 +429,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						    $(this).css('z-index', 8);
 						    $('.tooltipevent').remove();
 						},
+					
+						
 						// Handle creation of an event
 						select : function(startDate, endDate) {	
+														
+							console.log("Select Event");
 							
 							// Find the room picked
 							var name = $("#pageResourceName").val();									
@@ -492,9 +516,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						},
 					    agenda: {
 							eventLimit : 3, // allow "more" link when too many events
-
-					      },
+					    },
+					      
 						eventOverlap:false,
+						allDaySlot:false,
 						selectOverlap:false,
 						slotEventOverlap:false,
 					});//End fullCalendar initial render
@@ -502,7 +527,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			//on iframe load. 		
 	      $('iframe').load(function () {
 
-	    	  
 	    	//for clicking on cards of resources.   
 	        $("iframe").contents().find(".wrimagecard").on('click', function (event) {
 	        	
@@ -545,7 +569,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	          //set the page resource Id attribute to be the selected id. 
 			  $("#pageResourceId").val(resId);
 			  $("#pageResourceName").val(name);
-	          
+	  
 	          //This ajax call filters the calendar by the exact resourceId that was just clicked by the user. 
 	          $.ajax({
 		              url: "getBookingsAsTableByResourceId",
