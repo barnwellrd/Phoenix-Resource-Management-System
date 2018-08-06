@@ -67,7 +67,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				<div class="collapse navbar-collapse" id="myNavbar">
 					<ul class="nav navbar-nav">
 						<li><a href="#">Account</a></li>
-						<li><a href="#">Add A Resource</a></li>
+						<li><a href="AddSearchResources1">Add A Resource</a></li>
 						<li><a href="logout">Log Out</a></li>
 					</ul>
 
@@ -288,7 +288,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">Date</span>
 						</div>
 						<input class="form-control input-md" type="date"
-							placeholder="DD-MM" id="date" name="date" required />
+							placeholder="DD-MM" id="date" name="date" required readonly="readonly"/>
 					</div>
 
 					<!-- From time -->
@@ -298,7 +298,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">From</span>
 						</div>
 						<input class="form-control input-md" type="time"
-							placeholder="HH:MM" id="timeFrom" name="timeFrom" required>
+							placeholder="HH:MM" id="timeFrom" name="timeFrom" readonly="readonly" required>
 					</div>
 
 					<!-- To time -->
@@ -308,7 +308,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								class="input-group-text">To</span>
 						</div>
 						<input class="form-control input-md" type="time"
-							placeholder="HH:MM" id="timeTo" name="timeTo" required>
+							placeholder="HH:MM" id="timeTo" name="timeTo" readonly="readonly" required>
 					</div>
 
 					<!-- Day repeats -->
@@ -370,11 +370,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    	$("#roomAlert").hide();
 	    	
 	    	//tell user to choose a room on mouseup on calendar. 
-	    	$( "#dispCal" ).mouseup(function() {
-					   
+	    	$( "#dispCal" ).mouseup(function(event) {
+				
+	    		console.log(event.target.className);
+	    		
 				var selectable = $('#dispCal').fullCalendar('option', 'selectable');
 						  						
-				if(!selectable){
+				if(!selectable && event.target.type != "button" && !event.target.className.includes("toolbar")){
 							  
 					$("#roomAlert").fadeTo(4000, 500).slideUp(500, function(){
 						$("#roomAlert").slideUp(500);
@@ -641,7 +643,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	        $('iframe').contents().find("select[name='resources']").on('change', function (event) {
 
 	            console.log("chose a type");
-	            var resId = ($('iframe').contents().find("input[name='resources']:checked").val());
+	            
+	            var resId = ($('iframe').contents().find("select[name='resources'] option:selected").val());
+	            
 	            console.log(resId);
 
 	            $.ajax({
@@ -667,7 +671,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	              }
 	            });
 
-	            var resId = ($('iframe').contents().find("form").submit());
+	            ($('iframe').contents().find("form").submit());
 
 
 	          });

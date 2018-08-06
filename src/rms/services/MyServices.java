@@ -430,7 +430,9 @@ public class MyServices {
 	public void getBookingsAsTableByType(HttpServletRequest request, HttpServletResponse response) {
 
 		String resId = request.getParameter("resourceTypeId");
+		
 		System.out.println(resId);
+		
 		int resourceTypeId = Integer.parseInt(request.getParameter("resourceTypeId"));
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceType(resourceTypeId);
 		PrintWriter out = null;
