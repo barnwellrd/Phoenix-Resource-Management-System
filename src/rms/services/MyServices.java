@@ -139,10 +139,7 @@ public class MyServices {
 		String timeFrom = request.getParameter("timeFrom");
 		String resourceId = request.getParameter("resourceId");
 		String type = request.getParameter("type");
-		int userId = Integer.parseInt(request.getParameter("userId"));
-		
-		System.out.println(date);
-		System.out.println(timeTo);
+
 		
 	   	DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
 		String dates1 = date+" "+timeFrom;
@@ -151,9 +148,6 @@ public class MyServices {
 		//translate the calendar date into a date for the database. 
 		LocalDateTime date1 = LocalDateTime.parse(dates1,format);
 	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
-	   	Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   	Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-
 	   	
 	   	// Check the number of repeats
 	   	if(type.equals("week")) {
@@ -219,6 +213,107 @@ public class MyServices {
 	   			}
 	   		}
 	   	}	   	   				   	
+	}
+	
+	@RequestMapping(value="/checkConflicts")
+	public void checkConflicts(HttpServletRequest request, HttpServletResponse response){
+		System.out.println("\t Checking for conclicts");
+		
+		
+		String type = request.getParameter("type");
+		int resourceID = Integer.parseInt(request.getParameter("id"));
+		String date = request.getParameter("date");
+		String timeTo = request.getParameter("timeTo");
+		String timeFrom = request.getParameter("timeFrom");
+		
+		/*
+		System.out.println(type);
+		System.out.println(resourceID);
+		System.out.println(date);
+		System.out.println(timeTo);
+		System.out.println(timeFrom);
+		*/
+
+	
+		// Make times sql friendly
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date + " " + timeFrom;
+		String dates2 = date + " " + timeTo;
+		LocalDateTime date1 = LocalDateTime.parse(dates1,format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2,format);
+		
+		// Get all bookings
+		List<Bookings> bookings = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+	
+
+		// Check which recurrences don't clash
+		if(type.equals("day")){
+			
+		} else if(type.equals("week")){
+			int maxBookableWeeks = 0;
+			for(int i = 1; i <= 4; i++) {
+		   		// Calculate time stamp for each possible week
+		   		Calendar cal = Calendar.getInstance();
+		   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		   		cal.add(Calendar.WEEK_OF_MONTH, i);
+		   		Timestamp start = new Timestamp(cal.getTimeInMillis());
+		   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		   		cal.add(Calendar.WEEK_OF_MONTH, i);
+		   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+		   		
+		   		// Make a hypothetical booking
+		   		Bookings hypothetical = new Bookings();
+		   		hypothetical.setIsActive(1);
+		   		hypothetical.setBookedStartTime(start);
+		   		hypothetical.setBookedEndTime(stop);
+		   		hypothetical.setResourceId(resourceID);
+		   		hypothetical.setUserId(101);
+		   		hypothetical.setDescription("An event");
+		   		
+		   		// Check to see if the hypothetical booking clashes with any existing booking
+		   		boolean valid = true;
+		   		for(Bookings existing: bookings){
+		   			// Is the hypothetical bookings before the exiting booking?
+		   			boolean before = 	hypothetical.getBookedStartTime().before(existing.getBookedStartTime()) && 
+		   								hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+		   			
+		   			// Is the hypothetical booking after the existing booking? 
+		   			boolean after = 	hypothetical.getBookedStartTime().after(existing.getBookedEndTime()) && 
+		   								hypothetical.getBookedEndTime().after(existing.getBookedEndTime());
+		   			
+		   			valid = valid && (before || after);
+		   					
+		   			
+		   			System.out.println(hypothetical.getBookedStartTime() + " " + hypothetical.getBookedEndTime());
+		   			System.out.println(" clashes with ");
+		   			System.out.println(existing.getBookedStartTime() + " " + existing.getBookedEndTime());
+		   			System.out.println(valid);
+		   			
+		   			// Stop checking when you find a clash 
+			   		if(!valid) {
+			   			// Respond to the ajax request
+			   			maxBookableWeeks = i - 1;
+						System.out.println(maxBookableWeeks);
+						try {
+							response.getWriter().write(maxBookableWeeks + "");
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+			   			return;
+			   		} else {
+			   			maxBookableWeeks = i;
+			   		}
+		   		}
+		   	}
+
+			// Respond to the ajax request
+			System.out.println(maxBookableWeeks);
+			try {
+				response.getWriter().write(maxBookableWeeks + "");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 	
 	@RequestMapping(value="/getAllBookingsAsTable")
