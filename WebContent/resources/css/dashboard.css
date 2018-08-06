@@ -1,208 +1,173 @@
-   
-      
-      
-      .container {
-   padding:0px;
-    
-       
+.container {
+	padding: 0px;
 }
-      
- 
-      .container, #footer{
-          background-color:white;
-     
-        
-      }
-      .navbar {
-      margin-bottom: 0;
-      border-radius: 0;
-     background-color:white;
-       
-    }
-    
-      
-  
-      
-    /* Set height of the grid so .sidenav can be 100% (adjust as needed) */
-    .row.content {
-        height: 550px;
-        
-      
-      }
-    
-    /* Set gray background color and 100% height */
-    .sidenav {
-      padding-top: 20px;
-      background-color:rgb(0,51,0);
-      height: 550px;
-    }
-      
-      
-      div.row.content{
-          background: url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
-          
-      }
-    
-    /* Set black background color, white text and some padding */
-    footer {
-     color:rgb(0,51,0);
-       background-color: white;
-      height:60px;
-      width: 100%;
-      padding: 0px;
-        position: absolute;
-        width: inherit;
-    }
-    
-    /* On small screens, set height to 'auto' for sidenav and grid */
-    @media screen and (max-width: 767px) {
-      .sidenav {
-        height: auto;
-        padding: 15px;
-      }
-      .row.content {
-          height:auto;
-        } 
-    }
-      
-      
-          @media screen and (max-width: 767px) {
-      .card {
-        max-height: 100px;
-        max-width:100px;
-        padding: 15px;
-      }
-      }
-      
-      
-      #bod{
-          
-          background-color:#eee9e9	;
-        /*background-image: url("green.jpg"); /* fallback for old browsers */
 
-      }
-      
+.container, #footer {
+	background-color: white;
+}
 
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: white;
+}
 
-.* {
-  box-sizing: border-box;
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 550px;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	bottom: 0; position : absolute;
+	padding-top: 20px;
+	background-color: rgb(0, 51, 0);
+	height: 550px;
+	position: absolute;
+}
+
+div.row.content {
+	background:
+		url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	color: rgb(0, 51, 0);
+	background-color: white;
+	height: 60px;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	width: inherit;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.card {
+		max-height: 100px;
+		max-width: 100px;
+		padding: 15px;
+	}
+}
+
+#bod {
+	background-color: #eee9e9;
+	/*background-image: url("green.jpg"); /* fallback for old browsers */
+}
+
+.
+* {
+	box-sizing: border-box;
 }
 
 /* Float four columns side by side */
 .column {
-  float:left;
-  width: 27%;
- 
-  padding: 0px 50px 0px 90px;
+	float: left;
+	width: 27%;
+	padding: 0px 50px 0px 90px;
 }
 
-.row {margin: 0 -5px;}
+.row {
+	margin: 0 -5px;
+}
 
 /* Clear floats after the columns */
 .row:after {
-  content: "";
-  display: table;
-  clear: both;
+	content: "";
+	display: table;
+	clear: both;
 }
 
 /* Responsive columns */
 @media screen and (max-width: 600px) {
-  .column {
-    width: 100%;
-    display: block;
-    margin-bottom: 10px;
-  }
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+	}
 }
-
-
 
 /* Responsive columns */
 
-
 /* Style the counter cards */
 .card {
-  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
-  padding: 16px;
-  text-align: center;
-  background-color: #444;
-  color: white;
-       position:relative;
-       width:100%;
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 16px;
+	text-align: center;
+	background-color: #444;
+	color: white;
+	position: relative;
+	width: 100%;
 }
 
-.fa {font-size:200px;
-
+.fa {
+	font-size: 200px;
 }
 
-#hi{
-         background: rgb(0,51,0);
-        border-radius:25px;
-  
+#hi {
+	background: rgb(0, 51, 0);
+	border-radius: 25px;
 }
 
-#hi:hover{
-    background-color:rgba(0,51,0,0.9);
+#hi:hover {
+	background-color: rgba(0, 51, 0, 0.9);
 }
 
-#bye{
-     background: rgb(0,51,0);
-     border-radius:25px;
+#bye {
+	background: rgb(0, 51, 0);
+	border-radius: 25px;
 }
 
-#bye:hover{
-        background-color:rgba(0,51,0,0.9);
-
+#bye:hover {
+	background-color: rgba(0, 51, 0, 0.9);
 }
-
-
-
-
-
 
 div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 400px;
-    
+	margin: 5px;
+	border: 1px solid #ccc;
+	float: left;
+	width: 400px;
 }
 
 div.gallery:hover {
-    border: 1px solid #777;
+	border: 1px solid #777;
 }
 
 div.gallery img {
-
-    width: 100%;
-    height: auto;
+	width: 100%;
+	height: auto;
 }
 
 div.desc {
-    padding: 15px;
-    text-align: center;
+	padding: 15px;
+	text-align: center;
 }
 
-
-
-#linkside a:hover{
-
+#linkside a:hover {
+	
 }
 
 div.well.well-lg {
-   
-
-  padding: 0px 50px 0px 90px;
+	padding: 0px 50px 0px 90px;
 }
-
-
 
 .help {
-    margin-left: 200px;
-    padding-bottom: 5px;
-    padding-top: 5px;
+	margin-left: 200px;
+	padding-bottom: 5px;
+	padding-top: 5px;
 }
 
-a:burger{
-    color:white;
-  
+a:burger {
+	color: white;
 }
