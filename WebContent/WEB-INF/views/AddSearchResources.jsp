@@ -61,7 +61,7 @@ td {
 }
 </style>
 <meta name="viewport" http-equiv="Content-Type"
-	content="text/html; charset=ISO-8859-1 width=device-width, initial-scale=1">
+	content="text/html charset=ISO-8859-1 width=device-width, initial-scale=1">
 
 <link rel="stylesheet"
 	href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css">
@@ -97,32 +97,22 @@ td {
 
 <title>AddSearchResources</title>
 </head>
-<body>
+<body id="bod">
 	<div class="container">
 
 		<nav class="navbar navbar-default">
-		<div class="container">
+		<div class="container2">
 			<div class="navbar-header">
 				<img src="resources/images/syntrans.png" alt="logo"
 					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
+					<span class="icon-bar"></span>
+					 <span class="icon-bar"></span> 
+					 <span class="icon-bar"></span>
 				</button>
-
-
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-center"
-					style="left-padding: 300px;">
-
-
-
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
+			<ul class="nav navbar-nav navbar-right">
 
 					<li style="font-size: 22px;"><a href="#"><span
 							class="glyphicon glyphicon-user"></span> </a></li>
@@ -135,6 +125,7 @@ td {
 
 
 				</ul>
+
 			</div>
 		</div>
 	</div>
@@ -146,14 +137,12 @@ td {
 			style="background-image: url(/Phoenix_Resource_Management_System/resources/images/green.jpg);">
 			<div class="col-sm-3 sidenav" id="resourcesidnav" >
 				<span id="linkside" style=color:white;>
-				<br>
-				<br>
+				<h2> Filter Resources</h2>
 				<br>
 					<form action="LocationResources/" method="post">
 						<fieldset id="fieldset1">
-							<h2>Location</h2>
 							<div>
-								<label>Location</label> <select name="location">
+								<label>Location</label> <select name="location" style="color:black">
 									<c:forEach items="${listCategory}" var="loc">
 										<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
 										<option value="${locId}">${loc}</option>
@@ -161,12 +150,10 @@ td {
 								</select>
 							</div>
 						</fieldset>
-						<br>
-						<br>
+					
 						<fieldset id="fieldset2">
-							<h2>Resources</h2>
 							<div>
-								<label>Resources</label> <select name="resources">
+								<label>Resources</label> <select name="resources" style="color:black">
 									<option value="all">Select</option>
 									<c:forEach items="${listRes}" var="res">
 										<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
@@ -177,7 +164,7 @@ td {
 								</select>
 							</div>
 						</fieldset>
-						<br> <input type="submit" value="Search">
+						<br> <input type="submit" value="Search" style= "color: black">
 						<!-- <a href="LocationResources/">Search</a><br> -->
 					</form> <br>
 					<button type="button" class="btn btn-success btn-sm"
@@ -204,15 +191,16 @@ td {
 					</center>
 				</div>
 
-				<div class="resource-container">
+				<div class="resource-container" >
 					<div class="row">
+					
 						<div class="here">
 								<br>
 
 								<c:forEach var="allResources" items="${alldata}">
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-md-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -223,7 +211,7 @@ td {
 									</c:if>
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(), 'conference')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-md-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -234,7 +222,7 @@ td {
 									</c:if>
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(), 'training')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-sm-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -245,7 +233,7 @@ td {
 									</c:if>
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(), 'board')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-sm-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -256,7 +244,7 @@ td {
 									</c:if>
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(), 'break')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-sm-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -267,7 +255,7 @@ td {
 									</c:if>
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">
-										<div class="col-xs-6 col-sm-2">
+										<div class="col-sm-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
@@ -280,6 +268,7 @@ td {
 						</div>
 					</div>
 				</div>
+				
 
 				<div class="modal fade" id="myModal" role="dialog"
 					style="border-radius: 25px;">
@@ -395,6 +384,5 @@ td {
 		</footer>
 
 	</div>
-</body>
 </body>
 </html>
