@@ -1,9 +1,12 @@
 package rms.queries;
 
+import java.util.Map;
+
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 
 import rms.mapper.UsersMapper;
 import rms.model.Users;
@@ -19,13 +22,23 @@ public class LoginQueries {
 	}
 	
 	public Users loginOnEmail(String email, String password) throws EmptyResultDataAccessException {
-		return jtemp.queryForObject("SELECT * FROM USERS WHERE USER_EMAIL = ? AND USER_PASSWORD = ?", 
-				new UsersMapper(), email, password);
+		Users user = jtemp.queryForObject("SELECT * FROM USERS WHERE USER_EMAIL = ?", new UsersMapper(), email);
+		String pswdHash = user.getUserPassword();
+		if (BCrypt.checkpw(password, pswdHash)) {
+			return user;
+		} else {
+			throw new EmptyResultDataAccessException(1);
+		}
 	}
 	
 	public Users loginOnUserName(String userName, String password) throws EmptyResultDataAccessException {
-		return jtemp.queryForObject("SELECT * FROM USERS WHERE user_name = ? AND user_password = ?", 
-				new UsersMapper(), userName, password);
+		Users user = jtemp.queryForObject("SELECT * FROM USERS WHERE user_name = ?", new UsersMapper(), userName);
+		String pswdHash = user.getUserPassword();
+		if (BCrypt.checkpw(password, pswdHash)) {
+			return user;
+		} else {
+			throw new EmptyResultDataAccessException(1);
+		}
 	}
 	
 	public boolean checkIsAdminUsingEmail(String email, String password) throws EmptyResultDataAccessException {
