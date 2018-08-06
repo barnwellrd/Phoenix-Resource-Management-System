@@ -13,7 +13,11 @@
 	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
 	<script src="../resources/js/jquery.js"></script>
+	<% response.addHeader("Cache-Control", "no-cache,no-store,private,must-revalidate,max-stale=0,post-check=0,pre-check=0"); 
+	response.addHeader("Pragma", "no-cache"); 
+	response.addDateHeader ("Expires", 0); %>
 	<script type="text/javascript">
+	
 		$(document).ready(function() {
 			anime.timeline({
 				loop : false
@@ -22,11 +26,42 @@
 				scale : [ 24, 1 ],
 				opacity : [ 0, 1 ],
 				easing : "easeOutCirc",
-				duration : 100,
+				duration : 900,
 				delay : function(el, i) {
-					return 25 * i;
+					return 120 * i;
 				}
 			})
+			$("#check_in_block").css("opacity", "0.0");
+			$("#check_out_block").css("opacity", "0.0");
+			$("#check_in_block").fadeTo(800, 1, function(){});
+			$("#check_out_block").fadeTo(800, 1, function(){});
+			
+			$("#check_in_block").submit(function(e)
+		    		{
+		    		    e.preventDefault();
+		    		    $("#check_out_block").fadeTo(100, 0, function(){
+		    		    	$("#title").fadeTo(300, 0, function(){
+		    		    		$("#check_in_block").fadeTo(500, 0, function()
+		    			    	{
+		    		    			$("#check_in_block").unbind("submit").submit();
+		    			    	});
+		    		    	});
+		    		    });
+		    		    
+		    		});
+			$("#check_out_block").submit(function(e)
+		    		{
+		    		    e.preventDefault();
+		    		    $("#check_in_block").fadeTo(100, 0, function(){
+		    		    	$("#title").fadeTo(300, 0, function(){
+		    		    		$("#check_out_block").fadeTo(500, 0, function()
+		    			    	{
+		    		    			$("#check_out_block").unbind("submit").submit();
+		    			    	});
+		    		    	});
+		    		    });
+		    		    
+		    		});
 		});
 	</script>
 </head>
@@ -66,7 +101,7 @@
 				</button>
 			</form>
 			<form action="/Phoenix_Resource_Management_System/Visitor/COForm"
-				class="card section_content text-center home-form">
+				class="card section_content text-center home-form" id="check_out_block">
 
 				<button class="btn btn-lg btn-danger btn-block text-center main_btn"
 					id="checkout_btn">
