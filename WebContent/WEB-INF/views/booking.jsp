@@ -376,7 +376,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    		
 				var selectable = $('#dispCal').fullCalendar('option', 'selectable');
 						  						
-				if(!selectable && event.target.type != "button" && !event.target.className.includes("toolbar")){
+				if(!selectable && event.target.type != "button" && !event.target.className.includes("toolbar") 
+						&& !event.target.className.includes("bg")&& !event.target.className.includes("time")
+						&& !event.target.className.includes("title")){
 							  
 					$("#roomAlert").fadeTo(4000, 500).slideUp(500, function(){
 						$("#roomAlert").slideUp(500);
