@@ -25,6 +25,31 @@ public class Visitors {
 	
 	
 	
+	public Visitors() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	public Visitors(int visitorId, String visitingName, String email, String phone, Timestamp checkedInTime,
+			int locationId, String badgeId, Timestamp checkedOutTime, String visitPurpose, String companyName,
+			int hasCheckedOut, String firstName, String lastName, String scheduledMeetingTime, int hasIdProof) {
+		super();
+		this.visitorId = visitorId;
+		this.visitingName = visitingName;
+		this.email = email;
+		this.phone = phone;
+		this.checkedInTime = checkedInTime;
+		this.locationId = locationId;
+		this.badgeId = badgeId;
+		this.checkedOutTime = checkedOutTime;
+		this.visitPurpose = visitPurpose;
+		this.companyName = companyName;
+		this.hasCheckedOut = hasCheckedOut;
+		this.firstName = firstName;
+		this.lastName = lastName;
+		this.scheduledMeetingTime = scheduledMeetingTime;
+		this.hasIdProof = hasIdProof;
+	}
 	@Override
 	public String toString() {
 		return "Visitors [visitorId=" + visitorId + ", visitingName=" + visitingName + ", email=" + email + ", phone="
