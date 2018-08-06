@@ -110,45 +110,6 @@ td {
 			</fieldset>
 		</form>
 
-		<nav class="navbar navbar-default">
-		<div class="container">
-			<div class="navbar-header">
-				<img src="resources/images/syntrans.png" alt="logo"
-					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
-
-				<button type="button" class="navbar-toggle" data-toggle="collapse"
-					data-target="#myNavbar">
-					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
-						class="icon-bar"></span>
-				</button>
-
-
-			</div>
-			<div class="collapse navbar-collapse" id="myNavbar">
-				<ul class="nav navbar-nav navbar-center"
-					style="left-padding: 300px;">
-
-
-
-				</ul>
-
-				<ul class="nav navbar-nav navbar-right">
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-user"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-bell"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-search"></span> </a></li>
-
-
-				</ul>
-			</div>
-		</div>
-	</div>
-	</nav>
 
 	<div class="container">
 		<div class="row">
