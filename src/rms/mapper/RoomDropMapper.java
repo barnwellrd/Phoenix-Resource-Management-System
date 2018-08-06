@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import rms.model.FeaturesDropDown;
-import rms.model.Features;
+
 
 public class RoomDropMapper implements RowMapper<FeaturesDropDown>
 {

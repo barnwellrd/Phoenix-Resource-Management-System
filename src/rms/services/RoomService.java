@@ -20,7 +20,7 @@ import rms.queries.FeatureQueries;
 public class RoomService 
 {
 	
-	@RequestMapping(value="/TODDD")
+	@RequestMapping(value="/RoomDetails")
 	public String defaultService(HttpServletRequest req, HttpServletResponse res, ModelMap map)
 	{
 
