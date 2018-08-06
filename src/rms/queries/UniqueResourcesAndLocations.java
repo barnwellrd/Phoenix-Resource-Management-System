@@ -47,4 +47,10 @@ public class UniqueResourcesAndLocations {
 	public List<String> ResourceTypeName(int resourceTypeId) {
 		return jtemp.queryForList("SELECT resource_type_name FROM resource_type WHERE resource_type_id=?", String.class, resourceTypeId );
 	}
+	public List<String> getResourceTypes(){
+		return jtemp.queryForList("SELECT resource_type_id||' '||resource_type_name FROM resource_type", String.class);
+	}
+	public List<String> getDistinctResourceIdName(){
+		return jtemp.queryForList("SELECT DISTINCT resource_id||' '||resource_type_id||' '||resource_name FROM resources", String.class);
+	}
 }
