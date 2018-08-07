@@ -299,8 +299,21 @@ public class MyServices {
 		System.out.println(locationId+" l "+resourceTypeId);
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
 		map.addAttribute("alldata", allResources);
+		
+		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
+		request.setAttribute("listCategory", loc);
+		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		request.setAttribute("listRes", res);
+
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		map.addAttribute("featData", listOfFeatures);
+		
+		
+		
+		
 		System.out.println("=-----------------helloo service got executed");
-		return "FilterResources"; //view name
+		return "AddSearchResources"; //view name
 	}
 	@RequestMapping(value="/AddSearchResources1")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
@@ -349,10 +362,10 @@ public class MyServices {
 		//Number of features
 		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
 		int numPrinterFeature = Integer.parseInt(request.getParameter("numResPrintName"));
-		int numVideoFeature = Integer.parseInt(request.getParameter("numResVidName"));
+		int numDesktopFeature = Integer.parseInt(request.getParameter("numResDesktopName"));
 		int numTVFeature = Integer.parseInt(request.getParameter("numResTVName"));
 		int numWhiteBoardFeature = Integer.parseInt(request.getParameter("numResWhiteBoardName"));
-		int numFoodFeature = Integer.parseInt(request.getParameter("numResFoodName"));
+		int numChairFeature = Integer.parseInt(request.getParameter("numResChairName"));
 		
 		//Create resource object
 		Resources res = new Resources();		
@@ -386,23 +399,23 @@ public class MyServices {
 		}
 		if (numPrinterFeature>0) {
 			Features featPrint = new Features();
-			featPrint.setFeatureTypeId(101);
+			featPrint.setFeatureTypeId(104);
 			featPrint.setQuantity(numPrinterFeature);
 			featPrint.setResourceId(resourceIdTest.get(0));
 			featTemp.insert(featPrint);
 			System.out.println("printer feat inserted");
 		}
-		if (numVideoFeature>0) {
-			Features featVid = new Features();
-			featVid.setFeatureTypeId(101);
-			featVid.setQuantity(numVideoFeature);
-			featVid.setResourceId(resourceIdTest.get(0));
-			featTemp.insert(featVid);
-			System.out.println("video feat inserted");
+		if (numDesktopFeature>0) {
+			Features featDesktop = new Features();
+			featDesktop.setFeatureTypeId(102);
+			featDesktop.setQuantity(numDesktopFeature);
+			featDesktop.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featDesktop);
+			System.out.println("desktop feat inserted");
 		}
 		if (numTVFeature>0) {
 			Features featTV = new Features();
-			featTV.setFeatureTypeId(101);
+			featTV.setFeatureTypeId(105);
 			featTV.setQuantity(numTVFeature);
 			featTV.setResourceId(resourceIdTest.get(0));
 			featTemp.insert(featTV);
@@ -410,19 +423,19 @@ public class MyServices {
 		}
 		if (numWhiteBoardFeature>0) {
 			Features featWhiteBoard = new Features();
-			featWhiteBoard.setFeatureTypeId(101);
+			featWhiteBoard.setFeatureTypeId(106);
 			featWhiteBoard.setQuantity(numWhiteBoardFeature);
 			featWhiteBoard.setResourceId(resourceIdTest.get(0));
 			featTemp.insert(featWhiteBoard);
 			System.out.println("whiteboard feat inserted");
 		}
-		if (numFoodFeature>0) {
-			Features featFood = new Features();
-			featFood.setFeatureTypeId(101);
-			featFood.setQuantity(numFoodFeature);
-			featFood.setResourceId(resourceIdTest.get(0));
-			featTemp.insert(featFood);
-			System.out.println("food feat inserted");
+		if (numChairFeature>0) {
+			Features featChair = new Features();
+			featChair.setFeatureTypeId(103);
+			featChair.setQuantity(numChairFeature);
+			featChair.setResourceId(resourceIdTest.get(0));
+			featTemp.insert(featChair);
+			System.out.println("chair feat inserted");
 		}
 		
 		return "redirect:/AddSearchResources1";
