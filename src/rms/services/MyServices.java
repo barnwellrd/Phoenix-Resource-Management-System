@@ -8,10 +8,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -850,4 +852,56 @@ public class MyServices {
 		return "showResourceByType"; // view name
 	}
 
+	@RequestMapping(value="/pleaseCheckMyEdit")
+	public void validateEdit(HttpServletRequest request, HttpServletResponse response){
+		// Read request parameters
+		int bookingID = Integer.parseInt(request.getParameter("bookingID"));
+		int resourceID = new BookingsJdbcTemplate().search(bookingID).getResourceId();
+		String date = request.getParameter("date");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		
+		// Make a booking from the edit
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date + " " + endTime;
+		String dates2 = date + " " + startTime;
+
+		// Make timestamps for validation
+		Calendar cal = Calendar.getInstance();
+		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
+		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		Timestamp start = new Timestamp(cal.getTimeInMillis());
+		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+		
+		// Create a hypothetical booking
+		Bookings posed = new Bookings();
+		posed.setBookedStartTime(start);
+		posed.setBookedEndTime(stop);
+		System.out.println(posed);
+		
+		// Check to see if it clashes
+		List<Bookings> allExisting = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+		allExisting = allExisting.stream().filter(e -> e.getBookingId() != bookingID).collect(Collectors.toList());
+		System.out.println(allExisting.size());
+		boolean valid = true;
+		for(Bookings existing: allExisting){
+			boolean after = 	posed.getBookedEndTime().after(existing.getBookedEndTime()) &&
+							 	posed.getBookedStartTime().after(existing.getBookedEndTime());
+			boolean before = 	posed.getBookedEndTime().before(existing.getBookedStartTime()) &&
+								posed.getBookedStartTime().before(existing.getBookedStartTime());
+			valid = valid && (before || after);
+		}
+
+		// Tell the page if the edit works or not
+		System.out.println(valid);
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(valid + "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

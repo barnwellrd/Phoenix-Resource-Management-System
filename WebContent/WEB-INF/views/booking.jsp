@@ -160,6 +160,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 </div>
                             </div>
                             <div class="modal-footer">
+                            	<div style="width: auto" class="alert alert-danger" roll="alert" id="editAlert">Changes clash with prexisting booking</div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-primary" id="editButton">Save Changes</button>
 
@@ -325,6 +326,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                             //dont show alert on first page load.
                             $("#roomAlert").hide();
+                            $("#editAlert").hide();
 
                             //tell user to choose a room on mouseup on calendar. 
                             $("#dispCal").mouseup(function(event) {
@@ -730,7 +732,48 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     }
                                 });
                             });
-
+                            
+                            
+                            // Validate editing events
+                            var editChecks = "#editDate, #editTimeTo, #editTimeFrom";
+                            $(editChecks).change(
+                            	function(){
+                            		var bookingID = $("#bookingId").val();
+                                    var date = $("#editDate").val();
+                                    var timeTo = $("#editTimeTo").val();
+                                    var timeFrom = $("#editTimeFrom").val();
+                                    
+                                    console.log("Changed");
+                                    console.log(bookingID);
+                                    console.log(date);
+                                    console.log(timeTo);
+                                    console.log(timeFrom);
+                                    
+                                    $.ajax({
+                                    	url: "pleaseCheckMyEdit",
+                                        data: {
+                                        	"bookingID": bookingID,
+                                        	"startTime": timeTo,
+                                        	"endTime": timeFrom,
+                                        	"date": date
+                                        },
+                                        success: function(result){
+                                        	console.log("Success: " + result);
+                                        	if(result === "false"){
+                                        		$("#editAlert").show();
+                                        	} else {
+                                        		$("#editAlert").hide();
+                                        	}
+                                        	$("#editButton").attr("disabled", result === "false");
+                                        	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
+                            	}		
+                            );
+                            
                             $("#editButton").click(function() {
                                 var bookId = $("#bookingId").val();
                                 var date = $("#editDate").val();
