@@ -78,9 +78,11 @@ public class MyServices {
 		System.out.println("CHECKPOINT 1");
 
 		try {
-			if (new LoginQueries().loginOnUserName(userName, password) != null) {
+			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
 				System.out.println("CHECKPOINT 2");
 				return "redirect:/dashboard";
+			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
+				return "dashboardNotAdmin";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
