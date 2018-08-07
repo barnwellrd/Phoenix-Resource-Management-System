@@ -5,11 +5,11 @@
 <head>
 	<title>Register Now!</title>
 	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
-	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/jquery.js"></script>
+	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
+	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
 	<!-- script src="../resources/js/visitor30SecRedirect.js"></script-->
 	
 </head>
@@ -48,19 +48,19 @@
 				</div>
 		 <div id="next_prev_btn">
 			 	
-			 	<a href="http://localhost:2343/Phoenix_Resource_Management_System/Visitor/Home" class=" btn btn-md btn-success pull-left" id="fa_left_btn" >
-			 		<span class="fas fa-angle-left  fa-4x text-center"></span>
+			 	<a href="http://localhost:2343/Phoenix_Resource_Management_System/Visitor/Home" class="pull-left"  >
+			 		<span class="fas fa-angle-left  fa-4x text-center fa_left_btn"></span>
 			 	</a>
 			 		
-				<a onclick= "submitForm()" class="btn btn-md btn-success pull-right" id="fa_right_btn">
-			 		<span class="fas fa-angle-right  fa-4x text-center"></span>
+				<a onclick= "submitForm()" class="pull-right" >
+			 		<span class="fas fa-angle-right fa_right_btn  fa-4x text-center"></span>
 			 	</a>
 			 			 
 		 	</div>
 		
 	</header>
 	
-	<section >
+	<section id="visitor_form_section" >
 		<form id="registration_form" action ="RegisterVisitor" method="post">
 			<div class="form-group">
 				<input type="text" class="form-control input-lg" name="visitorFirstName" placeholder="First Name" required/>
@@ -72,30 +72,30 @@
 				<input type="email" class="form-control input-lg" name="visitorEmail" placeholder="Email"/>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="visitorPhone" placeholder="Phone" required/>
+				<input type="tel" class="form-control input-lg" name="visitorPhone" placeholder="Phone" required/>
 			</div>
 			<div class="form-group">
 				<input type="text" class="form-control input-lg" name="visitorVisitingName" placeholder="Host"/>
 			</div>
 			<div class="form-group">
-				<textarea class="form-control" rows="3" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
+				<textarea  class=" form_text_area form-control" rows="2" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
 			</div>
-			<br>
-			<label>Company:</label>
-			<br>
-			<div class="btn-group btn-group-toggle data-toggle" >
-				<label class="btn btn-primary radio-inline radio_label">
+			
+			<h4>Company</h4>
+			<div class="btn-group btn-group-toggle data-toggle well well-lg" >
+		
+				<label class="btn btn-primary radio-inline radio_label input-lg">
 					<input type="radio" name="visitorCompanyName" id="option1" value="Syntel" checked>
 					Syntel
 				</label>
-				<label class="btn btn-primary radio-inline radio_label">
+				<label class="btn btn-primary radio-inline radio_label input-lg">
 					<input type="radio" name="visitorCompanyName" id="option2" value="AmericanExpress">
 					American Express
 				</label>
-				<label class="btn btn-primary radio-inline radio_label">
+				<label class="btn btn-primary radio-inline radio_label input-lg">
 					<input type="radio" name="visitorCompanyName" id="option3" value="Other">
 					Other
-				   <input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Company">
+				   <input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Enter Company">
 					
 				</label>
 			</div>
@@ -106,6 +106,9 @@
 	</section>
 	
 	<script>
+		$('#option1:checked').parent().css('backgroundColor', '#FF6347');
+		$('#option2:checked').parent().css('backgroundColor', '#FF6347');
+		$('#option3:checked').parent().css('backgroundColor', '#FF6347');
 		$('input[name="visitorCompanyName"]').change(function(){
 			$('.radio_label').css('backgroundColor', '#004837');
 			$(this).parent().css('backgroundColor', '#FF6347');
