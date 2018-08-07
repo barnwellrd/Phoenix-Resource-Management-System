@@ -696,8 +696,18 @@ public class MyServices {
 		return "redirect:/AddSearchResources1";
 	}
 	
+	/**
+	 * Service method called when charts page is reached.
+	 * This method serves as the main service method for charts.
+	 * When the Charts page is clicked from the menu, the initial information of resource types and rooms are retrieved and put into the dropdown menus. 
+	 * The util value is set to -1.0 as a default so that no chart is created upon the initial page load. 
+	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The utilizationChart.jsp view
+	 */
 	@RequestMapping(value="/charts")
-	public String mainService(HttpServletRequest request, HttpServletResponse response) {
+	public String mainService(HttpServletRequest request, HttpServletResponse response) 
+	{
 	//	System.out.println("loading");
 		//drop down stuff
 		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
@@ -716,8 +726,17 @@ public class MyServices {
 		return "utilizationChart"; //view name
 	}
 	
+	/**
+	 * Service method called when drawChart page is reached.
+	 * This method gets chart parameters and converts dates to the correct, usable format. 
+	 * The parameters are passed back to the jsp file to create the actual utilization charts. 
+	 * 	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The utilizationChart.jsp view
+	 */
 	@RequestMapping(value="/drawChart",method=RequestMethod.POST)
-	public String drawChart(HttpServletRequest request, HttpServletResponse response) {
+	public String drawChart(HttpServletRequest request, HttpServletResponse response) 
+	{
 		String viewType = request.getParameter("viewType");
 		String roomType = request.getParameter("roomType2");
 		String period= request.getParameter("period");
@@ -736,14 +755,17 @@ public class MyServices {
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		SimpleDateFormat format2 = new SimpleDateFormat(pattern2);
 		Date date= new Date(); // new date
-		try {
+		try 
+		{
 			date = format.parse(sdate); // convert what we have from string to date
 			System.out.println("what we have as a date: "+date);
 			sdate = format2.format(date); // convert date to string in the format that we want
 			System.out.println("what we want as a string: "+sdate);
 			date = format2.parse(sdate); // convert it back to date in the format that we want
 			System.out.println("what we want as a date: "+date);
-		} catch(Exception e) {
+		} 
+		catch(Exception e) 
+		{
 			System.out.println("wrong date");
 		}
 		//sdate = format.format(date);
@@ -751,22 +773,32 @@ public class MyServices {
 		//System.out.println(date);
 		HttpSession session=request.getSession();
 		double util = 0.0;
-		try {
-			if(viewType.equals("all")) {
+		try
+		{
+			if(viewType.equals("all")) 
+			{
 				util = periodTypeMethod(period, date);
-			} else {
-				if(roomType.equals("all")) {
+			}
+			else 
+			{
+				if(roomType.equals("all"))
+				{
 					util = periodTypeMethod(viewType,period, date);
-				} else {
+				} 
+				else 
+				{
 					util = periodTypeMethodWithRoomId(roomType,period, date);
 				}
 			}
-		} catch (NullPointerException e) {
-			util=0.0;
-		} catch (EmptyResultDataAccessException e) {
+		} 
+		catch (NullPointerException e) 
+		{
 			util=0.0;
 		}
-		
+		catch (EmptyResultDataAccessException e) 
+		{
+			util=0.0;
+		}
 	//	util = 0.5;
 		session.setAttribute("util",util);
 		//drop down stuff
@@ -777,11 +809,19 @@ public class MyServices {
 		return "utilizationChart";
 	}
 	
-	private double periodTypeMethod(String period, Date day) {
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of all resources.
+	 */
+	private double periodTypeMethod(String period, Date day) 
+	{
 		double x=0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
 		System.out.println("this is the date: "+day);
-		switch(period) {
+		switch(period)
+		{
 			case "day":
 				x = util.callDailyUtilizationForAllResources(day);
 				break;
@@ -794,10 +834,20 @@ public class MyServices {
 		}
 		return x;
 	}
-	private double periodTypeMethod(String viewType, String period, Date day) {
+	
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param viewType String of resource type ID input from user
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of a resource based on a resource type ID.
+	 */
+	private double periodTypeMethod(String viewType, String period, Date day)
+	{
 		double x =0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
-		switch(period) {
+		switch(period) 
+		{
 			case "day":
 				x = util.callDailyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
 				break;
@@ -810,10 +860,20 @@ public class MyServices {
 		}
 		return x;
 	}
-	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) {
+	
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param roomId String of resource ID input from user
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of a resource based on a resource type ID.
+	 */
+	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) 
+	{
 		double x=0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
-		switch(period) {
+		switch(period)
+		{
 			case "day":
 				x = util.callDailyUtilizationByResourceId(Integer.parseInt(roomId), day);
 				break;
@@ -827,8 +887,17 @@ public class MyServices {
 		return x;
 	}
 
+	/**
+	 * Service method called when showResourceByType page is reached.
+	 * Method is used to display resources based on resource type. 
+	 * @param map ModelMap that all data is put into
+	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The showResourceByType.jsp view
+	 */
 	@RequestMapping(value = "/showResourceByType")
-	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
+	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response)
+	{
 		System.out.println("=-----------------Search Location Resources");
 
 		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
