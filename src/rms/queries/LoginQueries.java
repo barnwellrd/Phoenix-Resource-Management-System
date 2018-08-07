@@ -95,4 +95,20 @@ public class LoginQueries {
 			return false;
 		}
 	}
+	
+	
+	/**
+	 * Gets userID based on username and password
+	 * 
+	 * If the UserType is 1 (Super User) or 3 (Manager User), the function returns true.
+	 * @param userName A username associated with an account.
+	 * @param password A password associated with the given username.
+	 * @return True of False depending on whether or not the user has admin rights.
+	 * @throws EmptyResultDataAccessException Throws an error if no user is found.
+	 */
+	public int getUserIdOnUserNameandPassword(String userName, String password) throws EmptyResultDataAccessException {
+		int userId = jtemp.queryForObject("SELECT user_id FROM users WHERE user_name = ? AND user_password = ?", 
+				int.class, userName, password);
+		return userId;
+	}
 }

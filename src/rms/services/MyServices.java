@@ -72,11 +72,18 @@ public class MyServices {
 		request.getSession().setAttribute("userName", userName);
 		request.getSession().setAttribute("pass", password);
 
+		
 		System.out.println(request.getParameter("userName"));
 		System.out.println(request.getParameter("password"));
 
 		LoginQueries login = new LoginQueries();
 
+		int userId = login.getUserIdOnUserNameandPassword(userName, password);
+		
+		System.out.println(userId);
+		
+		request.getSession().setAttribute("userId", userId);
+		
 		System.out.println("CHECKPOINT 1");
 
 		try {
@@ -113,7 +120,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		int id = Integer.parseInt(request.getParameter("bookingId"));
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		int userId = Integer.parseInt(request.getParameter("userId").trim());
 
 		int resourceId = new BookingsJdbcTemplate().search(id).getResourceId();
 
@@ -150,6 +157,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		String resourceId = request.getParameter("resourceId");
+		String userId = request.getParameter("userId").trim();
 		String type = request.getParameter("type");
 
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -183,7 +191,7 @@ public class MyServices {
 				booking.setBookedStartTime(start);
 				booking.setBookedEndTime(stop);
 				booking.setResourceId(Integer.parseInt(resourceId));
-				booking.setUserId(101);
+				booking.setUserId(Integer.parseInt(userId));
 				booking.setDescription("An event");
 				new BookingsJdbcTemplate().insert(booking);
 			}
@@ -216,7 +224,7 @@ public class MyServices {
 					booking.setBookedStartTime(start);
 					booking.setBookedEndTime(stop);
 					booking.setResourceId(Integer.parseInt(resourceId));
-					booking.setUserId(101);
+					booking.setUserId(Integer.parseInt(userId));
 					booking.setDescription("An event");
 					new BookingsJdbcTemplate().insert(booking);
 				}

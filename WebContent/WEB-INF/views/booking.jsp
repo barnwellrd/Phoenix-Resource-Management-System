@@ -46,7 +46,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 			updated in the select event of the fullCalendar -->
                     <p id="pageResourceId" style="display: none">1001</p>
                     <p id="pageResourceName" style="display: none">SCRUM 1</p>
-                    <p id="pageUserId" style="display: none">101</p>
+                    <p id="pageUserId" style="display: none">	 
+                     <%  
+	  	  				out.write(session.getAttribute( "userId").toString()); 
+	  				%></p>
 
                     <nav class="navbar navbar-default navbar-static-top">
                         <div class="container-fluid">
@@ -72,6 +75,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             </div>
                         </div>
                     </nav>
+
+
+
 
                     <div class="container" id="rows">
                         <div class="row">
@@ -775,6 +781,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     var timeFrom = $("#addEventByDayModal #timeFrom").val();
                                     var title = $("#addEventByDayModal #room").val();
                                     var resId = $("#pageResourceId").val();
+                                    var userId = $("#pageUserId").text();
                                     var su = $("#addEventByDayModal #d0").prop("checked");
                                     var m = $("#addEventByDayModal #d1").prop("checked");
                                     var tu = $("#addEventByDayModal #d2").prop("checked");
@@ -821,7 +828,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                             "timeTo": timeTo,
                                             "timeFrom": timeFrom,
                                             "title": title,
-                                            "userId": "101",
+                                            "userId": userId,
                                             "resourceId": resId,
                                             "repeats": JSON.stringify(repeats),
                                             "type": "day"
