@@ -160,7 +160,7 @@ public class MyServices {
 		if (type.equals("week")) {
 			int repeats = Integer.parseInt(request.getParameter("repeats"));
 
-			System.out.println("Weekly repeats: " + repeats);
+			// Create a booking for each week
 			for (int i = 0; i < repeats + 1; i++) {
 				// Get the start timestamp
 				Calendar cal = Calendar.getInstance();
@@ -173,6 +173,7 @@ public class MyServices {
 				cal.add(Calendar.WEEK_OF_MONTH, i);
 				Timestamp stop = new Timestamp(cal.getTimeInMillis());
 
+				// Add the booking
 				Bookings booking = new Bookings();
 				booking.setIsActive(1);
 				booking.setBookedStartTime(start);
@@ -180,8 +181,6 @@ public class MyServices {
 				booking.setResourceId(Integer.parseInt(resourceId));
 				booking.setUserId(101);
 				booking.setDescription("An event");
-
-				System.out.println(booking);
 				new BookingsJdbcTemplate().insert(booking);
 			}
 		} else {
@@ -207,6 +206,7 @@ public class MyServices {
 					cal.add(Calendar.DAY_OF_YEAR, i);
 					Timestamp stop = new Timestamp(cal.getTimeInMillis());
 
+					// Add the booking
 					Bookings booking = new Bookings();
 					booking.setIsActive(1);
 					booking.setBookedStartTime(start);
@@ -214,7 +214,6 @@ public class MyServices {
 					booking.setResourceId(Integer.parseInt(resourceId));
 					booking.setUserId(101);
 					booking.setDescription("An event");
-					System.out.println(booking);
 					new BookingsJdbcTemplate().insert(booking);
 				}
 			}
@@ -223,8 +222,7 @@ public class MyServices {
 
 	@RequestMapping(value = "/checkConflicts")
 	public void checkConflicts(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("\t Checking for conclicts");
-
+		// Read request parameters
 		String type = request.getParameter("type");
 		int resourceID = Integer.parseInt(request.getParameter("id"));
 		String date = request.getParameter("date");
@@ -250,8 +248,11 @@ public class MyServices {
 		// Check which recurrences don't clash
 		Calendar cal = Calendar.getInstance();
 		if (type.equals("day")) {
+			// Index i tells if a booking on day i (sunday = 0, monday = 1, ...) doesn't
+			// clash with an existing booking
 			boolean[] allowableRepeats = {true, false, false, false, false, false, false};
 
+			// Check each day
 			for (int i = 1; i < allowableRepeats.length; i++) {
 				// Make the times sql friendly
 				cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
@@ -286,16 +287,16 @@ public class MyServices {
 					valid = valid & (before || after);
 				}
 				allowableRepeats[i] = valid;
-				System.out.println("\t " + allowableRepeats[i]);
 			}
 			
-			// Build the response
+			// Build the response. The response is a list of booleans in string form.
+			// i.e false,true, ...
 			String resp ="";
 			for(int i = 0; i < allowableRepeats.length; i++){
 				resp += allowableRepeats[i] + ",";
 			}
+			// Get rid of the extraneous end commma
 			resp = resp.substring(0, resp.length() - 1);
-			System.out.println(resp);
 			
 			// Send the response
 			try {
@@ -354,8 +355,8 @@ public class MyServices {
 				}
 			}
 
-			// Respond to the ajax request
-			System.out.println(maxBookableWeeks);
+			// Respond to the ajax request. Response is the maximum number of 
+			// weekly repeats that do not clash with an existing booking
 			try {
 				response.getWriter().write(maxBookableWeeks + "");
 			} catch (IOException e) {
