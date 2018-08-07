@@ -51,7 +51,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  	  				out.write(session.getAttribute( "userId").toString()); 
 	  				%></p>
 
-                    <nav class="navbar navbar-default navbar-static-top">
+                    <div class="container-fluid" id="rows">
+                                        <nav class="navbar navbar-default navbar-static-top">
                         <div class="container-fluid">
                             <spring:url value="/resources/images" var="images" /> 
                             <img class="navbar-brand navbar-right" id="syntel-logo" src="${images}/syntel-logo.png" />
@@ -74,11 +75,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             </div>
                         </div>
                     </nav>
-
-
-
-
-                    <div class="container" id="rows">
+                    
                         <div class="row">
                             <div class="col-lg-4">
                                 <div class="alert alert-warning fade" id="roomAlert">
