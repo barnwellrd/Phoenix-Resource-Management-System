@@ -6,8 +6,15 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import rms.model.Users;
 
+/**
+ * Class that implements row mapper for Users
+ * @author Re:Syntellions
+ *
+ */
 public class UsersMapper implements RowMapper<Users>{
-
+	/**
+	 * Maps users row into users object
+	 */
 	@Override
 	public Users mapRow(ResultSet result, int arg1) throws SQLException {
 		Users user = new Users();

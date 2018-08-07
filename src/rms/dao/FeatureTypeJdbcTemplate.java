@@ -11,17 +11,26 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import rms.mapper.FeatureTypeMapper;
 import rms.model.FeatureType;
 
+/**
+ * Jdbc template class for Feature type objects
+ */
 public class FeatureTypeJdbcTemplate implements JdbcTemplateInterface<FeatureType>
 {
 	JdbcTemplate jtemp;
 	ApplicationContext context;
 	
+	/**
+	 * Constructor for jdbc template class of type FeatureType (no args required)
+	 */
 	public FeatureTypeJdbcTemplate() 
 	{
 		context = new ClassPathXmlApplicationContext("spring-dao.xml");
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
+	 */
 	@Override
 	public int insert(FeatureType ftype) 
 	{
@@ -33,6 +42,9 @@ public class FeatureTypeJdbcTemplate implements JdbcTemplateInterface<FeatureTyp
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#delete(int)
+	 */
 	@Override
 	public int delete(int featureTypeId) 
 	{
@@ -40,6 +52,9 @@ public class FeatureTypeJdbcTemplate implements JdbcTemplateInterface<FeatureTyp
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
+	 */
 	@Override
 	public int update(FeatureType ftype)
 	{
@@ -56,6 +71,9 @@ public class FeatureTypeJdbcTemplate implements JdbcTemplateInterface<FeatureTyp
 		return result;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#search(int)
+	 */
 	@Override
 	public FeatureType search(int featureTypeId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException
 	{
@@ -64,6 +82,9 @@ public class FeatureTypeJdbcTemplate implements JdbcTemplateInterface<FeatureTyp
 		return ft;
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#getAll()
+	 */
 	@Override
 	public List<FeatureType> getAll() 
 	{

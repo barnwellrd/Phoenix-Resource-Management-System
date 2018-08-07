@@ -576,7 +576,17 @@ public class MyServices {
 
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
+// --Bookings
 		return "showAllResources"; // view name
+/*==
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		map.addAttribute("featData", listOfFeatures);
+		
+		
+		
+		return "AddSearchResources"; //view name
+--development*/
 	}
 	
 	
