@@ -49,6 +49,14 @@ public class MyServices {
 	}
 	
 
+	@RequestMapping(value="/dashboard")
+	public String dashboard() {
+		return "dashboard";
+	}
+	
+	
+	
+	
 	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
 		String userName = request.getParameter("userName");
@@ -63,7 +71,7 @@ public class MyServices {
 		try {
 			if(new LoginQueries().loginOnUserName(userName, password)!=null){
 				System.out.println("CHECKPOINT 2");
-				return "dashboard";
+				return "redirect:/dashboard";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
