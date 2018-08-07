@@ -415,12 +415,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                                 "timeTo": $("#addEventByWeekModal #timeTo").val(),
                                                 "timeFrom": $("#addEventByWeekModal #timeFrom").val()
                                             },
-
+											
+                                            // Server responds with the maximum number of weekly repeats allowbale
+                                            // without causing a booking conflict
                                             success: function(result) {
-                                                console.log("Conflict response: " + result);
+                                                //console.log("Conflict response: " + result);
+                                                // Set max of weekly repeat input box according to server
                                                 $("#addEventByWeekModal #weeklyRep").attr("max", result);
                                                 $("#addEventByWeekModal #weeklyRep").val(0);
-                                                console.log($("#addEventByWeekModal #weeklyRep"));
 
                                             },
 
@@ -430,13 +432,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                             }
                                         });
 
+                                        // Display the modal
                                         $("#addEventByWeekModal").modal("show");
                                     } else if (viewType === "agendaDay") {
+                                    	// Modify daily repeat check boxes
                                         var currentDay = startDate.day();
-                                        if (currentDay < 0) {
-                                            currentDay = 6;
-                                        }
-
                                         for (var i = 0; i < 7; i++) {
                                             // Disable and uncheck previous days
                                             if (i < currentDay) {
@@ -454,11 +454,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         }
 
 
+                                        // Fill in inputs of the modal
                                         $("#addEventByDayModal  #date").val($.fullCalendar.formatDate(startDate, "YYYY-MM-DD"));
                                         $("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
                                         $("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));
                                         $("#addEventByDayModal  #room").val(name);
 
+                                        // Ask the server what daily repeats we can offer without conflixting with
+                                        // an existing booking
                                         $.ajax({
                                             url: "checkConflicts",
 
@@ -471,9 +474,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                                 "timeFrom": $("#addEventByDayModal  #timeFrom").val()
                                             },
 
+                                            // Server sends comma seperated booleans. The boolean is true
+                                            // there is no conflict that day and false if there is a conflicting
+                                            // booking that day. The same applies for other days.
                                             success: function(result) {
-                                                // Print and parse the response
-                                                console.log("Conflict response: " + result);
+                                                // Parse the response
+                                                //console.log("Conflict response: " + result);
                                                 result = result.split(",");
 
                                                 // Uncheck and unlabel day that cause conflicts	
@@ -497,6 +503,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByDayModal").modal("show");
                                     }
                                 },
+                                
+                                // Read calendar click infor into a form
                                 eventClick: function(calEvent, jsEvent, view) {
                                     $("#editDate").val($.fullCalendar.formatDate(calEvent.start, "YYYY-MM-DD"));
                                     $("#editTimeFrom").val(calEvent.start.format("HH:mm"));
@@ -743,13 +751,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     var repeats = [su, m, tu, w, th, f, sa];
 
                                     /*
-	          console.log(date);
-	          console.log(timeTo);
-	          console.log(timeFrom);
-	          console.log(title);
-	          console.log(resId);
-	          console.log("Here" + JSON.stringify(repeats));
-			  */
+	          						console.log(date);
+	          						console.log(timeTo);
+	          						console.log(timeFrom);
+	          						console.log(title);
+	          						console.log(resId);
+	          						console.log("Here" + JSON.stringify(repeats));
+			  						*/
 
                                     $.ajax({
                                         url: "addEvent",
@@ -803,6 +811,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     var repeats = $("#weeklyRep").val();
                                     var userId = $("#pageUserId").text();
 
+                                    /*
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
@@ -810,7 +819,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(resId);
                                     console.log(repeats);
                                     console.log(userId);
-
+									*/
+                                    
                                     $.ajax({
                                         url: "addEvent",
                                         success: function() {
