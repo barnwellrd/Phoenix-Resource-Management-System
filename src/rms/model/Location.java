@@ -1,71 +1,176 @@
 package rms.model;
 
-public class Location {
+/**
+ * This class is meant to be used with the PRMS database. It is a model class for the Location table in the database
+ * Each location is given a unique Location ID. 
+ * Other information such as city, state, zip, etc. are filled out for each location.
+ * @author Re: Syntellions
+ *
+ */
+public class Location 
+{
 	
+	/**
+	 * Unique integer ID created for every new location added to the database.
+	 */
 	private int locationId;
+	/**
+	 * String for defining the city of a location. 
+	 */
 	private String city;
+	/**
+	 * String for defining the state of a location.
+	 */
 	private String state;
+	/**
+	 * String for defining the zipcode of a location.
+	 */
 	private String zip;
+	/**
+	 * String for defining the country of a location.
+	 */
 	private String country;
+	/**
+	 * String for defining the phone number of a location.
+	 */
 	private String phone;
 	
-	public Location() {
+	/**
+	 * Empty constructor for Location
+	 */
+	public Location() 
+	{
 		super();
 	}
 
-	public Location(String city, String state, String zip, String country, String phone) {
+	/**
+	 * Parameterized constructor for Location
+	 * @param city String for defining the city of a location. 
+	 * @param state String for defining the state of a location.
+	 * @param zip String for defining the zipcode of a location.
+	 * @param country String for defining the country of a location.
+	 * @param phone String for defining the phone number of a location.
+	 */
+	public Location(String city, String state, String zip, String country, String phone)
+	{
 		this.city = city;
 		this.state = state;
 		this.zip = zip;
 		this.country = country;
 		this.phone = phone;
 	}
-
-	public int getLocationId() {
+	
+	// Getters and setters --------------------------------------
+	/**
+	 * Getter method that gets the value of Location ID
+	 * @return integer locationId
+	 */
+	public int getLocationId() 
+	{
 		return locationId;
 	}
 
-	public void setLocationId(int locationId) {
+	/**
+	 * Setter method that sets the value of Location ID
+	 * @param locationId integer Location ID
+	 */
+	public void setLocationId(int locationId)
+	{
 		this.locationId = locationId;
 	}
 
-	public String getCity() {
+	
+	/**
+	 * Getter method that gets the value of City
+	 * @return String city
+	 */
+	public String getCity()
+	{
 		return city;
 	}
 
-	public void setCity(String city) {
+	/**
+	 * Setter method that sets the value of City
+	 * @param city String City
+	 */
+	public void setCity(String city)
+	{
 		this.city = city;
 	}
-
-	public String getState() {
+	
+	
+	/**
+	 * Getter method that gets the value of State
+	 * @return String state
+	 */
+	public String getState() 
+	{
 		return state;
 	}
 
-	public void setState(String state) {
+	/**
+	 * Setter method that sets the value of State
+	 * @param state String State
+	 */
+	public void setState(String state) 
+	{
 		this.state = state;
 	}
 
-	public String getZip() {
+	
+	/**
+	 * Getter method that gets the value of Zipcode
+	 * @return String zip
+	 */
+	public String getZip() 
+	{
 		return zip;
 	}
 
-	public void setZip(String zip) {
+	/**
+	 * Setter method that sets the value of Zipcode
+	 * @param zip String Zip
+	 */
+	public void setZip(String zip) 
+	{
 		this.zip = zip;
 	}
 
-	public String getCountry() {
+	
+	/**
+	 * Getter method that gets the value of Country
+	 * @return String country
+	 */
+	public String getCountry() 
+	{
 		return country;
 	}
 
-	public void setCountry(String country) {
+	/**
+	 * Setter method that sets the value of Country
+	 * @param country String Country
+	 */
+	public void setCountry(String country) 
+	{
 		this.country = country;
 	}
 
-	public String getPhone() {
+	
+	/**
+	 * Getter method that gets the value of Phone
+	 * @return String phone
+	 */
+	public String getPhone()
+	{
 		return phone;
 	}
 
-	public void setPhone(String phone) {
+	/**
+	 * Setter method that sets the value of Phone
+	 * @param phone String Phone
+	 */
+	public void setPhone(String phone) 
+	{
 		this.phone = phone;
 	}
 	
