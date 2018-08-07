@@ -138,7 +138,7 @@ td {
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Projector')}">
 													<tr>
-														<td><img class="irc_mi" alt="Image result for projector icon png" src="${images}/projector.png" />
+														<td><img class="featureImg" alt="Image result for projector icon png" src="${images}/projector.png" />
 														</td>
 														<td>${feat.getQuantity()}</td>
 													</tr>
@@ -147,7 +147,7 @@ td {
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Desktop')}">
 													<tr>
-														<td><img class="irc_mi"
+														<td><img class="featureImg"
 															src="${images}/desktop.jpg"
 															alt="Image result for tv icon png"></td>
 														<td>${feat.getQuantity()}</td>
@@ -157,7 +157,7 @@ td {
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Chair')}">
 													<tr>
-														<td><img class="irc_mi"
+														<td><img class="featureImg"
 															src="${images}/chair.png"
 															alt="Chair icon"></td>
 														<td>${feat.getQuantity()}</td>
@@ -167,7 +167,7 @@ td {
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Printer')}">
 													<tr>
-														<td><img class="irc_mi"
+														<td><img class="featureImg"
 															src="${images}/printer.jpg"
 															alt="Image result for printer icon png"></td>
 														<td>${feat.getQuantity()}</td>
@@ -177,7 +177,7 @@ td {
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Whiteboard')}">
 													<tr>
-														<td><img class="irc_mi"
+														<td><img class="featureImg"
 															src="${images}/whiteboard.png"
 															alt="Image result for whiteboard icon png"></td>
 														<td>${feat.getQuantity()}</td>
@@ -187,7 +187,7 @@ td {
 																								<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'TV')}">
 													<tr>
-														<td><img class="irc_mi"
+														<td><img class="featureImg"
 															src="${images}/tv.jpg"
 															alt="Image result for TV icon png"></td>
 														<td>${feat.getQuantity()}</td>
@@ -199,27 +199,28 @@ td {
 								</div>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
-									<i class="fa fa-list" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/scrum1.png" />
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'conference')}">
-									<i class="fa fa-cubes" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/video converence room.jpg" />
+									
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'training')}">
-									<i class="fa fa-pen-square" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/training.png" />
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'board')}">
-									<i class="fa fa-users" style="color: #267326"></i>
+									<i class="fa fa-users"></i>
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'break')}">
-									<i class="fa fa-coffee" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/break room.png" />
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'recreation')}">
-									<i class="fa fa-child" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/recreation1.png" />
 
 								</c:if>
 							</div>
