@@ -9,6 +9,21 @@ html, body {
 
 .panel,.panel-body, .row,.col-lg-8,.col-lg-4{
 	height:90%;
+
+}
+.col-lg-8{
+	margin-right:0;
+	padding:0;
+}
+
+.col-lg-4{
+	margin-left:0;
+	padding:0;
+}
+
+
+.fc-event{
+	font-size:1vw !important;	
 }
 
 #allPage {
@@ -48,7 +63,6 @@ h1 {
 }
 
 .panel {
-	background-color: #ffff80;
 	text-align: center;
 }
 
@@ -80,7 +94,7 @@ ul li{
 	}
 	
 	.panel .panel-body{
-		height:530px;
+		height:510px;
 	}
 	
 		
@@ -97,6 +111,7 @@ ul li{
 	.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
 		height:100%;
 	}
+	
 	#allPage {
 		height: 80%;
 		width: 90%;

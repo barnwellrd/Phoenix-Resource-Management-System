@@ -10,12 +10,12 @@ import org.springframework.jdbc.core.RowMapper;
 import rms.mapper.RoomDropMapper;
 import rms.model.FeaturesDropDown;
 
-
 /**
  * Class containing queries involving the features table
  * @author syntel
  *
  */
+
 public class FeatureQueries {
 	
 	private ApplicationContext context;

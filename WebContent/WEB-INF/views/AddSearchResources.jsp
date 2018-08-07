@@ -72,13 +72,12 @@ td {
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
 
-<spring:url value="/resources/css/mycss.css" var="bootMin" />
+<spring:url value="/resources/css/showAll.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
 
 <spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
 <link rel="stylesheet" href="${DashboardCSS}" />
-
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
@@ -130,7 +129,6 @@ td {
 		</div>
 	</div>
 	</nav>
-
 
 	<div class="container text-center">
 		<div class="row Content2"
