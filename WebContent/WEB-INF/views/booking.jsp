@@ -68,7 +68,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             </div>
                             <div class="collapse navbar-collapse" id="myNavbar">
                                 <ul class="nav navbar-nav">
-                                    <li><a href="AddSearchResources1">Add A Resource</a></li>
                                     <li><a href="logout">Log Out</a></li>
                                 </ul>
 
