@@ -276,6 +276,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         <span class='glyphicon glyphicon-repeat'></span> <span class="input-group-text"> Daily Repeats </span>
                                     </div>
                                     <div class="form-control input-md">
+                                        <!-- Recurrence validation depends on the ids of the checkboxes -->
                                         <div class="input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d0" value="Sunday"> Su
                                         </div>
