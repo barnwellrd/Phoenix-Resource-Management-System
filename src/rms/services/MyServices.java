@@ -28,11 +28,13 @@ import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
 import rms.queries.CallUtilizationQueries;
+import rms.queries.FeatureQueries;
 import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
+import rms.model.FeaturesDropDown;
 import rms.model.Resources;
 
 @Controller
@@ -310,6 +312,12 @@ public class MyServices {
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		map.addAttribute("featData", listOfFeatures);
+		
+		
+		
 		return "AddSearchResources"; //view name
 	}
 	
