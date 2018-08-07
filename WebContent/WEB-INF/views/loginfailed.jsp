@@ -66,7 +66,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    <input type="submit" value="login"/>
 	    </form>
 	<!--   <button action> <span class="glyphicon glyphicon-log-in">  login</span></button>-->
-	      <p class="message">Not registered? <a href="#">Create an account</a></p>
 	      <br>
 	        <img src="resources/images/syntrans.png" alt="logo" style="height:50%; width:50%; padding-bottom:60px; "> 
 	    
