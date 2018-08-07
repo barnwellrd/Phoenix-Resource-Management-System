@@ -113,8 +113,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="changeEventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Change Event</h5>
+                            <div class="modal-header" id="eventChangeHeader">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit or Delete Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -169,7 +169,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="addEventByWeekModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" id="addWeeklyHeader">
                                 <h5 class="modal-title" id="addEventLabel">Add Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -230,7 +230,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="addEventByDayModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" id="addDayHeader">
                                 <h5 class="modal-title" id="addEventLabel">Add Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -513,6 +513,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $("#editTimeTo").val(calEvent.end.format("HH:mm"));
                                     $("#editRoom").val(calEvent.title);
                                     $("#bookingId").val(calEvent.id);
+                                    $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
                                 },
                                 agenda: {

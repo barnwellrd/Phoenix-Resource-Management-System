@@ -6,6 +6,10 @@ html, body {
 	
 }
 
+.modal-header{
+	color:white;
+}
+
 .container{
 	height:100%;
 }
