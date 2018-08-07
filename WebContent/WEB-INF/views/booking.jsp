@@ -50,10 +50,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                     <nav class="navbar navbar-default navbar-static-top">
                         <div class="container-fluid">
-                            <a class="navbar-brand navbar-right" href="#">
-                                <spring:url value="/resources/images" var="images" /> <img id="syntel-logo" src="${images}/syntel-logo.png" />
+                            <spring:url value="/resources/images" var="images" /> 
+                            <img class="navbar-brand navbar-right" id="syntel-logo" src="${images}/syntel-logo.png" />
 
-                            </a>
+                          
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                                     <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
@@ -113,8 +113,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="changeEventModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Change Event</h5>
+                            <div class="modal-header" id="eventChangeHeader">
+                                <h5 class="modal-title" id="exampleModalLabel">Edit or Delete Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
                                 </button>
@@ -169,7 +169,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="addEventByWeekModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" id="addWeeklyHeader">
                                 <h5 class="modal-title" id="addEventLabel">Add Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -230,7 +230,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="modal fade" id="addEventByDayModal" tabindex="-1" role="dialog" aria-labelledby="eventModalLabel" aria-hidden="true">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
-                            <div class="modal-header">
+                            <div class="modal-header" id="addDayHeader">
                                 <h5 class="modal-title" id="addEventLabel">Add Event</h5>
                                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                     <span aria-hidden="true">&times;</span>
@@ -405,6 +405,19 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByWeekModal  #timeTo").val(endDate.format("HH:mm"));
                                         $("#addEventByWeekModal  #room").val(name);
 
+                                        if (name.toLowerCase().includes("scrum"))
+                                            $('#addWeeklyHeader').css("background-color","FireBrick");
+                                        else if (name.toLowerCase().includes("conference"))
+                                            $('#addWeeklyHeader').css("background-color","DarkCyan");
+                                        else if (name.toLowerCase().includes("board"))
+                                            $('#addWeeklyHeader').css("background-color","OrangeRed");
+                                        else if (name.toLowerCase().includes("recreation"))
+                                            $('#addWeeklyHeader').css("background-color","Chocolate");
+                                        else if (name.toLowerCase().includes("train"))
+                                            $('#addWeeklyHeader').css("background-color","OliveDrab");
+                                        else if (name.toLowerCase().includes("break"))
+                                            $('#addWeeklyHeader').css("background-color","SlateBlue");
+                                        
                                         // Ask the server to check for conflicting bookings							
                                         $.ajax({
                                             url: "checkConflicts",
@@ -461,6 +474,19 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
                                         $("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));
                                         $("#addEventByDayModal  #room").val(name);
+                                        
+                                        if (name.toLowerCase().includes("scrum"))
+                                            $('#addDayHeader').css("background-color","FireBrick");
+                                        else if (name.toLowerCase().includes("conference"))
+                                            $('#addDayHeader').css("background-color","DarkCyan");
+                                        else if (name.toLowerCase().includes("board"))
+                                            $('#addDayHeader').css("background-color","OrangeRed");
+                                        else if (name.toLowerCase().includes("recreation"))
+                                            $('#addDayHeader').css("background-color","Chocolate");
+                                        else if (name.toLowerCase().includes("train"))
+                                            $('#addDayHeader').css("background-color","OliveDrab");
+                                        else if (name.toLowerCase().includes("break"))
+                                            $('#addDayHeader').css("background-color","SlateBlue");
 
                                         // Ask the server what daily repeats we can offer without conflixting with
                                         // an existing booking
@@ -513,6 +539,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $("#editTimeTo").val(calEvent.end.format("HH:mm"));
                                     $("#editRoom").val(calEvent.title);
                                     $("#bookingId").val(calEvent.id);
+                                    $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
                                 },
                                 agenda: {
