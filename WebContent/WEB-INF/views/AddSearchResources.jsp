@@ -34,7 +34,7 @@
 	border-radius: 25px;
 }
 
-.resInput input, #resssTypeId, #resLoc {
+.resInput input, #locDropAdd, #resDropAdd {
 	text-align: center;
 	width: 250px;
 	height: 35px;
@@ -52,7 +52,7 @@ input:focus::-webkit-input-placeholder {
 	color: transparent;
 }
 
-td {
+.resPopUpInput td {
 	padding: 20px;
 }
 
@@ -110,11 +110,10 @@ td {
 			</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
-					<span class="icon-bar"></span>
-					 <span class="icon-bar"></span> 
-					 <span class="icon-bar"></span>
+					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
+						class="icon-bar"></span>
 				</button>
-			<ul class="nav navbar-nav navbar-right">
+				<ul class="nav navbar-nav navbar-right">
 
 					<li style="font-size: 22px;"><a href="#"><span
 							class="glyphicon glyphicon-user"></span> </a></li>
@@ -125,40 +124,38 @@ td {
 					<li style="font-size: 22px;"><a href="#"><span
 							class="glyphicon glyphicon-search"></span> </a></li>
 
-
 				</ul>
 
 			</div>
 		</div>
 		</nav>
 		
-	</div>
-	
-
+	</div
 
 	<div class="container text-center">
 		<div class="row Content2"
 			style="background-image: url(/Phoenix_Resource_Management_System/resources/images/green.jpg);">
-			<div class="col-sm-3 sidenav" id="resourcesidnav" >
-				<span id="linkside" style=color:white;>
-				<h2> Filter Resources</h2>
-				<br>
-					<form action="LocationResources/" method="post">
+			<div class="col-sm-3 sidenav" id="resourcesidnav">
+				<span id="linkside" style="color: white;">
+					<h2>Filter Resources</h2> <br>
+					<form action="LocationResources" method="post">
 						<fieldset id="fieldset1">
 							<div>
-								<label>Location</label> <select name="location" style="color:black">
+								<label>Location:</label><br> <select name="location"
+									style="color: black; width: 150px;" >
 									<c:forEach items="${listCategory}" var="loc">
 										<c:set var="locId" value="${loc.getLocationId()}" />
-										<c:set var="locName" value="${loc.getCity()}, ${loc.getState()}" />
+										<c:set var="locName" value="${loc.getLocationId()} ${loc.getCity()}, ${loc.getState()}" />
 										<option value="${locId}">${locName}</option>
 									</c:forEach>
 								</select>
 							</div>
 						</fieldset>
-					
+						<br>
 						<fieldset id="fieldset2">
 							<div>
-								<label>Resources</label> <select name="resources" style="color:black">
+								<label>Resources:</label><br> <select name="resources"
+									style="color: black; width: 150px;" >
 									<option value="all">Select</option>
 									<c:forEach items="${listRes}" var="res">
 										<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
@@ -169,7 +166,7 @@ td {
 								</select>
 							</div>
 						</fieldset>
-						<br> <input type="submit" value="Search" style= "color: black">
+						<br> <input type="submit" value="Search" style="color: black">
 						<!-- <a href="LocationResources/">Search</a><br> -->
 					</form> <br>
 					<button type="button" class="btn btn-success btn-sm"
@@ -196,22 +193,22 @@ td {
 					</center>
 				</div>
 
-				<div class="resource-container" >
+				<div class="resource-container">
 					<div class="row">
-					
-						<div class="here">
-								<br>
 
-								<c:forEach var="allResources" items="${alldata}">
-								
-									<div class="dropdown">
+						<div class="here">
+							<br>
+
+							<c:forEach var="allResources" items="${alldata}">
+
+								<div class="dropdown">
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
 										<div class="col-md-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-list" style="color: #267326"></i>
+													<img class="resourceImage" src="resources/images/scrum.png" alt="logo">
 												</div>
 											</div>
 										</div>
@@ -222,7 +219,7 @@ td {
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-cubes" style="color: #267326"></i>
+														<img class="resourceImage" src="resources/images/conference.png" alt="logo">
 												</div>
 											</div>
 										</div>
@@ -233,7 +230,7 @@ td {
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-pencil-square-o" style="color: #267326"></i>
+													<img class="resourceImage" src="resources/images/training.png" alt="logo">
 												</div>
 											</div>
 										</div>
@@ -244,7 +241,7 @@ td {
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-users" style="color: #267326"></i>
+													<img class="resourceImage" src="resources/images/boardroom.png" alt="logo">
 												</div>
 											</div>
 										</div>
@@ -255,7 +252,7 @@ td {
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-coffee" style="color: #267326"></i>
+													<img class="resourceImage" src="resources/images/break.png" alt="logo">
 												</div>
 											</div>
 										</div>
@@ -266,174 +263,181 @@ td {
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
 													<h4>${allResources.getResourceName()}</h4>
-													<i class="fa fa-backward" style="color: #267326"></i>
+													<img class="resourceImage" src="resources/images/recreation.png" alt="logo">
 												</div>
 											</div>
 										</div>
 									</c:if>
-									
+
 									<div class="dropdown-content">
-									<c:set var = "check" value="0"/>
-									  <table >
+										<c:set var="check" value="0" />
+										<table class="resource-dropdown-table">
 
-									  <c:forEach var="feat" items="${featData}">
-										
-											
-										<c:set var = "room"  value="SCRUM 1"/>
-										<c:set var = "Projector"  value="Projector"/>
-										<c:set var = "DesktopComputers"  value="Desktop Computers"/>
-										<c:set var = "Chair"  value="Chair"/>
-										<c:set var = "Phone" value="Phone"/>
-										<c:set var = "VideoCamera" value="Video Camera"/>
-										<c:set var = "Printer" value="Printer"/>
-										
-										<c:set var = "count" value="0" scope="page"/>
+											<c:forEach var="feat" items="${featData}">
 
-									 	
-										<c:if test="${feat.getResourceName() == allResources.getResourceName()}">
-									
-											<c:choose>
-												<c:when test="${feat.getFeatureName() == Projector}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>
-													
-													<tr>
-														<td><img class="irc_mi" src="http://icons.iconarchive.com/icons/iconsmind/outline/256/Projector-icon.png" 
-															alt="Image result for projector icon png"></td>
-														<td>${feat.getQuantity()}</td>
-														
-													</tr>
-													
-													
+
 												
-												</c:when>
+												<c:set var="Projector" value="Projector" />
+												<c:set var="DesktopComputers" value="Desktop Computers" />
+												<c:set var="Chair" value="Chair" />
+												<c:set var="TV" value="TV" />
+												<c:set var="Whiteboard" value="Whiteboard" />
+												<c:set var="Printer" value="Printer" />
+
+												<c:set var="count" value="0" scope="page" />
+
+
+												<c:if
+													test="${feat.getResourceName() == allResources.getResourceName()}">
+
+													<c:choose>
+														<c:when test="${feat.getFeatureName() == Projector}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/projector.png"
+																	alt="Image result for projector icon png"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+
+															</tr>
+
+
+
+														</c:when>
+
+														<c:when
+															test="${feat.getFeatureName() == DesktopComputers}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/desktop.jpg"
+																	alt="Image result for tv icon png"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+															</tr>
+
+														</c:when>
+
+														<c:when test="${feat.getFeatureName() == Chair}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/chair.png"
+																	alt="Chair icon"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+															</tr>
+
+														</c:when>
+
+														<c:when test="${feat.getFeatureName() == TV}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/tv.jpg"
+																	alt="Image result for tv icon png"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+															</tr>
+
+														</c:when>
+
+														<c:when test="${feat.getFeatureName() == Whiteboard}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/whiteboard.png"
+																	alt="Image result for whiteboard icon png"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+															</tr>
+
+														</c:when>
+
+														<c:when test="${feat.getFeatureName() == Printer}">
+															<c:set var="count" value="${count + 1}" scope="page" />
+															<c:if test="${count == 1 && check == 0}">
+																<tr>
+																	<th>Feature</th>
+																	<th>Quantity</th>
+																</tr>
+																<c:set var="check" value="1"></c:set>
+															</c:if>
+															<tr>
+																<td><img class="irc_mi"
+																	src="resources/images/printer.jpg"
+																	alt="Image result for printer icon png"></td>
+																<td style="background: #ffb84d;">${feat.getQuantity()}</td>
+															</tr>
+
+														</c:when>
+													</c:choose>
+
+
+
+												</c:if>
+
+											</c:forEach>
 											
-												<c:when test="${feat.getFeatureName() == DesktopComputers}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>												
-													<tr>
-														<td><img class="irc_mi" src="https://png.icons8.com/ios/1600/tv.png" 
-															alt="Image result for tv icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-												
-												</c:when>
-												
-												<c:when test="${feat.getFeatureName() == Chair}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>												
+											
+											<c:if test="${check == 0 }">
+												<td 
+													style="background: orange;
+													color: black;
+													">
 													
-													<tr>
-														<td><img class="irc_mi" src="https://image.flaticon.com/icons/png/512/60/60899.png" 
-									   						 alt="Chair icon"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-													
-												</c:when>
-												
-												<c:when test="${feat.getFeatureName() == Phone}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>													
-													<tr>
-														<td><img class="irc_mi" src="http://www.stickpng.com/assets/images/5a4525cd546ddca7e1fcbc84.png" 
-																 alt="Image result for phone icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-												
-												</c:when>
-												
-												<c:when test="${feat.getFeatureName() == VideoCamera}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>												
-													<tr>
-														<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/office-22/48/video-conference-512.png"
-									 							 alt="Image result for video conference camera icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-												
-												</c:when>
-												
-												<c:when test="${feat.getFeatureName() == Printer}">
-													<c:set var="count" value="${count + 1}" scope="page"/>
-													<c:if test="${count == 1 && check == 0}">
-													  <tr>
-													  	<th>Feature</th>
-													  	<th>Quantity</th>
-													  </tr>
-													  <c:set var="check" value ="1"></c:set>
-													</c:if>												
-													<tr>
-														<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/education-set-4/512/print-512.png" 
-															alt="Image result for printer icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-						
-												</c:when>
-											</c:choose>
-										
+													<b>NO FEATURES AVAILABLE</b>
+												</td>
 											
 										
-										</c:if>
-										
-									  </c:forEach>
-									  
-									</table>
-<%-- 									${count }
-									
-										<c:if test="${count == 0 }">
-											NO FEATURES
-											
-										
-										</c:if> --%>
-									  </div>
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
-									
+											</c:if>
+
+										</table>
+																										
+
 									</div>
-								</c:forEach>
+
+
+								</div>
+							</c:forEach>
 						</div>
 					</div>
 				</div>
-				
+
 
 				<div class="modal fade" id="myModal" role="dialog"
 					style="border-radius: 25px;">
@@ -450,14 +454,14 @@ td {
 								<form action="insertResource" method="post">
 									<div class="resInput">
 
-										<select name="location" required>
+										<select name="location" id="locDropAdd" required>
 											<option value="" disabled selected>Select a Location</option>
 											<c:forEach items="${listCategory}" var="loc">
 												<c:set var="locId" value="${loc.getLocationId()}" />
-												<c:set var="locName" value="${loc.getCity()},${loc.getState()}" />
+												<c:set var="locName" value="${loc.getLocationId()} ${loc.getCity()},${loc.getState()}" />
 												<option value="${locId}">${locName}</option>
 											</c:forEach>
-										</select> <br> <br> <select name="resources" required>
+										</select> <br> <br> <select name="resources" id="resDropAdd" required>
 											<option value="" disabled selected>Select a Resource</option>
 											<c:forEach items="${listRes}" var="res">
 												<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
@@ -473,48 +477,56 @@ td {
 									</div>
 									<br> <label>Features:</label><br>
 									<div class="checks">
-										<table align="center">
+										<table align="center" class="resPopUpInput">
 											<tr>
 												<td><label for="numResProj" data-toggle="tooltip"
-													title="Projector"><span
-														class="glyphicon glyphicon-film" style="font-size: 40px;"><span></span></span></label>
+													title="Projector">
+												<!-- 	<span
+														class="glyphicon glyphicon-film" style="font-size: 40px;"> -->
+														
+														<img src="resources/images/projector.png"/>
+														
+														<span>
+														</span>
+														
+														
+														</label>
 													<br> <input id="numResProj" value="0" type="number"
 													min="0" name="numResProjName"
 													style="width: 55px; height: 35px;" required /></td>
 												<td><label for="numResPrint" data-toggle="tooltip"
-													title="Printer"><span
-														class="glyphicon glyphicon-print" style="font-size: 40px"><span></span></span></label>
+													title="Printer">
+													<img src="resources/images/printer.jpg"/><span></span>
+													</label>
 													<br> <input id="numResPrint" value="0" type="number"
 													min="0" name="numResPrintName"
 													style="width: 55px; height: 35px;" required /></td>
-												<td><label for="numResVid" data-toggle="tooltip"
-													title="Video Conference Camera"><span
-														class="glyphicon glyphicon-facetime-video"
-														style="font-size: 40px"><span></span></span></label> <br> <input
-													id="numResVid" value="0" type="number" min="0"
-													name="numResVidName" style="width: 55px; height: 35px;"
+												<td><label for="numResDesktop" data-toggle="tooltip"
+													title="Desktop">
+													<img src="resources/images/desktop.jpg"/>
+													
+													<span></span></label> <br> <input
+													id="numResDesktop" value="0" type="number" min="0"
+													name="numResDesktopName" style="width: 55px; height: 35px;"
 													required /></td>
 											</tr>
 											<tr>
 												<td><label for="numResTV" data-toggle="tooltip"
-													title="TV"><span
-														class="glyphicon glyphicon-blackboard"
-														style="font-size: 40px"><span></span></span></label> <br> <input
+													title="TV"><img src="resources/images/tv.jpg"/><span></span></label> <br> <input
 													id="numResTV" value="0" type="number" min="0"
 													name="numResTVName" style="width: 55px; height: 35px;"
 													required /></td>
 												<td><label for="numResWhiteBoard" data-toggle="tooltip"
-													title="White Board"><span
-														class="glyphicon glyphicon-pencil" style="font-size: 40px"><span></span></span></label>
+													title="White Board">
+													<img src="resources/images/whiteboard.png"/>
+													<span></span></label>
 													<br> <input id="numResWhiteBoard" value="0"
 													type="number" min="0" name="numResWhiteBoardName"
 													style="width: 55px; height: 35px;" required /></td>
-												<td><label for="numResFood" data-toggle="tooltip"
-													title="Food/Utensils"><span
-														class="glyphicon glyphicon-cutlery"
-														style="font-size: 40px"><span></span></span></label> <br> <input
-													id="numResFood" value="0" type="number" min="0"
-													name="numResFoodName" style="width: 55px; height: 35px;"
+												<td><label for="numResChair" data-toggle="tooltip"
+													title="Chairs"><img src="resources/images/chair.png"/><span></span></label> <br> <input
+													id="numResChair" value="0" type="number" min="0"
+													name="numResChairName" style="width: 55px; height: 35px;"
 													required /></td>
 											</tr>
 										</table>
@@ -527,7 +539,6 @@ td {
 											</td>
 										</tr>
 									</table>
-
 									<label>Description:</label> <br>
 									<textarea id="desc" name="desc"
 										style="width: 250px; height: 80px;" required></textarea>
@@ -539,16 +550,13 @@ td {
 						</div>
 					</div>
 				</div>
-
 			</div>
 		</div>
-		<footer class="footer" id="footer"">
+		<div class="footer" id="footer">
 		<center>
 			<p>&copy; 2018 Syntel, Inc</p>
 		</center>
-
-		</footer>
-
+		</div>
 	</div>
 </body>
 </html>

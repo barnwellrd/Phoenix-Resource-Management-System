@@ -43,11 +43,8 @@
 						$('#middle').hide(); 	// hide room list
 					} else {
 						$('#middle').show();
-						var select = document.getElementById("roomType2");
-						 var length = select.options.length;
-						 for (i = 1; i < length; i++) {
-						   select.options[i] = null;		// clear the roomType2 list
-						 }
+						$('#roomType2').children().remove().end().append('<option selected value="all">All Rooms</option>');
+						
 						 $("#roomType option").each(function(i){
 							 	var resourceType = $( "#viewType" ).val();
 							 	if($(this).attr('class') == resourceType) {
@@ -98,9 +95,7 @@
 			#datefield {
 				margin-top: 5px;
 			}
-			#theButton {
-				margin-left: 15px;
-			}
+			
 			#goRight {
 				float: right;
 				padding: 5px;
@@ -154,6 +149,7 @@
 					
 					var options = {
 						title : 'Utilization Chart',
+						titleFontSize:25,
 						colors: ['#ff0000','#33cc33'],
 						backgroundColor: { fill:'transparent' },
 						is3D: true
@@ -186,8 +182,8 @@
 								src="resources/images/syntrans.png" 
 								alt="logo"
 								style="
-									height: 100px; 
-									width: 300px; 
+									height: 10%; 
+									width: 20%; 
 									padding-top: 0px; 
 									padding-bottom: 10px;">
 						</a>
@@ -338,7 +334,7 @@
 		<br>
 			<footer class="footer" id="footer">
 				<center>
-					<p>ï¿½ 2018 Syntel, Inc</p>
+					<p>© 2018 Syntel, Inc</p>
 				</center>
 			</footer>
 		</div>
