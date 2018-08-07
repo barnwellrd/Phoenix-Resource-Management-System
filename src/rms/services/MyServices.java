@@ -69,28 +69,22 @@ public class MyServices {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 
-		request.getSession().setAttribute("userName", userName);
-		request.getSession().setAttribute("pass", password);
-
-		
-		System.out.println(request.getParameter("userName"));
-		System.out.println(request.getParameter("password"));
-
 		LoginQueries login = new LoginQueries();
 
-		int userId = login.getUserIdOnUserNameandPassword(userName, password);
-		
-		System.out.println(userId);
-		
-		request.getSession().setAttribute("userId", userId);
-		
 		System.out.println("CHECKPOINT 1");
 
 		try {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
+				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userId", userId);
+				
 				System.out.println("CHECKPOINT 2");
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
+				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userId", userId);
+				
+
 				return "dashboardNotAdmin";
 			}
 		} catch (Exception e) {

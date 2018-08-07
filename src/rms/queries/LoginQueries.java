@@ -103,7 +103,7 @@ public class LoginQueries {
 	 * If the UserType is 1 (Super User) or 3 (Manager User), the function returns true.
 	 * @param userName A username associated with an account.
 	 * @param password A password associated with the given username.
-	 * @return True of False depending on whether or not the user has admin rights.
+	 * @return The userID of the user with the given username and password. 
 	 * @throws EmptyResultDataAccessException Throws an error if no user is found.
 	 */
 	public int getUserIdOnUserNameandPassword(String userName, String password) throws EmptyResultDataAccessException {
