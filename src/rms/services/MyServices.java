@@ -538,9 +538,9 @@ public class MyServices {
 		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
 		map.addAttribute("alldata", allResources);
 		
-		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
-		request.setAttribute("listCategory", loc);
-		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		List<Location> locs = new LocationJdbcTemplate().getAll();
+		request.setAttribute("listCategory", locs);
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 		request.setAttribute("listRes", res);
 
 		

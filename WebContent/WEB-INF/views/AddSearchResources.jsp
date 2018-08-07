@@ -148,7 +148,7 @@ input:focus::-webkit-input-placeholder {
 									style="color: black; width: 150px;" >
 									<c:forEach items="${listCategory}" var="loc">
 										<c:set var="locId" value="${loc.getLocationId()}" />
-										<c:set var="locName" value="${loc.getCity()}, ${loc.getState()}" />
+										<c:set var="locName" value="${loc.getLocationId()} ${loc.getCity()}, ${loc.getState()}" />
 										<option value="${locId}">${locName}</option>
 									</c:forEach>
 								</select>
@@ -461,7 +461,7 @@ input:focus::-webkit-input-placeholder {
 											<option value="" disabled selected>Select a Location</option>
 											<c:forEach items="${listCategory}" var="loc">
 												<c:set var="locId" value="${loc.getLocationId()}" />
-												<c:set var="locName" value="${loc.getCity()},${loc.getState()}" />
+												<c:set var="locName" value="${loc.getLocationId()} ${loc.getCity()},${loc.getState()}" />
 												<option value="${locId}">${locName}</option>
 											</c:forEach>
 										</select> <br> <br> <select name="resources" id="resDropAdd" required>
