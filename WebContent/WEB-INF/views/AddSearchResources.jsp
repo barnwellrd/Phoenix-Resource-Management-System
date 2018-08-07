@@ -59,6 +59,43 @@ td {
 .checks label:hover {
 	background-color: lightgray;
 }
+
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
 </style>
 <meta name="viewport" http-equiv="Content-Type"
 	content="text/html charset=ISO-8859-1 width=device-width, initial-scale=1">
@@ -103,7 +140,7 @@ td {
 		<div class="container2">
 			<div class="navbar-header">
 				<img src="resources/images/syntrans.png" alt="logo"
-					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
+					style="height: 30%; width: 20%; padding-top: 10px; padding-bottom: 10px;">
 
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
@@ -112,17 +149,15 @@ td {
 					 <span class="icon-bar"></span>
 				</button>
 			<ul class="nav navbar-nav navbar-right">
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-user"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-bell"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-search"></span> </a></li>
-
-
+					<li style="font-size: 22px;">
+					<li class="dropdown">
+    					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
+    								<div class="dropdown-content">
+     								<a href="logout">Log Out</a>
+					</li>
+				</li>
+			
+				
 				</ul>
 
 			</div>
