@@ -86,7 +86,7 @@ public class MyServices {
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
-
+			System.out.println(e);
 			System.out.println("CHECKPOINT 3");
 			return "loginfailed";
 		}
