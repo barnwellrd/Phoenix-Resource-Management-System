@@ -836,7 +836,7 @@ public class MyServices {
 	}
 	
 	/**
-	 * 
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
 	 * @param viewType String of resource type ID input from user
 	 * @param period String used to select a period
 	 * @param day Date input from the user
@@ -862,7 +862,7 @@ public class MyServices {
 	}
 	
 	/**
-	 * 
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
 	 * @param roomId String of resource ID input from user
 	 * @param period String used to select a period
 	 * @param day Date input from the user
