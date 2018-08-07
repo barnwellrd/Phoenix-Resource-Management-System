@@ -15,19 +15,57 @@ import rms.dao.VisitorsJdbcTemplate;
 import rms.model.Visitors;
 import rms.queries.VisitorTracking;
 
+
+
+/**
+ * VisitorServices program is the central location where all services
+ * regarding visit registration occur. The program includes visitor
+ * registration, administrative page to observe registration data, and 
+ * page invocation.
+ * 
+ * 
+ * @author Manal Abdalla, Luis Zinzun, Logan Johnson
+ * @version 1.0
+ * @since 2018-07-27
+ */
 @Controller
 public class VisitorServices {
 	
+	/**
+	 * This RequestMapping returns visitorHome at invocation
+	 * 
+	 * @param None
+	 * @return String This returns visitorHome jsp page
+	 */
 	@RequestMapping(value="/Visitor/Home")
 	public String homeScreen() {
 		return "visitorHome";
 	}
 
+	/**
+	 * This RequestMapping returns visitorRegistrationForm at invocation
+	 * 
+	 * @param None
+	 * @return String This returns visitorRegistrationForm jsp page
+	 */
 	@RequestMapping(value="/Visitor/Registration")
 	public String openRegistration() {
 		return "visitorRegistrationForm"; 
 	}
 	
+	
+	/**
+	 * This method digests all user input personal info from registration page
+	 * and sets it at Visitor class' variables while filling the rest of the
+	 * variables that user isn't directly responsible for (i.e. timestamp, locationID)
+	 * After Visitor object is complete send it to VisitorJDBC template.
+	 * Returns String for visitorWelcome jsp page.
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ModelMap
+	 * @return String This returns visitorHome jsp page
+	 */
 	@RequestMapping(value="/Visitor/RegisterVisitor")
 	public String registerVisitorService(HttpServletRequest req, HttpServletResponse res, ModelMap model) {
 		
@@ -83,16 +121,18 @@ public class VisitorServices {
 		
 		return "visitorWelcome";
 		
-		/*if(new VisitorsJdbcTemplate().insert(newVisitor) > 0) {
-			
-			return newVisitor.getName();
-			//return "redirect:/showSuccessPage";
-		} else {
-			return "errorPagerrrr";
-		}*/
 	}
 
-	
+	/**
+	 * This method digests either badge number or phone number info from form to 
+	 * check out visitor. If wrong input the same form loads, if correct input entered
+	 * the method returns String for visitorGoodbye page.
+	 * 
+	 * @param HttpServletRequest
+	 * @param HttpServletResponse
+	 * @param ModelMap
+	 * @return String This returns current visitorCOForm or visitorGoodbye jsp page.
+	 */
 	@RequestMapping(value="/Visitor/CheckOut")
 	public String insertAccountsService(HttpServletRequest request, HttpServletResponse response, ModelMap model){
 		String phone = request.getParameter("phone");
@@ -119,12 +159,25 @@ public class VisitorServices {
 		}
 	}
 	
+	/**
+	 * This RequestMapping returns CheckOut Form at invocation.
+	 * 
+	 * @param None
+	 * @return String This returns check out form jsp page.
+	 */
 	@RequestMapping(value="/Visitor/COForm")
 	public String insertFormService(){
 		return "visitorCOForm";
 		
 	}
 	
+	/**
+	 * Upon admin-page load, this will display all the visitors and their registration information
+	 * in a tabular manner.
+	 * 
+	 * @param ModelMap
+	 * @return String This returns page for administrative access to visitors' data.
+	 */
 	@RequestMapping(value="/Visitor/Admin")
 	public String visitorAdminService(ModelMap map){
 		List<Visitors> dailyVisitors= new VisitorTracking().getVisitorsFromToday();
@@ -133,6 +186,11 @@ public class VisitorServices {
 		
 	}
 	
+	/**
+	 * 
+	 * @param 
+	 * @return
+	 */
 	@RequestMapping(value="/Visitor/AdminCO/{visitor_id}")
 	public String visitorsAdminCheckOutService(@PathVariable String visitor_id){
 		new VisitorTracking().checkoutUsingVisitorId(visitor_id);
