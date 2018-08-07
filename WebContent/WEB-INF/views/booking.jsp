@@ -417,6 +417,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                             $('#addWeeklyHeader').css("background-color","OliveDrab");
                                         else if (name.toLowerCase().includes("break"))
                                             $('#addWeeklyHeader').css("background-color","SlateBlue");
+                                        else
+                                        	$('#addWeeklyHeader').css("background-color","Grey");
+
                                         
                                         // Ask the server to check for conflicting bookings							
                                         $.ajax({
@@ -487,6 +490,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                             $('#addDayHeader').css("background-color","OliveDrab");
                                         else if (name.toLowerCase().includes("break"))
                                             $('#addDayHeader').css("background-color","SlateBlue");
+                                        else
+                                            $('#addDayHeader').css("background-color","Grey");
 
                                         // Ask the server what daily repeats we can offer without conflixting with
                                         // an existing booking
@@ -939,6 +944,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 newEvent[3] = "OliveDrab";
                             else if (title.toLowerCase().includes("break"))
                                 newEvent[3] = "SlateBlue";
+                            else
+                            	newEvent[3] = "Gray";
 
                             newEvent[4] = id;
                             eventsArray.push(newEvent);
