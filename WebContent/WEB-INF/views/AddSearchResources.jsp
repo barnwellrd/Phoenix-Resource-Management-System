@@ -453,15 +453,16 @@ td {
 										<select name="location" required>
 											<option value="" disabled selected>Select a Location</option>
 											<c:forEach items="${listCategory}" var="loc">
-												<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
-												<option value="${locId}">${loc}</option>
+												<c:set var="locId" value="${loc.getLocationId()}" />
+												<c:set var="locName" value="${loc.getCity()},${loc.getState()}" />
+												<option value="${locId}">${locName}</option>
 											</c:forEach>
 										</select> <br> <br> <select name="resources" required>
 											<option value="" disabled selected>Select a Resource</option>
 											<c:forEach items="${listRes}" var="res">
-												<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
+												<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 												<c:set var="resTypeName"
-													value="${fn:substringAfter(res, resTypeId)}" />
+													value="${res.getResourceTypeName()}" />
 												<option value="${resTypeId}">${resTypeName}</option>
 											</c:forEach>
 										</select> <br> <br> <input type="text" id="roomNum"
