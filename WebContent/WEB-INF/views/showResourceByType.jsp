@@ -56,7 +56,9 @@
 								
 								<div class="dropdown-content">
 									<table>
-
+										
+										<spring:url value="/resources/images" var="images" /> 
+										
 										<!-- Loops through all features to choose which belong to this resource -->
 										<c:forEach var="feat" items="${featData}">
 											<c:if
@@ -65,20 +67,17 @@
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Projector')}">
 													<tr>
-														<td><img class="irc_mi"
-															src="http://icons.iconarchive.com/icons/iconsmind/outline/256/Projector-icon.png"
-															alt="Image result for projector icon png"></td>
+														<td><img class="featureImg" alt="Image result for projector icon png" src="${images}/projector.png" />
+														</td>
 														<td>${feat.getQuantity()}</td>
-
 													</tr>
-
 												</c:if>
 
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Desktop')}">
 													<tr>
-														<td><img class="irc_mi"
-															src="https://png.icons8.com/ios/1600/tv.png"
+														<td><img class="featureImg"
+															src="${images}/desktop.jpg"
 															alt="Image result for tv icon png"></td>
 														<td>${feat.getQuantity()}</td>
 													</tr>
@@ -87,71 +86,70 @@
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Chair')}">
 													<tr>
-														<td><img class="irc_mi"
-															src="https://image.flaticon.com/icons/png/512/60/60899.png"
+														<td><img class="featureImg"
+															src="${images}/chair.png"
 															alt="Chair icon"></td>
 														<td>${feat.getQuantity()}</td>
 													</tr>
 												</c:if>
-
-												<c:if
-													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Phone')}">
-													<tr>
-														<td><img class="irc_mi"
-															src="http://www.stickpng.com/assets/images/5a4525cd546ddca7e1fcbc84.png"
-															alt="Image result for phone icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-												</c:if>
-
-												<c:if
-													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Video')}">
-													<tr>
-														<td><img class="irc_mi"
-															src="https://cdn1.iconfinder.com/data/icons/office-22/48/video-conference-512.png"
-															alt="Image result for video conference camera icon png"></td>
-														<td>${feat.getQuantity()}</td>
-													</tr>
-												</c:if>
-
+											
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Printer')}">
 													<tr>
-														<td><img class="irc_mi"
-															src="https://cdn1.iconfinder.com/data/icons/education-set-4/512/print-512.png"
+														<td><img class="featureImg"
+															src="${images}/printer.jpg"
 															alt="Image result for printer icon png"></td>
 														<td>${feat.getQuantity()}</td>
 													</tr>
 												</c:if>
 
-
+												<c:if
+													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Whiteboard')}">
+													<tr>
+														<td><img class="featureImg"
+															src="${images}/whiteboard.png"
+															alt="Image result for whiteboard icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+												</c:if>
+												
+																								<c:if
+													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'TV')}">
+													<tr>
+														<td><img class="featureImg"
+															src="${images}/tv.jpg"
+															alt="Image result for TV icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+												</c:if>
 											</c:if>
 										</c:forEach>
 									</table>
 								</div>
-								<c:if
+																<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
-									<i class="fa fa-list" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/scrum1.png" />
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'conference')}">
-									<i class="fa fa-cubes" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/video converence room.jpg" />
+									
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'training')}">
-									<i class="fa fa-pen-square" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/training.png" />
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'board')}">
-									<i class="fa fa-users" style="color: #267326"></i>
+									<i class="fa fa-users"></i>
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'break')}">
-									<i class="fa fa-coffee" style="color: #267326"></i>
+									<img class="roomImg" src="${images}/break room.png" />
 								</c:if>
 								<c:if
-									test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">
-									<i class="fa fa-child" style="color: #267326"></i>
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'recreation')}">
+									<img class="roomImg" src="${images}/recreation1.png" />
 
 								</c:if>
 							</div>
