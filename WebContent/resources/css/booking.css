@@ -1,6 +1,9 @@
 html, body {
 	width: 100%;
 	height: 100%;
+	overflow: hidden;
+   	background:lightgrey;
+	
 }
 
 .container{
@@ -12,23 +15,22 @@ html, body {
 
 }
 .col-lg-8{
-	margin-right:0;
-	padding:0;
+	padding:2px;
 }
 
 .col-lg-4{
-	margin-left:0;
-	padding:0;
+	padding:2px;
 }
-
 
 .fc-event{
 	font-size:1vw !important;	
 }
 
 #allPage {
-	height: 80%;
+	height: 100%;
 	width: 90%;
+	background:	url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
+	
 }
 .row, .rows{
 	width:100%;
@@ -67,7 +69,6 @@ h1 {
 }
 
 .navbar {
-	background-color: #C2E7DA;
 	border-radius: 5px;
 }
 
@@ -80,6 +81,10 @@ ul li{
 }
 
 @media only screen and (max-width: 1366px) {
+
+	
+
+	
 	#book-logo {
 		height: 75px;
 		width: 133px;
@@ -113,7 +118,7 @@ ul li{
 	}
 	
 	#allPage {
-		height: 80%;
+		height: 100%;
 		width: 90%;
 	}
 	

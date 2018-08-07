@@ -405,7 +405,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 						themeSystem : 'bootstrap3',
 						minTime : "06:00:00",
 						maxTime : "18:00:00",
-						height : 500,
+						height : 480,
 						defaultView : 'agendaWeek',
 						selectable : false,
 						selectConstraint : {
