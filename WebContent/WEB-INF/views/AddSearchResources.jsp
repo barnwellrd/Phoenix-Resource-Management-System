@@ -544,7 +544,7 @@ td {
 		</div>
 		<footer class="footer" id="footer"">
 		<center>
-			<p>� 2018 Syntel, Inc</p>
+			<p>&copy; 2018 Syntel, Inc</p>
 		</center>
 
 		</footer>
