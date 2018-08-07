@@ -130,7 +130,7 @@ input:focus::-webkit-input-placeholder {
 		</div>
 		</nav>
 		
-	</div
+	</div>
 
 	<div class="container text-center">
 		<div class="row Content2"
