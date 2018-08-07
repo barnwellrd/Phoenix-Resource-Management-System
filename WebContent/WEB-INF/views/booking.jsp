@@ -277,25 +277,25 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     </div>
                                     <div class="form-control input-md">
                                         <!-- Recurrence validation depends on the ids of the checkboxes -->
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d0" value="Sunday"> Su
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d1" value="Monday"> M
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d2" value="Tuesday"> Tu
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d3" value="Wednesday"> W
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d4" value="Thursday"> Th
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d5" value="Friday"> F
                                         </div>
-                                        <div class="input-group-addon" style="background: none; border: none;">
+                                        <div class="notExtended input-group-addon" style="background: none; border: none;">
                                             <input type="checkbox" id="d6" value="Saturday"> Sa
                                         </div>
                                     </div>

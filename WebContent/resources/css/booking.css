@@ -132,4 +132,12 @@ ul li{
 		height: 50px;
 		width: 211px;
 	}
+	
+	.input-group-addon{
+		min-width: 146px;
+	}
+	
+	.notExtended{
+		min-width: 0px;
+	}
 }
