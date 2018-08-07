@@ -6,8 +6,18 @@ import org.springframework.jdbc.core.RowMapper;
 
 import rms.model.Visitors;
 
+/**
+ * Class that implements row mapper for visitors
+ * @author Re:Syntellions
+ *
+ */
 public class VisitorsMapper implements RowMapper<Visitors>{
 
+	/**
+	 *
+	 * Maps visitors row to visitors object	 
+	 *
+	 */
 	@Override
 	public Visitors mapRow(ResultSet result, int arg1) throws SQLException {
 		Visitors visitor = new Visitors();

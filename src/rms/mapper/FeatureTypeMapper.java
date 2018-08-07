@@ -10,7 +10,7 @@ import rms.model.FeatureType;
 public class FeatureTypeMapper implements RowMapper<FeatureType>
 {
 	/**
-	 * Maps feautre type row to feature type object
+	 * Maps feature type row to feature type object
 	 */
 	@Override
 	public FeatureType mapRow(ResultSet result, int arg1) throws SQLException 
