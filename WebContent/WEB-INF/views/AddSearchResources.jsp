@@ -72,7 +72,8 @@ td {
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
 
-<spring:url value="/resources/css/showAll.css" var="bootMin" />
+
+<spring:url value="/resources/css/mycss.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
 
@@ -144,8 +145,9 @@ td {
 							<div>
 								<label>Location</label> <select name="location" style="color:black">
 									<c:forEach items="${listCategory}" var="loc">
-										<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
-										<option value="${locId}">${loc}</option>
+										<c:set var="locId" value="${loc.getLocationId()}" />
+										<c:set var="locName" value="${loc.getCity()}, ${loc.getState()}" />
+										<option value="${locId}">${locName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -156,9 +158,9 @@ td {
 								<label>Resources</label> <select name="resources" style="color:black">
 									<option value="all">Select</option>
 									<c:forEach items="${listRes}" var="res">
-										<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
+										<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 										<c:set var="resTypeName"
-											value="${fn:substringAfter(res, resTypeId)}" />
+											value="${res.getResourceTypeName()}" />
 										<option value="${resTypeId}">${resTypeName}</option>
 									</c:forEach>
 								</select>
