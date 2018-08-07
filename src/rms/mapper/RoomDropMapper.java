@@ -8,7 +8,7 @@ import org.springframework.jdbc.core.RowMapper;
 import rms.model.FeaturesDropDown;
 
 /**
- * This class is meant to be used with the PRMS database. It is a mapper class for the FeatureType and Resources tables in the database.
+ * This class is meant to be used with the PRMS database. It is a mapper class for the FeatureType , Features, and Resources tables in the database.
  * The rows from the FeatureType and Resources tables are mapped to java variables. 
  * @author Re: Syntellions
  *
@@ -16,7 +16,7 @@ import rms.model.FeaturesDropDown;
 public class RoomDropMapper implements RowMapper<FeaturesDropDown>
 {
 	/** 
-	 * Maps FeatureType and Resources rows to FeaturesDropDown object.
+	 * Maps FeatureType, Features, and Resources rows to FeaturesDropDown object.
 	 */
 	@Override
 	public FeaturesDropDown mapRow(ResultSet result, int arg1) throws SQLException 
