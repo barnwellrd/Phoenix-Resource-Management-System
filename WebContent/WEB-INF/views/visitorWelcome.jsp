@@ -42,7 +42,7 @@
 					class="word ">x</span>
 			</h1>
 			
-			<p class="word logo pull-center">
+			<p class="word logo pull-center ">
 				<img src="../resources/images/logo.png" />
 			</p>
 		</div>
