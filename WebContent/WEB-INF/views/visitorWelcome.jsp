@@ -14,7 +14,7 @@
 	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
 	<script src="../resources/js/jquery.js"></script>
-	<!--  script src="../resources/js/visitor5SecRedirect.js"></script-->
+	<script src="../resources/js/visitor5SecRedirect.js"></script>
 </head>
 
 <body class="container-fluid text-center">
