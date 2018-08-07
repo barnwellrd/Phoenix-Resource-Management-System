@@ -349,17 +349,18 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                             'months')
                                     };
                                 },
+                                //what buttons show up on the header
                                 header: {
                                     left: 'prev,next today',
                                     center: 'title',
                                     right: 'agendaWeek,agendaDay'
                                 },
                                 themeSystem: 'bootstrap3',
-                                minTime: "06:00:00",
+                                minTime: "06:00:00", //the times that are visible on the calendar itself. 
                                 maxTime: "18:00:00",
-                                height: 480,
+                                height: 480, //the css height of the calendar
                                 defaultView: 'agendaWeek',
-                                selectable: false,
+                                selectable: false, //initially cannot make event selections
                                 selectConstraint: {
                                     start: moment().startOf('day'),
                                     end: moment().startOf('day').add(6,
@@ -504,8 +505,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByDayModal").modal("show");
                                     }
                                 },
-                                
-                                // Read calendar click infor into a form
+                                //when clicking an event set all the data inside the editModal then
+                                //open the modal.
                                 eventClick: function(calEvent, jsEvent, view) {
                                     $("#editDate").val($.fullCalendar.formatDate(calEvent.start, "YYYY-MM-DD"));
                                     $("#editTimeFrom").val(calEvent.start.format("HH:mm"));
@@ -518,8 +519,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     eventLimit: 3, // allow "more" link when too many events
                                 },
 
-                                eventOverlap: false,
-                                allDaySlot: false,
+                                eventOverlap: false,//dont let events sit on top of one another.
+                                allDaySlot: false,//dont show the alldayslot at the top of the calendar
                                 selectOverlap: false,
                                 slotEventOverlap: false,
                             }); //End fullCalendar initial render
@@ -602,6 +603,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                                 });
 
+                                //when the user choose a resource type. 
                                 $('iframe').contents().find("select[name='resources']").on('change', function(event) {
 
                                     console.log("chose a type");
