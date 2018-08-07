@@ -151,7 +151,7 @@
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">
-									<i class="fa fa-circle-notch" style="color: #267326"></i>
+									<i class="fa fa-child" style="color: #267326"></i>
 
 								</c:if>
 							</div>

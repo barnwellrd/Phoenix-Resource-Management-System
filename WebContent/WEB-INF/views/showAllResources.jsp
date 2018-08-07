@@ -222,7 +222,7 @@ td {
 								</c:if>
 								<c:if
 									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'recreation')}">
-									<i class="fas fa-circle-notch" style="color: #267326"></i>
+									<i class="fa fa-child" style="color: #267326"></i>
 
 								</c:if>
 							</div>
@@ -233,7 +233,7 @@ td {
 		</div>
 		<footer class="footer" id="footer"">
 		<center>
-			<p>� 2018 Syntel, Inc</p>
+			<p>2018 Syntel, Inc</p>
 		</center>
 
 		</footer>
