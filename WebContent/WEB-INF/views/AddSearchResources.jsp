@@ -72,13 +72,13 @@ input:focus::-webkit-input-placeholder {
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
 
+
 <spring:url value="/resources/css/mycss.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
 
 <spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
 <link rel="stylesheet" href="${DashboardCSS}" />
-
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
@@ -103,9 +103,11 @@ input:focus::-webkit-input-placeholder {
 		<nav class="navbar navbar-default">
 		<div class="container2">
 			<div class="navbar-header">
+			
+			<a href="dashboard">
 				<img src="resources/images/syntrans.png" alt="logo"
 					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
-
+			</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
@@ -127,8 +129,10 @@ input:focus::-webkit-input-placeholder {
 
 			</div>
 		</div>
+		</nav>
+		
 	</div>
-	</nav>
+	
 
 
 	<div class="container text-center">
@@ -143,8 +147,9 @@ input:focus::-webkit-input-placeholder {
 								<label>Location:</label><br> <select name="location"
 									style="color: black; width: 150px;" >
 									<c:forEach items="${listCategory}" var="loc">
-										<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
-										<option value="${locId}">${loc}</option>
+										<c:set var="locId" value="${loc.getLocationId()}" />
+										<c:set var="locName" value="${loc.getCity()}, ${loc.getState()}" />
+										<option value="${locId}">${locName}</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -156,9 +161,9 @@ input:focus::-webkit-input-placeholder {
 									style="color: black; width: 150px;" >
 									<option value="all">Select</option>
 									<c:forEach items="${listRes}" var="res">
-										<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
+										<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 										<c:set var="resTypeName"
-											value="${fn:substringAfter(res, resTypeId)}" />
+											value="${res.getResourceTypeName()}" />
 										<option value="${resTypeId}">${resTypeName}</option>
 									</c:forEach>
 								</select>
@@ -455,15 +460,16 @@ input:focus::-webkit-input-placeholder {
 										<select name="location" id="locDropAdd" required>
 											<option value="" disabled selected>Select a Location</option>
 											<c:forEach items="${listCategory}" var="loc">
-												<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
-												<option value="${locId}">${loc}</option>
+												<c:set var="locId" value="${loc.getLocationId()}" />
+												<c:set var="locName" value="${loc.getCity()},${loc.getState()}" />
+												<option value="${locId}">${locName}</option>
 											</c:forEach>
 										</select> <br> <br> <select name="resources" id="resDropAdd" required>
 											<option value="" disabled selected>Select a Resource</option>
 											<c:forEach items="${listRes}" var="res">
-												<c:set var="resTypeId" value="${fn:substring(res, 0, 4)}" />
+												<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 												<c:set var="resTypeName"
-													value="${fn:substringAfter(res, resTypeId)}" />
+													value="${res.getResourceTypeName()}" />
 												<option value="${resTypeId}">${resTypeName}</option>
 											</c:forEach>
 										</select> <br> <br> <input type="text" id="roomNum"

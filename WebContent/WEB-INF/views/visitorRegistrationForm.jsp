@@ -10,7 +10,7 @@
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/visitor30SecRedirect.js"></script>
+	<script src="../resources/js/visitor60SecRedirect.js"></script>
 </head>
 
 <body class="container-fluid text-center">

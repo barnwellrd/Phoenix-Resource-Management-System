@@ -6,9 +6,17 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 
 import rms.model.UserType;
-
+/**
+ * Class that implements row mapper for UserType
+ * @author Re:Syntellions
+ *
+ */
 public class UserTypeMapper implements RowMapper<UserType>{
-
+	
+	/**
+	 *
+	 * Maps UserType row to UserType object	 
+	 */
 	@Override
 	public UserType mapRow(ResultSet result, int arg1) throws SQLException {
 		UserType ut = new UserType();
