@@ -19,7 +19,7 @@
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
 
-<spring:url value="/resources/css/mycss.css" var="bootMin" />
+<spring:url value="/resources/css/showAll.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
  
@@ -37,10 +37,10 @@
 </head>
 <body>
 	<h1>Resources for</h1>
-
-	<div class="container">
-		<div class="row">
-			<div class="col-md-offset-3 col-md-6">
+	<h4 style="text-align: center">${
+		alldata.get(0).getResourceName().substring(0,alldata.get(0).getResourceName().length()-2)
+	}
+		Rooms</h4>
 				<div class="panel panel-default bootcards-summary">
 					<br>
 
@@ -92,6 +92,31 @@
 										<i class="fa fa-coffee" style="color: #267326"></i>
 									</div>
 								</div>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
+									<i class="fa fa-list" style="color: #267326"></i>
+								</c:if>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'conference')}">
+									<i class="fa fa-cubes" style="color: #267326"></i>
+								</c:if>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'training')}">
+									<i class="fa fa-pen-square" style="color: #267326"></i>
+								</c:if>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'board')}">
+									<i class="fa fa-users" style="color: #267326"></i>
+								</c:if>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 'break')}">
+									<i class="fa fa-coffee" style="color: #267326"></i>
+								</c:if>
+								<c:if
+									test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">
+									<i class="fa fa-circle-notch" style="color: #267326"></i>
+
+								</c:if>
 							</div>
 						</c:if>
 							<c:if test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">

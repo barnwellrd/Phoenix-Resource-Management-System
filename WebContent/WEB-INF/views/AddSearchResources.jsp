@@ -72,13 +72,12 @@ td {
 <link rel="stylesheet"
 	href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.2/css/bootstrap.min.css">
 
-<spring:url value="/resources/css/mycss.css" var="bootMin" />
+<spring:url value="/resources/css/showAll.css" var="bootMin" />
 <link rel="stylesheet" href="${bootMin}" />
 
 
 <spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
 <link rel="stylesheet" href="${DashboardCSS}" />
-
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
@@ -132,7 +131,6 @@ td {
 		
 	</div>
 	
-
 
 	<div class="container text-center">
 		<div class="row Content2"
@@ -200,6 +198,8 @@ td {
 								<br>
 
 								<c:forEach var="allResources" items="${alldata}">
+								
+									<div class="dropdown">
 									<c:if
 										test="${fn:containsIgnoreCase(allResources.getResourceName(),'scrum')}">
 										<div class="col-md-2">
@@ -266,6 +266,164 @@ td {
 											</div>
 										</div>
 									</c:if>
+									
+									<div class="dropdown-content">
+									<c:set var = "check" value="0"/>
+									  <table >
+
+									  <c:forEach var="feat" items="${featData}">
+										
+											
+										<c:set var = "room"  value="SCRUM 1"/>
+										<c:set var = "Projector"  value="Projector"/>
+										<c:set var = "DesktopComputers"  value="Desktop Computers"/>
+										<c:set var = "Chair"  value="Chair"/>
+										<c:set var = "Phone" value="Phone"/>
+										<c:set var = "VideoCamera" value="Video Camera"/>
+										<c:set var = "Printer" value="Printer"/>
+										
+										<c:set var = "count" value="0" scope="page"/>
+
+									 	
+										<c:if test="${feat.getResourceName() == allResources.getResourceName()}">
+									
+											<c:choose>
+												<c:when test="${feat.getFeatureName() == Projector}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>
+													
+													<tr>
+														<td><img class="irc_mi" src="http://icons.iconarchive.com/icons/iconsmind/outline/256/Projector-icon.png" 
+															alt="Image result for projector icon png"></td>
+														<td>${feat.getQuantity()}</td>
+														
+													</tr>
+													
+													
+												
+												</c:when>
+											
+												<c:when test="${feat.getFeatureName() == DesktopComputers}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>												
+													<tr>
+														<td><img class="irc_mi" src="https://png.icons8.com/ios/1600/tv.png" 
+															alt="Image result for tv icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+												
+												</c:when>
+												
+												<c:when test="${feat.getFeatureName() == Chair}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>												
+													
+													<tr>
+														<td><img class="irc_mi" src="https://image.flaticon.com/icons/png/512/60/60899.png" 
+									   						 alt="Chair icon"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+													
+												</c:when>
+												
+												<c:when test="${feat.getFeatureName() == Phone}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>													
+													<tr>
+														<td><img class="irc_mi" src="http://www.stickpng.com/assets/images/5a4525cd546ddca7e1fcbc84.png" 
+																 alt="Image result for phone icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+												
+												</c:when>
+												
+												<c:when test="${feat.getFeatureName() == VideoCamera}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>												
+													<tr>
+														<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/office-22/48/video-conference-512.png"
+									 							 alt="Image result for video conference camera icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+												
+												</c:when>
+												
+												<c:when test="${feat.getFeatureName() == Printer}">
+													<c:set var="count" value="${count + 1}" scope="page"/>
+													<c:if test="${count == 1 && check == 0}">
+													  <tr>
+													  	<th>Feature</th>
+													  	<th>Quantity</th>
+													  </tr>
+													  <c:set var="check" value ="1"></c:set>
+													</c:if>												
+													<tr>
+														<td><img class="irc_mi" src="https://cdn1.iconfinder.com/data/icons/education-set-4/512/print-512.png" 
+															alt="Image result for printer icon png"></td>
+														<td>${feat.getQuantity()}</td>
+													</tr>
+						
+												</c:when>
+											</c:choose>
+										
+											
+										
+										</c:if>
+										
+									  </c:forEach>
+									  
+									</table>
+<%-- 									${count }
+									
+										<c:if test="${count == 0 }">
+											NO FEATURES
+											
+										
+										</c:if> --%>
+									  </div>
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									
+									</div>
 								</c:forEach>
 						</div>
 					</div>

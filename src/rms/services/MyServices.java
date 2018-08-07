@@ -19,7 +19,9 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
@@ -28,42 +30,57 @@ import rms.dao.FeaturesJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
 import rms.queries.CallUtilizationQueries;
+import rms.queries.FeatureQueries;
 import rms.queries.LoginQueries;
 import rms.queries.UniqueResourcesAndLocations;
 import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
+import rms.model.FeaturesDropDown;
+import rms.model.ResourceType;
 import rms.model.Resources;
 
 @Controller
 public class MyServices {
-	
-	@RequestMapping(value="/")
+
+	@RequestMapping(value = "/")
 	public String homeScreen() {
 		return "login";
 	}
-		
-	@RequestMapping(value="/logout")
+
+
+	@RequestMapping(value = "/logout")
 	public String logout() {
 		return "login";
 	}
 	
 
-	@RequestMapping(value="/loginOnUserName",method=RequestMethod.POST)
-	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response){
+
+	@RequestMapping(value = "/dashboard")
+	public String dashBoard() {
+
+		return "dashboard";
+	}
+
+	@RequestMapping(value = "/loginOnUserName", method = RequestMethod.POST)
+	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response) {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
+
+		request.getSession().setAttribute("userName", userName);
+		request.getSession().setAttribute("pass", password);
+
 		System.out.println(request.getParameter("userName"));
 		System.out.println(request.getParameter("password"));
-		
+
 		LoginQueries login = new LoginQueries();
-		
+
 		System.out.println("CHECKPOINT 1");
-		
+
 		try {
-			if(new LoginQueries().loginOnUserName(userName, password)!=null){
+			if (new LoginQueries().loginOnUserName(userName, password) != null) {
 				System.out.println("CHECKPOINT 2");
-				return "dashboard";
+				return "redirect:/dashboard";
 			}
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -76,22 +93,26 @@ public class MyServices {
 	}
 
 	
-	@RequestMapping(value="/deleteEvent")
-	public void deleteEvent(HttpServletRequest request, HttpServletResponse response){
-		
+	@RequestMapping(value = "/deleteEvent")
+	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
+
 		int id = Integer.parseInt(request.getParameter("bookingId"));
 		new BookingsJdbcTemplate().delete(id);
-		
+
 	}
-	
-	@RequestMapping(value="/addEvent")
-	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
+
+	@RequestMapping(value = "/updateEvent")
+	public void updateEvent(HttpServletRequest request, HttpServletResponse response) {
+
 		// Read data from ajax call
-	    String date = request.getParameter("date");
+		String date = request.getParameter("date");
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
-		String resourceId = request.getParameter("resourceId");
-		
+		int id = Integer.parseInt(request.getParameter("bookingId"));
+		int userId = Integer.parseInt(request.getParameter("userId"));
+
+		int resourceId = new BookingsJdbcTemplate().search(id).getResourceId();
+
 		System.out.println(date);
 		System.out.println(timeTo);
 		
@@ -99,165 +120,378 @@ public class MyServices {
 		String dates1 = date+" "+timeFrom;
 		String dates2 = date+" "+timeTo;
 		
-		//translate the calendar date into a date for the database. 
-		LocalDateTime date1 = LocalDateTime.parse(dates1,format);
-	   	LocalDateTime date2 = LocalDateTime.parse(dates2,format);
-	   	Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   	Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   	
-	   	// Check the number of repeats
-	   	int repeats = Integer.parseInt(request.getParameter("repeats"));
-	   	
-	   	System.out.println("Weekly repeats: " + repeats);
-	   	for(int i = 0; i < repeats + 1; i++) {
-	   		// Get the start timestamp
-	   		Calendar cal = Calendar.getInstance();
-	   		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   		cal.add(Calendar.WEEK_OF_MONTH, i);
-	   		Timestamp start = new Timestamp(cal.getTimeInMillis());
-	   		
-	   		// Get the stop time stamp
-	   		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
-	   		cal.add(Calendar.WEEK_OF_MONTH, i);
-	   		Timestamp stop = new Timestamp(cal.getTimeInMillis());
-	   			   		
-	   		Bookings booking = new Bookings();
-	   		booking.setIsActive(1);
-	   		booking.setBookedStartTime(start);
-	   		booking.setBookedEndTime(stop);
-	   		booking.setResourceId(Integer.parseInt(resourceId));
-	   		booking.setUserId(101);
-	   		booking.setDescription("An event");
-	   		
-	   		System.out.println(booking);
-	   		new BookingsJdbcTemplate().insert(booking);
-	   	}	   			
+		// translate the calendar date into a date for the database.
+		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
+		Timestamp setter1 = new Timestamp(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		Timestamp setter2 = new Timestamp(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+
+		Bookings booking = new Bookings();
+		booking.setIsActive(1);
+		booking.setBookedStartTime(setter1);
+		booking.setBookedEndTime(setter2);
+		booking.setResourceId(resourceId);
+		booking.setBookingId(id);
+		booking.setUserId(userId);
+		booking.setDescription("An event");
+
+		new BookingsJdbcTemplate().update(booking);
+
 	}
+
+	@RequestMapping(value = "/addEvent")
+	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
+		// Read data from ajax call
+		String date = request.getParameter("date");
+		String timeTo = request.getParameter("timeTo");
+		String timeFrom = request.getParameter("timeFrom");
+		String resourceId = request.getParameter("resourceId");
+		String type = request.getParameter("type");
+
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date + " " + timeFrom;
+		String dates2 = date + " " + timeTo;
+
+		// translate the calendar date into a date for the database.
+		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
+
+		// Check the number of repeats
+		if (type.equals("week")) {
+			int repeats = Integer.parseInt(request.getParameter("repeats"));
+
+			System.out.println("Weekly repeats: " + repeats);
+			for (int i = 0; i < repeats + 1; i++) {
+				// Get the start timestamp
+				Calendar cal = Calendar.getInstance();
+				cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.add(Calendar.WEEK_OF_MONTH, i);
+				Timestamp start = new Timestamp(cal.getTimeInMillis());
+
+				// Get the stop time stamp
+				cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.add(Calendar.WEEK_OF_MONTH, i);
+				Timestamp stop = new Timestamp(cal.getTimeInMillis());
+
+				Bookings booking = new Bookings();
+				booking.setIsActive(1);
+				booking.setBookedStartTime(start);
+				booking.setBookedEndTime(stop);
+				booking.setResourceId(Integer.parseInt(resourceId));
+				booking.setUserId(101);
+				booking.setDescription("An event");
+
+				System.out.println(booking);
+				new BookingsJdbcTemplate().insert(booking);
+			}
+		} else {
+			// Parse the repeat array
+			String str = request.getParameter("repeats");
+			str = str.substring(1, str.length() - 1);
+			String[] split = str.split(",");
+
+			// Make a booking for each day of the week checked
+			Calendar cal = Calendar.getInstance();
+			for (int i = 0; i < split.length; i++) {
+				if (Boolean.parseBoolean(split[i])) {
+
+					// Get the start timestamp
+					cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+					cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+					cal.add(Calendar.DAY_OF_YEAR, i);
+					Timestamp start = new Timestamp(cal.getTimeInMillis());
+
+					// Get the stop time stamp
+					cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+					cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+					cal.add(Calendar.DAY_OF_YEAR, i);
+					Timestamp stop = new Timestamp(cal.getTimeInMillis());
+
+					Bookings booking = new Bookings();
+					booking.setIsActive(1);
+					booking.setBookedStartTime(start);
+					booking.setBookedEndTime(stop);
+					booking.setResourceId(Integer.parseInt(resourceId));
+					booking.setUserId(101);
+					booking.setDescription("An event");
+					System.out.println(booking);
+					new BookingsJdbcTemplate().insert(booking);
+				}
+			}
+		}
+	}
+
+	@RequestMapping(value = "/checkConflicts")
+	public void checkConflicts(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("\t Checking for conclicts");
+
+		String type = request.getParameter("type");
+		int resourceID = Integer.parseInt(request.getParameter("id"));
+		String date = request.getParameter("date");
+		String timeTo = request.getParameter("timeTo");
+		String timeFrom = request.getParameter("timeFrom");
+
+		/*
+		 * System.out.println(type); System.out.println(resourceID);
+		 * System.out.println(date); System.out.println(timeTo);
+		 * System.out.println(timeFrom);
+		 */
+
+		// Make times sql friendly
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date + " " + timeFrom;
+		String dates2 = date + " " + timeTo;
+		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
+
+		// Get all bookings
+		List<Bookings> bookings = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+
+		// Check which recurrences don't clash
+		Calendar cal = Calendar.getInstance();
+		if (type.equals("day")) {
+			boolean[] allowableRepeats = {true, false, false, false, false, false, false};
+
+			for (int i = 1; i < allowableRepeats.length; i++) {
+				// Make the times sql friendly
+				cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				cal.add(Calendar.DAY_OF_YEAR, i);
+				Timestamp start = new Timestamp(cal.getTimeInMillis());
+				cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.set(Calendar.DAY_OF_WEEK, Calendar.SUNDAY);
+				cal.add(Calendar.DAY_OF_YEAR, i);
+				Timestamp stop = new Timestamp(cal.getTimeInMillis());
+
+				// Make a hypothetical booking
+				Bookings hypothetical = new Bookings();
+				hypothetical.setIsActive(1);
+				hypothetical.setBookedStartTime(start);
+				hypothetical.setBookedEndTime(stop);
+				hypothetical.setResourceId(resourceID);
+				hypothetical.setUserId(101);
+				hypothetical.setDescription("An event");
+				System.out.println(hypothetical);
 	
-	@RequestMapping(value="/getAllBookingsAsTable")
+				// Check to see if the hypothetical booking conflicts
+				boolean valid = true;
+				for (Bookings existing : bookings) {
+					// Is the hypothetical bookings before the exiting booking?
+					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
+							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+
+					// Is the hypothetical booking after the existing booking?
+					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
+							&& hypothetical.getBookedEndTime().after(existing.getBookedEndTime());
+					valid = valid & (before || after);
+				}
+				allowableRepeats[i] = valid;
+				System.out.println("\t " + allowableRepeats[i]);
+			}
+			
+			// Build the response
+			String resp ="";
+			for(int i = 0; i < allowableRepeats.length; i++){
+				resp += allowableRepeats[i] + ",";
+			}
+			resp = resp.substring(0, resp.length() - 1);
+			System.out.println(resp);
+			
+			// Send the response
+			try {
+				response.getWriter().write(resp);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		} else if (type.equals("week")) {
+			int maxBookableWeeks = 0;
+			for (int i = 1; i <= 4; i++) {
+				// Calculate time stamp for each possible week
+				cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.add(Calendar.WEEK_OF_MONTH, i);
+				Timestamp start = new Timestamp(cal.getTimeInMillis());
+				cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+				cal.add(Calendar.WEEK_OF_MONTH, i);
+				Timestamp stop = new Timestamp(cal.getTimeInMillis());
+
+				// Make a hypothetical booking
+				Bookings hypothetical = new Bookings();
+				hypothetical.setIsActive(1);
+				hypothetical.setBookedStartTime(start);
+				hypothetical.setBookedEndTime(stop);
+				hypothetical.setResourceId(resourceID);
+				hypothetical.setUserId(101);
+				hypothetical.setDescription("An event");
+
+				// Check to see if the hypothetical booking clashes with any existing booking
+				boolean valid = true;
+				for (Bookings existing : bookings) {
+					// Is the hypothetical bookings before the exiting booking?
+					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
+							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+
+					// Is the hypothetical booking after the existing booking?
+					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
+							&& hypothetical.getBookedEndTime().after(existing.getBookedEndTime());
+
+					valid = valid && (before || after);
+
+				}
+				
+				// Stop checking when you find a clash
+				if (!valid) {
+					// Respond to the ajax request
+					maxBookableWeeks = i - 1;
+					System.out.println(maxBookableWeeks);
+					try {
+						response.getWriter().write(maxBookableWeeks + "");
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return;
+				} else {
+					maxBookableWeeks = i;
+				}
+			}
+
+			// Respond to the ajax request
+			System.out.println(maxBookableWeeks);
+			try {
+				response.getWriter().write(maxBookableWeeks + "");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@RequestMapping(value = "/getAllBookingsAsTable")
 	public void getAllBookingsAsTable(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAll();
 		PrintWriter out = null;
-		
+
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		out.print("<table id='dataTable' border='solid' style='display:none'> ");
-		
-		for(Bookings b: allBookings){
-			
+
+		for (Bookings b : allBookings) {
+
 			out.print("<tr>");
 			String resourceName = new ResourcesJdbcTemplate().search(b.getResourceId()).getResourceName();
 
-			out.print("<td>"+resourceName+"</td>");
-			out.print("<td>"+b.getBookedStartTime()+"</td>");
-			out.print("<td>"+b.getBookedEndTime()+"</td>");		
-			out.print("<td>"+b.getBookingId()+"</td>");
+			out.print("<td>" + resourceName + "</td>");
+			out.print("<td>" + b.getBookedStartTime() + "</td>");
+			out.print("<td>" + b.getBookedEndTime() + "</td>");
+			out.print("<td>" + b.getBookingId() + "</td>");
 			out.print("</tr>");
 		}
-		
+
 		out.print("</table>");
-		
+
 	}
-	
-	@RequestMapping(value="/getBookingsAsTableByResourceId")
+
+	@RequestMapping(value = "/getBookingsAsTableByResourceId")
 	public void getBookingsAsTableByResourceId(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String resId = request.getParameter("resourceId");
-		
+
 		int resourceId = Integer.parseInt(resId);
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceId(resourceId);
 		PrintWriter out = null;
-		
+
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		out.print("<table id='dataTable' border='solid' style='display:none'> ");
-		
-		for(Bookings b: allBookings){
-			
+
+		for (Bookings b : allBookings) {
+
 			out.print("<tr>");
 			String resourceName = new ResourcesJdbcTemplate().search(b.getResourceId()).getResourceName();
 
-			out.print("<td>"+resourceName+"</td>");
-			out.print("<td>"+b.getBookedStartTime()+"</td>");
-			out.print("<td>"+b.getBookedEndTime()+"</td>");		
-			out.print("<td>"+b.getBookingId()+"</td>");
+			out.print("<td>" + resourceName + "</td>");
+			out.print("<td>" + b.getBookedStartTime() + "</td>");
+			out.print("<td>" + b.getBookedEndTime() + "</td>");
+			out.print("<td>" + b.getBookingId() + "</td>");
 			out.print("</tr>");
 		}
-		
+
 		out.print("</table>");
-		
+
 	}
-	
-	@RequestMapping(value="/getBookingsAsTableByType")
+
+	@RequestMapping(value = "/getBookingsAsTableByType")
 	public void getBookingsAsTableByType(HttpServletRequest request, HttpServletResponse response) {
-		
+
 		String resId = request.getParameter("resourceTypeId");
+		
 		System.out.println(resId);
+		
 		int resourceTypeId = Integer.parseInt(request.getParameter("resourceTypeId"));
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceType(resourceTypeId);
 		PrintWriter out = null;
-		
+
 		try {
 			out = response.getWriter();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
+
 		out.print("<table id='dataTable' border='solid' style='display:none'> ");
-		
-		for(Bookings b: allBookings){
-			
+
+		for (Bookings b : allBookings) {
+
 			out.print("<tr>");
 			String resourceName = new ResourcesJdbcTemplate().search(b.getResourceId()).getResourceName();
 
-			out.print("<td>"+resourceName+"</td>");
-			out.print("<td>"+b.getBookedStartTime()+"</td>");
-			out.print("<td>"+b.getBookedEndTime()+"</td>");		
-			out.print("<td>"+b.getBookingId()+"</td>");
+			out.print("<td>" + resourceName + "</td>");
+			out.print("<td>" + b.getBookedStartTime() + "</td>");
+			out.print("<td>" + b.getBookedEndTime() + "</td>");
+			out.print("<td>" + b.getBookingId() + "</td>");
 			out.print("</tr>");
 		}
-		
+
 		out.print("</table>");
-		
+
 	}
-	
-	@RequestMapping(value="/booking")
+
+	@RequestMapping(value = "/booking")
 	public String booking() {
+
 		return "booking";
 	}
-	
-	@RequestMapping(value="/types")
-	public String pickResource(ModelMap map){
+
+	@RequestMapping(value = "/types")
+	public String pickResource(ModelMap map) {
 		map.addAttribute("types", new ResourceTypeJdbcTemplate().getAll());
 		return "types";
 	}
-	
-	@RequestMapping(value="/resources", method=RequestMethod.POST)
-	public String pickRoom(HttpServletRequest request, HttpServletRequest response){
+
+	@RequestMapping(value = "/resources", method = RequestMethod.POST)
+	public String pickRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Get rooms of a given type
 		int type = Integer.parseInt(request.getParameter("type"));
 		List<Resources> roomsOfThisType = new ResourcesJdbcTemplate().resourcesByResourceType(type);
-		
+
 		// Map rooms to their resources
 		Map<Resources, List<FeatureType>> roomsAndFeatures = new HashMap<Resources, List<FeatureType>>();
-		Map<FeatureType, Features> featuresAndQuantities = new HashMap<FeatureType, Features>(); 
-		for(Resources room: roomsOfThisType){
+		Map<FeatureType, Features> featuresAndQuantities = new HashMap<FeatureType, Features>();
+		for (Resources room : roomsOfThisType) {
 			List<FeatureType> features = new ResourcesJdbcTemplate().getFeatures(room.getResourceId());
 			roomsAndFeatures.put(room, features);
-			for(FeatureType feature: features){
-				featuresAndQuantities.put(feature, new FeaturesJdbcTemplate().searchByFeatureTypeIdAndResourceId(feature.getFeatureTypeId(), room.getResourceId()));
+			for (FeatureType feature : features) {
+				featuresAndQuantities.put(feature, new FeaturesJdbcTemplate()
+						.searchByFeatureTypeIdAndResourceId(feature.getFeatureTypeId(), room.getResourceId()));
 			}
 		}
-				
+
 		// Pass the maps and the rooms
 		response.setAttribute("type", type);
 		response.setAttribute("rooms", roomsOfThisType);
@@ -266,27 +500,29 @@ public class MyServices {
 
 		return "rooms";
 	}
-	
-	@RequestMapping(value="/roomDesc", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/roomDesc", method = RequestMethod.POST)
 	public String displayRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Find the room
 		int roomID = Integer.parseInt(request.getParameter("room"));
 		Resources room = new ResourcesJdbcTemplate().search(roomID);
-				
-		Map<FeatureType, Features> featuresAndQuantities = new HashMap<FeatureType, Features>(); 
+
+		Map<FeatureType, Features> featuresAndQuantities = new HashMap<FeatureType, Features>();
 
 		List<FeatureType> features = new ResourcesJdbcTemplate().getFeatures(room.getResourceId());
 
-		for(FeatureType feature: features){
-				featuresAndQuantities.put(feature, new FeaturesJdbcTemplate().searchByFeatureTypeIdAndResourceId(feature.getFeatureTypeId(), room.getResourceId()));
+		for (FeatureType feature : features) {
+			featuresAndQuantities.put(feature, new FeaturesJdbcTemplate()
+					.searchByFeatureTypeIdAndResourceId(feature.getFeatureTypeId(), room.getResourceId()));
 		}
-		
+
 		// Pass the room
 		response.setAttribute("room", room);
 		response.setAttribute("featureMap", featuresAndQuantities);
 
 		return "displayRoom";
 	}
+
 	@RequestMapping(value="/LocationResources")
 	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 
@@ -302,15 +538,55 @@ public class MyServices {
 	}
 	@RequestMapping(value="/AddSearchResources1")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
+
 		System.out.println("=-----------------searchAllResources1");
-		List<String> loc=new UniqueResourcesAndLocations().getLocationAndCity();
+		List<String> loc = new UniqueResourcesAndLocations().getLocationAndCity();
 		request.setAttribute("listCategory", loc);
-		List<String> res=new UniqueResourcesAndLocations().getDistinctResourceName();
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		request.setAttribute("featData", listOfFeatures);
+		
+		//get resource types instead of all resources
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 		request.setAttribute("listRes", res);
-		List<Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+
+		// for printing all the resources at the bottom of view.
+		List<Resources> allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
+		return "AddSearchResources"; // view name
+
+	}
+	@RequestMapping(value = "/showAllResources")
+	public String showAllResources(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("=-----------------searchAllResources1");
+		List<String> loc = new UniqueResourcesAndLocations().getLocationAndCity();
+		request.setAttribute("listCategory", loc);
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		request.setAttribute("featData", listOfFeatures);
+		
+		//get resource types instead of all resources
+		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
+		request.setAttribute("listRes", res);
+
+		// for printing all the resources at the bottom of view.
+		List<Resources> allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+
+		map.addAttribute("alldata", allResources);
+		System.out.println("=-----------------helloo service got executed");
+// --Bookings
+		return "showAllResources"; // view name
+/*==
+		
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		map.addAttribute("featData", listOfFeatures);
+		
+		
+		
 		return "AddSearchResources"; //view name
+--development*/
 	}
 	
 	
@@ -551,6 +827,20 @@ public class MyServices {
 		return x;
 	}
 
+	@RequestMapping(value = "/showResourceByType")
+	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("=-----------------Search Location Resources");
 
-	
+		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
+		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
+		request.setAttribute("featData", listOfFeatures);
+		int locationId=Integer.parseInt(request.getParameter("location"));
+		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
+		System.out.println(locationId+" l "+resourceTypeId);
+		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+		map.addAttribute("alldata", allResources);
+		System.out.println("=-----------------helloo service got executed");
+		return "showResourceByType"; // view name
+	}
+
 }
