@@ -36,8 +36,8 @@
 .dropdown-content img{
 
 margin-top: 0px;
-width: 25px;
-height: 25px;
+width: 30px;
+height: 30px;
 
 
 
@@ -47,16 +47,28 @@ input:hover[type="submit"]{
 	
 }
 
-table{
+.resource-dropdown-table{
 	float: right;
-	
+	background: white;
+	text-align: center;
+	border: 3px solid black;
 	width: 100%;
+	
 	
 }
 
-table,td{
-padding: 20px;
-text-align: center;
+.resource-dropdown-table th{
+	height: 35px;
+	text-align: center;
+	background: orange;'
+	color: black;
+}
+
+.resource-dropdown-table td{
+padding: 10px;
+color: black;
+font-weight:bold;
+border: 3px solid black;
 }
 
 .dropdown-content a:hover {background-color: #ddd;}
@@ -76,7 +88,11 @@ margin-top: 0;
     margin-left:15px;
 	
 }
-
+.resourceImage{
+	width: 75px;
+	height:75px;
+	
+}
 
 
 
@@ -137,7 +153,9 @@ a.wrimagecard:hover, .wrimagecard-topimage:hover {
     
     
     div#resourcesidnav.col-sm-3.sidenav{
-    	height:800px;
+    	height:1000px
+    	
+    	;
     }  
       
    .legend{
@@ -150,4 +168,16 @@ a.wrimagecard:hover, .wrimagecard-topimage:hover {
         
       
       }
+      
+    .footer{
+    	float:bottom;
+    	position: relative;
+    	width:100%;
+    }
 
+.checks img{
+	width: 40px;
+	height: 40px;
+	
+	
+}
