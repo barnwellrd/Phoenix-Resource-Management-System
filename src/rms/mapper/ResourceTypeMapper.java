@@ -8,9 +8,17 @@ import org.springframework.jdbc.core.RowMapper;
 import rms.model.ResourceType;
 
 
-
+/**
+ * This class is meant to be used with the PRMS database. It is a mapper class for the ResourceType table in the database.
+ * The rows from the ResourceType table are mapped to java variables. 
+ * @author Re: Syntellions
+ *
+ */
 public class ResourceTypeMapper implements RowMapper<ResourceType>{
 
+	/** 
+	 * Maps Resources row to ResourceType object.
+	 */
 	@Override
 	public ResourceType mapRow(ResultSet result, int arg1) throws SQLException {
 
