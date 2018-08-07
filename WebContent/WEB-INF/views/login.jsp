@@ -51,6 +51,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	    <input id="email" type="text" class="form-control" name="userName" placeholder="userName" value='${user.getUserName()}'>
+	  
 	  </div>
 	          <br>
 	  <div class="input-group">
@@ -64,7 +65,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	   
 	    <input type="submit" value="login"/>
 	    </form>
-	      <p class="message">Not registered? <a href="#">Create an account</a></p>
+	      
 	      <br>
 	        <img src="resources/images/syntrans.png" alt="logo" style="height:50%; width:50%; padding-bottom:60px; "> 
 	    

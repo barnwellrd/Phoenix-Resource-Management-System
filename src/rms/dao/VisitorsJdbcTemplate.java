@@ -21,6 +21,9 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
+	 */
 	@Override
 	public int insert(Visitors visitorToInsert) {
 		String statement = "INSERT INTO VISITORS VALUES(seq_visitors.nextval, "
@@ -43,12 +46,18 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#delete(int)
+	 */
 	@Override
 	public int delete(int visitorIdToDelete) {
 		
 		return jtemp.update("DELETE FROM visitors where visitor_id = ?", visitorIdToDelete);
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
+	 */
 	@Override
 	public int update(Visitors visitorToUpdate) {
 		String statement = "UPDATE visitors SET "
@@ -89,12 +98,18 @@ public class VisitorsJdbcTemplate implements JdbcTemplateInterface<Visitors>{
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#search(int)
+	 */
 	@Override
 	public Visitors search(int visitorId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException{		
 		
 		return jtemp.queryForObject("SELECT * FROM visitors WHERE visitor_id = ?", new VisitorsMapper(), visitorId);
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#getAll()
+	 */
 	@Override
 	public List<Visitors> getAll() {
 

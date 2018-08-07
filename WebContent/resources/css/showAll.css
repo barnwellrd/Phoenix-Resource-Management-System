@@ -1,0 +1,81 @@
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+
+img{
+margin-top: 0px;
+width: 25px;
+height: 25px;
+}
+
+table,tr{
+	width:100px;
+	min-width:75px;
+}
+
+table,td{
+padding: 5px;
+text-align: center;
+border: 1px solid black;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+.dropdown:hover .dropdown-content {display: block;}
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.wrimagecard{	
+	margin-top: 0;
+    margin-bottom: 1.5rem;
+    padding:0;
+    text-align: left;
+    position: relative;
+    background: #fff;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    border-radius: 4px;
+    transition: all 0.3s ease;  
+}
+
+
+
+h4.filterResourceName{
+	font-size:3.9vw;
+	padding:0 0 5px 0;
+	margin:0;
+}
+
+.wrimagecard .fa{
+	position: relative;
+    font-size: 30px;
+}
+
+.wrimagecard-topimage_header{
+    text-align:center;
+	padding: 20px;
+}
+a.wrimagecard:hover, .wrimagecard-topimage:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+.wrimagecard-topimage a {
+    display: block;
+}
+.wrimagecard-topimage a {
+    border-bottom: none;
+    text-decoration: none;
+    color: #525c65;
+    transition: color 0.3s ease;
+}

@@ -21,3 +21,4 @@ public class RoomDropMapper implements RowMapper<FeaturesDropDown>
 		return feat;
 	}
 }
+

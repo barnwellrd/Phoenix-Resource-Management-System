@@ -338,7 +338,7 @@
 		<br>
 			<footer class="footer" id="footer">
 				<center>
-					<p>© 2018 Syntel, Inc</p>
+					<p>ï¿½ 2018 Syntel, Inc</p>
 				</center>
 			</footer>
 		</div>
