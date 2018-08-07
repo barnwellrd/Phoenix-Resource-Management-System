@@ -17,7 +17,7 @@ import rms.model.ResourceType;
 public class ResourceTypeMapper implements RowMapper<ResourceType>{
 
 	/** 
-	 * Maps Resources row to ResourceType object.
+	 * Maps ResourceType row to ResourceType object.
 	 */
 	@Override
 	public ResourceType mapRow(ResultSet result, int arg1) throws SQLException {
