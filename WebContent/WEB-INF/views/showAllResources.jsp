@@ -91,7 +91,8 @@ td {
 						name="location">
 						<c:forEach items="${listCategory}" var="loc">
 							<c:set var="locId" value="${fn:substring(loc, 0, 6)}" />
-							<option value="${locId}">${loc}</option>
+							<c:set var="locName" value="${fn:substring(loc, 6, loc.length())}" />
+							<option value="${locId}">${locName}</option>
 						</c:forEach>
 					</select>
 				</div>
