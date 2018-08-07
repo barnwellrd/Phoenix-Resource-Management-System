@@ -103,9 +103,11 @@ td {
 		<nav class="navbar navbar-default">
 		<div class="container2">
 			<div class="navbar-header">
+			
+			<a href="dashboard">
 				<img src="resources/images/syntrans.png" alt="logo"
 					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
-
+			</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
 					<span class="icon-bar"></span>
@@ -132,6 +134,7 @@ td {
 		
 	</div>
 	
+
 
 	<div class="container text-center">
 		<div class="row Content2"
