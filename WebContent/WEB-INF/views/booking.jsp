@@ -50,10 +50,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                     <nav class="navbar navbar-default navbar-static-top">
                         <div class="container-fluid">
-                            <a class="navbar-brand navbar-right" href="#">
-                                <spring:url value="/resources/images" var="images" /> <img id="syntel-logo" src="${images}/syntel-logo.png" />
+                            <spring:url value="/resources/images" var="images" /> 
+                            <img class="navbar-brand navbar-right" id="syntel-logo" src="${images}/syntel-logo.png" />
 
-                            </a>
+                          
                             <div class="navbar-header">
                                 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
                                     <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
