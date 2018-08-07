@@ -1,5 +1,11 @@
 package rms.model;
 
+
+/**
+ * Model class representing a FeatureType
+ * @author syntel
+ *
+ */
 public class FeatureType 
 {
 	private int featureTypeId;
