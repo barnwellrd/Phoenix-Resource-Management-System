@@ -9,7 +9,10 @@ import rms.model.Bookings;
 
 public class BookingsMapper implements RowMapper<Bookings>{
 
-	
+	/** 
+	 * Maps booking row to booking object.
+	 */
+	@Override
 	public Bookings mapRow(ResultSet result, int ar1) throws SQLException {
 		Bookings bkn = new Bookings();
 		bkn.setBookingId(result.getInt(1));

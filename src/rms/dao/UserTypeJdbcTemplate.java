@@ -20,6 +20,9 @@ public class UserTypeJdbcTemplate implements JdbcTemplateInterface<UserType>{
 		jtemp = (JdbcTemplate) context.getBean("jt");
 	}
 	
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#insert(java.lang.Object)
+	 */
 	@Override
 	public int insert(UserType userTypeToInsert) {
 		
@@ -27,12 +30,18 @@ public class UserTypeJdbcTemplate implements JdbcTemplateInterface<UserType>{
 				userTypeToInsert.getUserTypeName(), userTypeToInsert.getUserTypeDescription());
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#delete(int)
+	 */
 	@Override
 	public int delete(int userTypeIdToDelete) {
 		// TODO Auto-generated method stub
 		return jtemp.update("DELETE FROM user_type WHERE user_type_id = ?", userTypeIdToDelete);
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)
+	 */
 	@Override
 	public int update(UserType userTypeToUpdate) {
 		// TODO Auto-generated method stub
@@ -45,12 +54,18 @@ public class UserTypeJdbcTemplate implements JdbcTemplateInterface<UserType>{
 							userTypeToUpdate.getUserTypeId());
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#search(int)
+	 */
 	@Override
 	public UserType search(int userTypeId) throws EmptyResultDataAccessException, IncorrectResultSizeDataAccessException {
 		// TODO Auto-generated method stub
 		return jtemp.queryForObject("SELECT * FROM user_type WHERE user_type_id = ?", new UserTypeMapper(), userTypeId);
 	}
 
+	/* (non-Javadoc)
+	 * @see rms.dao.JdbcTemplateInterface#getAll()
+	 */
 	@Override
 	public List<UserType> getAll() {
 		// TODO Auto-generated method stub

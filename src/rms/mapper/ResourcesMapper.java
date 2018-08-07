@@ -6,9 +6,17 @@ import java.sql.SQLException;
 import org.springframework.jdbc.core.RowMapper;
 import rms.model.Resources;
 
+/**
+ * This class is meant to be used with the PRMS database. It is a mapper class for the Resources table in the database.
+ * The rows from the Resources table are mapped to java variables. 
+ * @author Re: Syntellions
+ *
+ */
 public class ResourcesMapper implements RowMapper<Resources>{
 
-
+		/** 
+		 * Maps Resources row to Resources object.
+		 */
 		@Override
 		public Resources mapRow(ResultSet result, int ar1) throws SQLException {
 			Resources res = new Resources();
