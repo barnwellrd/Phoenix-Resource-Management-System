@@ -152,6 +152,8 @@ input {
 }
 
 .form-control {
+	font-size: 225%;
+	text-align: center;
 }
 
 .home-form {
