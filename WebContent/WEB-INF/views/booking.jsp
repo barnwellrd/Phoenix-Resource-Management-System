@@ -405,6 +405,19 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByWeekModal  #timeTo").val(endDate.format("HH:mm"));
                                         $("#addEventByWeekModal  #room").val(name);
 
+                                        if (name.toLowerCase().includes("scrum"))
+                                            $('#addWeeklyHeader').css("background-color","FireBrick");
+                                        else if (name.toLowerCase().includes("conference"))
+                                            $('#addWeeklyHeader').css("background-color","DarkCyan");
+                                        else if (name.toLowerCase().includes("board"))
+                                            $('#addWeeklyHeader').css("background-color","OrangeRed");
+                                        else if (name.toLowerCase().includes("recreation"))
+                                            $('#addWeeklyHeader').css("background-color","Chocolate");
+                                        else if (name.toLowerCase().includes("train"))
+                                            $('#addWeeklyHeader').css("background-color","OliveDrab");
+                                        else if (name.toLowerCase().includes("break"))
+                                            $('#addWeeklyHeader').css("background-color","SlateBlue");
+                                        
                                         // Ask the server to check for conflicting bookings							
                                         $.ajax({
                                             url: "checkConflicts",
@@ -461,6 +474,19 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         $("#addEventByDayModal  #timeFrom").val(startDate.format("HH:mm"));
                                         $("#addEventByDayModal  #timeTo").val(endDate.format("HH:mm"));
                                         $("#addEventByDayModal  #room").val(name);
+                                        
+                                        if (name.toLowerCase().includes("scrum"))
+                                            $('#addDayHeader').css("background-color","FireBrick");
+                                        else if (name.toLowerCase().includes("conference"))
+                                            $('#addDayHeader').css("background-color","DarkCyan");
+                                        else if (name.toLowerCase().includes("board"))
+                                            $('#addDayHeader').css("background-color","OrangeRed");
+                                        else if (name.toLowerCase().includes("recreation"))
+                                            $('#addDayHeader').css("background-color","Chocolate");
+                                        else if (name.toLowerCase().includes("train"))
+                                            $('#addDayHeader').css("background-color","OliveDrab");
+                                        else if (name.toLowerCase().includes("break"))
+                                            $('#addDayHeader').css("background-color","SlateBlue");
 
                                         // Ask the server what daily repeats we can offer without conflixting with
                                         // an existing booking
