@@ -27,6 +27,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import rms.dao.BookingsJdbcTemplate;
 import rms.dao.FeaturesJdbcTemplate;
+import rms.dao.LocationJdbcTemplate;
 import rms.dao.ResourceTypeJdbcTemplate;
 import rms.dao.ResourcesJdbcTemplate;
 import rms.queries.CallUtilizationQueries;
@@ -37,6 +38,7 @@ import rms.model.Bookings;
 import rms.model.FeatureType;
 import rms.model.Features;
 import rms.model.FeaturesDropDown;
+import rms.model.Location;
 import rms.model.ResourceType;
 import rms.model.Resources;
 
@@ -542,8 +544,8 @@ public class MyServices {
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 
 		System.out.println("=-----------------searchAllResources1");
-		List<String> loc = new UniqueResourcesAndLocations().getLocationAndCity();
-		request.setAttribute("listCategory", loc);
+		List<Location> locs = new LocationJdbcTemplate().getAll();
+		request.setAttribute("listCategory", locs);
 		
 		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
 		request.setAttribute("featData", listOfFeatures);
