@@ -846,5 +846,13 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "showResourceByType"; // view name
 	}
+	@RequestMapping(value="/DeleteResource/{resouceId}")
+	public String deleteResourceService(@PathVariable int resourceId) {
+		if(new ResourcesJdbcTemplate().delete(resourceId)>0) {
+			if(new FeaturesJdbcTemplate().deleteByResourceId(resourceId)>0)
+				return "";
+		}
+		return "errorPage";
+	}
 
 }
