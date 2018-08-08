@@ -38,7 +38,7 @@ public class UtilizationQueries
 	public Double dailyUtilizationByResourceId(int resourceId, String date) throws EmptyResultDataAccessException
     {
         return jtemp.queryForObject("SELECT SUM(EXTRACT(hour from (BOOKED_END_TIME - BOOKED_START_TIME)))/8 FROM bookings" + 
-                " WHERE resource_id = ? AND TRUNC(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI')" + 
+                " WHERE resource_id = ? AND TRUNC(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0" + 
                 " GROUP BY TRUNC(booked_start_time)", 
                 Double.class,
                 resourceId,
@@ -63,9 +63,9 @@ public class UtilizationQueries
 	{
 
 		return jtemp.queryForObject("select sum(extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/40 from bookings " + 
-				"where resource_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND " + 
-				"  TO_DATE(?,'dd-MM-yyyy HH24:MI') " + 
-				"  group by resource_id",
+				"where resource_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND" + 
+				" TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0" + 
+				" group by resource_id",
 				Double.class,
 				resourceId,
 				startDate,
@@ -88,8 +88,8 @@ public class UtilizationQueries
 	{
 		return jtemp.queryForObject("select sum(extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/160 from bookings\r\n" + 
 				"where resource_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND\r\n" + 
-				"  TO_DATE(?,'dd-MM-yyyy HH24:MI')\r\n" + 
-				"  group by resource_id", 
+				" TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0" + 
+				" group by resource_id", 
 				Double.class,
 				resourceId,
 				startDate,
@@ -114,7 +114,7 @@ public class UtilizationQueries
 	public Double dailyUtilizationByResourceTypeId(int resourceTypeId, String date) throws EmptyResultDataAccessException
 	{
 		return jtemp.queryForObject("select sum(extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(8*(SELECT COUNT(*) FROM RESOURCES WHERE resource_type_id = ?)) from bookings inner join resources using (resource_id)\r\n" + 
-				"where resource_type_id=? AND trunc(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI')\r\n" + 
+				"where resource_type_id=? AND trunc(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0 " + 
 				"group by resource_type_id", 
 				Double.class,
 				resourceTypeId,
@@ -140,8 +140,8 @@ public class UtilizationQueries
 	public Double weeklyUtilizationByResourceTypeId(int resourceTypeId, String startDate, String endDate) throws EmptyResultDataAccessException
 	{
 		return jtemp.queryForObject("select sum(extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(40*(SELECT COUNT(*) FROM RESOURCES WHERE resource_type_id = ?)) from bookings inner join resources using (resource_id)\r\n" + 
-				"where resource_type_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND\r\n" + 
-				"  TO_DATE(?,'dd-MM-yyyy HH24:MI') group by resource_type_id", 
+				"where resource_type_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND" + 
+				" TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0 group by resource_type_id", 
 				Double.class,
 				resourceTypeId,
 				resourceTypeId,
@@ -167,8 +167,8 @@ public class UtilizationQueries
 	public Double monthlyUtilizationByResourceTypeId(int resourceTypeId, String startDate, String endDate) throws EmptyResultDataAccessException
 	{
 		return jtemp.queryForObject("select sum(extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(160*(SELECT COUNT(*) FROM RESOURCES WHERE resource_type_id = ?)) from bookings inner join resources using (resource_id)\r\n" + 
-				"where resource_type_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND\r\n" + 
-				"  TO_DATE(?,'dd-MM-yyyy HH24:MI') group by resource_type_id",
+				"where resource_type_id=? AND trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND " + 
+				"TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0 group by resource_type_id",
 				Double.class,
 				resourceTypeId,
 				resourceTypeId,
@@ -190,7 +190,7 @@ public class UtilizationQueries
 	 */
 	public Double dailyUtilizationForAllResources(String date) throws EmptyResultDataAccessException{
 		return jtemp.queryForObject("select sum((extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(8*(SELECT COUNT(*) FROM RESOURCES))) from bookings\r\n" + 
-				"where trunc(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI')",
+				"where trunc(booked_start_time) = TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0",
 				Double.class,
 				date);
 	}
@@ -210,7 +210,7 @@ public class UtilizationQueries
 	 */
 	public Double weeklyUtilizationForAllResources(String startDate, String endDate) throws EmptyResultDataAccessException{
 		return jtemp.queryForObject("select sum((extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(40*(SELECT COUNT(*) FROM RESOURCES))) from bookings\r\n" + 
-				"where trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND TO_DATE(?,'dd-MM-yyyy HH24:MI')",
+				"where trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0",
 				Double.class,
 				startDate,
 				endDate);
@@ -231,7 +231,7 @@ public class UtilizationQueries
 	 */
 	public Double monthlyUtilizationForAllResources(String startDate, String endDate) throws EmptyResultDataAccessException{
 		return jtemp.queryForObject("select sum((extract(hour from (BOOKED_END_TIME-BOOKED_START_TIME)))/(160*(SELECT COUNT(*) FROM RESOURCES))) from bookings\r\n" + 
-				"where trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND TO_DATE(?,'dd-MM-yyyy HH24:MI')",
+				"where trunc(booked_start_time) BETWEEN TO_DATE(?,'dd-MM-yyyy HH24:MI') AND TO_DATE(?,'dd-MM-yyyy HH24:MI') AND is_active > 0",
 				Double.class,
 				startDate,
 				endDate);
