@@ -146,15 +146,16 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     <div class="input-group-addon">
                                         <span class='glyphicon glyphicon-time'></span> <span class="input-group-text">From</span>
                                     </div>
-                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom" required>
+                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom" min="9:00" max="17:00" required>
                                 </div>
 
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <span class='glyphicon glyphicon-time'></span> <span class="input-group-text">To</span>
                                     </div>
-                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeTo" name="editTimeTo" required>
+                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeTo" name="editTimeTo" max="17:00" min="9:00" required>
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                             	<div style="text-align:center;" class="alert alert-danger" roll="alert" id="editAlert">
@@ -196,7 +197,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     </div>
                                     <input class="form-control input-md" type="date" placeholder="DD-MM" id="date" name="date" readonly="readonly" required />
                                 </div>
-
                                 <!-- Start time -->
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -212,7 +212,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     </div>
                                     <input class="form-control input-md" type="time" placeholder="HH:MM" id="timeTo" name="timeTo" readonly="readonly" required>
                                 </div>
-
                                 <!-- Weekly repeats -->
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -551,6 +550,43 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $("#bookingId").val(calEvent.id);
                                     $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
+                                
+                                
+                                
+                                    // Validate prefilled values
+                                    var bookingID = $("#bookingId").val();
+                                    var date = $("#editDate").val();
+                                    var timeTo = $("#editTimeTo").val();
+                                    var timeFrom = $("#editTimeFrom").val();
+                                    
+                                    console.log("Changed");
+                                    console.log(bookingID);
+                                    console.log(date);
+                                    console.log(timeTo);
+                                    console.log(timeFrom);
+                                    
+                                    $.ajax({
+                                    	url: "pleaseCheckMyEdit",
+                                        data: {
+                                        	"bookingID": bookingID,
+                                        	"startTime": timeTo,
+                                        	"endTime": timeFrom,
+                                        	"date": date
+                                        },
+                                        success: function(result){
+                                        	console.log("Success: " + result);
+                                        	if(result === "false"){
+                                        		$("#editAlert").show();
+                                        	} else {
+                                        		$("#editAlert").hide();
+                                        	}
+                                        	$("#editButton").attr("disabled", result === "false");
+                                        	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
                                 },
                                 agenda: {
                                     eventLimit: 3, // allow "more" link when too many events
@@ -752,6 +788,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
+                                    
+                                    if(Number(timeFrom.split(":")[0].trim()) < 9){
+	                                  	$("#editTimeFrom").val("09:00");
+                                    }
+                                    
+                                    if(Number(timeTo.split(":")[0].trim()) > 17){
+	                                  	$("#editTimeTo").val("17:00");
+                                    }
+                                    
+                                    //if minutes are past 5. 
+                                    if(Number(timeTo.split(":")[0].trim()) == 17){
+                                    	if(Number(timeTo.split(":")[1].trim())>0)
+	                                  		$("#editTimeTo").val("17:00");
+                                    }
                                     
                                     $.ajax({
                                     	url: "pleaseCheckMyEdit",
