@@ -561,7 +561,7 @@ input:focus::-webkit-input-placeholder {
 		</div>
 		<div class="footer" id="footer">
 		<center>
-			<p> 2018 Syntel, Inc</p>
+			<p>© 2018 Syntel, Inc</p>
 		</center>
 
 		</div>
