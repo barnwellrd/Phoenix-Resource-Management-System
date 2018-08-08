@@ -756,6 +756,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             $("#deleteButton").click(function() {
                                 var id = $("#bookingId").val();
                                 console.log(id);
+                                
+                                if(!confirm("Are you sure you want to delete booking?")){
+                                	return;
+                                }
 
                                 $.ajax({
                                     url: "deleteEvent",
