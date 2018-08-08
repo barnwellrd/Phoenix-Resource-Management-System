@@ -8,10 +8,12 @@ import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -69,21 +71,23 @@ public class MyServices {
 		String userName = request.getParameter("userName");
 		String password = request.getParameter("password");
 
-		request.getSession().setAttribute("userName", userName);
-		request.getSession().setAttribute("pass", password);
-
-		System.out.println(request.getParameter("userName"));
-		System.out.println(request.getParameter("password"));
-
 		LoginQueries login = new LoginQueries();
 
 		System.out.println("CHECKPOINT 1");
 
 		try {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
+				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userId", userId);
+				request.getSession().setAttribute("userType", "1");
+				
 				System.out.println("CHECKPOINT 2");
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
+				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userId", userId);
+				request.getSession().setAttribute("userType", "0");
+
 				return "dashboardNotAdmin";
 			}
 		} catch (Exception e) {
@@ -113,7 +117,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		int id = Integer.parseInt(request.getParameter("bookingId"));
-		int userId = Integer.parseInt(request.getParameter("userId"));
+		int userId = Integer.parseInt(request.getParameter("userId").trim());
 
 		int resourceId = new BookingsJdbcTemplate().search(id).getResourceId();
 
@@ -150,6 +154,7 @@ public class MyServices {
 		String timeTo = request.getParameter("timeTo");
 		String timeFrom = request.getParameter("timeFrom");
 		String resourceId = request.getParameter("resourceId");
+		String userId = request.getParameter("userId").trim();
 		String type = request.getParameter("type");
 
 		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
@@ -164,7 +169,7 @@ public class MyServices {
 		if (type.equals("week")) {
 			int repeats = Integer.parseInt(request.getParameter("repeats"));
 
-			System.out.println("Weekly repeats: " + repeats);
+			// Create a booking for each week
 			for (int i = 0; i < repeats + 1; i++) {
 				// Get the start timestamp
 				Calendar cal = Calendar.getInstance();
@@ -177,15 +182,14 @@ public class MyServices {
 				cal.add(Calendar.WEEK_OF_MONTH, i);
 				Timestamp stop = new Timestamp(cal.getTimeInMillis());
 
+				// Add the booking
 				Bookings booking = new Bookings();
 				booking.setIsActive(1);
 				booking.setBookedStartTime(start);
 				booking.setBookedEndTime(stop);
 				booking.setResourceId(Integer.parseInt(resourceId));
-				booking.setUserId(101);
+				booking.setUserId(Integer.parseInt(userId));
 				booking.setDescription("An event");
-
-				System.out.println(booking);
 				new BookingsJdbcTemplate().insert(booking);
 			}
 		} else {
@@ -211,14 +215,14 @@ public class MyServices {
 					cal.add(Calendar.DAY_OF_YEAR, i);
 					Timestamp stop = new Timestamp(cal.getTimeInMillis());
 
+					// Add the booking
 					Bookings booking = new Bookings();
 					booking.setIsActive(1);
 					booking.setBookedStartTime(start);
 					booking.setBookedEndTime(stop);
 					booking.setResourceId(Integer.parseInt(resourceId));
-					booking.setUserId(101);
+					booking.setUserId(Integer.parseInt(userId));
 					booking.setDescription("An event");
-					System.out.println(booking);
 					new BookingsJdbcTemplate().insert(booking);
 				}
 			}
@@ -227,8 +231,7 @@ public class MyServices {
 
 	@RequestMapping(value = "/checkConflicts")
 	public void checkConflicts(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("\t Checking for conclicts");
-
+		// Read request parameters
 		String type = request.getParameter("type");
 		int resourceID = Integer.parseInt(request.getParameter("id"));
 		String date = request.getParameter("date");
@@ -248,14 +251,18 @@ public class MyServices {
 		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
 		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
 
-		// Get all bookings
+		// Get all bookings that are active
 		List<Bookings> bookings = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+		bookings = bookings.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
 
 		// Check which recurrences don't clash
 		Calendar cal = Calendar.getInstance();
 		if (type.equals("day")) {
+			// Index i tells if a booking on day i (sunday = 0, monday = 1, ...) doesn't
+			// clash with an existing booking
 			boolean[] allowableRepeats = {true, false, false, false, false, false, false};
 
+			// Check each day
 			for (int i = 1; i < allowableRepeats.length; i++) {
 				// Make the times sql friendly
 				cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
@@ -281,25 +288,25 @@ public class MyServices {
 				boolean valid = true;
 				for (Bookings existing : bookings) {
 					// Is the hypothetical bookings before the exiting booking?
-					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
-							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+					boolean before =	(hypothetical.getBookedStartTime().before(existing.getBookedStartTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedStartTime()))
+										&& (hypothetical.getBookedEndTime().before(existing.getBookedStartTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedStartTime()));
 
 					// Is the hypothetical booking after the existing booking?
-					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
-							&& hypothetical.getBookedEndTime().after(existing.getBookedEndTime());
+					boolean after = (hypothetical.getBookedStartTime().after(existing.getBookedEndTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedEndTime()))
+							&& (hypothetical.getBookedEndTime().after(existing.getBookedEndTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedEndTime()));
 					valid = valid & (before || after);
 				}
 				allowableRepeats[i] = valid;
-				System.out.println("\t " + allowableRepeats[i]);
 			}
 			
-			// Build the response
+			// Build the response. The response is a list of booleans in string form.
+			// i.e false,true, ...
 			String resp ="";
 			for(int i = 0; i < allowableRepeats.length; i++){
 				resp += allowableRepeats[i] + ",";
 			}
+			// Get rid of the extraneous end commma
 			resp = resp.substring(0, resp.length() - 1);
-			System.out.println(resp);
 			
 			// Send the response
 			try {
@@ -331,8 +338,8 @@ public class MyServices {
 				boolean valid = true;
 				for (Bookings existing : bookings) {
 					// Is the hypothetical bookings before the exiting booking?
-					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
-							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+					boolean before = (hypothetical.getBookedStartTime().before(existing.getBookedStartTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedStartTime()))
+							&& (hypothetical.getBookedEndTime().before(existing.getBookedStartTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedStartTime()));
 
 					// Is the hypothetical booking after the existing booking?
 					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
@@ -358,8 +365,8 @@ public class MyServices {
 				}
 			}
 
-			// Respond to the ajax request
-			System.out.println(maxBookableWeeks);
+			// Respond to the ajax request. Response is the maximum number of 
+			// weekly repeats that do not clash with an existing booking
 			try {
 				response.getWriter().write(maxBookableWeeks + "");
 			} catch (IOException e) {
@@ -588,22 +595,22 @@ public class MyServices {
 		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 		request.setAttribute("listRes", res);
 
-		// for printing all the resources at the bottom of view.
-		List<Resources> allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
-
+		List<Resources> allResources;
+		
+		//if super user just show all rooms. 
+		if(request.getSession().getAttribute("userType")=="1") {
+			// for printing all the resources 
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+		}else{
+			// for printing non super resources.
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+		}
+		
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
-// --Bookings
+
 		return "showAllResources"; // view name
-/*==
-		
-		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
-		map.addAttribute("featData", listOfFeatures);
-		
-		
-		
-		return "AddSearchResources"; //view name
---development*/
+
 	}
 	
 	
@@ -853,11 +860,76 @@ public class MyServices {
 		request.setAttribute("featData", listOfFeatures);
 		int locationId=Integer.parseInt(request.getParameter("location"));
 		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
-		System.out.println(locationId+" l "+resourceTypeId);
-		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+
+		List<Resources> allResources;
+		
+		//if super user just show all rooms. 
+		if(request.getSession().getAttribute("userType")=="1") {
+			// for printing all the resources 
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+		}else{
+			// for printing non super resources.
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceTypeNonSuper(locationId, resourceTypeId);
+		}		
 		map.addAttribute("alldata", allResources);
+		
 		System.out.println("=-----------------helloo service got executed");
 		return "showResourceByType"; // view name
 	}
 
+	@RequestMapping(value="/pleaseCheckMyEdit")
+	public void validateEdit(HttpServletRequest request, HttpServletResponse response){
+		// Read request parameters
+		int bookingID = Integer.parseInt(request.getParameter("bookingID"));
+		int resourceID = new BookingsJdbcTemplate().search(bookingID).getResourceId();
+		String date = request.getParameter("date");
+		String startTime = request.getParameter("startTime");
+		String endTime = request.getParameter("endTime");
+		
+		// Make a booking from the edit
+		DateTimeFormatter format = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+		String dates1 = date + " " + endTime;
+		String dates2 = date + " " + startTime;
+
+		// Make timestamps for validation
+		Calendar cal = Calendar.getInstance();
+		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
+		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
+		cal.setTimeInMillis(date1.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		Timestamp start = new Timestamp(cal.getTimeInMillis());
+		cal.setTimeInMillis(date2.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli());
+		Timestamp stop = new Timestamp(cal.getTimeInMillis());
+		
+		// Create a hypothetical booking
+		Bookings posed = new Bookings();
+		posed.setBookedStartTime(start);
+		posed.setBookedEndTime(stop);
+		System.out.println(posed);
+		
+		// Check to see if it clashes
+		List<Bookings> allExisting = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+		allExisting = allExisting.stream().filter(e -> e.getBookingId() != bookingID && e.getIsActive() == 1).collect(Collectors.toList());
+		System.out.println(allExisting.size());
+		boolean valid = true;
+		for(Bookings existing: allExisting){
+			boolean after = 	(posed.getBookedEndTime().after(existing.getBookedEndTime()) || posed.getBookedEndTime().equals(existing.getBookedEndTime())) &&
+							 	(posed.getBookedStartTime().after(existing.getBookedEndTime()) || posed.getBookedStartTime().equals(existing.getBookedEndTime()));
+			boolean before = 	(posed.getBookedEndTime().before(existing.getBookedStartTime()) || posed.getBookedEndTime().equals(existing.getBookedStartTime())) &&
+								(posed.getBookedStartTime().before(existing.getBookedStartTime()) || posed.getBookedStartTime().equals(existing.getBookedStartTime()));
+			valid = valid && (before || after);
+		}
+		
+		// Check to see the start time is before the end time
+		valid = valid && (start.before(stop));
+
+		// Tell the page if the edit works or not
+		System.out.println(valid);
+		PrintWriter out;
+		try {
+			out = response.getWriter();
+			out.write(valid + "");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }
