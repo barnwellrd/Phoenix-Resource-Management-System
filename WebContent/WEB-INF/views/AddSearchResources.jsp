@@ -157,9 +157,9 @@ input:focus::-webkit-input-placeholder {
 						<br>
 						<fieldset id="fieldset2">
 							<div>
-								<label>Resources:</label><br> <select name="resources"
+								<label>Resources:</label><br> <select name="resources" required
 									style="color: black; width: 150px;" >
-									<option value="all">Select</option>
+									<option value="" disabled selected>Select a Resource</option>
 									<c:forEach items="${listRes}" var="res">
 										<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 										<c:set var="resTypeName"
@@ -428,7 +428,9 @@ input:focus::-webkit-input-placeholder {
 											
 										
 											</c:if>
-
+											<tr>
+						                        <td colspan="2"><button onclick="var v = confirm('Are u sure?'); if(v==true){window.location.href = 'DeleteResource/${allResources.getResourceId()}';}else{} " type="button" class="btn btn-danger">Delete</button></td> 
+						                    </tr>
 										</table>
 																										
 
