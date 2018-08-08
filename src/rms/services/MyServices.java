@@ -287,12 +287,12 @@ public class MyServices {
 				boolean valid = true;
 				for (Bookings existing : bookings) {
 					// Is the hypothetical bookings before the exiting booking?
-					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
-							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+					boolean before =	(hypothetical.getBookedStartTime().before(existing.getBookedStartTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedStartTime()))
+										&& (hypothetical.getBookedEndTime().before(existing.getBookedStartTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedStartTime()));
 
 					// Is the hypothetical booking after the existing booking?
-					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
-							&& hypothetical.getBookedEndTime().after(existing.getBookedEndTime());
+					boolean after = (hypothetical.getBookedStartTime().after(existing.getBookedEndTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedEndTime()))
+							&& (hypothetical.getBookedEndTime().after(existing.getBookedEndTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedEndTime()));
 					valid = valid & (before || after);
 				}
 				allowableRepeats[i] = valid;
@@ -337,8 +337,8 @@ public class MyServices {
 				boolean valid = true;
 				for (Bookings existing : bookings) {
 					// Is the hypothetical bookings before the exiting booking?
-					boolean before = hypothetical.getBookedStartTime().before(existing.getBookedStartTime())
-							&& hypothetical.getBookedEndTime().before(existing.getBookedStartTime());
+					boolean before = (hypothetical.getBookedStartTime().before(existing.getBookedStartTime()) || hypothetical.getBookedStartTime().equals(existing.getBookedStartTime()))
+							&& (hypothetical.getBookedEndTime().before(existing.getBookedStartTime()) || hypothetical.getBookedEndTime().equals(existing.getBookedStartTime()));
 
 					// Is the hypothetical booking after the existing booking?
 					boolean after = hypothetical.getBookedStartTime().after(existing.getBookedEndTime())
@@ -893,12 +893,15 @@ public class MyServices {
 		System.out.println(allExisting.size());
 		boolean valid = true;
 		for(Bookings existing: allExisting){
-			boolean after = 	posed.getBookedEndTime().after(existing.getBookedEndTime()) &&
-							 	posed.getBookedStartTime().after(existing.getBookedEndTime());
-			boolean before = 	posed.getBookedEndTime().before(existing.getBookedStartTime()) &&
-								posed.getBookedStartTime().before(existing.getBookedStartTime());
+			boolean after = 	(posed.getBookedEndTime().after(existing.getBookedEndTime()) || posed.getBookedEndTime().equals(existing.getBookedEndTime())) &&
+							 	(posed.getBookedStartTime().after(existing.getBookedEndTime()) || posed.getBookedStartTime().equals(existing.getBookedEndTime()));
+			boolean before = 	(posed.getBookedEndTime().before(existing.getBookedStartTime()) || posed.getBookedEndTime().equals(existing.getBookedStartTime())) &&
+								(posed.getBookedStartTime().before(existing.getBookedStartTime()) || posed.getBookedStartTime().equals(existing.getBookedStartTime()));
 			valid = valid && (before || after);
 		}
+		
+		// Check to see the start time is before the end time
+		valid = valid && (start.before(stop));
 
 		// Tell the page if the edit works or not
 		System.out.println(valid);
