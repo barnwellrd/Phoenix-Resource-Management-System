@@ -53,7 +53,8 @@ public class MyServices {
 	 * @return The login.jsp view.
 	 */
 	@RequestMapping(value = "/")
-	public String homeScreen() {
+	public String homeScreen(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
 		return "login";
 	}
 
@@ -62,7 +63,8 @@ public class MyServices {
 	 * @return The login.jsp view.
 	 */
 	@RequestMapping(value = "/logout")
-	public String logout() {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
 		return "login";
 	}
 	
@@ -593,8 +595,12 @@ public class MyServices {
 	 * @return Returns booking.jsp view.
 	 */
 	@RequestMapping(value = "/booking")
-	public String booking() {
+	public String booking(HttpServletRequest request, HttpServletResponse response) {
 
+		if(request.getSession(false) == null) {
+			return "login";
+		}
+		
 		return "booking";
 	}
 	/**
@@ -768,15 +774,17 @@ public class MyServices {
 				res.remove(resource);
 		}
 		
-		List<Resources> allResources;
+		List<Resources> allResources = null;
 		
 		//if super user just show all rooms. 
 		if(request.getSession().getAttribute("userType")=="1") {
 			// for printing all the resources 
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
 		}else{
 			// for printing non super resources.
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
 		}
 		
 		map.addAttribute("alldata", allResources);
@@ -1115,9 +1123,13 @@ public class MyServices {
 		if(request.getSession().getAttribute("userType")=="1") {
 			// for printing all the resources 
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
+
 		}else{
 			// for printing non super resources.
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceTypeNonSuper(locationId, resourceTypeId);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
+
 		}		
 		map.addAttribute("alldata", allResources);
 		

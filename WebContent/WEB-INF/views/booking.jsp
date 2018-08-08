@@ -39,7 +39,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
             </head>
 
             <body>
-
+				<%  
+					if(null == session.getAttribute("userId")){
+				    	response.sendRedirect(getServletContext().getRealPath("/")+"/");
+				    	return;
+					}
+				%>
+				
                 <div class="container" id="allPage">
 
                     <!-- Default Values provided. these are the id and name of the currently selected resource
@@ -68,8 +74,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	
 	                            </div>
 	                            <div class="collapse navbar-collapse" id="myNavbar">
-	                                <ul class="nav navbar-nav">
-	                                    <li><a href="logout">Log Out</a></li>
+	                                <ul class="nav navbar-nav navbar-right">
+	                                    <li><a href="logout">Logout</a></li>
 	                                </ul>
 	
 	                            </div>

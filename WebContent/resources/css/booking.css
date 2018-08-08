@@ -68,7 +68,9 @@ h1 {
 }
 
 ul li{
-	font-size: 2vw;
+	font-size: 1vw;
+	color:red;
+	padding-right:50px;
 }
 
 .input-group-addon{
