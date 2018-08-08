@@ -50,7 +50,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	 <form action="loginOnUserName" name="loginform" method="post"  onSubmit="validateForm()">
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	    <input id="email" type="text" class="form-control" name="userName" placeholder="userName" value='${user.getUserName()}'>
+	    <input id="email" type="text" class="form-control" name="userName" placeholder="Username" value='${user.getUserName()}'>
 	    	  
 	  </div>
 	          <br>
@@ -63,7 +63,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      <br>
 	   
 	   
-	    <input type="submit" value="login"/>
+	    <input class="btn btn-success" type="submit" value="Login" style="width:100px"/>
 	    </form>
 	      
 	      <br>

@@ -113,8 +113,6 @@
 			}
 			
 		</style>
-	</head>
-	
 		<script type="text/javascript">
 			google.charts.load('current', {
 				'packages' : [ 'corechart' ]
@@ -177,6 +175,8 @@
 					chart.draw(dataTable, options);
 			}
 		</script>
+	</head>
+	
 	<body id="bod">
 		<!-- navigation header -->
 		<div class="container">

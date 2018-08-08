@@ -111,49 +111,29 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							</a>
 							<ul class="dropdown-menu">
 
+													<li>
+									<a href="booking">
+									
+										<span class="glyphicon glyphicon-book pull-left"> Book</span>
+										<br>
+									</a>	
+								</li>
+						
+								<li class="divider"></li>
 								<li>
-									<a href="booking">Book
-										<span class="glyphicon glyphicon-book pull-right"></span>
+									<a href="Visitor/Home"> 
+										<span class="glyphicon glyphicon-retweet pull-left"> Visitors</span>
+											<br>
 									</a>
 								</li>
-								
-								<li class="divider"></li>
-
-								<li>
-									<a href="Visitor/Home">Visitors
-
-										<span class="glyphicon glyphicon-folder-open pull-right"></span>
-									</a>
-								</li>
-								
-								<!--  
-								<li class="divider"></li>
-
-								<li>
-									<a href="#">Previous 
-										<span class="glyphicon glyphicon-retweet pull-right"></span>
-									</a>
-								</li>
-								
-								<li class="divider"></li>
-
-<!-- 
-								<li class="divider"></li> 
-								
-								
-								<li>
-									<a href="#">Calendar 
-										<span class="glyphicon glyphicon-calendar pull-right"></span>
-									</a>
-								</li>-->
-								
-								<li class="divider"></li>
-								
+								<li class="divider"></li>				
 								<li>
 									<a href="logout">
-										<span class="glyphicon glyphicon-user pull-right"></span>Logout 
+										<span class="glyphicon glyphicon-user pull-left"> Logout</span>
+											<br>
 									</a>
 								</li>
+						
 							</ul>
 						</li>
 					</div>

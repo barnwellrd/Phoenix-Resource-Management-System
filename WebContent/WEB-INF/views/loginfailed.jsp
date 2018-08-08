@@ -51,7 +51,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	 <span style="color:red;">Please enter a valid username/password !</span>
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
-	    <input id="email" type="text" class="form-control" name="userName" placeholder="userName" value='${user.getUserName()}'>
+	    <input id="email" type="text" class="form-control" name="userName" placeholder="Username" value='${user.getUserName()}'>
 	  </div>
 	          <br>
 	  <div class="input-group">
@@ -63,7 +63,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	      <br>
 	   
 	   
-	    <input type="submit" value="login"/>
+	    <input class="btn btn-success" type="submit" value="Login" style="width:100px"/>
 	    </form>
 	<!--   <button action> <span class="glyphicon glyphicon-log-in">  login</span></button>-->
 	      <br>
