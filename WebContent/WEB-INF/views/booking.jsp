@@ -373,7 +373,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 //create tooltip on mouseover of event. 
                                 eventMouseover: function(calEvent, jsEvent) {
                                     var tooltip = '<div class="tooltipevent" style="background:' + calEvent.backgroundColor + ';color:white;width:150px;position:absolute;z-index:10001;">' +
-                                        calEvent.title + "<br/>" + $.fullCalendar.formatDate(calEvent.start, "HH:mm") + " - " + $.fullCalendar.formatDate(calEvent.end, "HH:mm") + "<br/>Click to edit or delete" + '</div>';
+                                        calEvent.title + "<br/>" + $.fullCalendar.formatDate(calEvent.start, "hh:mm") + " - " + $.fullCalendar.formatDate(calEvent.end, "hh:mm") + "<br/>Click to edit or delete" + '</div>';
                                     var $tooltip = $(tooltip).appendTo('body');
 
                                     $(this).mouseover(function(e) {
@@ -719,9 +719,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 });
                             });
 
-
-
-
                             $('iframe').load(function() {
                                 $(this).contents().find("#backButton").on('click',
                                     function(event) {
@@ -792,7 +789,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
-                                    
+                                                                                                            
                                     if(Number(timeFrom.split(":")[0].trim()) < 9){
 	                                  	$("#editTimeFrom").val("09:00");
                                     }

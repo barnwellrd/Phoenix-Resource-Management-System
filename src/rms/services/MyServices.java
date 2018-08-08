@@ -1109,8 +1109,10 @@ public class MyServices {
 			valid = valid && (before || after);
 		}
 		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		
 		// Check to see the start time is before the end time
-		valid = valid && (start.before(stop));
+		valid = valid && (start.before(stop)) && (start.after(now));
 
 		// Tell the page if the edit works or not
 		System.out.println(valid);
