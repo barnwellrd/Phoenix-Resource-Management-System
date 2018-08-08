@@ -105,7 +105,9 @@ public class MyServices {
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
 
 		int id = Integer.parseInt(request.getParameter("bookingId"));
-		new BookingsJdbcTemplate().delete(id);
+		Bookings toDisable = new BookingsJdbcTemplate().search(id);
+		toDisable.setIsActive(0);
+		new BookingsJdbcTemplate().update(toDisable);
 
 	}
 
@@ -379,6 +381,8 @@ public class MyServices {
 	public void getAllBookingsAsTable(HttpServletRequest request, HttpServletResponse response) {
 
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAll();
+		allBookings = allBookings.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
+
 		PrintWriter out = null;
 
 		try {
@@ -412,6 +416,7 @@ public class MyServices {
 
 		int resourceId = Integer.parseInt(resId);
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceId(resourceId);
+		allBookings = allBookings.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
 		PrintWriter out = null;
 
 		try {
@@ -447,6 +452,7 @@ public class MyServices {
 		
 		int resourceTypeId = Integer.parseInt(request.getParameter("resourceTypeId"));
 		List<Bookings> allBookings = new BookingsJdbcTemplate().getAllByResourceType(resourceTypeId);
+		allBookings = allBookings.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
 		PrintWriter out = null;
 
 		try {
