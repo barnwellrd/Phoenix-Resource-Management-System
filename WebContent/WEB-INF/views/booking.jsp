@@ -361,8 +361,8 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     right: 'agendaWeek,agendaDay'
                                 },
                                 themeSystem: 'bootstrap3',
-                                minTime: "06:00:00", //the times that are visible on the calendar itself. 
-                                maxTime: "18:00:00",
+                                minTime: "09:00:00", //the times that are visible on the calendar itself. 
+                                maxTime: "17:00:00",
                                 height:'parent',//the css height of the calendar
                                 defaultView: 'agendaWeek',
                                 selectable: false, //initially cannot make event selections
