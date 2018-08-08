@@ -10,8 +10,30 @@
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
 	<script src="../resources/js/jquery.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
-	<script src="../resources/js/visitor30SecRedirect.js"></script>
-	
+	<script>
+	function checkDateRange() {
+		   // Parse the entries
+		   var startDate = document.getElementById("fromDate");
+		   var endDate = document.getElementById("toDate");
+		   // Make sure they are valid
+		    if (isNaN(startDate)) {
+		      alert("The start date provided is not valid, please enter a valid date.");
+		      return false;
+		   }
+		   if (isNaN(endDate)) {
+		       alert("The end date provided is not valid, please enter a valid date.");
+		       return false;
+		   }
+		   // Check the date range, 86400000 is the number of milliseconds in one day
+		   var difference = (endDate - startDate) / (86400000 * 7);
+		   if (difference < 0) {
+		       alert("The start date must come before the end date.");
+		       return false;
+		   }
+		   
+		   return true;
+		}
+	</script>
 	
 
 </head>
@@ -36,6 +58,15 @@
 	</header>
 	<section class="nav"></section>
 	<section class="container">
+	<form id="dr" action="" method="post" style="margin: 0; padding-bottom: 50px;">
+		<p>
+			Enter Date Range
+		
+		    <input type="text" name="fromDay" id="fromDay" placeholder="From" onfocus="(this.type='date')" style="display: inline;"/>
+		    <input type="text" name="toDay" id="toDay" placeholder="To"   onfocus="(this.type='date')" style="display: inline;" />
+		    <input style="display: inline;" type="submit" value="submit" onClick="if(checkDateRange() == true) document.getElementById('dr').action ='/Phoenix_Resource_Management_System/Visitor/RangeSearch'; else document.getElementById('dr').action='/Phoenix_Resource_Management_System/Visitor/Admin';"  />
+		</p>
+	</form>
 		<div class="section_block">
 			
 				<table class="table">
@@ -56,8 +87,7 @@
 							<td>${ba.getCheckedOutTime()}</td>
 							<td><form class="admin-button"
 									action="/Phoenix_Resource_Management_System/Visitor/AdminCO/${ba.getVisitorId()}">
-									<button type="submit" class="admin-btn <c:if test="${ba.getHasCheckedOut()==1}"><c:out value = "disabled"/></c:if>"><h3>Check Out</h3></button>
-								</form></td>
+<button type="submit"  class="admin-btn" <c:if test="${ba.getHasCheckedOut() == 1}"><c:out value="disabled='disabled'"/></c:if>"><h3>Check Out</h3></button>								</form></td>
 						</tr>
 					</c:forEach>
 
