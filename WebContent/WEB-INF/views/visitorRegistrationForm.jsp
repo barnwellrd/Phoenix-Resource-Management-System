@@ -5,6 +5,7 @@
 <head>
 	<title>Register Now!</title>
 	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
+
 	<script src="../resources/js/jquery.min.js"></script>
 	<script src="../resources/js/bootstrap.min.js"></script>
 	<script src="../resources/js/jquery.js"></script>
@@ -103,8 +104,8 @@
 			<input type="submit" id="submit_btn" >
 			
 		</form>
+
 	</section>
-	
 	<script>
 		$('#option1:checked').parent().css('backgroundColor', '#FF6347');
 		$('#option2:checked').parent().css('backgroundColor', '#FF6347');
@@ -113,16 +114,15 @@
 			$('.radio_label').css('backgroundColor', '#004837');
 			$(this).parent().css('backgroundColor', '#FF6347');
 		});
-	    
+
 		$('#other').hide();
-		$('#submit_btn').hide();
-		$("#form_btn").hide(); //hide form submit button; the right arrow button uses this button to triger the submission of the form
-		$('input[name="visitorCompanyName"]').change(function(){
-		    if ($('#option3').is(':checked')) {
-		        $('#other').show();
-		    } else {
-		        $('#other').hide();
-		    }
+		$("#form_btn").hide(); //hide form submit button; the right arrow button uses this button to trigger the submission of the form
+		$('input[name="visitorCompanyName"]').change(function() {
+			if ($('#option3').is(':checked')) {
+				$('#other').show();
+			} else {
+				$('#other').hide();
+			}
 		});
 		
 		function submitForm(){
@@ -143,7 +143,7 @@
 		function checkTime(i) {
 		    if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
 		    return i;
-		}
+		
 	</script>
 </body>
 </html>
