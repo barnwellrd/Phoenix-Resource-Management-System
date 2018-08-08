@@ -49,7 +49,7 @@
 							 	var resourceType = $( "#viewType" ).val();
 							 	if($(this).attr('class') == resourceType) {
 							 		$('#roomType2').append($('<option>', {	// add rooms based on the type to roomType2 dropdown
-							 		    value: $(this).text(),
+							 		    value: $(this).val(),
 							 		    text: $(this).text()
 							 		}));
 							 	} 
@@ -240,8 +240,8 @@
 								<select class="form-control" id="viewType" name="viewType">
 									<option value="all" selected>All Rooms</option>
 					                <c:forEach items="${resourceTypes}" var="rt">
-					                <c:set var="resourceTypeId" value="${fn:substring(rt, 0, 4)}" />
-					                <option value="${resourceTypeId}">${rt}</option>
+					                <c:set var="resourceTypeId" value="${rt.getResourceTypeId()}" />
+					                <option value="${resourceTypeId}">${rt.getResourceTypeName()}</option>
 					                </c:forEach>
 				                </select>
 							</div> 
@@ -280,9 +280,9 @@
 								<select class="form-control" name="roomType" id="roomType">
 					                <option value="all">All rooms</option>
 					                <c:forEach items="${rooms}" var="room">
-					                <c:set var="roomId" value="${fn:substring(room, 0, 4)}" />
-					                <c:set var = "typeOfRoom" value="${fn:substring(room, 5, 9)}" />
-					                <option value="${roomId}" class="${typeOfRoom}">${room}</option>
+					                <c:set var="roomId" value="${room.getResourceId()}" />
+					                <c:set var = "typeOfRoom" value="${room.getResourceTypeId()}" />
+					                <option value="${roomId}" class="${typeOfRoom}">${room.getResourceRoomNumber()} ${room.getResourceName()}</option>
 					                </c:forEach>
 					          	</select>
 						</div> 
