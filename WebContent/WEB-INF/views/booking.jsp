@@ -43,7 +43,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                 <div class="container" id="allPage">
 
                     <!-- Default Values provided. these are the id and name of the currently selected resource
-			updated in the select event of the fullCalendar -->
+					updated in the select event of the fullCalendar -->
                     <p id="pageResourceId" style="display: none">1001</p>
                     <p id="pageResourceName" style="display: none">SCRUM 1</p>
                     <p id="pageUserId" style="display: none">	 
@@ -52,29 +52,29 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	  				%></p>
 
                     <div class="container-fluid" id="rows">
-                                        <nav class="navbar navbar-default navbar-static-top">
-                        <div class="container-fluid">
-                            <spring:url value="/resources/images" var="images" /> 
-                            <img class="navbar-brand navbar-right" id="syntel-logo" src="${images}/syntel-logo.png" />
-
-                          
-                            <div class="navbar-header">
-                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-                                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
-                                </button>
-                                <a class="navbar-brand" href="dashboard">
-                                    <spring:url value="/resources/images" var="images" /> <img id="book-logo" src="${images}/book-logo.png" />
-                                </a>
-
-                            </div>
-                            <div class="collapse navbar-collapse" id="myNavbar">
-                                <ul class="nav navbar-nav">
-                                    <li><a href="logout">Log Out</a></li>
-                                </ul>
-
-                            </div>
-                        </div>
-                    </nav>
+                                        
+	                   <nav class="navbar navbar-default navbar-static-top">
+	                        <div class="container-fluid">
+	                            <spring:url value="/resources/images" var="images" /> 
+	                            <img class="navbar-brand navbar-right" id="syntel-logo" src="${images}/syntel-logo.png" />
+	
+	                            <div class="navbar-header">
+	                                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+	                                    <span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span>
+	                                </button>
+	                                <a class="navbar-brand" href="dashboard">
+	                                    <spring:url value="/resources/images" var="images" /> <img id="book-logo" src="${images}/book-logo.png" />
+	                                </a>
+	
+	                            </div>
+	                            <div class="collapse navbar-collapse" id="myNavbar">
+	                                <ul class="nav navbar-nav">
+	                                    <li><a href="logout">Log Out</a></li>
+	                                </ul>
+	
+	                            </div>
+	                        </div>
+	                    </nav>
                     
                         <div class="row">
                             <div class="col-lg-4">
@@ -361,7 +361,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 themeSystem: 'bootstrap3',
                                 minTime: "06:00:00", //the times that are visible on the calendar itself. 
                                 maxTime: "18:00:00",
-                                height: 480, //the css height of the calendar
+                                height:'parent',//the css height of the calendar
                                 defaultView: 'agendaWeek',
                                 selectable: false, //initially cannot make event selections
                                 selectConstraint: {

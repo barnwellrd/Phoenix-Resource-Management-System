@@ -1,22 +1,12 @@
 html, body {
 	width: 100%;
 	height: 100%;
-	overflow: hidden;
    	background:lightgrey;
 	
 }
 
 .modal-header{
 	color:white;
-}
-
-.container{
-	height:100%;
-}
-
-.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
-	height:90%;
-
 }
 
 .fc-event{
@@ -27,27 +17,31 @@ html, body {
 	height: 100%;
 	width: 90%;
 	background:	url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
-	
 }
 
+.panel-body{
+	height:75vh;
+}
 
 #book-logo {
-	height: 150px;
-	width: 266px;
+	width:100%;
+	height:100%; 
+	min-height: 75px;
+	min-width: 133px;
+}
+
+#syntel-logo {
+	padding-top: 2vh;
+	width:20%;
+	height:20%;
 }
 
 /*increase height of the navbar*/
 .navbar-brand,
 .navbar-nav li a {
-    	line-height: 150px;
-  	  	height: 150px;
+    	line-height: 10vh;
+  	  	height: 10vh;
     	padding-top: 0;
-	}
-
-#syntel-logo {
-	margin-top:50px;
-	height: 75px;
-	width: 317px;
 }
 
 iframe{
@@ -69,68 +63,18 @@ h1 {
 	background-color:white;
 }
 
-ul li{
-	font-size:24px;
-}
-
 .input-group {
 	padding: 5px;
 }
 
-@media only screen and (max-width: 1366px) {
-	
-	#book-logo {
-		height: 75px;
-		width: 133px;
-	}
-	
-	/*increase height of the navbar*/
-	.navbar-brand,
-	.navbar-nav li a {
-    	line-height: 80px;
-  	  	height: 80px;
-    	padding-top: 0;
-	}
-	
-	.panel .panel-body{
-		height:510px;
-	}
-	
-		
-	iframe{
-		height:100%;
-		width: 100%;	
-	}
-	
-	
-	.container{
-		height:100%;
-	}
+ul li{
+	font-size: 2vw;
+}
 
-	.panel,.panel-body, .row,.col-lg-8,.col-lg-4{
-		height:100%;
-	}
+.input-group-addon{
+	min-width: 146px;
+}
 	
-	#allPage {
-		height: 100%;
-		width: 90%;
-	}
-	
-	ul li{
-		font-size:20px;
-	}
-	
-	#syntel-logo {
-		margin:15px;
-		height: 50px;
-		width: 211px;
-	}
-	
-	.input-group-addon{
-		min-width: 146px;
-	}
-	
-	.notExtended{
-		min-width: 0px;
-	}
+.notExtended{
+	min-width: 0px;
 }
