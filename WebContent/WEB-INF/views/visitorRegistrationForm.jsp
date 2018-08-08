@@ -95,7 +95,7 @@
 				<label class="btn btn-primary radio-inline radio_label input-lg">
 					<input type="radio" name="visitorCompanyName" id="option3" value="Other">
 					Other
-				   <input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Enter Company">
+				   <input type="text" class="form-control" id="otherCompanyName" name="otherCompanyName" placeholder="Enter Company">
 					
 				</label>
 			</div>
@@ -119,13 +119,20 @@
 		$("#form_btn").hide(); //hide form submit button; the right arrow button uses this button to triger the submission of the form
 		$('input[name="visitorCompanyName"]').change(function(){
 		    if ($('#option3').is(':checked')) {
-		        $('#other').show();
+		        $('#otherCompanyName').show();
 		    } else {
-		        $('#other').hide();
+		        $('#otherCompanyName').hide();
 		    }
 		});
 		
 		function submitForm(){
+			
+			$("#otherCompanyName").prop('required', false);
+			
+			if($("#otherCompanyName").val().length == 0  && $("#option3").is(':checked')){
+				$("#otherCompanyName").prop('required', true);
+			}//if Ends 
+			
 			$("#submit_btn").click();
 		};
 		
