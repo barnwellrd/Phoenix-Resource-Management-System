@@ -60,13 +60,12 @@ button[disabled]{
 	<div id="next_prev_btn">
 
 		<a href="/Phoenix_Resource_Management_System/dashboard"
-			class=" btn btn-md btn-success pull-left" id="fa_left_btn"> <span
-			class="fas fa-angle-left  fa-4x text-center"></span>
-			</a>
-			</a> <a href="/Phoenix_Resource_Management_System/Visitor/Home" class="btn btn-md btn-success pull-right"
-			id="fa_right_btn"> <span
-			class="fas fa-angle-right  fa-4x text-center"></span>
-			</a>
+			class=" btn btn-md pull-left"> <span
+			class="fas fa_left_btn fa-angle-left  fa-4x text-center"></span>
+		</a> 
+		<a href="/Phoenix_Resource_Management_System/Visitor/Home" class="btn btn-md pull-right"> <span
+			class="fas fa_right_btn fa-angle-right  fa-4x text-center"></span>
+		</a>
 		</div>
 	</section>
 	<section class="container">
