@@ -1,0 +1,25 @@
+@charset "ISO-8859-1";
+@import url("visitors.css");
+		
+section{
+	margin-top: 2%;
+}
+		
+#title{
+	margin-bottom: 2%;
+}
+
+
+.radio_label{
+	background-color: #004837;
+	margin-right: 30px;
+}
+
+.radio_label:hover{
+	background-color: #e85200;
+}
+
+.radio_label input[type="radio"]:checked{
+	background-color: white;
+}
+	

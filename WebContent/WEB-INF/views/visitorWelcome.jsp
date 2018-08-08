@@ -10,11 +10,22 @@
 	<title>Visitor Welcome</title>
 	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
-	<link rel="stylesheet" href="../resources/css/visitorViews.css">
+	<link rel="stylesheet" href="../resources/css/visitors.css">
+	<link rel="stylesheet" href="../resources/css/visitorWelcome.css">
 	<script src="../resources/js/anime.min.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
 	<script src="../resources/js/jquery.js"></script>
+	<script src="../resources/js/custom_anime.js"></script>
+	
 	<script src="../resources/js/visitor5SecRedirect.js"></script>
+	
+	<script type="text/javascript">
+	
+		$(document).ready( function() {
+		});
+		
+		
+	</script>
 </head>
 
 <body class="container-fluid text-center">
@@ -30,7 +41,8 @@
 					class="word ">n </span> <span class="word ">i </span> <span
 					class="word ">x</span>
 			</h1>
-			<p class="word logo pull-center">
+			
+			<p class="word logo pull-center ">
 				<img src="../resources/images/logo.png" />
 			</p>
 		</div>
@@ -38,10 +50,9 @@
 	<section class="nav"></section>
 	<section class="container">
 		<div class="section_block welcome-goodbye-block">
-			<h1 class="message-text">Welcome To Syntel,</h1>
-			<h1 class="visitor-name">
+			<h3 class="visitor-name">
 				<c:out value="${full_name}"/>!
-			</h1>
+			</h3>
 		</div>
 	</section>
 </body>

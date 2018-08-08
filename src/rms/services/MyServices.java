@@ -843,9 +843,9 @@ public class MyServices {
 	{
 	//	System.out.println("loading");
 		//drop down stuff
-		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+		List<ResourceType> vt=new ResourceTypeJdbcTemplate().getAll();
         request.setAttribute("resourceTypes", vt);
-        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        List<Resources> rt=new ResourcesJdbcTemplate().getAll();
         request.setAttribute("rooms", rt);
         HttpSession session=request.getSession();
         session.setAttribute("util",-1.0);
@@ -935,9 +935,9 @@ public class MyServices {
 	//	util = 0.5;
 		session.setAttribute("util",util);
 		//drop down stuff
-		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
+		List<ResourceType> vt=new ResourceTypeJdbcTemplate().getAll();
         request.setAttribute("resourceTypes", vt);
-        List<String> rt=new UniqueResourcesAndLocations().getDistinctResourceIdName();
+        List<Resources> rt=new ResourcesJdbcTemplate().getAll();
         request.setAttribute("rooms", rt);
 		return "utilizationChart";
 	}

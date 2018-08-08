@@ -124,6 +124,7 @@ input:focus::-webkit-input-placeholder {
 					</li>
 				</li>
 
+
 				</ul>
 
 			</div>
@@ -131,6 +132,8 @@ input:focus::-webkit-input-placeholder {
 		</nav>
 		
 	</div>
+	
+
 
 	<div class="container text-center">
 		<div class="row Content2"
@@ -539,6 +542,7 @@ input:focus::-webkit-input-placeholder {
 											</td>
 										</tr>
 									</table>
+
 									<label>Description:</label> <br>
 									<textarea id="desc" name="desc"
 										style="width: 250px; height: 80px;" required></textarea>
@@ -550,13 +554,16 @@ input:focus::-webkit-input-placeholder {
 						</div>
 					</div>
 				</div>
+
 			</div>
 		</div>
 		<div class="footer" id="footer">
 		<center>
-			<p>&copy; 2018 Syntel, Inc</p>
+			<p> 2018 Syntel, Inc</p>
 		</center>
+
 		</div>
+
 	</div>
 </body>
 </html>

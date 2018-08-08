@@ -13,7 +13,7 @@
 	<script src="../resources/js/visitor30SecRedirect.js"></script>
 </head>
 
-<body class="container-fluid text-center">
+<body class="container text-center">
 	<header class="container text-center" id="title">
 		<div class="ml15 pull-center">
 			<h1>
@@ -35,23 +35,22 @@
 		<div id="next_prev_btn">
 
 			<a href="/Phoenix_Resource_Management_System/Visitor/Home"
-				class=" btn btn-md btn-success pull-left" id="fa_left_btn"> <span
+				class="pull-left fa_left_btn"> <span
 				class="fas fa-angle-left  fa-4x text-center"></span>
-			</a> <a onclick="submitForm()" class="btn btn-md btn-success pull-right"
-				id="fa_right_btn"> <span
-				class="fas fa-angle-right  fa-4x text-center"></span>
+			</a> <a onclick="submitForm()" class="fa_right_btn pull-right">
+			 <span class="fas fa-angle-right  fa-4x text-center"></span>
 			</a>
 		</div>
 	</section>
 	<section class="container">
 		<form action="CheckOut" method="post">
 			<div class="form-group">
-				<input type="text" class="form-control text-center" name="bid"
+				<input type="text" class="form-control input-lg text-center" name="bid"
 					placeholder="Enter Badge ID">
 			</div>
 			<h3 class="text-center">OR</h3>
 			<div class="form-group">
-				<input type="text" class="form-control text-center" name="phone"
+				<input type="text" class="form-control input-lg text-center" name="phone"
 					placeholder="Enter Phone">
 			</div>
 			<br>
