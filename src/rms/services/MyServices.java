@@ -461,19 +461,33 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	/**
+	 * Returns the booking view of the service.
+	 * @return Returns booking.jsp view.
+	 */
 	@RequestMapping(value = "/booking")
 	public String booking() {
 
 		return "booking";
 	}
-
+	/**
+	 * Inputs all of the rows of ResourceType into an attribute of a ModelMap object.
+	 * Calls the types view which will use the information stored in the ModelMap.
+	 * @param map used to addAttributes for the view to use.
+	 * @return types.jsp
+	 */
 	@RequestMapping(value = "/types")
 	public String pickResource(ModelMap map) {
 		map.addAttribute("types", new ResourceTypeJdbcTemplate().getAll());
 		return "types";
 	}
-
+	/**
+	 * Gets list of rooms by the type of room provided by the user. Gets the features of each room,
+	 * and the quantity of each feature for each room and sends it to rooms.jsp file. 
+	 * @param request HttpServletRequest
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/resources", method = RequestMethod.POST)
 	public String pickRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Get rooms of a given type
@@ -500,7 +514,14 @@ public class MyServices {
 
 		return "rooms";
 	}
-
+	/**
+	 * Gets the room Id as input from the user and uses that Id to get the rooms information. Also gets
+	 * all the features of the same room and stores it in featureMap. Both of these are passed to HttpServletRequest
+	 * (Should be Response) and then displayRoom.jsp is called.
+	 * @param request
+	 * @param response
+	 * @return displayRoom.jsp
+	 */
 	@RequestMapping(value = "/roomDesc", method = RequestMethod.POST)
 	public String displayRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Find the room
@@ -522,7 +543,14 @@ public class MyServices {
 
 		return "displayRoom";
 	}
-
+	/**
+	 * Gets all of the Resources by LocationId and ResourceTypeId that the user passes in. Stores the result into
+	 * an attribute of ModelMap. FilterResources is then called which uses that data from the modelmap.
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return FilterResources.jsp
+	 */
 	@RequestMapping(value="/LocationResources")
 	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 
@@ -536,6 +564,17 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "FilterResources"; //view name
 	}
+	/**
+	 * Gets the list of features and their quantity by ResourceId and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets the list of the Locations and the cities and and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets the list of all the resource types and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets a list of all the resources of a single location and adds it as an attribute in the ModelMap object.
+	 * Calls the AddSearchResources.jsp file. 
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="/AddSearchResources1")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 
@@ -558,6 +597,16 @@ public class MyServices {
 		return "AddSearchResources"; // view name
 
 	}
+	/**
+	 * Gets a list of all cities and locations and sets it as an attribute to the HttpServletResponse request object.
+	 * Gets a list of features and their quantities by the resource id and sets it as an attribute to the HttpServletResponse request object.
+	 * Gets a list of all the resources and adds it as an attribute to ModelMap.
+	 * Calls the showAllResources view.
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return showAllResources.jsp
+	 */
 	@RequestMapping(value = "/showAllResources")
 	public String showAllResources(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("=-----------------searchAllResources1");
@@ -594,7 +643,13 @@ public class MyServices {
 	
 	
 	
-	
+	/**
+	 * Service that inserts a resource into the Database based on user input and 
+	 * also inserts all the features of the resource in the database as well.
+	 * @param request
+	 * @param response
+	 * @return 
+	 */
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("1");
