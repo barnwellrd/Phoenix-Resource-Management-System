@@ -282,16 +282,16 @@ input:focus::-webkit-input-placeholder {
 												
 												<c:set var="Projector" value="Projector" />
 												<c:set var="DesktopComputers" value="Desktop Computers" />
-												<c:set var="Chair" value="Chair" />
+												<c:set var="Chair" value="Chairs" />
 												<c:set var="TV" value="TV" />
 												<c:set var="Whiteboard" value="Whiteboard" />
-												<c:set var="Printer" value="Printer" />
+												<c:set var="Printer" value="Printers" />
 
 												<c:set var="count" value="0" scope="page" />
 
 
 												<c:if
-													test="${feat.getResourceName() == allResources.getResourceName()}">
+													test="${feat.getResourceID() == allResources.getResourceId()}">
 
 													<c:choose>
 														<c:when test="${feat.getFeatureName() == Projector}">

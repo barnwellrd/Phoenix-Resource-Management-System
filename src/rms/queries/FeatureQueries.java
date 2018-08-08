@@ -41,7 +41,7 @@ public class FeatureQueries {
 	 * @return A list of FeaturesDropDown.
 	 */
 	public List<FeaturesDropDown> getFeatureNameAndQuantityByResouceId() {
-		return jtemp.query("SELECT FT.Feature_Type_Name, F.Quantity, R.Resource_Name FROM FEATURES F JOIN FEATURE_TYPE FT ON F.Feature_Type_ID = FT.Feature_Type_ID JOIN RESOURCES R ON F.Resource_ID = R.Resource_ID",
+		return jtemp.query("SELECT FT.Feature_Type_Name, F.Quantity, R.Resource_Name, R.Resource_ID FROM FEATURES F JOIN FEATURE_TYPE FT ON F.Feature_Type_ID = FT.Feature_Type_ID JOIN RESOURCES R ON F.Resource_ID = R.Resource_ID",
 				new RoomDropMapper());
 	}	
 	

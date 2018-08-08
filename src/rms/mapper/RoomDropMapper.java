@@ -25,6 +25,7 @@ public class RoomDropMapper implements RowMapper<FeaturesDropDown>
 		feat.setFeatureName(result.getString(1));
 		feat.setQuantity(result.getInt(2));
 		feat.setResourceName(result.getString(3));
+		feat.setResourceID(result.getInt(4));
 		
 		return feat;
 	}
