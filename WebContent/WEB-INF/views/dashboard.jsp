@@ -83,8 +83,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				</ul>
 			</div>
 		</div>
+	  </nav>
 	</div>
-	</nav>
+
 
 <!-- ********************************************************************************************************************** -->
 <!-- NAV ABOVE -->
@@ -115,7 +116,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							<ul class="dropdown-menu">
 
 								<li>
-									<a href="#">Book
+									<a href="booking">Book
 										<span class="glyphicon glyphicon-book pull-right"></span>
 									</a>
 								</li>
@@ -123,16 +124,16 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li>
 
 								<li>
+									<a href="charts">Utilization
+										<span class="glyphicon glyphicon-signal pull-right"></span>
 
-									<a href="charts">Charts
-										<span class="glyphicon glyphicon-folder-open pull-right"></span>
 									</a>
 								</li>
 								
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">Previous 
+									<a href="Visitor/Admin">Visitors 
 										<span class="glyphicon glyphicon-retweet pull-right"></span>
 									</a>
 								</li>
@@ -143,17 +144,19 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li> -->
 								
 								
+								<!--  
+								
 								<li>
 									<a href="#">Calendar 
 										<span class="glyphicon glyphicon-calendar pull-right"></span>
 									</a>
 								</li>
+								<li class="divider"></li>-->
 								
-								<li class="divider"></li>
 								
 								<li>
-									<a href="#">
-										<span class="glyphicon glyphicon-remove pull-right"></span>Cancel 
+									<a href="logout">
+										<span class="glyphicon glyphicon-user pull-right"></span>Logout
 									</a>
 								</li>
 							</ul>

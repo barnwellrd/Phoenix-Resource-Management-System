@@ -120,11 +120,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">Visitors
+									<a href="Visitor/Home">Visitors
+
 										<span class="glyphicon glyphicon-folder-open pull-right"></span>
 									</a>
 								</li>
 								
+								<!--  
 								<li class="divider"></li>
 
 								<li>
@@ -136,20 +138,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li>
 
 <!-- 
-								<li class="divider"></li> -->
+								<li class="divider"></li> 
 								
 								
 								<li>
 									<a href="#">Calendar 
 										<span class="glyphicon glyphicon-calendar pull-right"></span>
 									</a>
-								</li>
+								</li>-->
 								
 								<li class="divider"></li>
 								
 								<li>
-									<a href="#">
-										<span class="glyphicon glyphicon-remove pull-right"></span>Cancel 
+									<a href="logout">
+										<span class="glyphicon glyphicon-user pull-right"></span>Logout 
 									</a>
 								</li>
 							</ul>
@@ -221,7 +223,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		
 		<footer class="footer" id="footer"">
 		<center>
-			<p>© 2018 Syntel, Inc</p>
+			<p>Â© 2018 Syntel, Inc</p>
 		</center>
 
 		</footer>
