@@ -97,6 +97,12 @@ input:focus::-webkit-input-placeholder {
 	});
 </script>
 
+<script type="text/javascript">
+	if (document.getElementById("superRoomCheck").checked) {
+		document.getElementById('superRoomCheckHidden').disabled=true;
+	}
+</script>
+
 <title>AddSearchResources</title>
 </head>
 <body id="bod">
@@ -536,9 +542,9 @@ input:focus::-webkit-input-placeholder {
 									</div>
 									<table align="center">
 										<tr>
-											<td><label>Super Room: </label> <input type="hidden"
-												value="0" name="isSuperRoom" /> <input type="checkbox"
-												value="1" name="isSuperRoom" /> <span class="checkmark"></span>
+											<td><label>Super Room: </label> 
+												Yes <input type="radio" value="1" name="isSuperRoom" required/>
+												No <input type="radio" value="0" name="isSuperRoom" required/> 
 											</td>
 										</tr>
 									</table>
