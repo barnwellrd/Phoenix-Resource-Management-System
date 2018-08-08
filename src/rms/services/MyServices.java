@@ -251,8 +251,9 @@ public class MyServices {
 		LocalDateTime date1 = LocalDateTime.parse(dates1, format);
 		LocalDateTime date2 = LocalDateTime.parse(dates2, format);
 
-		// Get all bookings
+		// Get all bookings that are active
 		List<Bookings> bookings = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
+		bookings = bookings.stream().filter(e -> e.getIsActive() == 1).collect(Collectors.toList());
 
 		// Check which recurrences don't clash
 		Calendar cal = Calendar.getInstance();
@@ -907,7 +908,7 @@ public class MyServices {
 		
 		// Check to see if it clashes
 		List<Bookings> allExisting = new BookingsJdbcTemplate().getAllByResourceId(resourceID);
-		allExisting = allExisting.stream().filter(e -> e.getBookingId() != bookingID).collect(Collectors.toList());
+		allExisting = allExisting.stream().filter(e -> e.getBookingId() != bookingID && e.getIsActive() == 1).collect(Collectors.toList());
 		System.out.println(allExisting.size());
 		boolean valid = true;
 		for(Bookings existing: allExisting){
