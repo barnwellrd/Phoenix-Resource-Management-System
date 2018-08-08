@@ -37,6 +37,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 
 </head>
+
 <body id="bod">
 	<div class="container">
 		<nav class="navbar navbar-default">
@@ -48,7 +49,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					style="
 						height: 30%; 
 						width: 20%; 
-						padding-top: 0px; 
+						padding-top: 10px; 
 						padding-bottom: 10px;
 					">
 				<button 
@@ -68,21 +69,14 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li style="font-size: 22px;">
-						<a href="#">
-							<span class="glyphicon glyphicon-user"></span> 
-						</a>
+					<li class="dropdown">
+    					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
+    								<div class="dropdown-content">
+     								<a href="logout">Log Out</a>
 					</li>
-					<li style="font-size: 22px;">
-						<a href="#">
-							<span class="glyphicon glyphicon-bell"></span> 
-						</a>
-					</li>
-
-					<li style="font-size: 22px;">
-						<a href="#">
-							<span class="glyphicon glyphicon-search"></span>
-						</a>
-					</li>
+				</li>
+			
+				
 				</ul>
 			</div>
 		</div>
@@ -127,6 +121,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
 								<li>
 									<a href="Visitor/Home">Visitors
+
 										<span class="glyphicon glyphicon-folder-open pull-right"></span>
 									</a>
 								</li>
@@ -228,7 +223,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		
 		<footer class="footer" id="footer"">
 		<center>
-			<p>© 2018 Syntel, Inc</p>
+			<p>Â© 2018 Syntel, Inc</p>
 		</center>
 
 		</footer>

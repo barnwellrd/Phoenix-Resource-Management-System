@@ -59,6 +59,8 @@ input:focus::-webkit-input-placeholder {
 .checks label:hover {
 	background-color: lightgray;
 }
+
+
 </style>
 <meta name="viewport" http-equiv="Content-Type"
 	content="text/html charset=ISO-8859-1 width=device-width, initial-scale=1">
@@ -106,23 +108,21 @@ input:focus::-webkit-input-placeholder {
 			
 			<a href="dashboard">
 				<img src="resources/images/syntrans.png" alt="logo"
-					style="height: 30%; width: 20%; padding-top: 0px; padding-bottom: 10px;">
+					style="height: 30%; width: 20%; padding-top: 10px; padding-bottom: 10px;">
 			</a>
 				<button type="button" class="navbar-toggle" data-toggle="collapse"
 					data-target="#myNavbar">
 					<span class="icon-bar"></span> <span class="icon-bar"></span> <span
 						class="icon-bar"></span>
 				</button>
-				<ul class="nav navbar-nav navbar-right">
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-user"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-bell"></span> </a></li>
-
-					<li style="font-size: 22px;"><a href="#"><span
-							class="glyphicon glyphicon-search"></span> </a></li>
+			<ul class="nav navbar-nav navbar-right">
+					<li style="font-size: 22px;">
+					<li class="dropdown">
+    					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
+    								<div class="dropdown-content">
+     								<a href="logout">Log Out</a>
+					</li>
+				</li>
 
 
 				</ul>
