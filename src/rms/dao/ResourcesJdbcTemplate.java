@@ -73,6 +73,16 @@ public class ResourcesJdbcTemplate implements JdbcTemplateInterface<Resources>
 		return result;
 	}
 	
+	/** 
+     * Sets the is_available column to -1 (to signify that the resource is deleted) where the resourceId 
+     * equals the resourceId that was passed in. 
+     * @param resourceId The Id of the resource that is being set to -1. 
+     * @return The number of columns updated. Should only be one column that is updated if the resource exists and 0 if 
+     * if it doesn't exist.
+     */ 
+    public int setIsAvailableToDelete(int resourceId) { 
+        return jtemp.update("UPDATE resources SET is_available = -1 WHERE resource_id = ?", resourceId); 
+    }
 	
 	/* (non-Javadoc)
 	 * @see rms.dao.JdbcTemplateInterface#update(java.lang.Object)

@@ -33,7 +33,7 @@ public class UniqueResourcesAndLocations {
 	 * @return A list of Resources that are at the given location.
 	 */
 	public List<Resources> getResourcesByLocation(int locationId){
-		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? order By is_available DESC,Resource_name", new ResourcesMapper(), locationId);
+		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? AND is_available >= 0 order By Resource_name", new ResourcesMapper(), locationId);
 	}
 	
 	/**
@@ -54,8 +54,8 @@ public class UniqueResourcesAndLocations {
 	public List<Resources> getResourcesByLocationAndResourceType(int locationId, int resourceTypeId){
 		return jtemp.query("SELECT * FROM Resources "
 										+ "WHERE location_id = ? "
-										+ "AND resource_type_id = ?"
-										+ " order by is_available DESC", 
+										+ "AND resource_type_id = ? " 
+					                    + "AND is_available >= 0",
 										new ResourcesMapper(),
 										locationId,
 										resourceTypeId);

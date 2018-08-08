@@ -14,6 +14,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -43,6 +45,7 @@ import rms.model.FeaturesDropDown;
 import rms.model.Location;
 import rms.model.ResourceType;
 import rms.model.Resources;
+import rms.dao.FeatureTypeJdbcTemplate;
 
 @Controller
 public class MyServices {
@@ -1110,4 +1113,16 @@ public class MyServices {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value="/DeleteResource/{resourceId}") 
+	  public String deleteResourceService(@PathVariable int resourceId) { 
+	    System.out.println("Deletion" + resourceId); 
+	    //if 
+	    int upd=new ResourcesJdbcTemplate().setIsAvailableToDelete(resourceId); 
+	    if(upd==1) { 
+	      return "redirect:/AddSearchResources1"; 
+	    }else { 
+	    return "errorPage"; 
+	    } 
+	  }
 }
