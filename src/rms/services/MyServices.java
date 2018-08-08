@@ -906,6 +906,9 @@ public class MyServices {
 								posed.getBookedStartTime().before(existing.getBookedStartTime());
 			valid = valid && (before || after);
 		}
+		
+		// Check to see the start time is before the end time
+		valid = valid && (start.before(stop));
 
 		// Tell the page if the edit works or not
 		System.out.println(valid);

@@ -157,7 +157,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 </div>
                             </div>
                             <div class="modal-footer">
-                            	<div style="width: 300px; text-align:center;" class="alert alert-danger" roll="alert" id="editAlert">Changes clash with prexisting booking</div>
+                            	<div style="width: 300px; text-align:center;" class="alert alert-danger" roll="alert" id="editAlert">
+                            		Changes clash with prexisting booking or the end time is before the start time.
+                            		</div>
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <button type="button" data-dismiss="modal" class="btn btn-primary" id="editButton">Save Changes</button>
 
