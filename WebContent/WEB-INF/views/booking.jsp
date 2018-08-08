@@ -397,6 +397,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                                     console.log("Select Event");
 
+									// Don't allow bookings across multiple days
+                                    if(startDate.day() != endDate.day()){
+                                    	$('#dispCal').fullCalendar('unselect');
+                                    	return;
+                                    }
+                                    
                                     // Find the room picked
                                     var name = $("#pageResourceName").val();
 
