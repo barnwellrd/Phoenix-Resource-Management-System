@@ -11,7 +11,7 @@
 	<script src="../resources/js/jquery.js"></script>
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../resources/css/visitorRegistrationForm.css">
-	<!-- script src="../resources/js/visitor30SecRedirect.js"></script-->
+	<script src="../resources/js/visitor30SecRedirect.js"></script>
 	
 </head>
 
