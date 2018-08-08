@@ -42,26 +42,42 @@ import rms.model.Resources;
 
 @Controller
 public class MyServices {
-
+	
+	/**
+	 * The service method called on the main index page.
+	 * @return The login.jsp view.
+	 */
 	@RequestMapping(value = "/")
 	public String homeScreen() {
 		return "login";
 	}
 
-
+	/**
+	 * The service method called when the logout page is reached.
+	 * @return The login.jsp view.
+	 */
 	@RequestMapping(value = "/logout")
 	public String logout() {
 		return "login";
 	}
 	
-
-
+	/**
+	 * The service method called when the dashboard page is reached.
+	 * @return the dashboard.jsp view.
+	 */
 	@RequestMapping(value = "/dashboard")
 	public String dashBoard() {
 
 		return "dashboard";
 	}
 
+	/**
+	 * The service method called when the loginOnUserName page is reached.
+	 * Retrieves an entered username and password and utilizes {@link LoginQueries} functions.
+	 * @param request used to request and store information
+	 * @param response
+	 * @return If login is correct, returns a redirect to dashboard.jsp. If login is incorrect, returns the loginfailed.jsp view.
+	 */
 	@RequestMapping(value = "/loginOnUserName", method = RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response) {
 		String userName = request.getParameter("userName");
@@ -92,7 +108,13 @@ public class MyServices {
 		return "loginfailed";
 	}
 
-	
+	/**
+	 * The service method called when the deleteEvent page is reached.
+	 * Utilizes {@link BookingsJdbcTemplate} and deletes a received booking.
+	 * @param request used to request and store information
+	 * @param response
+	 * 
+	 */
 	@RequestMapping(value = "/deleteEvent")
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
 
@@ -101,6 +123,13 @@ public class MyServices {
 
 	}
 
+	/**
+	 * The service method called when the updateEvent page is reached.
+	 * Retrieves a date, timeTo, timeFrom, bookingId, and userID, formats dates and timestamps,
+	 * and updates the details of the corresponding booking by utilizing {@link BookingsJdbcTemplate}.
+	 * @param request used to request and store information
+	 * @param response
+	 */
 	@RequestMapping(value = "/updateEvent")
 	public void updateEvent(HttpServletRequest request, HttpServletResponse response) {
 
@@ -139,6 +168,13 @@ public class MyServices {
 
 	}
 
+	/**
+	 * The service method called when the addEvent page is reached.
+	 * Retrieves a date, timeTo, timeFrom, resourceId, and type, formats dates and timestamps,
+	 * and adds bookings in the pattern requested by the user (one time, weekly, etc.).
+	 * @param request used to request and store information
+	 * @param response
+	 */
 	@RequestMapping(value = "/addEvent")
 	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
 		// Read data from ajax call
