@@ -551,6 +551,43 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $("#bookingId").val(calEvent.id);
                                     $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
+                                
+                                
+                                
+                                    // Validate prefilled values
+                                    var bookingID = $("#bookingId").val();
+                                    var date = $("#editDate").val();
+                                    var timeTo = $("#editTimeTo").val();
+                                    var timeFrom = $("#editTimeFrom").val();
+                                    
+                                    console.log("Changed");
+                                    console.log(bookingID);
+                                    console.log(date);
+                                    console.log(timeTo);
+                                    console.log(timeFrom);
+                                    
+                                    $.ajax({
+                                    	url: "pleaseCheckMyEdit",
+                                        data: {
+                                        	"bookingID": bookingID,
+                                        	"startTime": timeTo,
+                                        	"endTime": timeFrom,
+                                        	"date": date
+                                        },
+                                        success: function(result){
+                                        	console.log("Success: " + result);
+                                        	if(result === "false"){
+                                        		$("#editAlert").show();
+                                        	} else {
+                                        		$("#editAlert").hide();
+                                        	}
+                                        	$("#editButton").attr("disabled", result === "false");
+                                        	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
                                 },
                                 agenda: {
                                     eventLimit: 3, // allow "more" link when too many events
