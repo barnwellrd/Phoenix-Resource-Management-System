@@ -865,10 +865,10 @@ public class MyServices {
 		//if super user just show all rooms. 
 		if(request.getSession().getAttribute("userType")=="1") {
 			// for printing all the resources 
-			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
 		}else{
 			// for printing non super resources.
-			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceTypeNonSuper(locationId, resourceTypeId);
 		}		
 		map.addAttribute("alldata", allResources);
 		

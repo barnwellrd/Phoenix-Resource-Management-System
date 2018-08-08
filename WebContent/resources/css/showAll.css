@@ -49,8 +49,8 @@ border: 1px solid black;
 	margin-top: 0;
     margin-bottom: 1.5rem;
     padding:0;
-    min-width:110px;
-    min-height:110px;
+    min-width:120px;
+    min-height:130px;
     text-align: left;
     position: relative;
     background: #fff;
@@ -64,8 +64,10 @@ border: 1px solid black;
 	margin-top: 0;
     margin-bottom: 1.5rem;
     padding:0;
-    min-width:110px;
-    min-height:110px;
+    
+    min-width:120px;
+    min-height:130px;
+    
     text-align: left;
     position: relative;
     background: #fff;
