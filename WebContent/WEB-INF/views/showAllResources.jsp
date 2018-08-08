@@ -96,7 +96,7 @@ td {
 					</select>
 				</div>
 			</fieldset>
-
+			
 			<fieldset id="fieldset2">
 				<div>
 					<label>Resources</label> <br> <select class="form-control"
@@ -114,6 +114,7 @@ td {
 	<div class="container">
 		<div class="row">
 			<div class="col-md-offset-3 col-md-6">
+			
 				<br>
 
 				<c:forEach var="allResources" items="${alldata}">
@@ -122,13 +123,15 @@ td {
 							<div class="wrimagecard wrimagecard-topimage dropdown">	
 						</c:if>
 						<c:if test= "${allResources.getIsAvailable()==0 && allResources.getIsSuperRoom()==0}" >
-							<div class="wrimagecardInactive wrimagecard-topimage dropdown">	
+							<div class="wrimagecardInactive wrimagecard-topimage dropdown thetooltip">	
+						  	<span class="tooltiptext">Resource is Unavailable</span>
 						</c:if>								
 						<c:if test= "${allResources.getIsSuperRoom()==1 && allResources.getIsAvailable()==1}" >
 							<div class="wrimagecardSuper wrimagecard-topimage dropdown">	
 						</c:if>
 						<c:if test= "${allResources.getIsSuperRoom()==1 && allResources.getIsAvailable()==0}" >
-							<div class="wrimagecardInactiveSuper wrimagecard-topimage dropdown">	
+							<div class="wrimagecardInactiveSuper wrimagecard-topimage dropdown thetooltip">	
+							<span class="tooltiptext">Resource is Unavailable</span>
 						</c:if>
 						
 							<div class="wrimagecard-topimage_header">
@@ -236,6 +239,7 @@ td {
 
 								</c:if>
 							</div>
+						
 						</div>
 					</div>
 				</c:forEach>

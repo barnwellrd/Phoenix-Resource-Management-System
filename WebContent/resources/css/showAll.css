@@ -75,7 +75,7 @@ border: 1px solid black;
     border-radius: 4px;
     border:2px solid;
     border-color : gray;
-    filter: blur(1px);
+    filter: drop-shadow(0 0 .4rem blue);
     transition: all 0.3s ease; 
 }
 
@@ -91,7 +91,7 @@ border: 1px solid black;
     box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
     border-radius: 4px;
     border:2px solid;
-	filter: drop-shadow(0 0 .4rem blue);
+	filter: drop-shadow(0 0 .4rem red);
     transition: all 0.3s ease; 
 }
 
@@ -108,7 +108,7 @@ border: 1px solid black;
     border-radius: 4px;
     border:2px solid;
     border-color:gray;
-	filter: drop-shadow(0 0 .4rem blue) blur(1px);
+	filter: drop-shadow(0 0 .4rem blue);
     transition: all 0.3s ease; 
 }
 
@@ -144,3 +144,31 @@ a.wrimagecard:hover, .wrimagecard-topimage:hover {
     color: black;
     transition: color 0.3s ease;
 }
+
+/************************ TOOLTIP STUFF ************************/
+.thetooltip {
+    position: relative;
+    display: inline-block;
+    border-bottom: 1px dotted black; /* If you want dots under the hoverable text */
+}
+
+/* Tooltip text */
+.thetooltip .tooltiptext {
+    visibility: hidden;
+    width: 120px;
+    background-color: black;
+    color: #fff;
+    text-align: center;
+    padding: 5px 0;
+    border-radius: 6px;
+ 
+    /* Position the tooltip text - see examples below! */
+    position: absolute;
+    z-index: 2;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.thetooltip:hover .tooltiptext {
+    visibility: visible;
+}
+
