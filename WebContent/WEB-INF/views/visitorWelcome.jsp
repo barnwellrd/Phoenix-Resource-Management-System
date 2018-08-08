@@ -17,7 +17,7 @@
 	<script src="../resources/js/jquery.js"></script>
 	<script src="../resources/js/custom_anime.js"></script>
 	
-	<!--  script src="../resources/js/visitor5SecRedirect.js"></script-->
+	<script src="../resources/js/visitor5SecRedirect.js"></script>
 	
 	<script type="text/javascript">
 	
