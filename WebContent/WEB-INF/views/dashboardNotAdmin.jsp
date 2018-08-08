@@ -126,11 +126,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li>
 
 								<li>
-									<a href="#">Upcoming 
+									<a href="Visitor/Home">Visitors
 										<span class="glyphicon glyphicon-folder-open pull-right"></span>
 									</a>
 								</li>
 								
+								<!--  
 								<li class="divider"></li>
 
 								<li>
@@ -142,20 +143,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								<li class="divider"></li>
 
 <!-- 
-								<li class="divider"></li> -->
+								<li class="divider"></li> 
 								
 								
 								<li>
 									<a href="#">Calendar 
 										<span class="glyphicon glyphicon-calendar pull-right"></span>
 									</a>
-								</li>
+								</li>-->
 								
 								<li class="divider"></li>
 								
 								<li>
-									<a href="#">
-										<span class="glyphicon glyphicon-remove pull-right"></span>Cancel 
+									<a href="logout">
+										<span class="glyphicon glyphicon-user pull-right"></span>Logout 
 									</a>
 								</li>
 							</ul>
