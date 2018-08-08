@@ -220,7 +220,10 @@ public class MyServices {
 			}
 		}
 	}
-
+	
+	/**
+	 * Check to see if a new booking would cause a resource conflict.
+	 */
 	@RequestMapping(value = "/checkConflicts")
 	public void checkConflicts(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("\t Checking for conclicts");
@@ -363,7 +366,10 @@ public class MyServices {
 			}
 		}
 	}
-
+	
+	/**
+	 * Get all the bookings and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getAllBookingsAsTable")
 	public void getAllBookingsAsTable(HttpServletRequest request, HttpServletResponse response) {
 
@@ -393,7 +399,10 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	
+	/**
+	 * Get all the bookings for a certain resource and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getBookingsAsTableByResourceId")
 	public void getBookingsAsTableByResourceId(HttpServletRequest request, HttpServletResponse response) {
 
@@ -426,7 +435,10 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	
+	/**
+	 * Get all bookings with a certain resource type and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getBookingsAsTableByType")
 	public void getBookingsAsTableByType(HttpServletRequest request, HttpServletResponse response) {
 
