@@ -1,6 +1,8 @@
 package rms.services;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -123,6 +125,35 @@ public class VisitorServices {
 	public String insertFormService(){
 		return "visitorCOForm";
 		
+	}
+	
+	@RequestMapping(value ="/Visitor/RangeSearch")
+	public String visitorRangeSearch(HttpServletRequest request, HttpServletResponse response, ModelMap map) {
+
+		String fromDay = request.getParameter("fromDay");
+		String toDay = request.getParameter("toDay");
+		 
+		String pattern = "yyyy-MM-dd"; //what we have
+		String pattern2 = "MM-dd-yyyy";	// what we want
+		
+		SimpleDateFormat format = new SimpleDateFormat(pattern);
+		SimpleDateFormat format2 = new SimpleDateFormat(pattern2);
+		Date datef= new Date(); // new date
+		Date datet= new Date(); 
+		try {
+			datef = format.parse(fromDay);// convert what we have from string to date
+			datet = format.parse(toDay); 
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+		
+		fromDay = format2.format(datef); // convert date to string in the format that we want
+		toDay = format2.format(datet); // convert date to string in the format that we want
+		
+		List<Visitors> rangeVisitors=new VisitorTracking().getVisitorsFromRange(fromDay,toDay);
+		map.addAttribute("alldata", rangeVisitors);
+		return "visitorAdminView";
 	}
 	
 	@RequestMapping(value="/Visitor/Admin")
