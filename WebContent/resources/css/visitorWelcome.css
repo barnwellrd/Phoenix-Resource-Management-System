@@ -1,0 +1,7 @@
+@charset "ISO-8859-1";
+@import url("visitors.css");
+.visitor-name {
+	font-weight: bold;
+	font-size: 60px;
+	color: #e85200;
+}

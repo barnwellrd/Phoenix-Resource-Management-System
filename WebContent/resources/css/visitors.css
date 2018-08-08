@@ -1,0 +1,43 @@
+@charset "ISO-8859-1";
+@import url("https://fonts.googleapis.com/css?family=Audiowide%7CCinzel%7CTeko");
+html{
+	height: 100%;
+}
+
+header{
+	margin-top: 2%;
+	margin-bottom: 10%;
+	background-color: rgba(255, 255, 255, 0);
+}
+
+.word{
+	font-family: 'Cinzel' , sans-serif;
+}
+.welcome, .to, .logo{
+	margin-right: 2%;
+}
+
+
+.form_text_area {
+	font-size: 20px;
+}
+
+.fa_left_btn{
+	background-color: white;
+	color:#e85200;
+}
+
+.fa_right_btn{
+	background-color: white;
+	color:#004837;
+}
+
+input[type="text"],
+ input[type="email"], input[type="tel"]{
+	border-top: none;
+	border-right: none;
+	border-left: none;
+	color: black;
+	font-size: 20px;
+}
+
