@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -696,8 +697,16 @@ public class MyServices {
 		
 		//get resource types instead of all resources
 		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
+		List<ResourceType> tempRes = new ArrayList<ResourceType>(res);
 		request.setAttribute("listRes", res);
 
+		//remove all resource types without any rooms
+		for(ResourceType resource : tempRes) {
+			List<Bookings> temp= new BookingsJdbcTemplate().getAllByResourceType(resource.getResourceTypeId());
+			if(temp.size()==0)
+				res.remove(resource);
+		}
+		
 		List<Resources> allResources;
 		
 		//if super user just show all rooms. 
