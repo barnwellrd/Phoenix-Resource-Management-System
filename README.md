@@ -38,4 +38,5 @@ This is the Phoenix Resource Management System (PRMS). It is an application that
 - Logan Johnson
 - Manal Abdalla
 ***
+
 ### **NOTE:** _This branch is only to be used to merge relatively bug free code when merging group branches together!_

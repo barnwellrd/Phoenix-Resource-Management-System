@@ -1,15 +1,4 @@
-html {
-	height: 100%;
-}
-
-#home-page-body {
-	min-height: 100%;
-	background-image: url("../images/checkin_index.png");
-	background-size: 100% auto;
-	background-repeat: no-repeat;
-	background-position: bottom;
-	background-attachment: fixed;
-}
+@import url("visitors.css");
 
 .section_content {
 	margin: auto;
@@ -42,19 +31,6 @@ header {
 	font-size: 50%;
 }
 
-#checkout_btn {
-	background-color: #e85200;
-	color: white /*#e85200*/;
-}
-
-#checkin_btn {
-	background-color: #004837;
-	color: white /*#004837*/;
-}
-
-.main_btn {
-	min-height: 100px;
-}
 
 .message-text {
 	font-weight: bold;
@@ -74,12 +50,6 @@ h3 {
 	font-weight: bold;
 	font-size: 80px;
 	color: #e85200;
-}
-
-.word {
-	font-size: 55px;
-	color: #004837;
-	font-weight: bold;
 }
 
 img {
@@ -119,26 +89,6 @@ th {
 	padding-top: 75px;
 }
 
-#fa_left_btn {
-	background-color: white;
-	color: #e85200;
-	width: 8%;
-}
-
-#fa_right_btn {
-	background-color: white;
-	color: #004837;
-	width: 8%;
-}
-
-/*form {
-	background-color: white;
-	padding: 2%;
-	border-style: solid;
-	border-color: #004837;
-	border-radius: 5px;
-}*/
-
 input {
 	border-radius: 5px;
 }
@@ -150,6 +100,7 @@ input {
 .btn-success {
 	border-color: #004837;
 }
+
 
 .form-control {
 	font-size: 225%;
