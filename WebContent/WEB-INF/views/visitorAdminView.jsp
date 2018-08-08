@@ -6,26 +6,19 @@
 <html>
 <head>
 	<title>Visitor Admin</title>
+	<link rel="stylesheet" href="../resources/fontawesome/css/all.css">
 	<link rel="stylesheet" href="../resources/css/bootstrap.min.css">
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
-	<script src="../resources/js/jquery.js"></script>
-	<script src="../resources/js/bootstrap.js"></script>
 	<script>
 	function checkDateRange() {
 		   // Parse the entries
-		   var startDate = document.getElementById("fromDate");
-		   var endDate = document.getElementById("toDate");
-		   // Make sure they are valid
-		    if (isNaN(startDate)) {
-		      alert("The start date provided is not valid, please enter a valid date.");
-		      return false;
-		   }
-		   if (isNaN(endDate)) {
-		       alert("The end date provided is not valid, please enter a valid date.");
-		       return false;
-		   }
+		   var startDate = Date.parse(document.getElementById("fromDate").value);
+		   var endDate =  Date.parse(document.getElementById("toDate").value);
+		   
 		   // Check the date range, 86400000 is the number of milliseconds in one day
-		   var difference = (endDate - startDate) / (86400000 * 7);
+		  
+		   var difference = (endDate - startDate) / (86400000);
+		   //alert( difference ); for DEBUG
 		   if (difference < 0) {
 		       alert("The start date must come before the end date.");
 		       return false;
@@ -33,9 +26,16 @@
 		   
 		   return true;
 		}
+	 
 	</script>
-	
-
+	<style>
+		button:disabled,
+button[disabled]{
+  border: 1px solid #999999;
+  background-color: #cccccc;
+  color: #666666;
+}
+	</style>
 </head>
 
 <body class="container-fluid text-center">
@@ -56,15 +56,27 @@
 			</p>
 		</div>
 	</header>
-	<section class="nav"></section>
+	<section class="nav">
+	<div id="next_prev_btn">
+
+		<a href="/Phoenix_Resource_Management_System/dashboard"
+			class=" btn btn-md btn-success pull-left" id="fa_left_btn"> <span
+			class="fas fa-angle-left  fa-4x text-center"></span>
+			</a>
+			</a> <a href="/Phoenix_Resource_Management_System/Visitor/Home" class="btn btn-md btn-success pull-right"
+			id="fa_right_btn"> <span
+			class="fas fa-angle-right  fa-4x text-center"></span>
+			</a>
+		</div>
+	</section>
 	<section class="container">
 	<form id="dr" action="" method="post" style="margin: 0; padding-bottom: 50px;">
 		<p>
 			Enter Date Range
 		
-		    <input type="text" name="fromDay" id="fromDay" placeholder="From" onfocus="(this.type='date')" style="display: inline;"/>
-		    <input type="text" name="toDay" id="toDay" placeholder="To"   onfocus="(this.type='date')" style="display: inline;" />
-		    <input style="display: inline;" type="submit" value="submit" onClick="if(checkDateRange() == true) document.getElementById('dr').action ='/Phoenix_Resource_Management_System/Visitor/RangeSearch'; else document.getElementById('dr').action='/Phoenix_Resource_Management_System/Visitor/Admin';"  />
+		    <input type="text" name="fromDay" id="fromDate" placeholder="From" onfocus="(this.type='date')"  style="display: inline;"/>
+		    <input type="text" name="toDay" id="toDate" placeholder="To" onfocus="(this.type='date')" style="display: inline;" />
+		    <input style="display: inline;" class="btn btn-success btn-sm " type="submit" value="submit" onclick="checkDateRange(); if(checkDateRange() == true) document.getElementById('dr').action='/Phoenix_Resource_Management_System/Visitor/RangeSearch'; else document.getElementById('dr').action='/Phoenix_Resource_Management_System/Visitor/Admin';"  />
 		</p>
 	</form>
 		<div class="section_block">
