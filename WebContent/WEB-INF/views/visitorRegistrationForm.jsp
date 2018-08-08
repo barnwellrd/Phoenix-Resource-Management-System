@@ -49,11 +49,11 @@
 		 <div id="next_prev_btn">
 			 	
 			 	<a href="/Phoenix_Resource_Management_System/Visitor/Home" class="pull-left"  >
-			 		<span class="fas fa-angle-left  fa-4x text-center fa_left_btn"></span>
+			 		<span class="fas fa-arrow-alt-circle-left  fa-4x text-center fa_left_btn"></span>
 			 	</a>
 			 		
 				<a onclick= "submitForm()" class="pull-right" >
-			 		<span class="fas fa-angle-right fa_right_btn  fa-4x text-center"></span>
+			 		<span class="fas fa-arrow-alt-circle-right fa_right_btn  fa-4x text-center"></span>
 			 	</a>
 			 			 
 		 	</div>
@@ -63,19 +63,19 @@
 	<section id="visitor_form_section" >
 		<form id="registration_form" action ="RegisterVisitor" method="post">
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="visitorFirstName" placeholder="First Name" required/>
+				<input type="text" class="form-control text-center input-lg" name="visitorFirstName" placeholder="First Name" required/>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="visitorLastName" placeholder="Last Name" required/>
+				<input type="text" class="form-control text-center input-lg" name="visitorLastName" placeholder="Last Name" required/>
 			</div>
 			<div class="form-group">
-				<input type="email" class="form-control input-lg" name="visitorEmail" placeholder="Email"/>
+				<input type="email" class="form-control text-center input-lg" name="visitorEmail" placeholder="Email"/>
 			</div>
 			<div class="form-group">
-				<input type="tel" class="form-control input-lg" name="visitorPhone" placeholder="Phone" required/>
+				<input type="tel" class="form-control text-center input-lg" name="visitorPhone" placeholder="Phone" required/>
 			</div>
 			<div class="form-group">
-				<input type="text" class="form-control input-lg" name="visitorVisitingName" placeholder="Host"/>
+				<input type="text" class="form-control text-center input-lg" name="visitorVisitingName" placeholder="Host"/>
 			</div>
 			<div class="form-group">
 				<textarea  class=" form_text_area form-control" rows="2" name="visitorVisitPurpose" placeholder="Reason for visit" required></textarea>
@@ -95,7 +95,7 @@
 				<label class="btn btn-primary radio-inline radio_label input-lg">
 					<input type="radio" name="visitorCompanyName" id="option3" value="Other">
 					Other
-				   <input type="text" class="form-control" id="other" name="otherCompanyName" placeholder="Enter Company">
+				   <input type="text" class="form-control" id="otherCompanyName" name="otherCompanyName" placeholder="Enter Company">
 					
 				</label>
 			</div>
@@ -119,13 +119,20 @@
 		$("#form_btn").hide(); //hide form submit button; the right arrow button uses this button to triger the submission of the form
 		$('input[name="visitorCompanyName"]').change(function(){
 		    if ($('#option3').is(':checked')) {
-		        $('#other').show();
+		        $('#otherCompanyName').show();
 		    } else {
-		        $('#other').hide();
+		        $('#otherCompanyName').hide();
 		    }
 		});
 		
 		function submitForm(){
+			
+			$("#otherCompanyName").prop('required', false);
+			
+			if($("#otherCompanyName").val().length == 0  && $("#option3").is(':checked')){
+				$("#otherCompanyName").prop('required', true);
+			}//if Ends 
+			
 			$("#submit_btn").click();
 		};
 		

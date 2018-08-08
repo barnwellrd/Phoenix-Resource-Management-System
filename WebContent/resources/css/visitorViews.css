@@ -1,5 +1,4 @@
-@import url("visitors.css");
-
+@import url("https://fonts.googleapis.com/css?family=Audiowide%7CCinzel%7CTeko");
 .section_content {
 	margin: auto;
 	margin-bottom: 5%;
@@ -101,7 +100,6 @@ input {
 	border-color: #004837;
 }
 
-
 .home-form {
 	background-color: transparent;
 	padding: 2%;
@@ -140,4 +138,14 @@ input {
 .welcome-goodbye-block{
 	margin-top:10%;
 	
+}
+
+.fa_left_btn{
+	background-color: white;
+	color:#e85200;
+}
+
+.fa_right_btn{
+	background-color: white;
+	color:#004837;
 }

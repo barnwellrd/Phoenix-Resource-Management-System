@@ -209,8 +209,8 @@
 							style="left-padding: 300px;">
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-				
-								<li style="font-size: 22px;">
+					<li style="font-size: 22px;">
+
 					<li class="dropdown">
     					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
     								<div class="dropdown-content">
@@ -221,7 +221,8 @@
 			</div>
 
 				
-						</ul>
+
+				</ul>
 					</div>
 				</div>
 			</nav>
@@ -336,7 +337,7 @@
 		<br>
 			<footer class="footer" id="footer">
 				<center>
-					<p>© 2018 Syntel, Inc</p>
+					<p>Â© 2018 Syntel, Inc</p>
 				</center>
 			</footer>
 		</div>

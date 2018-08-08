@@ -157,9 +157,9 @@ input:focus::-webkit-input-placeholder {
 						<br>
 						<fieldset id="fieldset2">
 							<div>
-								<label>Resources:</label><br> <select name="resources"
+								<label>Resources:</label><br> <select name="resources" required
 									style="color: black; width: 150px;" >
-									<option value="all">Select</option>
+									<option value="" disabled selected>Select a Resource</option>
 									<c:forEach items="${listRes}" var="res">
 										<c:set var="resTypeId" value="${res.getResourceTypeId()}" />
 										<c:set var="resTypeName"
@@ -282,16 +282,16 @@ input:focus::-webkit-input-placeholder {
 												
 												<c:set var="Projector" value="Projector" />
 												<c:set var="DesktopComputers" value="Desktop Computers" />
-												<c:set var="Chair" value="Chair" />
+												<c:set var="Chair" value="Chairs" />
 												<c:set var="TV" value="TV" />
 												<c:set var="Whiteboard" value="Whiteboard" />
-												<c:set var="Printer" value="Printer" />
+												<c:set var="Printer" value="Printers" />
 
 												<c:set var="count" value="0" scope="page" />
 
 
 												<c:if
-													test="${feat.getResourceName() == allResources.getResourceName()}">
+													test="${feat.getResourceID() == allResources.getResourceId()}">
 
 													<c:choose>
 														<c:when test="${feat.getFeatureName() == Projector}">
@@ -428,7 +428,9 @@ input:focus::-webkit-input-placeholder {
 											
 										
 											</c:if>
-
+											<tr>
+						                        <td colspan="2"><button onclick="var v = confirm('Are u sure?'); if(v==true){window.location.href = 'DeleteResource/${allResources.getResourceId()}';}else{} " type="button" class="btn btn-danger">Delete</button></td> 
+						                    </tr>
 										</table>
 																										
 
@@ -536,9 +538,9 @@ input:focus::-webkit-input-placeholder {
 									</div>
 									<table align="center">
 										<tr>
-											<td><label>Super Room: </label> <input type="hidden"
-												value="0" name="isSuperRoom" /> <input type="checkbox"
-												value="1" name="isSuperRoom" /> <span class="checkmark"></span>
+											<td><label>Super Room: </label> 
+												Yes <input type="radio" value="1" name="isSuperRoom" required/>
+												No <input type="radio" value="0" name="isSuperRoom" required/> 
 											</td>
 										</tr>
 									</table>
