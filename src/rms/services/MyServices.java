@@ -79,14 +79,14 @@ public class MyServices {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
 				request.getSession().setAttribute("userId", userId);
-				request.getSession().setAttribute("userType", "0");
+				request.getSession().setAttribute("userType", "1");
 				
 				System.out.println("CHECKPOINT 2");
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
 				request.getSession().setAttribute("userId", userId);
-				request.getSession().setAttribute("userType", "1");
+				request.getSession().setAttribute("userType", "0");
 
 				return "dashboardNotAdmin";
 			}
@@ -594,9 +594,17 @@ public class MyServices {
 		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
 		request.setAttribute("listRes", res);
 
-		// for printing all the resources at the bottom of view.
-		List<Resources> allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
-
+		List<Resources> allResources;
+		
+		//if super user just show all rooms. 
+		if(request.getSession().getAttribute("userType")=="1") {
+			// for printing all the resources 
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+		}else{
+			// for printing non super resources.
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+		}
+		
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
 
@@ -851,9 +859,19 @@ public class MyServices {
 		request.setAttribute("featData", listOfFeatures);
 		int locationId=Integer.parseInt(request.getParameter("location"));
 		int resourceTypeId=Integer.parseInt(request.getParameter("resources"));
-		System.out.println(locationId+" l "+resourceTypeId);
-		List<	Resources> allResources= new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+
+		List<Resources> allResources;
+		
+		//if super user just show all rooms. 
+		if(request.getSession().getAttribute("userType")=="1") {
+			// for printing all the resources 
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+		}else{
+			// for printing non super resources.
+			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+		}		
 		map.addAttribute("alldata", allResources);
+		
 		System.out.println("=-----------------helloo service got executed");
 		return "showResourceByType"; // view name
 	}

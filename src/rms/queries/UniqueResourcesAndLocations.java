@@ -37,6 +37,15 @@ public class UniqueResourcesAndLocations {
 	}
 	
 	/**
+	 * Finds all of the resources from a given location.
+	 * @param locationId The ID of the location that one wants to search at.
+	 * @return A list of Resources that are at the given location.
+	 */
+	public List<Resources> getResourcesByLocationForNonSuperUser(int locationId){
+		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? AND is_super_room = ? order By Resource_name", new ResourcesMapper(), locationId,0);
+	}
+	
+	/**
 	 * Finds only the resources that are of a selected type from a given location.
 	 * @param locationId The ID of the location that one wants to search at.
 	 * @param resourceTypeId The ID of the type of resource that one is looking for.
