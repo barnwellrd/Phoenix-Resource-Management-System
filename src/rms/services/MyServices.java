@@ -762,7 +762,7 @@ public class MyServices {
 		res.setResourceRoomNumber(roomNum);
 		res.setResourceTypeId(resourceTypeId);
 		res.setLocationId(locId);
-		res.setIsAvailable(0); 
+		res.setIsAvailable(1); 
 		res.setIsSuperRoom(isSupRoom);
 		res.setCapacity(capacity);
 		
