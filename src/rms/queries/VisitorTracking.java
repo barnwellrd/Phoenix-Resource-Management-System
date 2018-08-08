@@ -12,7 +12,7 @@ import rms.mapper.VisitorsMapper;
 import rms.model.Visitors;
 
 /**
- * This class controlls the visit and checkout status of Visitors through various methods.
+ * This class controls the visit and checkout status of Visitors through various methods.
  * @author Re: Syntellions
  * @see rms.model.Visitors
  */

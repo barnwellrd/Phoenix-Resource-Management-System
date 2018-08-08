@@ -33,7 +33,16 @@ public class UniqueResourcesAndLocations {
 	 * @return A list of Resources that are at the given location.
 	 */
 	public List<Resources> getResourcesByLocation(int locationId){
-		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? order By Resource_name", new ResourcesMapper(), locationId);
+		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? order By is_available DESC,Resource_name", new ResourcesMapper(), locationId);
+	}
+	
+	/**
+	 * Finds all of the resources from a given location.
+	 * @param locationId The ID of the location that one wants to search at.
+	 * @return A list of Resources that are at the given location.
+	 */
+	public List<Resources> getResourcesByLocationForNonSuperUser(int locationId){
+		return jtemp.query("SELECT * FROM Resources WHERE location_id = ? AND is_super_room = ? order By is_available DESC,Resource_name", new ResourcesMapper(), locationId,0);
 	}
 	
 	/**
@@ -45,10 +54,29 @@ public class UniqueResourcesAndLocations {
 	public List<Resources> getResourcesByLocationAndResourceType(int locationId, int resourceTypeId){
 		return jtemp.query("SELECT * FROM Resources "
 										+ "WHERE location_id = ? "
-										+ "AND resource_type_id = ?", 
+										+ "AND resource_type_id = ?"
+										+ " order by is_available DESC", 
 										new ResourcesMapper(),
 										locationId,
 										resourceTypeId);
+	}
+	
+	/**
+	 * Finds only the resources that are of a selected type from a given location.
+	 * @param locationId The ID of the location that one wants to search at.
+	 * @param resourceTypeId The ID of the type of resource that one is looking for.
+	 * @return A list of Resources of the selected type that are at the given location.
+	 */
+	public List<Resources> getResourcesByLocationAndResourceTypeNonSuper(int locationId, int resourceTypeId){
+		return jtemp.query("SELECT * FROM Resources "
+										+ "WHERE location_id = ? "
+										+ "AND resource_type_id = ? "
+										+ "AND is_super_room = ?"
+										+ " order by is_available DESC", 
+										new ResourcesMapper(),
+										locationId,
+										resourceTypeId,
+										0);
 	}
 	
 	//change
