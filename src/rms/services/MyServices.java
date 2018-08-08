@@ -46,26 +46,42 @@ import rms.model.Resources;
 
 @Controller
 public class MyServices {
-
+	
+	/**
+	 * The service method called on the main index page.
+	 * @return The login.jsp view.
+	 */
 	@RequestMapping(value = "/")
 	public String homeScreen() {
 		return "login";
 	}
 
-
+	/**
+	 * The service method called when the logout page is reached.
+	 * @return The login.jsp view.
+	 */
 	@RequestMapping(value = "/logout")
 	public String logout() {
 		return "login";
 	}
 	
-
-
+	/**
+	 * The service method called when the dashboard page is reached.
+	 * @return the dashboard.jsp view.
+	 */
 	@RequestMapping(value = "/dashboard")
 	public String dashBoard() {
 
 		return "dashboard";
 	}
 
+	/**
+	 * The service method called when the loginOnUserName page is reached.
+	 * Retrieves an entered username and password and utilizes {@link LoginQueries} functions.
+	 * @param request used to request and store information
+	 * @param response
+	 * @return If login is correct, returns a redirect to dashboard.jsp. If login is incorrect, returns the loginfailed.jsp view.
+	 */
 	@RequestMapping(value = "/loginOnUserName", method = RequestMethod.POST)
 	public String loginOnUserName(HttpServletRequest request, HttpServletResponse response) {
 		String userName = request.getParameter("userName");
@@ -100,7 +116,13 @@ public class MyServices {
 		return "loginfailed";
 	}
 
-	
+	/**
+	 * The service method called when the deleteEvent page is reached.
+	 * Utilizes {@link BookingsJdbcTemplate} and deletes a received booking.
+	 * @param request used to request and store information
+	 * @param response
+	 * 
+	 */
 	@RequestMapping(value = "/deleteEvent")
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
 
@@ -111,6 +133,13 @@ public class MyServices {
 
 	}
 
+	/**
+	 * The service method called when the updateEvent page is reached.
+	 * Retrieves a date, timeTo, timeFrom, bookingId, and userID, formats dates and timestamps,
+	 * and updates the details of the corresponding booking by utilizing {@link BookingsJdbcTemplate}.
+	 * @param request used to request and store information
+	 * @param response
+	 */
 	@RequestMapping(value = "/updateEvent")
 	public void updateEvent(HttpServletRequest request, HttpServletResponse response) {
 
@@ -149,6 +178,13 @@ public class MyServices {
 
 	}
 
+	/**
+	 * The service method called when the addEvent page is reached.
+	 * Retrieves a date, timeTo, timeFrom, resourceId, and type, formats dates and timestamps,
+	 * and adds bookings in the pattern requested by the user (one time, weekly, etc.).
+	 * @param request used to request and store information
+	 * @param response
+	 */
 	@RequestMapping(value = "/addEvent")
 	public void addEvent(HttpServletRequest request, HttpServletResponse response) {
 		// Read data from ajax call
@@ -230,7 +266,10 @@ public class MyServices {
 			}
 		}
 	}
-
+	
+	/**
+	 * Check to see if a new booking would cause a resource conflict.
+	 */
 	@RequestMapping(value = "/checkConflicts")
 	public void checkConflicts(HttpServletRequest request, HttpServletResponse response) {
 		// Read request parameters
@@ -376,7 +415,10 @@ public class MyServices {
 			}
 		}
 	}
-
+	
+	/**
+	 * Get all the bookings and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getAllBookingsAsTable")
 	public void getAllBookingsAsTable(HttpServletRequest request, HttpServletResponse response) {
 
@@ -408,7 +450,10 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	
+	/**
+	 * Get all the bookings for a certain resource and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getBookingsAsTableByResourceId")
 	public void getBookingsAsTableByResourceId(HttpServletRequest request, HttpServletResponse response) {
 
@@ -442,7 +487,10 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	
+	/**
+	 * Get all bookings with a certain resource type and convert them into an HTML table
+	 */
 	@RequestMapping(value = "/getBookingsAsTableByType")
 	public void getBookingsAsTableByType(HttpServletRequest request, HttpServletResponse response) {
 
@@ -478,19 +526,33 @@ public class MyServices {
 		out.print("</table>");
 
 	}
-
+	/**
+	 * Returns the booking view of the service.
+	 * @return Returns booking.jsp view.
+	 */
 	@RequestMapping(value = "/booking")
 	public String booking() {
 
 		return "booking";
 	}
-
+	/**
+	 * Inputs all of the rows of ResourceType into an attribute of a ModelMap object.
+	 * Calls the types view which will use the information stored in the ModelMap.
+	 * @param map used to addAttributes for the view to use.
+	 * @return types.jsp
+	 */
 	@RequestMapping(value = "/types")
 	public String pickResource(ModelMap map) {
 		map.addAttribute("types", new ResourceTypeJdbcTemplate().getAll());
 		return "types";
 	}
-
+	/**
+	 * Gets list of rooms by the type of room provided by the user. Gets the features of each room,
+	 * and the quantity of each feature for each room and sends it to rooms.jsp file. 
+	 * @param request HttpServletRequest
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value = "/resources", method = RequestMethod.POST)
 	public String pickRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Get rooms of a given type
@@ -517,7 +579,14 @@ public class MyServices {
 
 		return "rooms";
 	}
-
+	/**
+	 * Gets the room Id as input from the user and uses that Id to get the rooms information. Also gets
+	 * all the features of the same room and stores it in featureMap. Both of these are passed to HttpServletRequest
+	 * (Should be Response) and then displayRoom.jsp is called.
+	 * @param request
+	 * @param response
+	 * @return displayRoom.jsp
+	 */
 	@RequestMapping(value = "/roomDesc", method = RequestMethod.POST)
 	public String displayRoom(HttpServletRequest request, HttpServletRequest response) {
 		// Find the room
@@ -539,7 +608,14 @@ public class MyServices {
 
 		return "displayRoom";
 	}
-
+	/**
+	 * Gets all of the Resources by LocationId and ResourceTypeId that the user passes in. Stores the result into
+	 * an attribute of ModelMap. FilterResources is then called which uses that data from the modelmap.
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return FilterResources.jsp
+	 */
 	@RequestMapping(value="/LocationResources")
 	public String searchLocationResources(ModelMap map, HttpServletRequest request, HttpServletResponse response){
 
@@ -566,6 +642,17 @@ public class MyServices {
 		System.out.println("=-----------------helloo service got executed");
 		return "AddSearchResources"; //view name
 	}
+	/**
+	 * Gets the list of features and their quantity by ResourceId and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets the list of the Locations and the cities and and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets the list of all the resource types and sets it as an attribute in the HttpServletRequest request object.
+	 * Gets a list of all the resources of a single location and adds it as an attribute in the ModelMap object.
+	 * Calls the AddSearchResources.jsp file. 
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return
+	 */
 	@RequestMapping(value="/AddSearchResources1")
 	public String searchAllResources1(ModelMap map,HttpServletRequest request, HttpServletResponse response){
 
@@ -588,6 +675,16 @@ public class MyServices {
 		return "AddSearchResources"; // view name
 
 	}
+	/**
+	 * Gets a list of all cities and locations and sets it as an attribute to the HttpServletResponse request object.
+	 * Gets a list of features and their quantities by the resource id and sets it as an attribute to the HttpServletResponse request object.
+	 * Gets a list of all the resources and adds it as an attribute to ModelMap.
+	 * Calls the showAllResources view.
+	 * @param map
+	 * @param request
+	 * @param response
+	 * @return showAllResources.jsp
+	 */
 	@RequestMapping(value = "/showAllResources")
 	public String showAllResources(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("=-----------------searchAllResources1");
@@ -624,7 +721,13 @@ public class MyServices {
 	
 	
 	
-	
+	/**
+	 * Service that inserts a resource into the Database based on user input and 
+	 * also inserts all the features of the resource in the database as well.
+	 * @param request
+	 * @param response
+	 * @return 
+	 */
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
 		System.out.println("1");
@@ -726,8 +829,18 @@ public class MyServices {
 		return "redirect:/AddSearchResources1";
 	}
 	
+	/**
+	 * Service method called when charts page is reached.
+	 * This method serves as the main service method for charts.
+	 * When the Charts page is clicked from the menu, the initial information of resource types and rooms are retrieved and put into the dropdown menus. 
+	 * The util value is set to -1.0 as a default so that no chart is created upon the initial page load. 
+	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The utilizationChart.jsp view
+	 */
 	@RequestMapping(value="/charts")
-	public String mainService(HttpServletRequest request, HttpServletResponse response) {
+	public String mainService(HttpServletRequest request, HttpServletResponse response) 
+	{
 	//	System.out.println("loading");
 		//drop down stuff
 		List<String> vt=new UniqueResourcesAndLocations().getResourceTypes();
@@ -746,8 +859,17 @@ public class MyServices {
 		return "utilizationChart"; //view name
 	}
 	
+	/**
+	 * Service method called when drawChart page is reached.
+	 * This method gets chart parameters and converts dates to the correct, usable format. 
+	 * The parameters are passed back to the jsp file to create the actual utilization charts. 
+	 * 	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The utilizationChart.jsp view
+	 */
 	@RequestMapping(value="/drawChart",method=RequestMethod.POST)
-	public String drawChart(HttpServletRequest request, HttpServletResponse response) {
+	public String drawChart(HttpServletRequest request, HttpServletResponse response) 
+	{
 		String viewType = request.getParameter("viewType");
 		String roomType = request.getParameter("roomType2");
 		String period= request.getParameter("period");
@@ -766,14 +888,17 @@ public class MyServices {
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		SimpleDateFormat format2 = new SimpleDateFormat(pattern2);
 		Date date= new Date(); // new date
-		try {
+		try 
+		{
 			date = format.parse(sdate); // convert what we have from string to date
 			System.out.println("what we have as a date: "+date);
 			sdate = format2.format(date); // convert date to string in the format that we want
 			System.out.println("what we want as a string: "+sdate);
 			date = format2.parse(sdate); // convert it back to date in the format that we want
 			System.out.println("what we want as a date: "+date);
-		} catch(Exception e) {
+		} 
+		catch(Exception e) 
+		{
 			System.out.println("wrong date");
 		}
 		//sdate = format.format(date);
@@ -781,22 +906,32 @@ public class MyServices {
 		//System.out.println(date);
 		HttpSession session=request.getSession();
 		double util = 0.0;
-		try {
-			if(viewType.equals("all")) {
+		try
+		{
+			if(viewType.equals("all")) 
+			{
 				util = periodTypeMethod(period, date);
-			} else {
-				if(roomType.equals("all")) {
+			}
+			else 
+			{
+				if(roomType.equals("all"))
+				{
 					util = periodTypeMethod(viewType,period, date);
-				} else {
+				} 
+				else 
+				{
 					util = periodTypeMethodWithRoomId(roomType,period, date);
 				}
 			}
-		} catch (NullPointerException e) {
-			util=0.0;
-		} catch (EmptyResultDataAccessException e) {
+		} 
+		catch (NullPointerException e) 
+		{
 			util=0.0;
 		}
-		
+		catch (EmptyResultDataAccessException e) 
+		{
+			util=0.0;
+		}
 	//	util = 0.5;
 		session.setAttribute("util",util);
 		//drop down stuff
@@ -807,11 +942,19 @@ public class MyServices {
 		return "utilizationChart";
 	}
 	
-	private double periodTypeMethod(String period, Date day) {
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of all resources.
+	 */
+	private double periodTypeMethod(String period, Date day) 
+	{
 		double x=0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
 		System.out.println("this is the date: "+day);
-		switch(period) {
+		switch(period)
+		{
 			case "day":
 				x = util.callDailyUtilizationForAllResources(day);
 				break;
@@ -824,10 +967,20 @@ public class MyServices {
 		}
 		return x;
 	}
-	private double periodTypeMethod(String viewType, String period, Date day) {
+	
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param viewType String of resource type ID input from user
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of a resource based on a resource type ID.
+	 */
+	private double periodTypeMethod(String viewType, String period, Date day)
+	{
 		double x =0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
-		switch(period) {
+		switch(period) 
+		{
 			case "day":
 				x = util.callDailyUtilizationByResourceTypeId(Integer.parseInt(viewType), day);
 				break;
@@ -840,10 +993,20 @@ public class MyServices {
 		}
 		return x;
 	}
-	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) {
+	
+	/**
+	 * Method to determine the type of period that is needed and return it (daily, weekly, monthly).
+	 * @param roomId String of resource ID input from user
+	 * @param period String used to select a period
+	 * @param day Date input from the user
+	 * @return The periodical utilization of a resource based on a resource type ID.
+	 */
+	private double periodTypeMethodWithRoomId(String roomId, String period, Date day) 
+	{
 		double x=0.0;
 		CallUtilizationQueries util = new CallUtilizationQueries();
-		switch(period) {
+		switch(period)
+		{
 			case "day":
 				x = util.callDailyUtilizationByResourceId(Integer.parseInt(roomId), day);
 				break;
@@ -857,8 +1020,17 @@ public class MyServices {
 		return x;
 	}
 
+	/**
+	 * Service method called when showResourceByType page is reached.
+	 * Method is used to display resources based on resource type. 
+	 * @param map ModelMap that all data is put into
+	 * @param request HttpServletRequest used to request and store information
+	 * @param response HttpServletResponse
+	 * @return The showResourceByType.jsp view
+	 */
 	@RequestMapping(value = "/showResourceByType")
-	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response) {
+	public String showResourceByType(ModelMap map, HttpServletRequest request, HttpServletResponse response)
+	{
 		System.out.println("=-----------------Search Location Resources");
 
 		//System.out.println(request.getParameter("location")+"-----"+ request.getParameter("resources"));
