@@ -403,6 +403,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                                     console.log("Select Event");
 
+									// Don't allow bookings across multiple days
+                                    if(startDate.day() != endDate.day()){
+                                    	$('#dispCal').fullCalendar('unselect');
+                                    	return;
+                                    }
+                                    
                                     // Find the room picked
                                     var name = $("#pageResourceName").val();
 
@@ -707,6 +713,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 //when the user choose a resource type. 
                                 $('iframe').contents().find("select[name='resources']").on('change', function(event) {
 
+                                	//the user can now make selections on the calendar. 
+                                    $("#dispCal").fullCalendar('option', {
+                                        selectable: false
+                                    });
+                                	
                                     console.log("chose a type");
 
                                     var resId = ($('iframe').contents().find("select[name='resources'] option:selected").val());
