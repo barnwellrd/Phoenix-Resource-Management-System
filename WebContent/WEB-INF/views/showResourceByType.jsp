@@ -37,7 +37,7 @@
 </head>
 <body>
 	<h4 style="text-align: center">${
-		alldata.get(0).getResourceName().substring(0,alldata.get(0).getResourceName().length()-2)
+		alldata.get(0).getResourceName().split(" ")[0]
 	}
 		Rooms</h4>
 
