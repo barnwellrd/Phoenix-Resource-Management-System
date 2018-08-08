@@ -36,9 +36,9 @@
 
 			<a href="/Phoenix_Resource_Management_System/Visitor/Home"
 				class="pull-left fa_left_btn"> <span
-				class="fas fa-angle-left  fa-4x text-center"></span>
+				class="fas fa-arrow-alt-circle-left  fa-4x text-center"></span>
 			</a> <a onclick="submitForm()" class="fa_right_btn pull-right">
-			 <span class="fas fa-angle-right  fa-4x text-center"></span>
+			 <span class="fas fa-arrow-alt-circle-right fa-4x text-center"></span>
 			</a>
 		</div>
 	</section>
