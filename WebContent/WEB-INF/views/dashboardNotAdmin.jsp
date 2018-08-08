@@ -112,7 +112,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 							<ul class="dropdown-menu">
 
 								<li>
-									<a href="#">Book
+									<a href="booking">Book
 										<span class="glyphicon glyphicon-book pull-right"></span>
 									</a>
 								</li>
