@@ -702,7 +702,7 @@ public class MyServices {
 
 		//remove all resource types without any rooms
 		for(ResourceType resource : tempRes) {
-			List<Bookings> temp= new BookingsJdbcTemplate().getAllByResourceType(resource.getResourceTypeId());
+			List<Resources> temp= new ResourcesJdbcTemplate().resourcesByResourceType(resource.getResourceTypeId());
 			if(temp.size()==0)
 				res.remove(resource);
 		}

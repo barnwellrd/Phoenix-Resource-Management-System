@@ -165,7 +165,9 @@ a.wrimagecard:hover, .wrimagecard-topimage:hover {
     /* Position the tooltip text - see examples below! */
     position: absolute;
     z-index: 2;
+    top: 80%;
 }
+
 
 /* Show the tooltip text when you mouse over the tooltip container */
 .thetooltip:hover .tooltiptext {
