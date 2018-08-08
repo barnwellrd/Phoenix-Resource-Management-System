@@ -566,21 +566,24 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             $('iframe').load(function() {
 
                                 //for clicking on cards of resources.   
-                                $("iframe").contents().find(".wrimagecard, .wrimagecard .roomImg").on('click', function(event) {
+                                $("iframe").contents().find(".wrimagecard, .wrimagecard .roomImg, .wrimagecardSuper, .wrimagecardSuper .roomImg").on('click', function(event) {
 
                                     //set all cards to not be highlighted.	
                                     //need to set all children of the card or they will highlight individually
                                     $("iframe").contents().find(".wrimagecard *").css('border-color', 'black');
                                     $("iframe").contents().find(".wrimagecard").css('border-color', 'black');
+                                    $("iframe").contents().find(".wrimagecardSuper *").css('border-color', 'black');
+                                    $("iframe").contents().find(".wrimagecardSuper").css('border-color', 'black');
+
                                     
                                     //set the clicked card to be highlighted
                                     //have to set siblings children and parent bc there are multiple elements in the cards like the title and icon. 
                                     //the user could have clicked any of the smaller elements. 
-                                    $(event.target).css('border-color', '#99ff99');
-                                    $(event.target.parentElement).css('border-color', '#99ff99');
-                                    $(event.target.parentElement.parentElement).css('border-color', '#99ff99');
-                                    $(event.target.children).css('border-color', '#99ff99');
-                                    $(event.target).siblings().css('border-color', '#99ff99');
+                                    $(event.target).css('border-color', '#00cd13');
+                                    $(event.target.parentElement).css('border-color', '#00cd13');
+                                    $(event.target.parentElement.parentElement).css('border-color', '#00cd13');
+                                    $(event.target.children).css('border-color', '#00cd13');
+                                    $(event.target).siblings().css('border-color', '#00cd13');
 
                                     //need two in case user clicks on child element vs entire card. 
                                     var possibleId = $(event.target.parentElement).contents().find(".filterResourceId").text();
