@@ -146,15 +146,16 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     <div class="input-group-addon">
                                         <span class='glyphicon glyphicon-time'></span> <span class="input-group-text">From</span>
                                     </div>
-                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom" required>
+                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeFrom" name="editTimeFrom" min="9:00" max="17:00" required>
                                 </div>
 
                                 <div class="input-group">
                                     <div class="input-group-addon">
                                         <span class='glyphicon glyphicon-time'></span> <span class="input-group-text">To</span>
                                     </div>
-                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeTo" name="editTimeTo" required>
+                                    <input class="form-control input-md" type="time" placeholder="HH:MM" id="editTimeTo" name="editTimeTo" max="17:00" min="9:00" required>
                                 </div>
+
                             </div>
                             <div class="modal-footer">
                             	<div style="text-align:center;" class="alert alert-danger" roll="alert" id="editAlert">
@@ -196,7 +197,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     </div>
                                     <input class="form-control input-md" type="date" placeholder="DD-MM" id="date" name="date" readonly="readonly" required />
                                 </div>
-
                                 <!-- Start time -->
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -212,7 +212,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     </div>
                                     <input class="form-control input-md" type="time" placeholder="HH:MM" id="timeTo" name="timeTo" readonly="readonly" required>
                                 </div>
-
                                 <!-- Weekly repeats -->
                                 <div class="input-group">
                                     <div class="input-group-addon">
@@ -603,21 +602,24 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             $('iframe').load(function() {
 
                                 //for clicking on cards of resources.   
-                                $("iframe").contents().find(".wrimagecard, .wrimagecard .roomImg").on('click', function(event) {
+                                $("iframe").contents().find(".wrimagecard, .wrimagecard .roomImg, .wrimagecardSuper, .wrimagecardSuper .roomImg").on('click', function(event) {
 
                                     //set all cards to not be highlighted.	
                                     //need to set all children of the card or they will highlight individually
                                     $("iframe").contents().find(".wrimagecard *").css('border-color', 'black');
                                     $("iframe").contents().find(".wrimagecard").css('border-color', 'black');
+                                    $("iframe").contents().find(".wrimagecardSuper *").css('border-color', 'black');
+                                    $("iframe").contents().find(".wrimagecardSuper").css('border-color', 'black');
+
                                     
                                     //set the clicked card to be highlighted
                                     //have to set siblings children and parent bc there are multiple elements in the cards like the title and icon. 
                                     //the user could have clicked any of the smaller elements. 
-                                    $(event.target).css('border-color', '#99ff99');
-                                    $(event.target.parentElement).css('border-color', '#99ff99');
-                                    $(event.target.parentElement.parentElement).css('border-color', '#99ff99');
-                                    $(event.target.children).css('border-color', '#99ff99');
-                                    $(event.target).siblings().css('border-color', '#99ff99');
+                                    $(event.target).css('border-color', '#00cd13');
+                                    $(event.target.parentElement).css('border-color', '#00cd13');
+                                    $(event.target.parentElement.parentElement).css('border-color', '#00cd13');
+                                    $(event.target.children).css('border-color', '#00cd13');
+                                    $(event.target).siblings().css('border-color', '#00cd13');
 
                                     //need two in case user clicks on child element vs entire card. 
                                     var possibleId = $(event.target.parentElement).contents().find(".filterResourceId").text();
@@ -786,6 +788,20 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
+                                    
+                                    if(Number(timeFrom.split(":")[0].trim()) < 9){
+	                                  	$("#editTimeFrom").val("09:00");
+                                    }
+                                    
+                                    if(Number(timeTo.split(":")[0].trim()) > 17){
+	                                  	$("#editTimeTo").val("17:00");
+                                    }
+                                    
+                                    //if minutes are past 5. 
+                                    if(Number(timeTo.split(":")[0].trim()) == 17){
+                                    	if(Number(timeTo.split(":")[1].trim())>0)
+	                                  		$("#editTimeTo").val("17:00");
+                                    }
                                     
                                     $.ajax({
                                     	url: "pleaseCheckMyEdit",
