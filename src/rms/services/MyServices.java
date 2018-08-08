@@ -121,6 +121,41 @@ public class MyServices {
 	}
 
 	/**
+	 * The service method called for checking if an event is deletable
+	 * Utilizes {@link BookingsJdbcTemplate} .
+	 * @param request used to request and store information
+	 * @param response
+	 * 
+	 */
+	@RequestMapping(value = "/deleteCheck")
+	public void deleteCheck(HttpServletRequest request, HttpServletResponse response) {
+
+		int id = Integer.parseInt(request.getParameter("bookingId"));
+		
+		Bookings toDisable = new BookingsJdbcTemplate().search(id);
+				
+		int userId = (int) request.getSession().getAttribute("userId");
+		String userType = (String) request.getSession().getAttribute("userType");
+		
+		PrintWriter out;
+		try {
+		
+			if(toDisable.getUserId() == userId || userType=="1") {
+				out = response.getWriter();
+				out.write("Success");
+			}else {
+				out = response.getWriter();
+				out.write("Fail");		
+			}
+		}catch(IOException e) {
+			
+		}
+		
+		
+
+	}
+	
+	/**
 	 * The service method called when the deleteEvent page is reached.
 	 * Utilizes {@link BookingsJdbcTemplate} and deletes a received booking.
 	 * @param request used to request and store information
@@ -131,12 +166,35 @@ public class MyServices {
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
 
 		int id = Integer.parseInt(request.getParameter("bookingId"));
+		
 		Bookings toDisable = new BookingsJdbcTemplate().search(id);
+		
 		toDisable.setIsActive(0);
-		new BookingsJdbcTemplate().update(toDisable);
+		
+		int userId = (int) request.getSession().getAttribute("userId");
+		String userType = (String) request.getSession().getAttribute("userType");
+		
+		PrintWriter out;
+		try {
+		
+			if(toDisable.getUserId() == userId || userType=="1") {
+				out = response.getWriter();
+				out.write("Success");
+				new BookingsJdbcTemplate().update(toDisable);
+			}else {
+				out = response.getWriter();
+				out.write("Fail");		
+			}
+		}catch(IOException e) {
+			
+		}
+		
+		
 
 	}
 
+	
+	
 	/**
 	 * The service method called when the updateEvent page is reached.
 	 * Retrieves a date, timeTo, timeFrom, bookingId, and userID, formats dates and timestamps,

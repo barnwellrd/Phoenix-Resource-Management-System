@@ -551,8 +551,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
                                 
-                                
-                                
                                     // Validate prefilled values
                                     var bookingID = $("#bookingId").val();
                                     var date = $("#editDate").val();
@@ -564,6 +562,25 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
+                                    var id = $("#bookingId").val();
+
+                                    
+                                    $.ajax({
+                                    	url: "deleteCheck",
+                                        data: {
+                                        	bookingId:id
+                                        },
+                                        success: function(result){
+                                        	console.log("Success: " + result);
+                                        	if(result === "Fail"){
+                                            	$("#deleteButton").attr("disabled", "true");
+                                        	} 
+                                        	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
                                     
                                     $.ajax({
                                     	url: "pleaseCheckMyEdit",
