@@ -268,8 +268,9 @@ input:focus::-webkit-input-placeholder {
 											</div>
 										</div>
 									</c:if>
-
+									<div class="rightDrop">
 									<div class="dropdown-content">
+									
 										<c:set var="check" value="0" />
 										<table class="resource-dropdown-table">
 
@@ -427,7 +428,7 @@ input:focus::-webkit-input-placeholder {
 											</c:if>
 
 										</table>
-																										
+									</div>															
 
 									</div>
 

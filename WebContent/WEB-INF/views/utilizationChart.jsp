@@ -199,26 +199,29 @@
 					</div>
 					
 					<div class="collapse navbar-collapse" id="myNavbar">
-						<ul class="nav navbar-nav navbar-center"
-							style="left-padding: 300px;">
-						</ul>
-						<ul class="nav navbar-nav navbar-right">
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-user"></span> 
-								</a>
-							</li>
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-bell"></span> 
-								</a>
-							</li>
-		
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-search"></span>
-								</a>
-							</li>
+				<ul class="nav navbar-nav navbar-center"
+					style="left-padding: 300px;">
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+					<li style="font-size: 22px;">
+					<li class="dropdown">
+    					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
+    								<div class="dropdown-content">
+     								<a href="logout">Log Out</a>
+     								
+					</li>
+				</li>
+			</div>
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
 						</ul>
 					</div>
 				</div>
