@@ -48,7 +48,7 @@
 				</div>
 		 <div id="next_prev_btn">
 			 	
-			 	<a href="http://localhost:2343/Phoenix_Resource_Management_System/Visitor/Home" class="pull-left"  >
+			 	<a href="/Phoenix_Resource_Management_System/Visitor/Home" class="pull-left"  >
 			 		<span class="fas fa-angle-left  fa-4x text-center fa_left_btn"></span>
 			 	</a>
 			 		
