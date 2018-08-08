@@ -76,7 +76,7 @@
 										<!-- Loops through all features to choose which belong to this resource -->
 										<c:forEach var="feat" items="${featData}">
 											<c:if
-												test="${fn:containsIgnoreCase(feat.getResourceName(),allResources.getResourceName())}">
+												test="${fn:containsIgnoreCase(feat.getResourceID(),allResources.getResourceId())}">
 
 												<c:if
 													test="${fn:containsIgnoreCase(feat.getFeatureName(), 'Projector')}">
