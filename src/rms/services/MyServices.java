@@ -71,9 +71,12 @@ public class MyServices {
 	 * @return the dashboard.jsp view.
 	 */
 	@RequestMapping(value = "/dashboard")
-	public String dashBoard() {
+	public String dashBoard(HttpServletRequest request, HttpServletResponse response) {
 
-		return "dashboard";
+		if(request.getSession().getAttribute("userType")=="1")
+			return "dashboard";
+		else
+			return "dashboardNotAdmin";
 	}
 
 	/**
