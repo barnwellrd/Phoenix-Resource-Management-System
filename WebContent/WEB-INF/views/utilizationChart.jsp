@@ -81,6 +81,12 @@
 				
 				today = yyyy+'-'+mm+'-'+dd;
 				$('#datefield').attr("max",today);
+				Date.prototype.toDateInputValue = (function() {
+				    var local = new Date(this);
+				    local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
+				    return local.toJSON().slice(0,10);
+				});
+				$('#datefield').val(new Date().toDateInputValue());
 			});
 		</script>
 		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
