@@ -754,6 +754,10 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             });
 
                             $("#deleteButton").click(function() {
+                            	
+                            	if(!confirm("Are you sure you want to delete?"))
+                            		return;
+                            	
                                 var id = $("#bookingId").val();
                                 console.log(id);
 
