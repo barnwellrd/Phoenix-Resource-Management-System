@@ -1,5 +1,6 @@
 package rms.queries;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -112,5 +113,16 @@ public class VisitorTracking {
 	public List<Visitors> getVisitorsFromDay(String day)
 	{
 		return jtemp.query("SELECT * FROM visitors WHERE trunc(CHECKED_IN_TIME) = TO_DATE(?,'mm/dd/yyyy')", new VisitorsMapper(), day);
+	}
+	
+	/**
+	 * Gets all of the visitors from a selected day-range.
+	 * @param dayfrom The day-range start date. Must be passed as a string in the format "mm/dd/yyyy", ex: "11/27/2018".
+	 * @param dayto The day-range end date. Must be passed as a string in the format "mm/dd/yyyy", ex: "11/27/2018".
+	 * @return A list of visitors.
+	 */
+	public List<Visitors> getVisitorsFromRange(String dayfrom, String dayto)
+	{
+		return jtemp.query("SELECT * FROM visitors WHERE trunc(CHECKED_IN_TIME) BETWEEN TO_DATE(?,'mm/dd/yyyy') AND TO_DATE(?,'mm/dd/yyyy')", new VisitorsMapper(), dayfrom, dayto);
 	}
 }

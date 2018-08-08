@@ -10,7 +10,6 @@
 	<link rel="stylesheet" href="../resources/css/visitorViews.css">
 	<script src="../resources/js/jquery.js"></script>
 	<script src="../resources/js/bootstrap.js"></script>
-	<script src="../resources/js/visitor30SecRedirect.js"></script>
 	
 	
 
@@ -36,6 +35,17 @@
 	</header>
 	<section class="nav"></section>
 	<section class="container">
+	<div class="section_block">
+	<form action="/Phoenix_Resource_Management_System/Visitor/RangeSearch" method="get" style="margin: 0; padding: 0;">
+		<p>
+			Enter Date Range
+		
+		    <input type="text" name="fromDay" placeholder="From" onfocus="(this.type='date')" style="display: inline;"/>
+		    <input type="text" name="toDay" placeholder="To"   onfocus="(this.type='date')" style="display: inline;" />
+		    <input style="display: inline;" type="submit" value="submit" />
+		</p>
+	</form>
+	</div>
 		<div class="section_block">
 			
 				<table class="table">
