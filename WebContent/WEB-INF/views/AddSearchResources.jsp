@@ -79,11 +79,13 @@ input:focus::-webkit-input-placeholder {
 <link rel="stylesheet" href="${bootMin}" />
 
 
-<spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
-<link rel="stylesheet" href="${DashboardCSS}" />
+
 
 <spring:url value="/resources/css/bootstrap.min.css" var="bootstrap" />
 <link rel="stylesheet" href="${bootstrap}" />
+
+<spring:url value="/resources/css/dashboard.css" var="DashboardCSS" />
+<link rel="stylesheet" href="${DashboardCSS}" />
 
 
 <spring:url value="/resources/js" var="JS" />
