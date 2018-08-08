@@ -564,7 +564,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                             $('iframe').load(function() {
 
                                 //for clicking on cards of resources.   
-                                $("iframe").contents().find(".wrimagecard, .roomImg").on('click', function(event) {
+                                $("iframe").contents().find(".wrimagecard, .wrimagecard .roomImg").on('click', function(event) {
 
                                     //set all cards to not be highlighted.	
                                     //need to set all children of the card or they will highlight individually

@@ -48,8 +48,12 @@
 
 				<c:forEach var="allResources" items="${alldata}">
 					<div class="col-xs-6 col-sm-4">
-						<div class="wrimagecard wrimagecard-topimage dropdown">
-							<div class="wrimagecard-topimage_header">
+						<c:if test= "${allResources.getIsAvailable()==1}" >
+							<div class="wrimagecard wrimagecard-topimage dropdown">	
+						</c:if>
+						<c:if test= "${allResources.getIsAvailable()==0}" >
+							<div class="wrimagecardInactive wrimagecard-topimage dropdown">	
+						</c:if>								<div class="wrimagecard-topimage_header">
 								<h4 class="filterResourceName">${allResources.getResourceName()}</h4>
 								<!-- Hidden tag that will provide the resource Id on the page -->
 								<p style="display: none" class="filterResourceId">${allResources.getResourceId()}</p>

@@ -79,13 +79,14 @@ public class MyServices {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
 				request.getSession().setAttribute("userId", userId);
+				request.getSession().setAttribute("userType", "0");
 				
 				System.out.println("CHECKPOINT 2");
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
 				request.getSession().setAttribute("userId", userId);
-				
+				request.getSession().setAttribute("userType", "1");
 
 				return "dashboardNotAdmin";
 			}
@@ -598,17 +599,9 @@ public class MyServices {
 
 		map.addAttribute("alldata", allResources);
 		System.out.println("=-----------------helloo service got executed");
-// --Bookings
+
 		return "showAllResources"; // view name
-/*==
-		
-		List<FeaturesDropDown> listOfFeatures = new FeatureQueries().getFeatureNameAndQuantityByResouceId();
-		map.addAttribute("featData", listOfFeatures);
-		
-		
-		
-		return "AddSearchResources"; //view name
---development*/
+
 	}
 	
 	
