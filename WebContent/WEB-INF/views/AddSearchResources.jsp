@@ -97,12 +97,6 @@ input:focus::-webkit-input-placeholder {
 	});
 </script>
 
-<script type="text/javascript">
-	if (document.getElementById("superRoomCheck").checked) {
-		document.getElementById('superRoomCheckHidden').disabled=true;
-	}
-</script>
-
 <title>AddSearchResources</title>
 </head>
 <body id="bod">
