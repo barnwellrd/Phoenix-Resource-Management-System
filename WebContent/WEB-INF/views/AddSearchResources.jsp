@@ -171,8 +171,11 @@ input:focus::-webkit-input-placeholder {
 								</select>
 							</div>
 						</fieldset>
-						<br> <input type="submit" value="Search" style="color: black">
-						<!-- <a href="LocationResources/">Search</a><br> -->
+						<br> <button type="submit" input type="submit" class="btn btn-success btn-sm"
+						style="padding-left: 10px;">
+						Search Resources<br><span class="glyphicon glyphicon-search"
+							style="font-size: 20px; text-align: center;"></span><br>
+					</button>
 					</form> <br>
 					<button type="button" class="btn btn-success btn-sm"
 						data-toggle="modal" data-target="#myModal"
@@ -273,7 +276,7 @@ input:focus::-webkit-input-placeholder {
 											</div>
 										</div>
 									</c:if>
-
+									<div class="right-align-drop">
 									<div class="dropdown-content">
 										<c:set var="check" value="0" />
 										<table class="resource-dropdown-table">
@@ -437,7 +440,7 @@ input:focus::-webkit-input-placeholder {
 																										
 
 									</div>
-
+									</div>
 
 								</div>
 							</c:forEach>
