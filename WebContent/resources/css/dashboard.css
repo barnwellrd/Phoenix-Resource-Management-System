@@ -1,0 +1,210 @@
+.container {
+	padding: 0px;
+
+}
+
+.container, #footer {
+	background-color: white;
+}
+
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: white;
+}
+
+/* Set height of the grid so .sidenav can be 100% (adjust as needed) */
+.row.content {
+	height: 550px;
+}
+
+/* Set gray background color and 100% height */
+.sidenav {
+	bottom: 0; position : absolute;
+	padding-top: 20px;
+	background-color: rgb(0, 51, 0);
+	height: 550px;
+	position: relative;
+}
+
+div.row.content {
+	background:
+		url("/Phoenix_Resource_Management_System/resources/images/green.jpg");
+}
+
+/* Set black background color, white text and some padding */
+footer {
+	color: rgb(0, 51, 0);
+	background-color: white;
+	height: 60px;
+	width: 100%;
+	padding: 0px;
+	position: absolute;
+	width: inherit;
+}
+
+/* On small screens, set height to 'auto' for sidenav and grid */
+@media screen and (max-width: 767px) {
+	.sidenav {
+		height: auto;
+		padding: 15px;
+	}
+	.row.content {
+		height: auto;
+	}
+}
+
+@media screen and (max-width: 767px) {
+	.card {
+		max-height: 100px;
+		max-width: 100px;
+		padding: 15px;
+	}
+}
+
+#bod {
+	background-color: #eee9e9;
+	/*background-image: url("green.jpg"); /* fallback for old browsers */
+}
+
+.
+* {
+	box-sizing: border-box;
+}
+
+/* Float four columns side by side */
+.column {
+	float: left;
+	width: 27%;
+	padding: 0px 50px 0px 90px;
+}
+
+.row {
+	margin: 0 -5px;
+}
+
+/* Clear floats after the columns */
+.row:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+/* Responsive columns */
+@media screen and (max-width: 600px) {
+	.column {
+		width: 100%;
+		display: block;
+		margin-bottom: 10px;
+	}
+}
+
+/* Responsive columns */
+
+/* Style the counter cards */
+.card {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	padding: 16px;
+	text-align: center;
+	background-color: #444;
+	color: white;
+	position: relative;
+	width: 100%;
+}
+
+.fa {
+	font-size: 200px;
+}
+
+#hi {
+	background: rgb(0, 51, 0);
+	border-radius: 25px;
+}
+
+#hi:hover {
+	background-color: rgba(0, 51, 0, 0.9);
+}
+
+#bye {
+	background: rgb(0, 51, 0);
+	border-radius: 25px;
+}
+
+#bye:hover {
+	background-color: rgba(0, 51, 0, 0.9);
+}
+
+div.gallery {
+	margin: 5px;
+	border: 1px solid #ccc;
+	float: left;
+	width: 400px;
+}
+
+div.gallery:hover {
+	border: 1px solid #777;
+}
+
+div.gallery img {
+	width: 100%;
+	height: auto;
+}
+
+div.desc {
+	padding: 15px;
+	text-align: center;
+}
+
+#linkside a:hover {
+	
+}
+
+div.well.well-lg {
+	padding: 0px 50px 0px 90px;
+}
+
+.help {
+	margin-left: 200px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+
+a:burger {
+	color: white;
+}
+/* Logout Drop Down button */
+li a, .dropbtn {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+
+li.dropdown {
+    display: inline-block;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    text-align: left;
+}
+
+.dropdown-content a:hover {background-color: #f1f1f1}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}

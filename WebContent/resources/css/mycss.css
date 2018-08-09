@@ -1,0 +1,190 @@
+
+/* ***********************************************DROPDOWNS CSS ************************************************************** */
+
+
+.dropbtn {
+    background-color: #4CAF50;
+    color: white;
+    padding: 16px;
+    font-size: 16px;
+    border: none;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+
+.right-align-drop{
+	margin-left:180px;
+	margin-top: 10px;	
+	
+}
+
+
+.dropdown-content {
+
+	
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 2;
+}
+
+.dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+}
+.dropdown-content img{
+
+margin-top: 0px;
+width: 30px;
+height: 30px;
+
+
+
+}
+
+input:hover[type="submit"]{
+	
+}
+
+.resource-dropdown-table{
+	float: right;
+	background: white;
+	text-align: center;
+	border: 3px solid black;
+	width: 100%;
+	
+	
+}
+
+.resource-dropdown-table th{
+	height: 35px;
+	text-align: center;
+	background: orange;'
+	color: black;
+}
+
+.resource-dropdown-table td{
+padding: 10px;
+color: black;
+font-weight:bold;
+border: 3px solid black;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+
+.col-sm-2, .col-md-2{
+margin-top: 0;
+    
+    width: 100%;
+    height: 100%;
+   
+    border-radius: 4px;
+    min-width: 180px;
+    margin-left:15px;
+	
+}
+.resourceImage{
+	width: 75px;
+	height:75px;
+	
+}
+
+
+
+.wrimagecard{	
+	margin-top: 0;
+    background: #fff;
+    width: 100%;
+    height: 100%;
+    box-shadow: 12px 15px 20px 0px rgba(46,61,73,0.15);
+    border-radius: 4px;
+}
+.wrimagecard .fa{
+	position: relative;
+    font-size: 70px;
+}
+.wrimagecard-topimage_header{
+    text-align:center;
+}
+a.wrimagecard:hover, .wrimagecard-topimage:hover {
+    box-shadow: 2px 4px 8px 0px rgba(46,61,73,0.2);
+}
+.wrimagecard-topimage a {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+.wrimagecard-topimage a {
+    border-bottom: none;
+    text-decoration: none;
+    color: #525c65;
+    transition: color 0.3s ease;
+}
+
+.navbar {
+	margin-bottom: 0;
+	border-radius: 0;
+	background-color: white;
+}
+
+
+.helpme {
+	margin-left: 200px;
+	padding-bottom: 5px;
+	padding-top: 5px;
+}
+    #resourcesidnav {
+      padding-top: 200px;
+      background-color:rgb(0,51,0);
+    
+    }
+    
+    .resource-container{
+    min-width: 800px;
+    margin-left: 40px;
+    }
+    
+    
+    
+    
+    div#resourcesidnav.col-sm-3.sidenav{
+    	height:1000px
+    	
+    	;
+    }  
+      
+   .legend{
+   		color:white;
+   }
+   
+   
+       .row.content2 {
+        height: 900px;
+        
+      
+      }
+      
+    .footer{
+    	float:bottom;
+    	position: relative;
+    	width:100%;
+    }
+
+.checks img{
+	width: 40px;
+	height: 40px;
+	
+	
+}
