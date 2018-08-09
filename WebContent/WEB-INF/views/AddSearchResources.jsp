@@ -266,7 +266,7 @@ input:focus::-webkit-input-placeholder {
 										</div>
 									</c:if>
 									<c:if
-										test="${fn:containsIgnoreCase(allResources.getResourceName(), 're-creation')}">
+										test="${fn:containsIgnoreCase(allResources.getResourceName(), 'recreation')}">
 										<div class="col-sm-2">
 											<div class="wrimagecard wrimagecard-topimage">
 												<div class="wrimagecard-topimage_header">
