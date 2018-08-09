@@ -329,7 +329,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                     $(document).ready(
                         function() {
-
+								                                                	
                             //dont show alert on first page load.
                             $("#roomAlert").hide();
                             $("#editAlert").hide();
@@ -578,26 +578,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(timeFrom);
                                     var id = $("#bookingId").val();
 
-                                    
-                                    $.ajax({
-                                    	url: "deleteCheck",
-                                        data: {
-                                        	bookingId:id
-                                        },
-                                        success: function(result){
-                                        	console.log("Success: " + result);
-                                        	if(result === "Fail"){
-                                            	$("#deleteButton").attr("disabled", "true");
-                                        	} 
-                                        	
-                                        },
-                                        fail: function(){
-                                        	console.log(result);
-                                        } 
-                                    });
-                                    
                                     $.ajax({
                                     	url: "pleaseCheckMyEdit",
+                                    	async: false,
                                         data: {
                                         	"bookingID": bookingID,
                                         	"startTime": timeTo,
@@ -611,8 +594,30 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                         	} else {
                                         		$("#editAlert").hide();
                                         	}
-                                        	$("#editButton").attr("disabled", result === "false");
+                                        	$("#editButton").prop("disabled", result === false);
                                         	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
+                                    
+                                    $.ajax({
+                                    	url: "deleteCheck",
+                                    	async: false,
+                                        data: {
+                                        	bookingId:id
+                                        },
+                                        success: function(result){
+                                        	if(result == "Fail"){
+                                        		console.log("deleteCheck Fail");
+                                            	$("#deleteButton").prop("disabled", true);
+                                            	$("#editButton").prop("disabled", true);
+                                        	}else{
+                                        		console.log("deleteCheck Success");
+                                            	$("#deleteButton").prop("disabled", false);
+                                            	$("#editButton").prop("disabled", false);
+                                        	} 
                                         },
                                         fail: function(){
                                         	console.log(result);
