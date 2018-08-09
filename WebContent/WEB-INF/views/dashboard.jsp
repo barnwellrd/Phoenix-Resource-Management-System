@@ -87,6 +87,9 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	</div>
 
 
+
+
+
 <!-- ********************************************************************************************************************** -->
 <!-- NAV ABOVE -->
 
@@ -159,7 +162,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 					
 					<center>
 						<img 
-							src="resources/images/rms.png" 
+							src="resources/images/book-logo.png" 
 							alt="rmsLogo"
 							style="width: 300px;">
 

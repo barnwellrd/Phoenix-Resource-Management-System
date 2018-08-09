@@ -38,7 +38,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 <body>
 	<div class="login-page">
 	  <div class="form" style="opacity=2.5">
-	    <img src="resources/images/rms.png" alt="logo" style="height:100%; width:100%; padding-bottom:60px; "> 
+	    <img src="resources/images/book-logo.png" alt="logo" style="height:100%; width:100%; padding-bottom:60px; "> 
 	    <form class="register-form">
 	      <input type="text" placeholder="name"/>
 	      <input type="password" placeholder="password"/>

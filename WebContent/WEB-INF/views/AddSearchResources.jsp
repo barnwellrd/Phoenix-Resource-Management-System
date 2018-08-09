@@ -195,7 +195,7 @@ input:focus::-webkit-input-placeholder {
 				<div class="help"
 					style="background-color: rgb(0, 50, 0); border-radius: 25px;">
 					<center>
-						<img src="resources/images/rms.png" alt="rmsLogo"
+						<img src="resources/images/book-logo.png" alt="rmsLogo"
 							style="width: 300px;">
 
 					</center>
