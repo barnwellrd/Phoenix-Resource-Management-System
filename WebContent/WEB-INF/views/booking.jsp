@@ -75,7 +75,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	
 	                            </div>
 	                            
-	                                	                            
 	                            <div class="collapse navbar-collapse" id="myNavbar">
 	                                <ul class="nav navbar-nav navbar-right">
 	                                    <li><a href="logout">Logout</a></li>
