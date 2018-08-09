@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import java.util.ArrayList;
+
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -44,6 +46,7 @@ import rms.model.FeaturesDropDown;
 import rms.model.Location;
 import rms.model.ResourceType;
 import rms.model.Resources;
+import rms.dao.FeatureTypeJdbcTemplate;
 
 @Controller
 public class MyServices {
@@ -810,23 +813,18 @@ public class MyServices {
 	 */
 	@RequestMapping(value="/insertResource", method=RequestMethod.POST) 
 	public String addResourceService(HttpServletRequest request, HttpServletResponse response) {
-		System.out.println("1");
 		String desc = request.getParameter("desc");
-		System.out.println("2");
 		int capacity = Integer.parseInt(request.getParameter("capacity"));
-		System.out.println("3");
 		String roomNum = request.getParameter("roomNum");
-		System.out.println("4");
 		int resourceTypeId = Integer.parseInt(request.getParameter("resources"));
-		System.out.println("5");
 		int locId = Integer.parseInt(request.getParameter("location"));
-		System.out.println("6");
 		int isSupRoom = Integer.parseInt(request.getParameter("isSuperRoom"));
-		System.out.println("7");
+		
 		List<String> res2=new UniqueResourcesAndLocations().ResourceTypeName(Integer.parseInt(request.getParameter("resources")));
-		System.out.println("8");
 		request.setAttribute("typeName", res2);
         
+		System.out.println(isSupRoom);
+		
 		//Number of features
 		int numProjectorFeature = Integer.parseInt(request.getParameter("numResProjName"));
 		int numPrinterFeature = Integer.parseInt(request.getParameter("numResPrintName"));
@@ -1196,4 +1194,16 @@ public class MyServices {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value="/DeleteResource/{resourceId}") 
+	  public String deleteResourceService(@PathVariable int resourceId) { 
+	    System.out.println("Deletion" + resourceId); 
+	    //if 
+	    int upd=new ResourcesJdbcTemplate().setIsAvailableToDelete(resourceId); 
+	    if(upd==1) { 
+	      return "redirect:/AddSearchResources1"; 
+	    }else { 
+	    return "errorPage"; 
+	    } 
+	  }
 }

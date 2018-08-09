@@ -114,49 +114,34 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 								</span>
 							</a>
 							<ul class="dropdown-menu">
-
 								<li>
-									<a href="booking">Book
-										<span class="glyphicon glyphicon-book pull-right"></span>
-									</a>
+									<a href="booking">
+									
+										<span class="glyphicon glyphicon-book pull-left"> Book</span>
+										<br>
+									</a>	
 								</li>
 								
 								<li class="divider"></li>
-
 								<li>
-									<a href="charts">Utilization
-										<span class="glyphicon glyphicon-signal pull-right"></span>
-
+									<a href="charts">
+										<span class="glyphicon glyphicon-signal pull-left"> Utilization</span>
+											<br>
 									</a>
 								</li>
-								
+						
 								<li class="divider"></li>
-
 								<li>
-									<a href="Visitor/Admin">Visitors 
-										<span class="glyphicon glyphicon-retweet pull-right"></span>
+									<a href="Visitor/Admin"> 
+										<span class="glyphicon glyphicon-retweet pull-left"> Visitors</span>
+											<br>
 									</a>
 								</li>
-								
-								<li class="divider"></li>
-
-<!-- 
-								<li class="divider"></li> -->
-								
-								
-								<!--  
-								
-								<li>
-									<a href="#">Calendar 
-										<span class="glyphicon glyphicon-calendar pull-right"></span>
-									</a>
-								</li>
-								<li class="divider"></li>-->
-								
-								
+								<li class="divider"></li>				
 								<li>
 									<a href="logout">
-										<span class="glyphicon glyphicon-user pull-right"></span>Logout
+										<span class="glyphicon glyphicon-user pull-left"> Logout</span>
+											<br>
 									</a>
 								</li>
 							</ul>
@@ -228,7 +213,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 		
 		<footer class="footer" id="footer"">
 		<center>
-			<p>Â© 2018 Syntel, Inc</p>
+			<p>© 2018 Syntel, Inc</p>
 		</center>
 
 		</footer>

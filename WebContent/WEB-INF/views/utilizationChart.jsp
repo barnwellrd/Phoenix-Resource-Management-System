@@ -113,8 +113,6 @@
 			}
 			
 		</style>
-	</head>
-	
 		<script type="text/javascript">
 			google.charts.load('current', {
 				'packages' : [ 'corechart' ]
@@ -177,6 +175,8 @@
 					chart.draw(dataTable, options);
 			}
 		</script>
+	</head>
+	
 	<body id="bod">
 		<!-- navigation header -->
 		<div class="container">
@@ -209,23 +209,20 @@
 							style="left-padding: 300px;">
 						</ul>
 						<ul class="nav navbar-nav navbar-right">
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-user"></span> 
-								</a>
-							</li>
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-bell"></span> 
-								</a>
-							</li>
-		
-							<li style="font-size: 22px;">
-								<a href="#">
-									<span class="glyphicon glyphicon-search"></span>
-								</a>
-							</li>
-						</ul>
+					<li style="font-size: 22px;">
+
+					<li class="dropdown">
+    					<a href="javascript:void(0)" class="glyphicon glyphicon-user"></a>
+    								<div class="dropdown-content">
+     								<a href="logout">Log Out</a>
+     								
+					</li>
+				</li>
+			</div>
+
+				
+
+				</ul>
 					</div>
 				</div>
 			</nav>
@@ -340,7 +337,7 @@
 		<br>
 			<footer class="footer" id="footer">
 				<center>
-					<p>© 2018 Syntel, Inc</p>
+					<p>Â© 2018 Syntel, Inc</p>
 				</center>
 			</footer>
 		</div>

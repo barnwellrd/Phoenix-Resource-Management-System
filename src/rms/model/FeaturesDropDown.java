@@ -23,13 +23,17 @@ public class FeaturesDropDown
 	private String resourceName;
 	
 	private int resourceID;
-	
+
 	public int getResourceID() {
 		return resourceID;
 	}
+
+
 	public void setResourceID(int resourceID) {
 		this.resourceID = resourceID;
 	}
+
+
 	/* (non-Javadoc)
 	 * @see java.lang.Object#toString()
 	 */
