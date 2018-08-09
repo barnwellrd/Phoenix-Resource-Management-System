@@ -100,6 +100,7 @@ public class MyServices {
 		try {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userName", userName);
 				request.getSession().setAttribute("userId", userId);
 				request.getSession().setAttribute("userType", "1");
 				
@@ -107,6 +108,7 @@ public class MyServices {
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userName", userName);
 				request.getSession().setAttribute("userId", userId);
 				request.getSession().setAttribute("userType", "0");
 

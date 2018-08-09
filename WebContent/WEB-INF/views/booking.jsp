@@ -71,13 +71,15 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	                                <a class="navbar-brand" href="dashboard">
 	                                    <spring:url value="/resources/images" var="images" /> <img id="book-logo" src="${images}/book-logo.png" />
 	                                </a>
+			                            <span id="welcomeUser">Welcome <% out.print(session.getAttribute("userName")); %></span>
 	
 	                            </div>
+	                            
+	                                	                            
 	                            <div class="collapse navbar-collapse" id="myNavbar">
 	                                <ul class="nav navbar-nav navbar-right">
 	                                    <li><a href="logout">Logout</a></li>
 	                                </ul>
-	
 	                            </div>
 	                        </div>
 	                    </nav>
