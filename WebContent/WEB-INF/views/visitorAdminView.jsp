@@ -60,11 +60,11 @@ button[disabled]{
 	<div id="next_prev_btn">
 
 		<a href="/Phoenix_Resource_Management_System/dashboard"
-			class=" btn btn-md pull-left"> <span
-			class="fas fa_left_btn fa-angle-left  fa-4x text-center"></span>
+			class="  pull-left"> <span
+			class="fas fa-arrow-alt-circle-left fa-4x fa_left_btn text-center"></span>
 		</a> 
-		<a href="/Phoenix_Resource_Management_System/Visitor/Home" class="btn btn-md pull-right"> <span
-			class="fas fa_right_btn fa-angle-right  fa-4x text-center"></span>
+		<a href="/Phoenix_Resource_Management_System/Visitor/Home" class=" pull-right"> <span
+			class="fas fa-arrow-alt-circle-right  fa-4x  fa_right_btn text-center"></span>
 		</a>
 		</div>
 	</section>
@@ -81,27 +81,32 @@ button[disabled]{
 		<div class="section_block">
 			
 				<table class="table">
-					<tr>
-						<th>First Name</th>
-						<th>Last Name</th>
-						<th>Phone</th>
-						<th>Check In Time</th>
-						<th>Check Out Time</th>						
-						<th>Check Out</th>
-					</tr>
-					<c:forEach var="ba" items="${alldata}">
+				  <thead>
 						<tr>
-							<td>${ba.getFirstName()}</td>
-							<td>${ba.getLastName()}</td>
-							<td>${ba.getPhone()}</td>
-							<td>${ba.getCheckedInTime()}</td>
-							<td>${ba.getCheckedOutTime()}</td>
-							<td><form class="admin-button"
-									action="/Phoenix_Resource_Management_System/Visitor/AdminCO/${ba.getVisitorId()}">
-<button type="submit"  class="admin-btn" <c:if test="${ba.getHasCheckedOut() == 1}"><c:out value="disabled='disabled'"/></c:if>"><h3>Check Out</h3></button>								</form></td>
+							<th scope="col">First Name</th>
+							<th scope="col">Last Name</th>
+							<th scope="col">Phone</th>
+							<th scope="col">Purpose</th>
+							<th scope="col">Check In Time</th>
+							<th scope="col">Check Out Time</th>						
+							<th scope="col">Check Out</th>
 						</tr>
-					</c:forEach>
-
+					</thead>
+					<tbody>
+						<c:forEach var="ba" items="${alldata}">
+							<tr scope="row">
+								<td>${ba.getFirstName()}</td>
+								<td>${ba.getLastName()}</td>
+								<td>${ba.getPhone()}</td>
+								<td>${ba.getVisitPurpose()}</td>
+								<td>${ba.getCheckedInTime()}</td>
+								<td>${ba.getCheckedOutTime()}</td>
+								<td><form class="admin-button"
+										action="/Phoenix_Resource_Management_System/Visitor/AdminCO/${ba.getVisitorId()}">
+	<button type="submit"  class="admin-btn" <c:if test="${ba.getHasCheckedOut() == 1}"><c:out value="disabled='disabled'"/></c:if>"><h3>Check Out</h3></button>								</form></td>
+							</tr>
+						</c:forEach>
+					</tbody>
 				</table>
 			
 		</div>
