@@ -16,24 +16,16 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	
 	<spring:url value="/resources/css/bootstrap.min.css" var="bootMin"/>
 	<spring:url value="/resources/css/login.css" var="loginCSS"/>
-
 	
 	<link rel="stylesheet" href="${bootMin}"/>
 	<link rel="stylesheet" href="${loginCSS}"/>
 
-	
-	
 	<spring:url value="resources/js" var="JS"/>
 	
 	<script src="${JS}/jquery.js"></script>
 	<script src="${JS}/bootstrap.js"></script>
-	
-
-
 <title>Login</title>
 </head>
-
-
 
 <body>
 	<div class="login-page">
@@ -48,7 +40,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    </form>
 	      
 	 <form action="loginOnUserName" method="post">
-	 <span style="color:red;">Please enter a valid username/password !</span>
+	 <span style="color:red;">Please enter a valid username/password!</span>
 	  <div class="input-group">
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
 	    <input id="email" type="text" class="form-control" name="userName" placeholder="Username" value='${user.getUserName()}'>
@@ -58,11 +50,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
 	    <input id="password" type="password" class="form-control" name="password" placeholder="Password" value='${user.getPassword()}'>
 	  </div>
-	
-	      
 	      <br>
-	   
-	   
 	    <input class="btn btn-success" type="submit" value="Login" style="width:100px"/>
 	    </form>
 	<!--   <button action> <span class="glyphicon glyphicon-log-in">  login</span></button>-->

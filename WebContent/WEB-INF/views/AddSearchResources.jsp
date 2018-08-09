@@ -434,7 +434,7 @@ input:focus::-webkit-input-placeholder {
 										
 											</c:if>
 											<tr>
-						                        <td colspan="2"><button onclick="var v = confirm('Are u sure?'); if(v==true){window.location.href = 'DeleteResource/${allResources.getResourceId()}';}else{} " type="button" class="btn btn-danger">Delete</button></td> 
+						                        <td colspan="2"><button onclick="var v = confirm('Are you sure?'); if(v==true){window.location.href = 'DeleteResource/${allResources.getResourceId()}';}else{} " type="button" class="btn btn-danger">Delete</button></td> 
 						                    </tr>
 										</table>
 																										
