@@ -39,7 +39,13 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
             </head>
 
             <body>
-
+				<%  
+					if(null == session.getAttribute("userId")){
+				    	response.sendRedirect(getServletContext().getRealPath("/")+"/");
+				    	return;
+					}
+				%>
+				
                 <div class="container" id="allPage">
 
                     <!-- Default Values provided. these are the id and name of the currently selected resource
@@ -65,13 +71,15 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 	                                <a class="navbar-brand" href="dashboard">
 	                                    <spring:url value="/resources/images" var="images" /> <img id="book-logo" src="${images}/book-logo.png" />
 	                                </a>
+			                            <span id="welcomeUser">Welcome <% out.print(session.getAttribute("userName")); %></span>
 	
 	                            </div>
+	                            
+	                                	                            
 	                            <div class="collapse navbar-collapse" id="myNavbar">
-	                                <ul class="nav navbar-nav">
-	                                    <li><a href="logout">Log Out</a></li>
+	                                <ul class="nav navbar-nav navbar-right">
+	                                    <li><a href="logout">Logout</a></li>
 	                                </ul>
-	
 	                            </div>
 	                        </div>
 	                    </nav>
@@ -373,7 +381,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 //create tooltip on mouseover of event. 
                                 eventMouseover: function(calEvent, jsEvent) {
                                     var tooltip = '<div class="tooltipevent" style="background:' + calEvent.backgroundColor + ';color:white;width:150px;position:absolute;z-index:10001;">' +
-                                        calEvent.title + "<br/>" + $.fullCalendar.formatDate(calEvent.start, "HH:mm") + " - " + $.fullCalendar.formatDate(calEvent.end, "HH:mm") + "<br/>Click to edit or delete" + '</div>';
+                                        calEvent.title + "<br/>" + $.fullCalendar.formatDate(calEvent.start, "hh:mm") + " - " + $.fullCalendar.formatDate(calEvent.end, "hh:mm") + "<br/>Click to edit or delete" + '</div>';
                                     var $tooltip = $(tooltip).appendTo('body');
 
                                     $(this).mouseover(function(e) {
@@ -397,6 +405,12 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                                     console.log("Select Event");
 
+									// Don't allow bookings across multiple days
+                                    if(startDate.day() != endDate.day()){
+                                    	$('#dispCal').fullCalendar('unselect');
+                                    	return;
+                                    }
+                                    
                                     // Find the room picked
                                     var name = $("#pageResourceName").val();
 
@@ -551,8 +565,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     $('#eventChangeHeader').css("background-color",calEvent.backgroundColor);
                                     $("#changeEventModal").modal('show');
                                 
-                                
-                                
                                     // Validate prefilled values
                                     var bookingID = $("#bookingId").val();
                                     var date = $("#editDate").val();
@@ -564,6 +576,25 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
+                                    var id = $("#bookingId").val();
+
+                                    
+                                    $.ajax({
+                                    	url: "deleteCheck",
+                                        data: {
+                                        	bookingId:id
+                                        },
+                                        success: function(result){
+                                        	console.log("Success: " + result);
+                                        	if(result === "Fail"){
+                                            	$("#deleteButton").attr("disabled", "true");
+                                        	} 
+                                        	
+                                        },
+                                        fail: function(){
+                                        	console.log(result);
+                                        } 
+                                    });
                                     
                                     $.ajax({
                                     	url: "pleaseCheckMyEdit",
@@ -684,6 +715,11 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                 //when the user choose a resource type. 
                                 $('iframe').contents().find("select[name='resources']").on('change', function(event) {
 
+                                	//the user can now make selections on the calendar. 
+                                    $("#dispCal").fullCalendar('option', {
+                                        selectable: false
+                                    });
+                                	
                                     console.log("chose a type");
 
                                     var resId = ($('iframe').contents().find("select[name='resources'] option:selected").val());
@@ -718,9 +754,6 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
 
                                 });
                             });
-
-
-
 
                             $('iframe').load(function() {
                                 $(this).contents().find("#backButton").on('click',
@@ -792,7 +825,7 @@ org.springframework.web.context.support.WebApplicationContextUtils"%>
                                     console.log(date);
                                     console.log(timeTo);
                                     console.log(timeFrom);
-                                    
+                                                                                                            
                                     if(Number(timeFrom.split(":")[0].trim()) < 9){
 	                                  	$("#editTimeFrom").val("09:00");
                                     }

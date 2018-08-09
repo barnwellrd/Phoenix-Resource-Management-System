@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
@@ -55,7 +56,8 @@ public class MyServices {
 	 * @return The login.jsp view.
 	 */
 	@RequestMapping(value = "/")
-	public String homeScreen() {
+	public String homeScreen(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
 		return "login";
 	}
 
@@ -64,7 +66,8 @@ public class MyServices {
 	 * @return The login.jsp view.
 	 */
 	@RequestMapping(value = "/logout")
-	public String logout() {
+	public String logout(HttpServletRequest request, HttpServletResponse response) {
+		request.getSession().invalidate();
 		return "login";
 	}
 	
@@ -73,9 +76,12 @@ public class MyServices {
 	 * @return the dashboard.jsp view.
 	 */
 	@RequestMapping(value = "/dashboard")
-	public String dashBoard() {
+	public String dashBoard(HttpServletRequest request, HttpServletResponse response) {
 
-		return "dashboard";
+		if(request.getSession().getAttribute("userType")=="1")
+			return "dashboard";
+		else
+			return "dashboardNotAdmin";
 	}
 
 	/**
@@ -97,6 +103,7 @@ public class MyServices {
 		try {
 			if (new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userName", userName);
 				request.getSession().setAttribute("userId", userId);
 				request.getSession().setAttribute("userType", "1");
 				
@@ -104,6 +111,7 @@ public class MyServices {
 				return "redirect:/dashboard";
 			}else if(new LoginQueries().loginOnUserName(userName, password) != null && new LoginQueries().checkIsAdminUsingUsername(userName, password)==false) {
 				int userId = login.getUserIdOnUserNameandPassword(userName, password);
+				request.getSession().setAttribute("userName", userName);
 				request.getSession().setAttribute("userId", userId);
 				request.getSession().setAttribute("userType", "0");
 
@@ -120,6 +128,41 @@ public class MyServices {
 	}
 
 	/**
+	 * The service method called for checking if an event is deletable
+	 * Utilizes {@link BookingsJdbcTemplate} .
+	 * @param request used to request and store information
+	 * @param response
+	 * 
+	 */
+	@RequestMapping(value = "/deleteCheck")
+	public void deleteCheck(HttpServletRequest request, HttpServletResponse response) {
+
+		int id = Integer.parseInt(request.getParameter("bookingId"));
+		
+		Bookings toDisable = new BookingsJdbcTemplate().search(id);
+				
+		int userId = (int) request.getSession().getAttribute("userId");
+		String userType = (String) request.getSession().getAttribute("userType");
+		
+		PrintWriter out;
+		try {
+		
+			if(toDisable.getUserId() == userId || userType=="1") {
+				out = response.getWriter();
+				out.write("Success");
+			}else {
+				out = response.getWriter();
+				out.write("Fail");		
+			}
+		}catch(IOException e) {
+			
+		}
+		
+		
+
+	}
+	
+	/**
 	 * The service method called when the deleteEvent page is reached.
 	 * Utilizes {@link BookingsJdbcTemplate} and deletes a received booking.
 	 * @param request used to request and store information
@@ -130,12 +173,35 @@ public class MyServices {
 	public void deleteEvent(HttpServletRequest request, HttpServletResponse response) {
 
 		int id = Integer.parseInt(request.getParameter("bookingId"));
+		
 		Bookings toDisable = new BookingsJdbcTemplate().search(id);
+		
 		toDisable.setIsActive(0);
-		new BookingsJdbcTemplate().update(toDisable);
+		
+		int userId = (int) request.getSession().getAttribute("userId");
+		String userType = (String) request.getSession().getAttribute("userType");
+		
+		PrintWriter out;
+		try {
+		
+			if(toDisable.getUserId() == userId || userType=="1") {
+				out = response.getWriter();
+				out.write("Success");
+				new BookingsJdbcTemplate().update(toDisable);
+			}else {
+				out = response.getWriter();
+				out.write("Fail");		
+			}
+		}catch(IOException e) {
+			
+		}
+		
+		
 
 	}
 
+	
+	
 	/**
 	 * The service method called when the updateEvent page is reached.
 	 * Retrieves a date, timeTo, timeFrom, bookingId, and userID, formats dates and timestamps,
@@ -534,8 +600,12 @@ public class MyServices {
 	 * @return Returns booking.jsp view.
 	 */
 	@RequestMapping(value = "/booking")
-	public String booking() {
+	public String booking(HttpServletRequest request, HttpServletResponse response) {
 
+		if(request.getSession(false) == null) {
+			return "login";
+		}
+		
 		return "booking";
 	}
 	/**
@@ -699,17 +769,27 @@ public class MyServices {
 		
 		//get resource types instead of all resources
 		List<ResourceType> res=new ResourceTypeJdbcTemplate().getAll();
+		List<ResourceType> tempRes = new ArrayList<ResourceType>(res);
 		request.setAttribute("listRes", res);
 
-		List<Resources> allResources;
+		//remove all resource types without any rooms
+		for(ResourceType resource : tempRes) {
+			List<Resources> temp= new ResourcesJdbcTemplate().resourcesByResourceType(resource.getResourceTypeId());
+			if(temp.size()==0)
+				res.remove(resource);
+		}
+		
+		List<Resources> allResources = null;
 		
 		//if super user just show all rooms. 
 		if(request.getSession().getAttribute("userType")=="1") {
 			// for printing all the resources 
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocation(100001);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
 		}else{
 			// for printing non super resources.
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationForNonSuperUser(100001);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
 		}
 		
 		map.addAttribute("alldata", allResources);
@@ -1043,9 +1123,13 @@ public class MyServices {
 		if(request.getSession().getAttribute("userType")=="1") {
 			// for printing all the resources 
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceType(locationId, resourceTypeId);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
+
 		}else{
 			// for printing non super resources.
 			allResources = new UniqueResourcesAndLocations().getResourcesByLocationAndResourceTypeNonSuper(locationId, resourceTypeId);
+			allResources = allResources.stream().filter(e -> e.getIsAvailable() != -1).collect(Collectors.toList());
+
 		}		
 		map.addAttribute("alldata", allResources);
 		
@@ -1095,8 +1179,10 @@ public class MyServices {
 			valid = valid && (before || after);
 		}
 		
+		Timestamp now = new Timestamp(System.currentTimeMillis());
+		
 		// Check to see the start time is before the end time
-		valid = valid && (start.before(stop));
+		valid = valid && (start.before(stop)) && (start.after(now));
 
 		// Tell the page if the edit works or not
 		System.out.println(valid);

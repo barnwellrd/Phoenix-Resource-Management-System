@@ -63,12 +63,18 @@ h1 {
 	background-color:white;
 }
 
+#welcomeUser{
+	font-size:3vw;
+	color: darkgreen;
+}
+
 .input-group {
 	padding: 5px;
 }
 
 ul li{
-	font-size: 2vw;
+	font-size: 1vw;
+	padding-right:50px;
 }
 
 .input-group-addon{

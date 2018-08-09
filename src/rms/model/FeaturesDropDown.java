@@ -23,8 +23,7 @@ public class FeaturesDropDown
 	private String resourceName;
 	
 	private int resourceID;
-	
-	
+
 	public int getResourceID() {
 		return resourceID;
 	}
